@@ -1,0 +1,199 @@
+version 2
+run Moves5-0-20190726-11:13:49-7131
+attr configname Moves5
+attr datetime 20190726-11:13:49
+attr experiment Moves5
+attr inifile TormV1.ini
+attr iterationvars $0=2
+attr iterationvarsf 2-
+attr measurement $0=2
+attr network NetworkTormV1
+attr processid 7131
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.mobility.traceFile "\"paths/Moves5.movements\""
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **.application.nodeGenMsg 0
+param **application.destinationAddr "\"02:00:00:00:00:03\""
+param **.forwarding.maximumCacheSize 500byte
+param **.forwarding.maximumHopCount 25
+param **.forwarding.useTTL false
+param **.neighboring.antiEntropyInterval 1s
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
+param **.neighboring.sendWifiFirst true
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 100ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 32byte
+param **.wirelessIfc.minSSI -90
+param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.neighbourScanInterval 100ms
+param **.bluetoothIfc.bandwidthBitRate 100000bps
+param **.bluetoothIfc.wirelessHeaderSize 16byte
+param **.bluetoothIfc.minSSI -90
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.nodeId -1
+
+scalar NetworkTormV1.node[0].forwarding numEventsHandled 149
+scalar NetworkTormV1.node[0].neighboring numEventsHandled 223
+scalar NetworkTormV1.node[1].forwarding numEventsHandled 134
+scalar NetworkTormV1.node[1].neighboring numEventsHandled 223
+scalar NetworkTormV1 neighbourhoodSize:min 0
+attr source neighbourhoodSize
+scalar NetworkTormV1 neighbourhoodSize:max 1
+attr source neighbourhoodSize
+scalar NetworkTormV1 neighbourhoodSize:mean 0.71333333333333
+attr source neighbourhoodSize
+scalar NetworkTormV1 cacheBytesUpdatedSum:max -nan
+attr source sum(cacheBytesUpdated)
+scalar NetworkTormV1 cacheBytesUpdatedSum:last -nan
+attr source sum(cacheBytesUpdated)
+scalar NetworkTormV1 cacheBytesAddedSum:max -nan
+attr source sum(cacheBytesAdded)
+scalar NetworkTormV1 cacheBytesAddedSum:last -nan
+attr source sum(cacheBytesAdded)
+scalar NetworkTormV1 cacheBytesRemovedSum:max -nan
+attr source sum(cacheBytesRemoved)
+scalar NetworkTormV1 cacheBytesRemovedSum:last -nan
+attr source sum(cacheBytesRemoved)
+scalar NetworkTormV1 totalBytesReceivedSum:max 4140
+attr source sum(totalBytesReceived)
+scalar NetworkTormV1 totalBytesReceivedSum:last 4140
+attr source sum(totalBytesReceived)
+scalar NetworkTormV1 dataReqBytesReceivedSum:max -nan
+attr source sum(dataReqBytesReceived)
+scalar NetworkTormV1 dataReqBytesReceivedSum:last -nan
+attr source sum(dataReqBytesReceived)
+scalar NetworkTormV1 sumVecBytesReceivedSum:max -nan
+attr source sum(sumVecBytesReceived)
+scalar NetworkTormV1 sumVecBytesReceivedSum:last -nan
+attr source sum(sumVecBytesReceived)
+scalar NetworkTormV1 dataBytesReceivedSum:max 4140
+attr source sum(dataBytesReceived)
+scalar NetworkTormV1 dataBytesReceivedSum:last 4140
+attr source sum(dataBytesReceived)
+scalar NetworkTormV1 deliveryRatio:max 0.5
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+scalar NetworkTormV1 deliveryRatio:min 0.22727272727273
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+scalar NetworkTormV1 dataDelay:max 5.74176
+attr source dataDelay
+scalar NetworkTormV1 dataDelay:min 0.09072
+attr source dataDelay
+scalar NetworkTormV1 dataDelay:mean 1.65264
+attr source dataDelay
+statistic NetworkTormV1 dataDelay:histogram
+field count 15
+field mean 1.65264
+field stddev 1.7817345923886
+field min 0.09072
+field max 5.74176
+field sum 24.7896
+field sqrsum 85.412378752
+attr source dataDelay
+bin	-inf	0
+bin	0	1
+bin	0.1	1
+bin	0.2	1
+bin	0.3	1
+bin	0.4	1
+bin	0.5	0
+bin	0.6	0
+bin	0.7	1
+bin	0.8	1
+bin	0.9	1
+bin	1	1
+bin	1.1	1
+bin	1.2	0
+bin	1.3	0
+bin	1.4	0
+bin	1.5	0
+bin	1.6	0
+bin	1.7	1
+bin	1.8	0
+bin	1.9	0
+bin	2	0
+bin	2.1	0
+bin	2.2	0
+bin	2.3	0
+bin	2.4	0
+bin	2.5	0
+bin	2.6	0
+bin	2.7	1
+bin	2.8	0
+bin	2.9	0
+bin	3	0
+bin	3.1	0
+bin	3.2	0
+bin	3.3	0
+bin	3.4	0
+bin	3.5	0
+bin	3.6	0
+bin	3.7	1
+bin	3.8	0
+bin	3.9	0
+bin	4	0
+bin	4.1	0
+bin	4.2	0
+bin	4.3	0
+bin	4.4	0
+bin	4.5	0
+bin	4.6	0
+bin	4.7	1
+bin	4.8	0
+bin	4.9	0
+bin	5	0
+bin	5.1	0
+bin	5.2	0
+bin	5.3	0
+bin	5.4	0
+bin	5.5	0
+bin	5.6	0
+bin	5.7	1
+bin	5.8	0
+bin	5.9	0
+bin	6	0
+bin	6.1	0
+bin	6.2	0
+bin	6.3	0
+bin	6.4	0
+bin	6.5	0
+bin	6.6	0
+bin	6.7	0
+bin	6.8	0
+bin	6.9	0
+bin	7	0
+bin	7.1	0
+bin	7.2	0
+scalar NetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:max 240
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+scalar NetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:last 240
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+scalar NetworkTormV1 likedDataBytesReceivableByAllNodesSum:max 60
+attr source sum(likedDataBytesReceivableByAllNodes)
+scalar NetworkTormV1 likedDataBytesReceivableByAllNodesSum:last 60
+attr source sum(likedDataBytesReceivableByAllNodes)
+scalar NetworkTormV1 duplicateDataBytesReceivedSum:max 1000
+attr source sum(duplicateDataBytesReceived)
+scalar NetworkTormV1 duplicateDataBytesReceivedSum:last 1000
+attr source sum(duplicateDataBytesReceived)
+scalar NetworkTormV1 nonLikedDataBytesReceivedSum:max 120
+attr source sum(nonLikedDataBytesReceived)
+scalar NetworkTormV1 nonLikedDataBytesReceivedSum:last 120
+attr source sum(nonLikedDataBytesReceived)
+scalar NetworkTormV1 likedDataBytesReceivedSum:max 30
+attr source sum(likedDataBytesReceived)
+scalar NetworkTormV1 likedDataBytesReceivedSum:last 30
+attr source sum(likedDataBytesReceived)
+

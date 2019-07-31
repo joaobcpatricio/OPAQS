@@ -1,0 +1,189 @@
+version 2
+run Steady-2-20190701-16:01:08-7269
+attr configname Steady
+attr datetime 20190701-16:01:08
+attr experiment Steady
+attr inifile TormV1.ini
+attr iterationvars $0=4
+attr iterationvarsf 4-
+attr measurement $0=4
+attr network OPSLiteNetworkTormV1
+attr processid 7269
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 2
+attr seedset 2
+param **.mobility.traceFile "\"paths/Steady1.movements\""
+param **.numNodes 4
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 2s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **.application.nodeGenMsg 0
+param **application.destinationAddr "\"02:00:00:00:00:03\""
+param **.forwarding.maximumCacheSize 500byte
+param **.forwarding.maximumHopCount 25
+param **.forwarding.useTTL false
+param **.neighboring.antiEntropyInterval 1s
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 100ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 16byte
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.nodeId -1
+
+scalar OPSLiteNetworkTormV1.node[0].forwarding numEventsHandled 60
+scalar OPSLiteNetworkTormV1.node[0].neighboring numEventsHandled 119
+scalar OPSLiteNetworkTormV1.node[1].forwarding numEventsHandled 101
+scalar OPSLiteNetworkTormV1.node[1].neighboring numEventsHandled 128
+scalar OPSLiteNetworkTormV1.node[2].forwarding numEventsHandled 77
+scalar OPSLiteNetworkTormV1.node[2].neighboring numEventsHandled 128
+scalar OPSLiteNetworkTormV1.node[3].forwarding numEventsHandled 31
+scalar OPSLiteNetworkTormV1.node[3].neighboring numEventsHandled 119
+scalar OPSLiteNetworkTormV1 neighbourhoodSize:min 1
+attr source neighbourhoodSize
+scalar OPSLiteNetworkTormV1 neighbourhoodSize:max 2
+attr source neighbourhoodSize
+scalar OPSLiteNetworkTormV1 neighbourhoodSize:mean 1.5
+attr source neighbourhoodSize
+scalar OPSLiteNetworkTormV1 cacheBytesUpdatedSum:max -nan
+attr source sum(cacheBytesUpdated)
+scalar OPSLiteNetworkTormV1 cacheBytesUpdatedSum:last -nan
+attr source sum(cacheBytesUpdated)
+scalar OPSLiteNetworkTormV1 cacheBytesAddedSum:max -nan
+attr source sum(cacheBytesAdded)
+scalar OPSLiteNetworkTormV1 cacheBytesAddedSum:last -nan
+attr source sum(cacheBytesAdded)
+scalar OPSLiteNetworkTormV1 cacheBytesRemovedSum:max -nan
+attr source sum(cacheBytesRemoved)
+scalar OPSLiteNetworkTormV1 cacheBytesRemovedSum:last -nan
+attr source sum(cacheBytesRemoved)
+scalar OPSLiteNetworkTormV1 totalBytesReceivedSum:max 2660
+attr source sum(totalBytesReceived)
+scalar OPSLiteNetworkTormV1 totalBytesReceivedSum:last 2660
+attr source sum(totalBytesReceived)
+scalar OPSLiteNetworkTormV1 dataReqBytesReceivedSum:max -nan
+attr source sum(dataReqBytesReceived)
+scalar OPSLiteNetworkTormV1 dataReqBytesReceivedSum:last -nan
+attr source sum(dataReqBytesReceived)
+scalar OPSLiteNetworkTormV1 sumVecBytesReceivedSum:max -nan
+attr source sum(sumVecBytesReceived)
+scalar OPSLiteNetworkTormV1 sumVecBytesReceivedSum:last -nan
+attr source sum(sumVecBytesReceived)
+scalar OPSLiteNetworkTormV1 dataBytesReceivedSum:max 2660
+attr source sum(dataBytesReceived)
+scalar OPSLiteNetworkTormV1 dataBytesReceivedSum:last 2660
+attr source sum(dataBytesReceived)
+scalar OPSLiteNetworkTormV1 deliveryRatio:max 0.625
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 deliveryRatio:min 0.25
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 dataDelay:max 2.62128
+attr source dataDelay
+scalar OPSLiteNetworkTormV1 dataDelay:min 0.21384
+attr source dataDelay
+scalar OPSLiteNetworkTormV1 dataDelay:mean 1.42016
+attr source dataDelay
+statistic OPSLiteNetworkTormV1 dataDelay:histogram
+field count 6
+field mean 1.42016
+field stddev 0.99178529418418
+field min 0.21384
+field max 2.62128
+field sum 8.52096
+field sqrsum 17.0193169024
+attr source dataDelay
+bin	-inf	0
+bin	0	0
+bin	0.05	0
+bin	0.1	0
+bin	0.15	0
+bin	0.2	1
+bin	0.25	0
+bin	0.3	0
+bin	0.35	0
+bin	0.4	1
+bin	0.45	0
+bin	0.5	0
+bin	0.55	0
+bin	0.6	0
+bin	0.65	0
+bin	0.7	0
+bin	0.75	0
+bin	0.8	0
+bin	0.85	0
+bin	0.9	0
+bin	0.95	0
+bin	1	0
+bin	1.05	0
+bin	1.1	0
+bin	1.15	0
+bin	1.2	0
+bin	1.25	0
+bin	1.3	1
+bin	1.35	0
+bin	1.4	0
+bin	1.45	0
+bin	1.5	1
+bin	1.55	0
+bin	1.6	0
+bin	1.65	0
+bin	1.7	0
+bin	1.75	0
+bin	1.8	0
+bin	1.85	0
+bin	1.9	0
+bin	1.95	0
+bin	2	0
+bin	2.05	0
+bin	2.1	0
+bin	2.15	0
+bin	2.2	0
+bin	2.25	0
+bin	2.3	0
+bin	2.35	0
+bin	2.4	1
+bin	2.45	0
+bin	2.5	0
+bin	2.55	0
+bin	2.6	1
+bin	2.65	0
+bin	2.7	0
+bin	2.75	0
+bin	2.8	0
+bin	2.85	0
+bin	2.9	0
+bin	2.95	0
+bin	3	0
+bin	3.05	0
+bin	3.1	0
+bin	3.15	0
+bin	3.2	0
+bin	3.25	0
+scalar OPSLiteNetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:max 160
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:last 160
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 likedDataBytesReceivableByAllNodesSum:max 40
+attr source sum(likedDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 likedDataBytesReceivableByAllNodesSum:last 40
+attr source sum(likedDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 duplicateDataBytesReceivedSum:max 700
+attr source sum(duplicateDataBytesReceived)
+scalar OPSLiteNetworkTormV1 duplicateDataBytesReceivedSum:last 700
+attr source sum(duplicateDataBytesReceived)
+scalar OPSLiteNetworkTormV1 nonLikedDataBytesReceivedSum:max 30
+attr source sum(nonLikedDataBytesReceived)
+scalar OPSLiteNetworkTormV1 nonLikedDataBytesReceivedSum:last 30
+attr source sum(nonLikedDataBytesReceived)
+scalar OPSLiteNetworkTormV1 likedDataBytesReceivedSum:max 30
+attr source sum(likedDataBytesReceived)
+scalar OPSLiteNetworkTormV1 likedDataBytesReceivedSum:last 30
+attr source sum(likedDataBytesReceived)
+

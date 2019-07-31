@@ -1,0 +1,79 @@
+file 52973 1564136058                                           
+version 2
+run Steady-2-20190726-11:14:15-7131
+attr configname Steady
+attr datetime 20190726-11:14:15
+attr experiment Steady
+attr inifile TormV1.ini
+attr iterationvars $0=4
+attr iterationvarsf 4-
+attr measurement $0=4
+attr network NetworkTormV1
+attr processid 7131
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 2
+attr seedset 2
+param **.mobility.traceFile "\"paths/Steady1.movements\""
+param **.numNodes 4
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **.application.nodeGenMsg 0
+param **application.destinationAddr "\"02:00:00:00:00:03\""
+param **.forwarding.maximumCacheSize 500byte
+param **.forwarding.maximumHopCount 25
+param **.forwarding.useTTL false
+param **.neighboring.antiEntropyInterval 1s
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
+param **.neighboring.sendWifiFirst true
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 100ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 32byte
+param **.wirelessIfc.minSSI -90
+param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.neighbourScanInterval 100ms
+param **.bluetoothIfc.bandwidthBitRate 100000bps
+param **.bluetoothIfc.wirelessHeaderSize 16byte
+param **.bluetoothIfc.minSSI -90
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.nodeId -1
+
+vector 0 NetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:vector ETV
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+vector 1 NetworkTormV1 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 NetworkTormV1 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 3 NetworkTormV1 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 4 NetworkTormV1 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+vector 5 NetworkTormV1 nonLikedDataBytesReceivedSum:vector ETV
+attr source sum(nonLikedDataBytesReceived)
+vector 6 NetworkTormV1 dataDelay:vector ETV
+attr source dataDelay
+vector 7 NetworkTormV1 duplicateDataBytesReceivedSum:vector ETV
+attr source sum(duplicateDataBytesReceived)
+vector 8 NetworkTormV1 likedDataBytesReceivableByAllNodesSum:vector ETV
+attr source sum(likedDataBytesReceivableByAllNodes)
+vector 9 NetworkTormV1 likedDataBytesReceivedSum:vector ETV
+attr source sum(likedDataBytesReceived)
+0	2652 180 13 10018 0.1 14.1 12 40 480 3120 1040000
+1	2832 1450 13 11069 0.1 14.57056 57 0.125 0.7 -nan -nan
+2	4282 15578 14 11374 0.1 15 1200 1 2 1800 3000
+3	19860 10831 390 11067 1.21904 14.57056 518 36 18648 4839156 60218457264
+4	30691 10831 390 11067 1.21904 14.57056 518 36 18648 4839156 60218457264
+5	41522 622 392 11069 1.21904 14.57056 33 10 330 5610 1252900
+6	42144 956 392 11069 1.21904 14.57056 42 0.07888 3.32368 67.7976 149.3672150272
+7	43100 9668 772 11054 2.31904 14.56512 476 10 4760 1135260 3606342600
+8	52768 43 1514 4354 4.1 8.1 3 40 120 240 22400
+9	52811 161 1871 6958 4.5408 11.1672 9 10 90 450 28500
+

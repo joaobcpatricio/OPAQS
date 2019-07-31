@@ -1,0 +1,116 @@
+version 2
+run General-0-20190617-15:51:39-4794
+attr configname General
+attr datetime 20190617-15:51:39
+attr experiment General
+attr inifile TormV1.ini
+attr iterationvars $0=2
+attr iterationvarsf 2-
+attr measurement $0=2
+attr network OPSLiteNetworkTormV1
+attr processid 4794
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 11s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"02:00:00:00:00:03\""
+param **.forwarding.maximumCacheSize 500byte
+param **.forwarding.antiEntropyInterval 1s
+param **.forwarding.maximumHopCount 25
+param **.forwarding.maximumRandomBackoffDuration 1s
+param **.forwarding.useTTL false
+param **.forwarding.usedRNG 2
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 500ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 16byte
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves1.movements\""
+param **.mobility.nodeId -1
+
+scalar OPSLiteNetworkTormV1.node[0].forwarding numEventsHandled 7
+scalar OPSLiteNetworkTormV1.node[1].forwarding numEventsHandled 6
+scalar OPSLiteNetworkTormV1 neighbourhoodSize:min 1
+attr source neighbourhoodSize
+scalar OPSLiteNetworkTormV1 neighbourhoodSize:max 1
+attr source neighbourhoodSize
+scalar OPSLiteNetworkTormV1 neighbourhoodSize:mean 1
+attr source neighbourhoodSize
+scalar OPSLiteNetworkTormV1 cacheBytesUpdatedSum:max -nan
+attr source sum(cacheBytesUpdated)
+scalar OPSLiteNetworkTormV1 cacheBytesUpdatedSum:last -nan
+attr source sum(cacheBytesUpdated)
+scalar OPSLiteNetworkTormV1 cacheBytesAddedSum:max -nan
+attr source sum(cacheBytesAdded)
+scalar OPSLiteNetworkTormV1 cacheBytesAddedSum:last -nan
+attr source sum(cacheBytesAdded)
+scalar OPSLiteNetworkTormV1 cacheBytesRemovedSum:max -nan
+attr source sum(cacheBytesRemoved)
+scalar OPSLiteNetworkTormV1 cacheBytesRemovedSum:last -nan
+attr source sum(cacheBytesRemoved)
+scalar OPSLiteNetworkTormV1 totalBytesReceivedSum:max 32
+attr source sum(totalBytesReceived)
+scalar OPSLiteNetworkTormV1 totalBytesReceivedSum:last 32
+attr source sum(totalBytesReceived)
+scalar OPSLiteNetworkTormV1 dataReqBytesReceivedSum:max 16
+attr source sum(dataReqBytesReceived)
+scalar OPSLiteNetworkTormV1 dataReqBytesReceivedSum:last 16
+attr source sum(dataReqBytesReceived)
+scalar OPSLiteNetworkTormV1 sumVecBytesReceivedSum:max 16
+attr source sum(sumVecBytesReceived)
+scalar OPSLiteNetworkTormV1 sumVecBytesReceivedSum:last 16
+attr source sum(sumVecBytesReceived)
+scalar OPSLiteNetworkTormV1 dataBytesReceivedSum:max -nan
+attr source sum(dataBytesReceived)
+scalar OPSLiteNetworkTormV1 dataBytesReceivedSum:last -nan
+attr source sum(dataBytesReceived)
+scalar OPSLiteNetworkTormV1 deliveryRatio:max -nan
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 deliveryRatio:min -nan
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 dataDelay:max -nan
+attr source dataDelay
+scalar OPSLiteNetworkTormV1 dataDelay:min -nan
+attr source dataDelay
+scalar OPSLiteNetworkTormV1 dataDelay:mean -nan
+attr source dataDelay
+statistic OPSLiteNetworkTormV1 dataDelay:histogram
+field count 0
+field mean -nan
+field stddev -nan
+field min -nan
+field max -nan
+field sum 0
+field sqrsum 0
+attr source dataDelay
+bin	-inf	0
+bin	0	0
+bin	1	0
+scalar OPSLiteNetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:max 20
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:last 20
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 likedDataBytesReceivableByAllNodesSum:max -nan
+attr source sum(likedDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 likedDataBytesReceivableByAllNodesSum:last -nan
+attr source sum(likedDataBytesReceivableByAllNodes)
+scalar OPSLiteNetworkTormV1 duplicateDataBytesReceivedSum:max -nan
+attr source sum(duplicateDataBytesReceived)
+scalar OPSLiteNetworkTormV1 duplicateDataBytesReceivedSum:last -nan
+attr source sum(duplicateDataBytesReceived)
+scalar OPSLiteNetworkTormV1 nonLikedDataBytesReceivedSum:max -nan
+attr source sum(nonLikedDataBytesReceived)
+scalar OPSLiteNetworkTormV1 nonLikedDataBytesReceivedSum:last -nan
+attr source sum(nonLikedDataBytesReceived)
+scalar OPSLiteNetworkTormV1 likedDataBytesReceivedSum:max -nan
+attr source sum(likedDataBytesReceived)
+scalar OPSLiteNetworkTormV1 likedDataBytesReceivedSum:last -nan
+attr source sum(likedDataBytesReceived)
+

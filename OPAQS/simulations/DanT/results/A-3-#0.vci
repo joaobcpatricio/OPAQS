@@ -1,0 +1,73 @@
+file 34239 1564595494                                           
+version 2
+run A-1-20190731-18:51:32-21730
+attr configname A
+attr datetime 20190731-18:51:32
+attr experiment A
+attr inifile SimV2.ini
+attr iterationvars $0=3
+attr iterationvarsf 3-
+attr measurement $0=3
+attr network NetworkTormV2
+attr processid 21730
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 1
+attr seedset 1
+param **.mobility.traceFile "\"paths/A.movements\""
+param **.numNodes 3
+param **.wirelessIfc.wirelessRange 25m
+param **.bluetoothIfc.wirelessRange 25m
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0\""
+param **.routingLayer "\"EpidemicRoutingLayer\""
+param **.routing.maximumCacheSize 500byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.neighboring.antiEntropyInterval 1s
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
+param **.neighboring.sendWifiFirst true
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 50ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 32byte
+param **.wirelessIfc.minSSI -90
+param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.neighbourScanInterval 100ms
+param **.bluetoothIfc.bandwidthBitRate 100000bps
+param **.bluetoothIfc.wirelessHeaderSize 16byte
+param **.bluetoothIfc.minSSI -90
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.nodeId -1
+
+vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 1 NetworkTormV2 nonLikedDataBytesReceivableByAllNodesSum:vector ETV
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+vector 2 NetworkTormV2 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 3 NetworkTormV2 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 4 NetworkTormV2 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+vector 5 NetworkTormV2 likedDataBytesReceivableByAllNodesSum:vector ETV
+attr source sum(likedDataBytesReceivableByAllNodes)
+0	2496 17985 10 8729 0.05 15 1350 1 2 1800 2700
+1	20481 178 19 7911 0.1 14.1 12 30 360 2340 585000
+2	20659 241 19 7911 0.1 14.1 15 -nan -nan -nan -nan
+3	20900 6648 370 8630 1.11904 14.87056 327 36 11772 1930608 15174578880
+4	27548 6648 370 8630 1.11904 14.87056 327 36 11772 1930608 15174578880
+5	34196 42 1491 3627 4.1 8.1 3 30 90 180 12600
+

@@ -1,0 +1,66 @@
+file 3924 1560783212                                            
+version 2
+run General-0-20190617-15:52:29-4943
+attr configname General
+attr datetime 20190617-15:52:29
+attr experiment General
+attr inifile TormV1.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network OPSLiteNetworkTormV1
+attr processid 4943
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.numNodes 3
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 11s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"02:00:00:00:00:03\""
+param **.forwarding.maximumCacheSize 500byte
+param **.forwarding.antiEntropyInterval 1s
+param **.forwarding.maximumHopCount 25
+param **.forwarding.maximumRandomBackoffDuration 1s
+param **.forwarding.useTTL false
+param **.forwarding.usedRNG 2
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 500ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 16byte
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves1.movements\""
+param **.mobility.nodeId -1
+
+vector 0 OPSLiteNetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:vector ETV
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+vector 1 OPSLiteNetworkTormV1 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 OPSLiteNetworkTormV1 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 3 OPSLiteNetworkTormV1 sumVecBytesReceivedSum:vector ETV
+attr source sum(sumVecBytesReceived)
+vector 4 OPSLiteNetworkTormV1 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+vector 5 OPSLiteNetworkTormV1 dataReqBytesReceivedSum:vector ETV
+attr source sum(dataReqBytesReceived)
+vector 6 OPSLiteNetworkTormV1 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 7 OPSLiteNetworkTormV1 nonLikedDataBytesReceivedSum:vector ETV
+attr source sum(nonLikedDataBytesReceived)
+vector 8 OPSLiteNetworkTormV1 dataDelay:vector ETV
+attr source dataDelay
+0	2142 12 10 10 0.1 0.1 1 30 30 30 900
+1	2154 74 10 277 0.1 4.5092 3 0.33333333333333 0.66666666666667 -nan -nan
+2	2228 723 24 631 0.5 11 66 0 2 56 68
+3	2951 212 105 609 2.00256 10.00256 12 16 192 1248 166400
+4	3163 455 105 621 2.00256 10.0048 26 16 414 5979 1738371
+5	3618 201 111 621 2.00512 10.0048 12 16 152 1020 108624
+6	3819 32 117 276 2.0092 4.5092 2 35 70 105 6125
+7	3851 32 118 277 2.0092 4.5092 2 10 20 30 500
+8	3883 40 118 277 2.0092 4.5092 2 1.9092 4.4092 6.3184 23.08608928
+

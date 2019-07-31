@@ -1,0 +1,254 @@
+version 2
+run General-2-20190618-01:29:50-4688
+attr configname General
+attr datetime 20190618-01:29:50
+attr experiment General
+attr inifile TormV1.ini
+attr iterationvars $0=4
+attr iterationvarsf 4-
+attr measurement $0=4
+attr network OPSLiteNetworkTormV1
+attr processid 4688
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 2
+attr seedset 2
+param **.numNodes 4
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 11s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"02:00:00:00:00:02\""
+param **.forwarding.maximumCacheSize 500byte
+param **.forwarding.antiEntropyInterval 1s
+param **.forwarding.maximumHopCount 25
+param **.forwarding.maximumRandomBackoffDuration 1s
+param **.forwarding.useTTL false
+param **.forwarding.usedRNG 2
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 500ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 16byte
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.nodeId -1
+
+vector 0 OPSLiteNetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:vector ETV
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+vector 1 OPSLiteNetworkTormV1 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 OPSLiteNetworkTormV1 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 3 OPSLiteNetworkTormV1 sumVecBytesReceivedSum:vector ETV
+attr source sum(sumVecBytesReceived)
+vector 4 OPSLiteNetworkTormV1 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+vector 5 OPSLiteNetworkTormV1 dataReqBytesReceivedSum:vector ETV
+attr source sum(dataReqBytesReceived)
+vector 6 OPSLiteNetworkTormV1 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 7 OPSLiteNetworkTormV1 nonLikedDataBytesReceivedSum:vector ETV
+attr source sum(nonLikedDataBytesReceived)
+vector 8 OPSLiteNetworkTormV1 dataDelay:vector ETV
+attr source dataDelay
+vector 9 OPSLiteNetworkTormV1 duplicateDataBytesReceivedSum:vector ETV
+attr source sum(duplicateDataBytesReceived)
+0	13	0.1	40
+1	13	0.1	-nan
+1	128	2.0092	0.25
+1	139	2.01328	0.5
+1	332	4.5092	0.75
+2	23	0.5	2
+2	24	0.5	2
+2	25	0.5	0
+2	26	0.5	2
+2	43	1	2
+2	44	1	2
+2	45	1	0
+2	46	1	2
+2	63	1.5	2
+2	64	1.5	2
+2	65	1.5	0
+2	66	1.5	2
+2	83	2	2
+2	84	2	2
+2	85	2	0
+2	86	2	2
+2	153	2.5	2
+2	154	2.5	2
+2	155	2.5	0
+2	156	2.5	2
+2	173	3	2
+2	174	3	3
+2	175	3	1
+2	176	3	2
+2	219	3.5	2
+2	220	3.5	3
+2	221	3.5	1
+2	222	3.5	2
+2	265	4	2
+2	266	4	2
+2	267	4	1
+2	268	4	1
+2	287	4.5	1
+2	288	4.5	1
+2	289	4.5	1
+2	290	4.5	1
+2	346	5	1
+2	347	5	1
+2	348	5	1
+2	349	5	1
+2	380	5.5	1
+2	381	5.5	1
+2	382	5.5	1
+2	383	5.5	1
+2	402	6	1
+2	403	6	1
+2	404	6	1
+2	405	6	1
+2	436	6.5	1
+2	437	6.5	1
+2	438	6.5	1
+2	439	6.5	1
+2	470	7	2
+2	471	7	2
+2	472	7	1
+2	473	7	1
+2	492	7.5	2
+2	493	7.5	3
+2	494	7.5	1
+2	495	7.5	2
+2	526	8	2
+2	527	8	3
+2	528	8	1
+2	529	8	2
+2	560	8.5	2
+2	561	8.5	2
+2	562	8.5	0
+2	563	8.5	2
+2	605	9	2
+2	606	9	2
+2	607	9	0
+2	608	9	2
+2	649	9.5	2
+2	650	9.5	2
+2	651	9.5	0
+2	652	9.5	2
+2	705	10	2
+2	706	10	2
+2	707	10	0
+2	708	10	2
+2	729	10.5	2
+2	730	10.5	2
+2	731	10.5	0
+2	732	10.5	2
+2	763	11	2
+2	764	11	2
+2	765	11	0
+2	766	11	2
+3	102	2.00256	16
+3	111	2.00512	32
+3	197	3.00256	48
+3	198	3.00256	64
+3	240	3.50256	80
+3	250	3.50512	96
+3	311	4.50256	112
+3	312	4.50256	128
+3	365	5.00256	144
+3	421	6.00256	160
+3	455	6.50256	176
+3	511	7.50256	192
+3	545	8.00256	208
+3	577	8.50256	224
+3	624	9.00256	240
+3	634	9.00512	256
+3	673	9.50256	272
+3	674	9.50256	288
+3	690	9.50512	304
+3	722	10.00256	320
+3	746	10.50256	336
+3	756	10.50512	352
+4	102	2.00256	16
+4	111	2.00512	32
+4	112	2.00512	48
+4	120	2.00768	64
+4	126	2.0092	99
+4	137	2.01328	134
+4	197	3.00256	150
+4	198	3.00256	166
+4	206	3.0048	178
+4	210	3.00704	190
+4	240	3.50256	206
+4	246	3.5048	218
+4	250	3.50512	234
+4	256	3.50736	246
+4	311	4.50256	262
+4	312	4.50256	278
+4	320	4.5048	290
+4	324	4.50512	306
+4	330	4.5092	341
+4	365	5.00256	357
+4	371	5.0048	369
+4	421	6.00256	385
+4	427	6.0048	397
+4	455	6.50256	413
+4	461	6.5048	425
+4	511	7.50256	441
+4	517	7.5048	453
+4	545	8.00256	469
+4	551	8.0048	481
+4	577	8.50256	497
+4	583	8.50512	513
+4	589	8.5092	548
+4	624	9.00256	564
+4	630	9.0048	576
+4	634	9.00512	592
+4	640	9.00736	604
+4	673	9.50256	620
+4	674	9.50256	636
+4	685	9.5048	648
+4	686	9.5048	660
+4	690	9.50512	676
+4	696	9.50736	688
+4	722	10.00256	704
+4	728	10.0048	716
+4	746	10.50256	732
+4	752	10.5048	744
+4	756	10.50512	760
+4	762	10.50736	772
+5	112	2.00512	16
+5	120	2.00768	32
+5	206	3.0048	44
+5	210	3.00704	56
+5	246	3.5048	68
+5	256	3.50736	80
+5	320	4.5048	92
+5	324	4.50512	108
+5	371	5.0048	120
+5	427	6.0048	132
+5	461	6.5048	144
+5	517	7.5048	156
+5	551	8.0048	168
+5	583	8.50512	184
+5	630	9.0048	196
+5	640	9.00736	208
+5	685	9.5048	220
+5	686	9.5048	232
+5	696	9.50736	244
+5	728	10.0048	256
+5	752	10.5048	268
+5	762	10.50736	280
+6	126	2.0092	35
+6	137	2.01328	70
+6	330	4.5092	105
+6	589	8.5092	140
+7	128	2.0092	10
+7	139	2.01328	20
+7	332	4.5092	30
+8	128	2.0092	1.9092
+8	139	2.01328	1.91328
+8	332	4.5092	4.4092
+9	591	8.5092	10
+

@@ -1,0 +1,182 @@
+version 2
+run General-0-20190617-15:52:29-4943
+attr configname General
+attr datetime 20190617-15:52:29
+attr experiment General
+attr inifile TormV1.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network OPSLiteNetworkTormV1
+attr processid 4943
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.numNodes 3
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 11s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"02:00:00:00:00:03\""
+param **.forwarding.maximumCacheSize 500byte
+param **.forwarding.antiEntropyInterval 1s
+param **.forwarding.maximumHopCount 25
+param **.forwarding.maximumRandomBackoffDuration 1s
+param **.forwarding.useTTL false
+param **.forwarding.usedRNG 2
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 500ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 16byte
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves1.movements\""
+param **.mobility.nodeId -1
+
+vector 0 OPSLiteNetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:vector ETV
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+vector 1 OPSLiteNetworkTormV1 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 OPSLiteNetworkTormV1 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 3 OPSLiteNetworkTormV1 sumVecBytesReceivedSum:vector ETV
+attr source sum(sumVecBytesReceived)
+vector 4 OPSLiteNetworkTormV1 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+vector 5 OPSLiteNetworkTormV1 dataReqBytesReceivedSum:vector ETV
+attr source sum(dataReqBytesReceived)
+vector 6 OPSLiteNetworkTormV1 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 7 OPSLiteNetworkTormV1 nonLikedDataBytesReceivedSum:vector ETV
+attr source sum(nonLikedDataBytesReceived)
+vector 8 OPSLiteNetworkTormV1 dataDelay:vector ETV
+attr source dataDelay
+0	10	0.1	30
+1	10	0.1	-nan
+1	118	2.0092	0.33333333333333
+1	277	4.5092	0.66666666666667
+2	24	0.5	1
+2	25	0.5	1
+2	26	0.5	0
+2	46	1	1
+2	47	1	1
+2	48	1	0
+2	68	1.5	1
+2	69	1.5	1
+2	70	1.5	0
+2	90	2	1
+2	91	2	1
+2	92	2	0
+2	131	2.5	1
+2	132	2.5	1
+2	133	2.5	0
+2	153	3	1
+2	154	3	2
+2	155	3	1
+2	189	3.5	1
+2	190	3.5	2
+2	191	3.5	1
+2	225	4	1
+2	226	4	2
+2	227	4	1
+2	249	4.5	0
+2	250	4.5	1
+2	251	4.5	1
+2	290	5	0
+2	291	5	1
+2	292	5	1
+2	312	5.5	0
+2	313	5.5	1
+2	314	5.5	1
+2	346	6	0
+2	347	6	1
+2	348	6	1
+2	380	6.5	0
+2	381	6.5	1
+2	382	6.5	1
+2	402	7	1
+2	403	7	2
+2	404	7	1
+2	438	7.5	1
+2	439	7.5	2
+2	440	7.5	1
+2	474	8	1
+2	475	8	2
+2	476	8	1
+2	498	8.5	1
+2	499	8.5	1
+2	500	8.5	0
+2	544	9	1
+2	545	9	1
+2	546	9	0
+2	566	9.5	1
+2	567	9.5	1
+2	568	9.5	0
+2	588	10	1
+2	589	10	1
+2	590	10	0
+2	622	10.5	1
+2	623	10.5	1
+2	624	10.5	0
+2	629	11	1
+2	630	11	1
+2	631	11	0
+3	105	2.00256	16
+3	170	3.00256	32
+3	206	3.50256	48
+3	264	4.50256	64
+3	327	5.50256	80
+3	361	6.00256	96
+3	419	7.00256	112
+3	455	7.50256	128
+3	518	8.50256	144
+3	519	8.50256	160
+3	608	10.00256	176
+3	609	10.00256	192
+4	105	2.00256	16
+4	111	2.00512	32
+4	117	2.0092	67
+4	170	3.00256	83
+4	176	3.0048	95
+4	206	3.50256	111
+4	212	3.5048	123
+4	264	4.50256	139
+4	270	4.50512	155
+4	276	4.5092	190
+4	327	5.50256	206
+4	333	5.5048	218
+4	361	6.00256	234
+4	367	6.0048	246
+4	419	7.00256	262
+4	425	7.0048	274
+4	455	7.50256	290
+4	461	7.5048	302
+4	518	8.50256	318
+4	519	8.50256	334
+4	530	8.5048	346
+4	531	8.5048	358
+4	608	10.00256	374
+4	609	10.00256	390
+4	620	10.0048	402
+4	621	10.0048	414
+5	111	2.00512	16
+5	176	3.0048	28
+5	212	3.5048	40
+5	270	4.50512	56
+5	333	5.5048	68
+5	367	6.0048	80
+5	425	7.0048	92
+5	461	7.5048	104
+5	530	8.5048	116
+5	531	8.5048	128
+5	620	10.0048	140
+5	621	10.0048	152
+6	117	2.0092	35
+6	276	4.5092	70
+7	118	2.0092	10
+7	277	4.5092	20
+8	118	2.0092	1.9092
+8	277	4.5092	4.4092
+

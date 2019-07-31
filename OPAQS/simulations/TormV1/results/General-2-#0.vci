@@ -1,0 +1,58 @@
+file 2032 1560783121                                            
+version 2
+run General-0-20190617-15:51:39-4794
+attr configname General
+attr datetime 20190617-15:51:39
+attr experiment General
+attr inifile TormV1.ini
+attr iterationvars $0=2
+attr iterationvarsf 2-
+attr measurement $0=2
+attr network OPSLiteNetworkTormV1
+attr processid 4794
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 11s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"02:00:00:00:00:03\""
+param **.forwarding.maximumCacheSize 500byte
+param **.forwarding.antiEntropyInterval 1s
+param **.forwarding.maximumHopCount 25
+param **.forwarding.maximumRandomBackoffDuration 1s
+param **.forwarding.useTTL false
+param **.forwarding.usedRNG 2
+param **.storage.maximumCacheSize 500byte
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 500ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 16byte
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves1.movements\""
+param **.mobility.nodeId -1
+
+vector 0 OPSLiteNetworkTormV1 nonLikedDataBytesReceivableByAllNodesSum:vector ETV
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+vector 1 OPSLiteNetworkTormV1 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 OPSLiteNetworkTormV1 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+0	1560 11 7 7 0.1 0.1 1 20 20 20 400
+1	1571 13 7 7 0.1 0.1 1 -nan -nan -nan -nan
+2	1584 62 17 50 0.5 1.5 6 1 1 6 6
+vector 3 OPSLiteNetworkTormV1 sumVecBytesReceivedSum:vector ETV
+attr source sum(sumVecBytesReceived)
+vector 4 OPSLiteNetworkTormV1 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+vector 5 OPSLiteNetworkTormV1 dataReqBytesReceivedSum:vector ETV
+attr source sum(dataReqBytesReceived)
+2	1949 18 65 66 2 2 2 1 1 2 2
+3	1967 16 78 78 2.00256 2.00256 1 16 16 16 256
+4	1983 32 78 84 2.00256 2.00512 2 16 32 48 1280
+5	2015 16 84 84 2.00512 2.00512 1 16 16 16 256
+
