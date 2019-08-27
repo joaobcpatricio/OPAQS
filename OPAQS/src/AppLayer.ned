@@ -63,7 +63,7 @@ simple AppLayer
 		bool startMultipleMsg = default(false);	// indicates if it will be generating several Data Msgs at once
 		double numMultipleMsg = default(100);	// number of messages to be generated at the begining
 
-
+		int hopsListSize = default(50);
 
     gates:
 

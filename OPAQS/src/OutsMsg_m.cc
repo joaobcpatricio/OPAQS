@@ -192,15 +192,20 @@ DataMsg::DataMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
     this->destinationOriented = false;
     this->nHops = 0;
     this->nMsgOrder = 0;
+    prevHopsList_arraysize = 0;
+    this->prevHopsList = 0;
 }
 
 DataMsg::DataMsg(const DataMsg& other) : ::omnetpp::cPacket(other)
 {
+    prevHopsList_arraysize = 0;
+    this->prevHopsList = 0;
     copy(other);
 }
 
 DataMsg::~DataMsg()
 {
+    delete [] this->prevHopsList;
 }
 
 DataMsg& DataMsg::operator=(const DataMsg& other)
@@ -231,6 +236,11 @@ void DataMsg::copy(const DataMsg& other)
     this->messageID = other.messageID;
     this->nHops = other.nHops;
     this->nMsgOrder = other.nMsgOrder;
+    delete [] this->prevHopsList;
+    this->prevHopsList = (other.prevHopsList_arraysize==0) ? nullptr : new ::omnetpp::opp_string[other.prevHopsList_arraysize];
+    prevHopsList_arraysize = other.prevHopsList_arraysize;
+    for (unsigned int i=0; i<prevHopsList_arraysize; i++)
+        this->prevHopsList[i] = other.prevHopsList[i];
 }
 
 void DataMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -254,6 +264,8 @@ void DataMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->messageID);
     doParsimPacking(b,this->nHops);
     doParsimPacking(b,this->nMsgOrder);
+    b->pack(prevHopsList_arraysize);
+    doParsimArrayPacking(b,this->prevHopsList,prevHopsList_arraysize);
 }
 
 void DataMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -277,6 +289,14 @@ void DataMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->messageID);
     doParsimUnpacking(b,this->nHops);
     doParsimUnpacking(b,this->nMsgOrder);
+    delete [] this->prevHopsList;
+    b->unpack(prevHopsList_arraysize);
+    if (prevHopsList_arraysize==0) {
+        this->prevHopsList = 0;
+    } else {
+        this->prevHopsList = new ::omnetpp::opp_string[prevHopsList_arraysize];
+        doParsimArrayUnpacking(b,this->prevHopsList,prevHopsList_arraysize);
+    }
 }
 
 const char * DataMsg::getSourceAddress() const
@@ -459,6 +479,36 @@ void DataMsg::setNMsgOrder(int nMsgOrder)
     this->nMsgOrder = nMsgOrder;
 }
 
+void DataMsg::setPrevHopsListArraySize(unsigned int size)
+{
+    ::omnetpp::opp_string *prevHopsList2 = (size==0) ? nullptr : new ::omnetpp::opp_string[size];
+    unsigned int sz = prevHopsList_arraysize < size ? prevHopsList_arraysize : size;
+    for (unsigned int i=0; i<sz; i++)
+        prevHopsList2[i] = this->prevHopsList[i];
+    for (unsigned int i=sz; i<size; i++)
+        prevHopsList2[i] = 0;
+    prevHopsList_arraysize = size;
+    delete [] this->prevHopsList;
+    this->prevHopsList = prevHopsList2;
+}
+
+unsigned int DataMsg::getPrevHopsListArraySize() const
+{
+    return prevHopsList_arraysize;
+}
+
+const char * DataMsg::getPrevHopsList(unsigned int k) const
+{
+    if (k>=prevHopsList_arraysize) throw omnetpp::cRuntimeError("Array of size %d indexed by %d", prevHopsList_arraysize, k);
+    return this->prevHopsList[k].c_str();
+}
+
+void DataMsg::setPrevHopsList(unsigned int k, const char * prevHopsList)
+{
+    if (k>=prevHopsList_arraysize) throw omnetpp::cRuntimeError("Array of size %d indexed by %d", prevHopsList_arraysize, k);
+    this->prevHopsList[k] = prevHopsList;
+}
+
 class DataMsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -524,7 +574,7 @@ const char *DataMsgDescriptor::getProperty(const char *propertyname) const
 int DataMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 18+basedesc->getFieldCount() : 18;
+    return basedesc ? 19+basedesc->getFieldCount() : 19;
 }
 
 unsigned int DataMsgDescriptor::getFieldTypeFlags(int field) const
@@ -554,8 +604,9 @@ unsigned int DataMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISARRAY | FD_ISEDITABLE,
     };
-    return (field>=0 && field<18) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<19) ? fieldTypeFlags[field] : 0;
 }
 
 const char *DataMsgDescriptor::getFieldName(int field) const
@@ -585,8 +636,9 @@ const char *DataMsgDescriptor::getFieldName(int field) const
         "messageID",
         "nHops",
         "nMsgOrder",
+        "prevHopsList",
     };
-    return (field>=0 && field<18) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<19) ? fieldNames[field] : nullptr;
 }
 
 int DataMsgDescriptor::findField(const char *fieldName) const
@@ -611,6 +663,7 @@ int DataMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='m' && strcmp(fieldName, "messageID")==0) return base+15;
     if (fieldName[0]=='n' && strcmp(fieldName, "nHops")==0) return base+16;
     if (fieldName[0]=='n' && strcmp(fieldName, "nMsgOrder")==0) return base+17;
+    if (fieldName[0]=='p' && strcmp(fieldName, "prevHopsList")==0) return base+18;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -641,8 +694,9 @@ const char *DataMsgDescriptor::getFieldTypeString(int field) const
         "string",
         "int",
         "int",
+        "string",
     };
-    return (field>=0 && field<18) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<19) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **DataMsgDescriptor::getFieldPropertyNames(int field) const
@@ -681,6 +735,7 @@ int DataMsgDescriptor::getFieldArraySize(void *object, int field) const
     }
     DataMsg *pp = (DataMsg *)object; (void)pp;
     switch (field) {
+        case 18: return pp->getPrevHopsListArraySize();
         default: return 0;
     }
 }
@@ -727,6 +782,7 @@ std::string DataMsgDescriptor::getFieldValueAsString(void *object, int field, in
         case 15: return oppstring2string(pp->getMessageID());
         case 16: return long2string(pp->getNHops());
         case 17: return long2string(pp->getNMsgOrder());
+        case 18: return oppstring2string(pp->getPrevHopsList(i));
         default: return "";
     }
 }
@@ -759,6 +815,7 @@ bool DataMsgDescriptor::setFieldValueAsString(void *object, int field, int i, co
         case 15: pp->setMessageID((value)); return true;
         case 16: pp->setNHops(string2long(value)); return true;
         case 17: pp->setNMsgOrder(string2long(value)); return true;
+        case 18: pp->setPrevHopsList(i,(value)); return true;
         default: return false;
     }
 }

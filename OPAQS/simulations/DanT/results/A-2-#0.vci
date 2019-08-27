@@ -1,15 +1,15 @@
-file 18582 1564495198                                           
+file 82828 1566933968                                           
 version 2
-run A-0-20190730-14:59:54-8130
+run A-0-20190827-20:26:05-9812
 attr configname A
-attr datetime 20190730-14:59:54
+attr datetime 20190827-20:26:05
 attr experiment A
 attr inifile SimV2.ini
 attr iterationvars $0=2
 attr iterationvarsf 2-
 attr measurement $0=2
 attr network NetworkTormV2
-attr processid 8130
+attr processid 9812
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -21,25 +21,28 @@ param **.wirelessIfc.wirelessRange 25m
 param **.bluetoothIfc.wirelessRange 25m
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1s
+param **.application.dataGenerationInterval 1ms
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:03\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:03\""
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
 param **application.nodesThatGen true
 param **application.nodesGenMsg "\"0\""
+param **application.startMultipleMsg true
+param **application.numMultipleMsg 100
 param **.routingLayer "\"EpidemicRoutingLayer\""
-param **.routing.maximumCacheSize 500byte
+param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.neighboring.antiEntropyInterval 1s
+param **.neighboring.antiEntropyInterval 200ms
 param **.neighboring.maximumRandomBackoffDuration 1s
+param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
 param **.neighboring.sendWifiFirst true
-param **.storage.maximumCacheSize 500byte
+param **.storage.maximumCacheSize 5000byte
 param **.wirelessIfc.wirelessRange 15m
-param **.wirelessIfc.neighbourScanInterval 100ms
+param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
@@ -52,22 +55,16 @@ param **.mobilityType "\"BonnMotionMobility\""
 param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.nodeId -1
 
-vector 0 NetworkTormV2 nonLikedDataBytesReceivableByAllNodesSum:vector ETV
-attr source sum(nonLikedDataBytesReceivableByAllNodes)
+vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
 vector 1 NetworkTormV2 deliveryRatio:vector ETV
 attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
-vector 2 NetworkTormV2 neighbourhoodSize:vector ETV
-attr source neighbourhoodSize
-vector 3 NetworkTormV2 dataBytesReceivedSum:vector ETV
+vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
-vector 4 NetworkTormV2 totalBytesReceivedSum:vector ETV
+vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-vector 5 NetworkTormV2 likedDataBytesReceivableByAllNodesSum:vector ETV
-attr source sum(likedDataBytesReceivableByAllNodes)
-0	2495 174 7 4091 0.1 14.1 12 20 240 1560 260000
-1	2669 237 7 4091 0.1 14.1 15 -nan -nan -nan -nan
-2	2906 7648 8 4578 0.1 15 600 1 1 600 600
-3	10554 3993 188 4404 1.21456 14.49072 201 36 7236 730836 3534322896
-4	14547 3993 188 4404 1.21456 14.49072 201 36 7236 730836 3534322896
-5	18540 41 741 1909 4.1 8.1 3 20 60 120 5600
+0	2368 8158 7 22373 0.05 10 600 1 1 600 600
+1	10526 1651 13 229 0.1 0.199 100 -nan -nan -nan -nan
+2	12177 35325 634 22363 1.11456 9.99616 1673 36 60228 50410836 2024700817104
+3	47502 35325 634 22363 1.11456 9.99616 1673 36 60228 50410836 2024700817104
 

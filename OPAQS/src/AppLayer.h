@@ -104,6 +104,7 @@ class AppLayer : public cSimpleModule
         bool startMultipleMsg;
         double numMultipleMsg;
         double countMultipleMsg;
+        int hopsListSize;
 };
 
 #endif /* APPLAYER_H_ */

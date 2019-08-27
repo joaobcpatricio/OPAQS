@@ -42,6 +42,7 @@ void AppLayer::initialize(int stage)
         startMultipleMsg = par("startMultipleMsg");
         numMultipleMsg = par("numMultipleMsg");
         countMultipleMsg=0;
+        hopsListSize=par("hopsListSize");
 
         // setup the event notification array
         for (int i = 0; i < notificationCount; i++)
@@ -229,6 +230,9 @@ void AppLayer::handleMessage(cMessage *msg)
         dataMsg->setInjectedTime(simTime().dbl());
         dataMsg->setNHops(0);
         dataMsg->setHopsTravelled(0);
+
+        dataMsg->setPrevHopsListArraySize(hopsListSize);
+        //dataMsg->setPrevHopsList(0, "");
         send(dataMsg, "lowerLayerOut");
 
         // emit stat signals

@@ -66,6 +66,8 @@ public:
         double lastAccessedTime;
         int nMsgOrder;
         int nHops;
+        string prevHopsList[200];
+        int prevHopListSize=1;
     };
 
     list<CacheEntry> cacheList;

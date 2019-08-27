@@ -1,5 +1,6 @@
 //
 // Format of a Data packet.
+//ver tese rodrigo pg55
 //
 // @author : Asanga Udugama (adu@comnets.uni-bremen.de)
 // @date   : 06-oct-2015
@@ -47,6 +48,9 @@ packet DataMsg {
     
     //ADDED 1/07 15h28
     int nMsgOrder;
+    
+    //Added 27/08/19
+    string prevHopsList[];	//	list of previous nodes where the data passes through - loop avoidance mechanism
 }
 
 

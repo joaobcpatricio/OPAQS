@@ -141,6 +141,25 @@ void StorageM::saveData(cMessage *msg, int origin){
         cacheEntry.nHops = omnetDataMsg->getNHops();
         cacheEntry.createdTime = simTime().dbl();
         cacheEntry.updatedTime = simTime().dbl();
+
+
+        //Added 28/07/19 14h23
+        int vi=0;
+        int siz=omnetDataMsg->getPrevHopsListArraySize();
+        while(vi<siz){
+            cacheEntry.prevHopsList[vi] = omnetDataMsg->getPrevHopsList(vi);
+            EV<<"List: "<<cacheEntry.prevHopsList[vi]<<"\n";
+            vi++;
+        }
+        cacheEntry.prevHopListSize = omnetDataMsg->getPrevHopsListArraySize();
+        //EV<<"Size of prevHopsListSize: "<<cacheEntry.prevHopListSize<<"\n";
+        EV<<"Size1 is: "<<cacheEntry.prevHopListSize<<"\n";
+
+
+
+
+
+
         cacheList.push_back(cacheEntry);//alt
         currentCacheSize += cacheEntry.realPayloadSize;
     }
@@ -272,6 +291,21 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     dataMsg->setMsgUniqueID(itC->msgUniqueID);
     dataMsg->setInjectedTime(itC->injectedTime);
     dataMsg->setNHops(itC->nHops);
+
+    //Added 28/07/19 14h23
+    int vi=0;
+    int siz=itC->prevHopListSize;
+            //->getPrevHopsListArraySize();
+    EV<<"Size2 is: "<<siz<<" e cont: "<<countM<<"\n";
+    //string word = "uno";
+    dataMsg->setPrevHopsListArraySize(itC->prevHopListSize);
+    while(vi<siz){
+        dataMsg->setPrevHopsList(vi,itC->prevHopsList[vi].c_str());
+        //EV<<"FFoi:"<<dataMsg->getPrevHopsList(vi)<<" \n";
+        EV<<"aki \n";
+        vi++;
+    }
+
     EV<<"pullOutMsg return SM \n";
     return dataMsg;
 }

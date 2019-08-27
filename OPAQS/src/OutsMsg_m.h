@@ -19,7 +19,7 @@
 
 
 /**
- * Class generated from <tt>OutsMsg.msg:16</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:17</tt> by nedtool.
  * <pre>
  * packet DataMsg
  * {
@@ -55,6 +55,9 @@
  * 
  *     //ADDED 1/07 15h28
  *     int nMsgOrder;
+ * 
+ *     //Added 27/08/19
+ *     string prevHopsList[];	//	list of previous nodes where the data passes through - loop avoidance mechanism
  * }
  * 
  * 
@@ -93,6 +96,8 @@ class DataMsg : public ::omnetpp::cPacket
     ::omnetpp::opp_string messageID;
     int nHops;
     int nMsgOrder;
+    ::omnetpp::opp_string *prevHopsList; // array ptr
+    unsigned int prevHopsList_arraysize;
 
   private:
     void copy(const DataMsg& other);
@@ -147,13 +152,17 @@ class DataMsg : public ::omnetpp::cPacket
     virtual void setNHops(int nHops);
     virtual int getNMsgOrder() const;
     virtual void setNMsgOrder(int nMsgOrder);
+    virtual void setPrevHopsListArraySize(unsigned int size);
+    virtual unsigned int getPrevHopsListArraySize() const;
+    virtual const char * getPrevHopsList(unsigned int k) const;
+    virtual void setPrevHopsList(unsigned int k, const char * prevHopsList);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const DataMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, DataMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:66</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:70</tt> by nedtool.
  * <pre>
  * packet AckMsg
  * {
@@ -209,7 +218,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const AckMsg& obj) {obj.par
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:89</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:93</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Beacon message.
@@ -281,7 +290,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconMsg& obj) {obj.
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:111</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:115</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Data Request message.
