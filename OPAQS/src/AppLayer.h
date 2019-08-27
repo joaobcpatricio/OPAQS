@@ -64,7 +64,6 @@ class AppLayer : public cSimpleModule
         int nextGenerationNotification;
 
         int notificationCount;
-        vector<int> myLikenesses;
         vector<int> timesMessagesReceived;
 
         int usedRNG;
@@ -100,6 +99,11 @@ class AppLayer : public cSimpleModule
         int nodeCh[100];
         int nAr=0;
         bool nodesThatGen;
+
+        //28/08
+        bool startMultipleMsg;
+        double numMultipleMsg;
+        double countMultipleMsg;
 };
 
 #endif /* APPLAYER_H_ */

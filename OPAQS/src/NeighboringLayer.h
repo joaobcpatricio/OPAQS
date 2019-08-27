@@ -53,6 +53,7 @@ private:
     BaseNodeInfo *ownNodeInfo;
     double distProb;
     double isNeighNeigh;
+    double delayPerDataMsg;
 
     struct SyncedNeighbour {
         string nodeMACAddress;
@@ -79,7 +80,7 @@ private:
     void handleBeaconMsgFromLowerLayer(cMessage *msg);
     double calculateDistance(cMessage *msg);
     double calculateSSI(cMessage *msg);
-    double updateProbability(bool distProb, double ssi);
+    double updateProbability(double distProb, double ssi);
     double GWisMyNeigh(cMessage *msg);
     void updateNeighbourListBT(cMessage *msg);
     list<SyncedNeighbour*> syncedNeighbourListBT;

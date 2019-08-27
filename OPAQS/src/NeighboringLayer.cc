@@ -33,6 +33,8 @@ void NeighboringLayer::initialize(int stage)
         sendWifiFirst = par("sendWifiFirst");
         msgIsBT=false;
 
+        delayPerDataMsg = par("delayPerDataMsg");
+
     } else if (stage == 1) {
         // get own module info
                 ownNodeInfo = new BaseNodeInfo();
@@ -531,8 +533,8 @@ void NeighboringLayer::cancelBackOffT(cMessage *msg){ //vector<string> & selecte
     syncedNeighbour->randomBackoffEndTime = 0.0;
     // second - start wait timer until neighbour has finished syncing
     syncedNeighbour->neighbourSyncing = TRUE;
-    double delayPerDataMessage = 0.5; // assume 500 milli seconds per data message
-    syncedNeighbour->neighbourSyncEndTime = simTime().dbl() + (1 * delayPerDataMessage);//(selectedMessageIDList.size() * delayPerDataMessage); //REVER PARA FUTURO
+    //double delayPerDataMessage = 0.1; // assume 100ms//500 milli seconds per data message
+    syncedNeighbour->neighbourSyncEndTime = simTime().dbl() + (1 * delayPerDataMsg);//(selectedMessageIDList.size() * delayPerDataMessage); //REVER PARA FUTURO
     // synched neighbour list must be updated in next round
     // as there were changes
     syncedNeighbourListIHasChanged = TRUE;
@@ -550,8 +552,8 @@ void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selec
     syncedNeighbour->randomBackoffEndTime = 0.0;
     // second - start wait timer until neighbour has finished syncing
     syncedNeighbour->neighbourSyncing = TRUE;
-    double delayPerDataMessage = 0.5; // assume 500 milli seconds per data message
-    syncedNeighbour->neighbourSyncEndTime = simTime().dbl() + (1 * delayPerDataMessage);//(selectedMessageIDList.size() * delayPerDataMessage); //REVER PARA FUTURO
+    //double delayPerDataMessage = 0.1; // assume 100ms//500 milli seconds per data message
+    syncedNeighbour->neighbourSyncEndTime = simTime().dbl() + (1 * delayPerDataMsg);//(selectedMessageIDList.size() * delayPerDataMessage); //REVER PARA FUTURO
     // synched neighbour list must be updated in next round
     // as there were changes
     syncedNeighbourListBTHasChanged = TRUE;
@@ -581,7 +583,7 @@ double NeighboringLayer::calculateSSI(cMessage *msg){
 
 }
 
-double NeighboringLayer::updateProbability(bool distProb, double ssi){
+double NeighboringLayer::updateProbability(double distProb, double ssi){
     EV<<"Gateway Addr: "<<GWAddr<<" \n";
 
 

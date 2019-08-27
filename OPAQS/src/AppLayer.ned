@@ -59,7 +59,11 @@ simple AppLayer
 		bool nodesThatGen = default(true); //indicate if the following nodes are the ones that generate data (true) or that don't (false)
 		string nodesGenMsg = default("0");
 		
-		
+		//26/08/2019
+		bool startMultipleMsg = default(false);	// indicates if it will be generating several Data Msgs at once
+		double numMultipleMsg = default(100);	// number of messages to be generated at the begining
+
+
 
     gates:
 
