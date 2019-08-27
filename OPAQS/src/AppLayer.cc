@@ -1,18 +1,12 @@
 //
-// The model implementation for the Herald application.
 //
-// @author : Asanga Udugama (adu@comnets.uni-bremen.de), Anna Förster (afoerster@uni-bremen.de)
-// @date   : 15-aug-2016, updated 6-febr-2018
-//
-// @major changes by : João Patrício (castanheirapatricio@ua.pt)
+// @author : João Patrício (castanheirapatricio@ua.pt)
 // @date :   3-jul-2019
 //
 
 #include "AppLayer.h"
 
 Define_Module(AppLayer);
-
-vector<int> popularityList;
 
 
 void AppLayer::initialize(int stage)
@@ -44,42 +38,14 @@ void AppLayer::initialize(int stage)
         // setup prefix
         strcpy(prefixName, "/herald");
 
-        // The following procedure is followed when assigning goodness values to each notification
-        // - introduce popularity of messages. The “pop” value represents the percentage of the complete
-        //   network which will love this packet (e.g. joke).
-        // - at initialisation, create pop-values for all messages. 90% of the messages get a pop-value of
-        //   0, 10% of the messages get a random pop-value between 1 and 20.
-        // - after creating all the messages with their pop-values, allow each user to decide whether she
-        //   likes the message or not. There are only two decisions possible: IGNORE (corresponds to a value
-        //   of 0) and LOVE (correponds to a value of 100).
-        // - the decision itself is taken according to Fig. 3b and Equation (2) of the UBM paper. The
-        //   resulting value is compared to 90: if the value is greater or equal to 90, LOVE (100). If not, IGNORE (0).
-        // - The final “like” values (only 0 and 100s possible) are stored and used later at simulation time
-        //   to represent the reaction of the user and to send to Keetchi as goodness values.
-
-
-        // assign popularity values for the popularityAssignmentPercentage of notificationCount
-        if (popularityList.size() == 0) {
-            for (int i = 0; i < notificationCount; i++) {
-                double perc = uniform(0.0, 100.0, usedRNG);
-                int popularity = 0;
-
-                if (perc <= popularityAssignmentPercentage) {
-                    popularity = 100;
-                }
-
-                popularityList.push_back(popularity);
-            }
-        }
-
+        //28/08
+        startMultipleMsg = par("startMultipleMsg");
+        numMultipleMsg = par("numMultipleMsg");
+        countMultipleMsg=0;
 
         // setup the event notification array
         for (int i = 0; i < notificationCount; i++)
         {
-            int like = 0;
-            if (popularityList[i] > 90)
-                like = 100;
-            myLikenesses.push_back(like);       //TO DELETE
             timesMessagesReceived.push_back(0);
         }
 
@@ -221,7 +187,7 @@ void AppLayer::handleMessage(cMessage *msg)
         send(regAppMsg, "lowerLayerOut");
 
 /***********************************************************************************************************
- * If it is self message od type AppDataMsg, create DataMsg, send it to lowerLayer and schedule another self message of type AppDataMsg
+ * If it is self message of type AppDataMsg, create DataMsg, send it to lowerLayer and schedule another self message of type AppDataMsg
  */
 
 
@@ -238,7 +204,6 @@ void AppLayer::handleMessage(cMessage *msg)
 
         dataMsg->setSourceAddress("");
         dataMsg->setDestinationAddress("");
-
         //I added a final Destination and set Msg as Destination Oriented
         dataMsg->setFinalDestinationNodeName(destinationAddr.c_str());
         //EV<<"Destino set1:"<<dataMsg->getFinalDestinationNodeName()<<"\n";
@@ -248,10 +213,9 @@ void AppLayer::handleMessage(cMessage *msg)
             dataMsg->setDestinationOriented(true);
         }
         //--
-
         sprintf(tempString, "/app/item-%0d", APPLAYER_START_ITEM_ID + nextGenerationNotification);
         dataMsg->setDataName(tempString);
-        dataMsg->setGroupType(myLikenesses[nextGenerationNotification]);
+        //dataMsg->setGroupType(myLikenesses[nextGenerationNotification]);
         dataMsg->setRealPayloadSize(dataSizeInBytes);
         dataMsg->setMsgUniqueID(nextGenerationNotification);
         //EV<<"Data name: "<<tempString<<" uniqueID: "<<nextGenerationNotification<<" \n";
@@ -268,11 +232,11 @@ void AppLayer::handleMessage(cMessage *msg)
         send(dataMsg, "lowerLayerOut");
 
         // emit stat signals
-        if (myLikenesses[nextGenerationNotification] == 100) {
+        /*if (myLikenesses[nextGenerationNotification] == 100) {
             emit(likedDataBytesReceivableByAllNodesSignal, (1 * totalNumNodes * dataSizeInBytes));
         } else {
             emit(nonLikedDataBytesReceivableByAllNodesSignal, (1 * totalNumNodes * dataSizeInBytes));
-        }
+        }*/
         emit(totalDataBytesReceivableByAllNodesSignal, (1 * totalNumNodes * dataSizeInBytes));
 
         // schedule again after a complete round robin of all nodes
@@ -281,8 +245,18 @@ void AppLayer::handleMessage(cMessage *msg)
         //ADDED 1/07 15h44
         if(generateMsg){
             EV<<"It's node0 msg:"<<nMsgOrder<<" \n";
-            scheduleAt(simTime() + dataGenerationInterval, msg);
-            //scheduleAt(simTime() + dataGenerationInterval*totalNumNodes, msg);
+
+
+            //Only generates X Msgs, one per interval until.
+            if(startMultipleMsg){
+                if(countMultipleMsg<numMultipleMsg-1){
+                    scheduleAt(simTime() + dataGenerationInterval, msg);
+                    //scheduleAt(simTime() + dataGenerationInterval*totalNumNodes, msg);
+                    countMultipleMsg++;
+                }
+            }else{
+                    scheduleAt(simTime() + dataGenerationInterval, msg);
+                }
             nMsgOrder++;
         }
 //-------------------------------------------------------------------------------------------------------------------
@@ -328,11 +302,11 @@ void AppLayer::handleMessage(cMessage *msg)
         if (timesMessagesReceived[dataMsg->getMsgUniqueID()] > 1) {
             emit(duplicateDataBytesReceivedSignal, (long) dataSizeInBytes);
         } else {
-            if (myLikenesses[dataMsg->getMsgUniqueID()] == 100) {
+            /*if (myLikenesses[dataMsg->getMsgUniqueID()] == 100) {
                 emit(likedDataBytesReceivedSignal, (long) dataSizeInBytes);
             } else {
                 emit(nonLikedDataBytesReceivedSignal, (long) dataSizeInBytes);
-            }
+            }*/
             emit(totalDataBytesReceivedSignal, (long) dataSizeInBytes);
             emit(dataDelaySignal, (simTime().dbl() - dataMsg->getInjectedTime()));
         }
@@ -357,9 +331,6 @@ void AppLayer::finish()
         cancelEvent(dataTimeoutEvent);
     delete dataTimeoutEvent;
 
-    myLikenesses.clear();
-    if (popularityList.size() > 0)
-        popularityList.clear();
     timesMessagesReceived.clear();
 
 }

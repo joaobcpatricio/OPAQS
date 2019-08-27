@@ -37,6 +37,9 @@ simple NeighboringLayer
         
         //Added 23/07/19 15h25
         bool sendWifiFirst = default(true);
+        
+        //Added 26/08/19 18h31
+        double delayPerDataMsg = default(0.1); //s
 
 
         
