@@ -148,7 +148,7 @@ void StorageM::saveData(cMessage *msg, int origin){
         int siz=omnetDataMsg->getPrevHopsListArraySize();
         while(vi<siz){
             cacheEntry.prevHopsList[vi] = omnetDataMsg->getPrevHopsList(vi);
-            EV<<"List: "<<cacheEntry.prevHopsList[vi]<<"\n";
+            //EV<<"List prev hops: "<<cacheEntry.prevHopsList[vi]<<"\n";
             vi++;
         }
         cacheEntry.prevHopListSize = omnetDataMsg->getPrevHopsListArraySize();
@@ -251,6 +251,30 @@ int StorageM::msgIDListPos(string messageID){
 }
 
 
+void StorageM::updatePrevHopsList(int position, string HopAddr){
+    //EV<<"updatePrevHopList SM \n";
+    auto itC = cacheList.begin();
+    int countM=1;
+    //Gets to the element of the List requested
+    while (countM<position) {
+        EV<<"pullOutMsg while SM \n";
+        itC++;
+        countM++;
+    }
+    //Adds my Addr to the Hop List
+    int siz=itC->prevHopListSize;
+    int count1=0;
+    while(count1<siz){
+        string val2 = itC->prevHopsList[count1];
+        if(val2==""){
+                itC->prevHopsList[count1]=HopAddr;
+                break;
+            }
+            count1++;
+        }
+
+}
+
 /********************************************************************************************
  * Goes to the position of a stored Msg in cache and returns a copy.
  */
@@ -296,15 +320,32 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     int vi=0;
     int siz=itC->prevHopListSize;
             //->getPrevHopsListArraySize();
-    EV<<"Size2 is: "<<siz<<" e cont: "<<countM<<"\n";
-    //string word = "uno";
+    EV<<"Size 2 is: "<<siz<<" e cont: "<<countM<<"\n";
+    //copies the precious Hop List
     dataMsg->setPrevHopsListArraySize(itC->prevHopListSize);
     while(vi<siz){
         dataMsg->setPrevHopsList(vi,itC->prevHopsList[vi].c_str());
-        //EV<<"FFoi:"<<dataMsg->getPrevHopsList(vi)<<" \n";
-        EV<<"aki \n";
         vi++;
     }
+
+    //Adds my Addr to the Hop List
+    int count2=0;
+
+    while(count2<siz){
+       // EV<<"Istoo : "<<dataMsg->getPrevHopsList(count2)<<"\n";
+        string val2 =dataMsg->getPrevHopsList(count2);
+        if(val2==""){
+            dataMsg->setPrevHopsList(count2, ownMACAddress.c_str());
+           // EV<<"Istoo 2 : "<<dataMsg->getPrevHopsList(count2)<<"\n";
+            break;
+        }
+        count2++;
+    }
+    //EV<<"Eiaum:"<<dataMsg->getPrevHopsListArraySize()<<"\n";
+    //dataMsg->setPrevHopsList(siz+1,ownMACAddress.c_str());
+
+
+
 
     EV<<"pullOutMsg return SM \n";
     return dataMsg;

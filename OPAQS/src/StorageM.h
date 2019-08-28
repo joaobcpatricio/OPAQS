@@ -40,6 +40,8 @@ public:
     int cacheListSize();
     void deleteMsg(string messageID);
     bool msgExistsInC(cMessage *msg);
+    //28/08/19
+    void updatePrevHopsList(int position, string HopAddr);
 
 //Variables:
     int maximumCacheSize;

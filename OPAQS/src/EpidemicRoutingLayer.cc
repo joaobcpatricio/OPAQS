@@ -41,11 +41,13 @@ void EpidemicRoutingLayer::initialize(int stage)
         cacheBytesAddedSignal = registerSignal("cacheBytesAdded");
         cacheBytesUpdatedSignal = registerSignal("cacheBytesUpdated");
 
+
         //Create File that saves Data
                 ofstream file;
                 file.open ("GwResults.txt");
                 file << "Here is information Obtained in Gw\n";
                 file.close();
+
 
     } else {
         EV_FATAL << EPIDEMICROUTINGLAYER_SIMMODULEINFO << "Something is radically wrong in initialisation \n";
@@ -155,6 +157,30 @@ void EpidemicRoutingLayer::handleDataReqMsg(cMessage *msg){
 
                 //DataMsg *dataMsg = Stor.pullOutMsg(msg,ownMACAddress, position);
                 DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
+
+                /*
+                //Verify if destination is not on the prevHopList of  the Stored Msg (not used on epidemic)
+                int count1=0;
+                bool foundH=false;
+                int sizeH = dataMsg->getPrevHopsListArraySize();
+                string HopAdd=dataMsg->getPrevHopsList(count1);
+                string destAdd = dataRequestMsg->getSourceAddress();
+                EV<<"Pos1: "<<dataMsg->getPrevHopsList(0)<<" source: "<<dataRequestMsg->getSourceAddress()<<"\n";
+                while(count1<sizeH){
+                    HopAdd=dataMsg->getPrevHopsList(count1);
+                    if(HopAdd==destAdd){
+                        foundH=true;
+                        EV<<"Found it \n";
+                        break;
+                    }
+                    count1++;
+                }
+
+
+                EV<<"Sending Data Msg\n";
+                if(foundH==false){
+                    send(dataMsg, "lowerLayerOut");
+                }*/
                 EV<<"Sending Data Msg\n";
                 send(dataMsg, "lowerLayerOut");
             }

@@ -123,16 +123,16 @@ void RoutingLayer::handleMessage(cMessage *msg)
 //Added 25/06
 //DECISION OF SENDING IS MADE HERE
 /*********************************************************************************************************
- * If the prob is good enough, gets List of Msgs in cache, for each MsgID of the list it searches if msg exists and gets its position,
- * pulls out the dataMsg prepared to send and sends it to lowerLayer
+ * (NOT_If the prob is good enough,) Gets List of Msgs in cache, for each MsgID of the list it searches if msg exists and gets its position,
+ * pulls out the dataMsg prepared to send and sends it to lowerLayer if the destination is not on the previous Hops List of the DataMsg
  */
 void RoutingLayer::handleDataReqMsg(cMessage *msg){
 
-    EV<<"Kepidemic: handleDataReqMsg\n";
+    EV<<"Routing: handleDataReqMsg\n";
     //pullOutMsg(msg);
     DataReqMsg *dataRequestMsg = dynamic_cast<DataReqMsg*>(msg);
 
-    if(dataRequestMsg->getProb()>=0.5){
+    //if(dataRequestMsg->getProb()>=0.5){
     //checks list of msgs in cache
         vector<string> selectedMessageIDList;
         returnSelectMsgIDList(selectedMessageIDList);
@@ -157,12 +157,33 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
 
                 //DataMsg *dataMsg = Stor.pullOutMsg(msg,ownMACAddress, position);
                 DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
+
+                //Verifies if destination is not on the prevHopList of  the Stored Msg
+                int count1=0;
+                bool foundH=false;
+                int sizeH = dataMsg->getPrevHopsListArraySize();
+                string HopAdd=dataMsg->getPrevHopsList(count1);
+                string destAdd = dataRequestMsg->getSourceAddress();
+                EV<<"Pos1: "<<dataMsg->getPrevHopsList(0)<<" source: "<<dataRequestMsg->getSourceAddress()<<"\n";
+                while(count1<sizeH){
+                    HopAdd=dataMsg->getPrevHopsList(count1);
+                    if(HopAdd==destAdd){
+                        foundH=true;
+                        EV<<"Found it \n";
+                        break;
+                    }
+                    count1++;
+                }
+
+
                 EV<<"Sending Data Msg\n";
-                send(dataMsg, "lowerLayerOut");
+                if(foundH==false){
+                    send(dataMsg, "lowerLayerOut");
+                }
             }
             iteratorMessageIDList++;
         }
-    } else{ EV<<"Probability too low to send mensage \n"; }
+    //} else{ EV<<"Probability too low to send mensage \n"; }
     delete msg;
 }
 
@@ -172,7 +193,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
  * Get's beacon, identifies from which NIC it came, creates dataReqMsg and sends to lowerLayer
  */
 void RoutingLayer::handleBeaconInfo(cMessage *msg){
-    EV<<"KEpidemic: handleBeacon\n";
+    EV<<"Routing: handleBeacon\n";
     BeaconInfoMsg *beaconMsg = dynamic_cast<BeaconInfoMsg*>(msg);
 
     DataReqMsg *dataRequestMsg = new DataReqMsg();
@@ -218,6 +239,20 @@ void RoutingLayer::handleAckFromLowerLayer(cMessage *msg){
     if(isFinalDest){
         //Stor.deleteMsg(messageID); //PARA JÁ NAO QUERO QUE APAGUE PARA TESTAR SITUAÇÃO ATUAL DE SPREAD
     }
+
+    //Update previous Hops List
+    bool found = Stor.msgIDExists(messageID);
+    int position=Stor.msgIDListPos(messageID);
+    string HopAddr = ackMsg->getSourceAddress();
+    if(found){
+        Stor.updatePrevHopsList(position,HopAddr);
+    }
+
+
+
+
+
+
     delete msg;
 }
 
