@@ -110,7 +110,7 @@ associated with each layer.
 The following picture shows an example configuration of a node as seen in the OMNeT++ IDE.
 
 <p align="center">
-  <img src="res/omnet-node-arch.png" width="268px" height="400px"/>
+  <img src="res/omnet-node-arch.png" width="368px" height="500px"/>
 </p>
 
 The following picture shows an example of the flow of messages inside a node as seen in the OMNeT++ IDE.
