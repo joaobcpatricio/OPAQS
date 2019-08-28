@@ -116,7 +116,7 @@ The following picture shows an example configuration of a node as seen in the OM
 The following picture shows an example of the flow of messages inside a node as seen in the OMNeT++ IDE.
 
 <p align="center">
-  <img src="res/dataflow.png" width="268px" height="400px"/>
+  <img src="res/dataFlow.png" width="268px" height="400px"/>
 </p>
 
 
