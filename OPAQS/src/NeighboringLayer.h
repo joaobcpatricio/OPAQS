@@ -23,6 +23,9 @@
 #include "inet/mobility/contract/IMobility.h"
 #include <queue>
 
+#include "WifiNeighborGraph.h"
+#include "GraphT.h"
+
 using namespace omnetpp;
 
 using namespace std;
@@ -66,6 +69,8 @@ private:
     };
 
 
+
+
     list<SyncedNeighbour*> syncedNeighbourList;
     bool syncedNeighbourListIHasChanged;
 
@@ -92,6 +97,10 @@ private:
     void cancelBackOffTBT(cMessage *msg);
     bool msgIsBT;
     double GWisMyNeighBT(cMessage *msg);
+
+
+    //29/08
+     GraphT graphe;
 
 
 };

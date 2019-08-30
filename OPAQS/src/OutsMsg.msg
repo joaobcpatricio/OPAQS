@@ -99,6 +99,7 @@ packet BeaconMsg {
 	double Prob;	
 	double MyPosX;
 	double MyPosY;
+	string neighMatrix;
 	//int Nic; //por remover, passa a usar-se pelo MacAdd
 }
 

@@ -80,7 +80,7 @@ void NeighboringLayer::handleMessage(cMessage *msg)
         gate = msg->getArrivalGate();
         strcpy(gateName, gate->getName());
 
-        //Wifi Neighbour list
+        //Wifi Neighbour list -> DIRECT NEIGHBOURS
         if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<NeighbourListMsg*>(msg) != NULL) {
             EV<<"Neighboring: handleNeighBourListMsg vizinhos\n";
             handleNeighbourListMsgFromLowerLayer(msg);
@@ -91,7 +91,7 @@ void NeighboringLayer::handleMessage(cMessage *msg)
             handleBeaconMsgFromLowerLayer(msg);
 
 //ADDED 23/07/19 16h15
-            //BT Neighbour list
+            //BT Neighbour list -> DIRECT NEIGHBOURS
 
         }else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<NeighbourListMsgBT*>(msg) != NULL) {
                 EV<<"Neighboring: handleNeighBourListMsgBT vizinhos\n";
@@ -482,6 +482,29 @@ void NeighboringLayer::setSyncingNeighbourInfoForNextRoundBT()//neigh
 
 void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 {
+
+
+//-----------------------
+    //Test of Dijkstra
+    int graph[10][10] =
+
+            { { 0, 4, 0, 0, 0, 0, 0, 8, 0 }, { 4, 0, 8, 0, 0, 0, 0, 11, 0 }, {
+
+                    0, 8, 0, 7, 0, 4, 0, 0, 2 },
+
+                    { 0, 0, 7, 0, 9, 14, 0, 0, 0 }, { 0, 0, 0, 9, 0, 10, 0, 0,
+
+                            0 }, { 0, 0, 4, 0, 10, 0, 2, 0, 0 }, { 0, 0, 0, 14,
+
+                            0, 2, 0, 1, 6 }, { 8, 11, 0, 0, 0, 0, 1, 0, 7 }, {
+
+                            0, 0, 2, 0, 0, 0, 6, 7, 0 } };
+
+
+    graphe.dijkstra(graph, 0);
+
+//-------------------
+
     EV<<"My first Add: "<<ownMACAddress.at(0)<<"\n";
     EV<<"My first Add: "<<ownMACAddress.substr(0,2)<<"\n";
 
@@ -657,6 +680,9 @@ double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
     return isNeigh;
 }
 
+
+
+
 //FINISH
 void NeighboringLayer::finish(){
 
@@ -678,4 +704,6 @@ void NeighboringLayer::finish(){
             syncedNeighbourListBT.remove(syncedNeighbour);
             delete syncedNeighbour;
         }
+
+
 }
