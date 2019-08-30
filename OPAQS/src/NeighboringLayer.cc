@@ -482,10 +482,23 @@ void NeighboringLayer::setSyncingNeighbourInfoForNextRoundBT()//neigh
 
 void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 {
+EV<<"Teste graph: \n";
+//-Teste graph-------------------
 
+    int v = 6; //there are 6 vertices in the graph
+    graphe.add_edge(0, 4);
+    graphe.add_edge(0, 3);
+    graphe.add_edge(1, 2);
+    graphe.add_edge(1, 4);
+    graphe.add_edge(1, 5);
+    graphe.add_edge(2, 3);
+    graphe.add_edge(2, 5);
+    graphe.add_edge(5, 3);
+    graphe.add_edge(5, 4);
+    graphe.displayMatrix(v);
 
-//-----------------------
-    //Test of Dijkstra
+//---Test of Dijkstra----------------
+    EV<<"Teste Dijkstra: \n";
     int graph[10][10] =
 
             { { 0, 4, 0, 0, 0, 0, 0, 8, 0 }, { 4, 0, 8, 0, 0, 0, 0, 11, 0 }, {
@@ -503,6 +516,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 
     graphe.dijkstra(graph, 0);
 
+    EV<<"End test: \n";
 //-------------------
 
     EV<<"My first Add: "<<ownMACAddress.at(0)<<"\n";

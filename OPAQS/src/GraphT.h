@@ -7,6 +7,7 @@
 
 
 // SOURCE: https://www.sanfoundry.com/cpp-program-find-shortest-path-from-source-vertex-all-other-vertices-linear-time/
+//         https://www.tutorialspoint.com/cplusplus-program-to-represent-graph-using-adjacency-matrix
 
 #ifndef GRAPHT_H_
 #define GRAPHT_H_
@@ -21,10 +22,17 @@
 
 using namespace omnetpp;
 using namespace std;
-#define V 10
+#define V 10        //HARDECODED VARIABLE
+
 
 class GraphT{
 public:
+
+    int vertArr[20][20]; //HARDECODED VARIABLE  //the adjacency matrix initially 0
+    void displayMatrix(int v);
+    void add_edge(int u, int v);
+
+
     int minDistance(int dist[], bool sptSet[]);
     int printSolution(int dist[], int n);
     void dijkstra(int graph[V][V], int src);
