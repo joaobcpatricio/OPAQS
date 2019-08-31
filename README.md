@@ -1,4 +1,4 @@
-# OPAQS
+# OPAQS - Beta Version
 
 The Opportunistic Aquatic Surface Vehicles Simulator, is a set of
 simulation models in OMNeT++ to simulate opportunistic networks. It has a
@@ -90,18 +90,22 @@ Generally, an OPSNode has the following protocol layers.
 Each of the above layers can be configured through their parameters to behave as required. Here are the models
 associated with each layer.
 
-1. Application Layer consist of the `AppLayer` application that classifies data items as liked and non-liked
-   and injects them uniformly over the simulation period.
+1. Application Layer consist of the `AppLayer` application that receives the order to generate Data Messages.
 
-2. Opportunistic Networking Layer conist of the `RoutingLayer` which is used to forward data
-   in an opportunistic network
+2. Routing Layer consist of the `RoutingLayer` which is used to forward data
+   in an opportunistic network, here diferent forwarding protocols can be used/tested (eg. Epidemic)
 
-3. Link Adaptation Layer is a simple pass-through layer (`LinkAdaptLayer`) intended to be extended in the future.
+3. Neighbouring Layer consists of the `NeoghbouringLayer` where all the neighbours treatment is taken care,
+   from the list of neighbours, to the graph of the network, that is, each node as a graph knowing the
+   path to the nodes in the network and its estimated cost based on quality of connection (RSSI) and others.
 
-4. Link Layer consist of the `WirelessInterface` model that performs simple wireless
-   communications.
+4. Link Adaptation Layer is a simple pass-through layer (`LinkAdaptLayer`) that redirects internal messages 
+   to the respective module.
+
+5. Link Layer consist of the `WirelessInterface` and `BluetoothInterface` model that performs simple 
+   wireless/bluetooth communications. Here we can also implement other network interfaces.
    
-5. Mobility implements the movements of the mobile nodes in the scenarios. It can use any
+6. Mobility implements the movements of the mobile nodes in the scenarios. It can use any
    of the mobility models available in the INET4 Framework. In OPAQS, `TormV1.ini` is
    configured to use BonnMotion (`BonnMotionMobility`) mobility model. Some sample traces
    with SLAW mobility (`Moves4.movements`, ...) are available in the 
@@ -121,6 +125,8 @@ The following picture shows an example of the flow of messages inside a node as 
 
 
 ## Checking Results
+
+This part is not correctly working yet but will in a near future.
 
 Based on the standard configuration, the raw results (vector and scalar) collected after a simulation run 
 are located in the `simulation/results` folder. Below is a brief (high-level) procedure to create your charts
@@ -151,19 +157,42 @@ are listed here**. Please check the respective model's `.ned` file to see all th
 
 1. `dataGenerationInterval` - Defines how often (in seconds) a data gets injected into the network
 2. `dataSizeInBytes` - The payload size in bytes of a data packet
+3. `destinationAddr` - Destination of the msg (GW)
+4. `destinationBTAdd` - Destination of the msg (GW)
+5. `nodesThatGen` - Indicates if the following nodes are the ones that generate data (true) or that don't (false)
+6. `nodesGenMsg` - The list of nodes that generate (true) or not (false) the data messages
+7. `startMultipleMsg` - Set true if I want multiple messages to be generated at the beggining of the simulation
+8. `numMultipleMsg` - Number of multiple messages to be generated at the beginning
+9. `hopsListSize` - Maximum number of hops of Addresses a DataMsg can save
 
 
-### Parameters in `EpidemicRoutingLayer.ned`
+### Parameters in `RoutingLayer.ned`
 
-1. `maximumCacheSize` - The size of the cache maintained by each node in bytes
+1. `routingLayer` - Here we define the routing protocol file to be used (Eg."EpidemicRoutingLayer" )
 2. `maximumHopCount` - The maximum hops that a data packet is allowed to travel (be forwarded) before being discarded
 
 
-### Parameters in `WirelessLayer.ned`
+
+### Parameters in `NeighboringLayer`
+
+1. `antiEntropyInterval` - Periodicity of beacons
+2. `maximumRandomBackoffDuration` - #Time to start sending Messages
+3. `delayPerDataMsg` - Estimation of 100ms of delay per data message
+4. `sendWifiFirst` - Decides if is sending beacons through Wifi or BT	(by default sends beacons through wifi)
+
+
+### Parametes in `Storage`
+
+1. `maximumCacheSize` - The size of the cache maintained by each node in bytes
+
+
+### Parameters in `NetworkInterface.ned`
 
 1. `wirelessRange` - The wireless range of each node's wireless interface
 2. `bandwidthBitRate` - Communication bit rate of the wireless interface
-
+3. `neighbourScanInterval` - Period to updates the list of neighbors on the interface
+4. `wirelessHeaderSize` -  802.11 a/b/c header  16byte for BT, 32 byte for Wifi
+5. `wirelessIfc` - Set the minimum value of SSI to consider a valid connection/beighbor
 
 
 ## Help
