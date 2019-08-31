@@ -11,21 +11,40 @@
  * Graph - Create the Graph of the network
  */
 
+GraphT::GraphT() {
+
+    for (int i = 0; i <Vv ; ++i) {
+        for (int o = 0; o <Vv ; ++o) {
+            graph[i][o]=0;
+            graph[o][i]=0;
+        }
+    }
+
+}
+
+GraphT::~GraphT(){
+}
+
+
 void GraphT::displayMatrix(int v) {
    int i, j;
    //int count=0;
    for(i = 0; i < v; i++) {
       for(j = 0; j < v; j++) {
-         EV << vertArr[i][j] << " ";
+         EV << graph[i][j] << " ";
       }
       EV<<"\n";
    }
 }
-void GraphT::add_edge(int u, int v) { //function to add edge into the matrix
-    vertArr[u][v] = 1;
-   vertArr[v][u] = 1;
+void GraphT::add_edge(int u, int v, int weight) { //function to add edge into the matrix
+    graph[u][v] = weight;
+    graph[v][u] = weight;
 }
 
+void GraphT::rem_edge(int u, int v){
+    graph[u][v] = 0;
+    graph[v][u] = 0;
+}
 
 
 
@@ -55,6 +74,9 @@ int GraphT::printSolution(int dist[], int n){
 
     EV<<"Vertex   Distance from Source\n";
     for (int i = 0; i < V; i++){
+        if(dist[i]>=2000){
+            break;
+        }
         EV<<" "<<i<<"\t\t "<<dist[i]<<"\n";
     }
 }
@@ -63,12 +85,16 @@ int GraphT::printSolution(int dist[], int n){
 
 // Funtion that implements Dijkstra's single source shortest path algorithm
 // for a graph represented using adjacency matrix representation
-void GraphT::dijkstra(int graph[V][V], int src){
+void GraphT::dijkstra(int src){//(int graph[V][V], int src){
+    //int graph[20][20]=vertArr;
 
-    int dist[V]; // The output array.  dist[i] will hold the shortest
-    // distance from src to i
-    bool sptSet[V]; // sptSet[i] will true if vertex i is included in shortest
-    // path tree or shortest distance from src to i is finalized
+    int dist[V]; // The output array.  dist[i] will hold the shortest distance from src to i
+    //initialize dist array;
+    /*for(int iz=0; iz<V;iz++){
+        dist[iz]=0;
+    }*/
+
+    bool sptSet[V]; // sptSet[i] will true if vertex i is included in shortest path tree or shortest distance from src to i is finalized
     // Initialize all distances as INFINITE and stpSet[] as false
     for (int i = 0; i < V; i++)
         dist[i] = INT_MAX, sptSet[i] = false;
@@ -76,8 +102,7 @@ void GraphT::dijkstra(int graph[V][V], int src){
     dist[src] = 0;
     // Find shortest path for all vertices
     for (int count = 0; count < V - 1; count++){
-        // Pick the minimum distance vertex from the set of vertices not
-        // yet processed. u is always equal to src in first iteration.
+        // Pick the minimum distance vertex from the set of vertices not yet processed. u is always equal to src in first iteration.
         int u = minDistance(dist, sptSet);
         // Mark the picked vertex as processed
         sptSet[u] = true;

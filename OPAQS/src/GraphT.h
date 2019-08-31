@@ -22,20 +22,27 @@
 
 using namespace omnetpp;
 using namespace std;
-#define V 10        //HARDECODED VARIABLE
+#define V 20        //HARDECODED VARIABLE of number of vertices
 
 
 class GraphT{
 public:
+    GraphT();
+    ~GraphT();
 
-    int vertArr[20][20]; //HARDECODED VARIABLE  //the adjacency matrix initially 0
+    int Vv=20;
+    int graph[V][V]; //HARDECODED VARIABLE  //the adjacency matrix initially 0
+
     void displayMatrix(int v);
-    void add_edge(int u, int v);
+    void add_edge(int u, int v, int weight);
+    void rem_edge(int u, int v);
 
 
     int minDistance(int dist[], bool sptSet[]);
-    int printSolution(int dist[], int n);
-    void dijkstra(int graph[V][V], int src);
+    int printSolution(int dist[], int n); //-> parar para parte vazia do array
+    void dijkstra( int src);
+
+
 
 };
 

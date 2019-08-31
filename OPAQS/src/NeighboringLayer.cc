@@ -15,6 +15,8 @@ void NeighboringLayer::initialize(int stage)
 {
     if (stage == 0) {
 
+        graphe=GraphT();
+
         // get parameters
         ownMACAddress = par("ownMACAddress").stringValue();
         ownBTMACAddress = par("ownBTMACAddress").stringValue();
@@ -486,35 +488,19 @@ EV<<"Teste graph: \n";
 //-Teste graph-------------------
 
     int v = 6; //there are 6 vertices in the graph
-    graphe.add_edge(0, 4);
-    graphe.add_edge(0, 3);
-    graphe.add_edge(1, 2);
-    graphe.add_edge(1, 4);
-    graphe.add_edge(1, 5);
-    graphe.add_edge(2, 3);
-    graphe.add_edge(2, 5);
-    graphe.add_edge(5, 3);
-    graphe.add_edge(5, 4);
+    graphe.add_edge(0, 1, 1);
+    graphe.add_edge(0, 2, 2);
+    graphe.add_edge(0, 4, 3);
+    graphe.add_edge(0, 5, 4);
+    graphe.add_edge(1, 3, 5);
+    graphe.add_edge(2, 3, 6);
+    graphe.add_edge(4, 3, 7);
+    graphe.add_edge(5, 3, 8);
+    //graphe.add_edge(5, 4, 8);
     graphe.displayMatrix(v);
 
-//---Test of Dijkstra----------------
-    EV<<"Teste Dijkstra: \n";
-    int graph[10][10] =
-
-            { { 0, 4, 0, 0, 0, 0, 0, 8, 0 }, { 4, 0, 8, 0, 0, 0, 0, 11, 0 }, {
-
-                    0, 8, 0, 7, 0, 4, 0, 0, 2 },
-
-                    { 0, 0, 7, 0, 9, 14, 0, 0, 0 }, { 0, 0, 0, 9, 0, 10, 0, 0,
-
-                            0 }, { 0, 0, 4, 0, 10, 0, 2, 0, 0 }, { 0, 0, 0, 14,
-
-                            0, 2, 0, 1, 6 }, { 8, 11, 0, 0, 0, 0, 1, 0, 7 }, {
-
-                            0, 0, 2, 0, 0, 0, 6, 7, 0 } };
-
-
-    graphe.dijkstra(graph, 0);
+    graphe.dijkstra(0);
+    graphe.dijkstra(1);
 
     EV<<"End test: \n";
 //-------------------
