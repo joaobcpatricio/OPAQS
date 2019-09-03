@@ -15,7 +15,7 @@ void NeighboringLayer::initialize(int stage)
 {
     if (stage == 0) {
 
-        graphe=GraphT();
+
 
         // get parameters
         ownMACAddress = par("ownMACAddress").stringValue();
@@ -36,6 +36,10 @@ void NeighboringLayer::initialize(int stage)
         msgIsBT=false;
 
         delayPerDataMsg = par("delayPerDataMsg");
+
+        maximumNoVert = par("maximumNoVert");
+        graphe.maximumNoVert(maximumNoVert);
+
 
     } else if (stage == 1) {
         // get own module info
@@ -484,18 +488,37 @@ void NeighboringLayer::setSyncingNeighbourInfoForNextRoundBT()//neigh
 
 void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 {
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+
 EV<<"Teste graph: \n";
 //-Teste graph-------------------
 
-    int v = 6; //there are 6 vertices in the graph
-    graphe.add_edge(0, 1, 1);
-    graphe.add_edge(0, 2, 2);
+    int v = 3; //there are 6 vertices in the graph
+
+    string sourAdd = BeaconReceived->getSourceAddress();
+    string myAdd;
+
+
+    if((sourAdd.substr(0,2))=="BT"){
+            myAdd = ownBTMACAddress;
+        }else{
+            myAdd=ownMACAddress;
+        }
+
+    int myV=graphe.add_element(myAdd);
+    int sourV =graphe.add_element(sourAdd);
+
+    EV<< "A var é:"<<myV<<"\n";
+    //int posN = graphe.add_element(sourAdd);
+
+    graphe.add_edge(myV, sourV, 2);
+    /*graphe.add_edge(0, 2, 2);
     graphe.add_edge(0, 4, 3);
     graphe.add_edge(0, 5, 4);
     graphe.add_edge(1, 3, 5);
     graphe.add_edge(2, 3, 6);
     graphe.add_edge(4, 3, 7);
-    graphe.add_edge(5, 3, 8);
+    graphe.add_edge(5, 3, 8);*/
     //graphe.add_edge(5, 4, 8);
     graphe.displayMatrix(v);
 
@@ -508,7 +531,7 @@ EV<<"Teste graph: \n";
     EV<<"My first Add: "<<ownMACAddress.at(0)<<"\n";
     EV<<"My first Add: "<<ownMACAddress.substr(0,2)<<"\n";
 
-    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+
 
     double ssi_ext=calculateSSI(msg);
 

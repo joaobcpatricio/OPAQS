@@ -41,6 +41,7 @@ simple NeighboringLayer
         //Added 26/08/19 18h31
         double delayPerDataMsg = default(0.1); //s
 
+		int maximumNoVert = default(50);
 
         
     

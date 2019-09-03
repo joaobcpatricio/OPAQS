@@ -11,7 +11,7 @@
  * Graph - Create the Graph of the network
  */
 
-GraphT::GraphT() {
+GraphT::GraphT(){
 
     for (int i = 0; i <Vv ; ++i) {
         for (int o = 0; o <Vv ; ++o) {
@@ -19,10 +19,20 @@ GraphT::GraphT() {
             graph[o][i]=0;
         }
     }
+    for(int u=0;u<Vv;u++){
+        vertID.push_back("");
+    }
 
 }
 
 GraphT::~GraphT(){
+}
+
+/*****************************************************************************
+ * Defines the maximum size of the cache
+ */
+void GraphT::maximumNoVert(int maximumNoVert){
+    maxVert=maximumNoVert;
 }
 
 
@@ -36,6 +46,39 @@ void GraphT::displayMatrix(int v) {
       EV<<"\n";
    }
 }
+
+//creates list of IDs of each Address, adds element if it's not already present and returns its ID;
+int GraphT::add_element(string source){
+
+    auto itC=vertID.begin();
+    bool exists = FALSE;
+    int i=0;
+    while(i<V){
+        if(vertID[i]==source){//if(bertV]==source){
+            exists=TRUE;
+            break;
+        }
+        i++;
+    }
+    if(!exists){
+       /* int u=0;
+        //EV<<" vertID= "<<vertID[i]<<"\n";
+        while(u<V){
+            if(vertID[u]==""){
+                break;
+            }
+            u++;
+        }*/
+        int IDadd=std::stoi( source.substr(15,17));
+        vertID.insert(itC+IDadd,source);
+
+        return IDadd;
+    }else{
+        int IDe=std::stoi( source.substr(15,17));
+        return IDe;
+    }
+}
+
 void GraphT::add_edge(int u, int v, int weight) { //function to add edge into the matrix
     graph[u][v] = weight;
     graph[v][u] = weight;
@@ -45,6 +88,15 @@ void GraphT::rem_edge(int u, int v){
     graph[u][v] = 0;
     graph[v][u] = 0;
 }
+/*int GraphT::return_graph(){
+    int graph[V][V];
+    for(int a = 0; a < V + 1; ++a) {
+            for(int b = 0; b < V + 1; ++b) {
+                graf[a][b] = graph[a][b];
+            }
+        }
+    return graf;
+}*/
 
 
 

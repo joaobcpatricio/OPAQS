@@ -12,6 +12,9 @@
 #ifndef GRAPHT_H_
 #define GRAPHT_H_
 
+#define TRUE                            1
+#define FALSE                           0
+
 #include <stdio.h>
 #include <limits.h>
 #include <iostream>
@@ -31,13 +34,16 @@ public:
     ~GraphT();
 
     int Vv=20;
+    int maxVert;
     int graph[V][V]; //HARDECODED VARIABLE  //the adjacency matrix initially 0
 
+    void maximumNoVert(int maximumNoVert);
     void displayMatrix(int v);
     void add_edge(int u, int v, int weight);
     void rem_edge(int u, int v);
-
-
+    int return_graph();
+    vector<string> vertID;
+    int add_element(string source);
     int minDistance(int dist[], bool sptSet[]);
     int printSolution(int dist[], int n); //-> parar para parte vazia do array
     void dijkstra( int src);

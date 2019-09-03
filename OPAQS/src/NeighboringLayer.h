@@ -101,6 +101,7 @@ private:
 
     //29/08
      GraphT graphe;
+     int maximumNoVert;
 
 
 };
