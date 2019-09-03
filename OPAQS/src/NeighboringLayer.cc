@@ -16,6 +16,7 @@ void NeighboringLayer::initialize(int stage)
     if (stage == 0) {
 
 
+        graphe=GraphT();
 
         // get parameters
         ownMACAddress = par("ownMACAddress").stringValue();
@@ -491,6 +492,7 @@ void NeighboringLayer::sendNetworkGraph(){
     //neighGraphMsg->setGraphNArraySize(graphe.returnVertIDSize());
     neighGraphMsg->setNumberVert(graphe.returnVertIDSize());
     neighGraphMsg->setGraphN(graphe.returnGraphT().c_str());
+   // neighGraphMsg->setCountVert(graphe.returnCount());
 
     send(neighGraphMsg, "upperLayerOut");
 

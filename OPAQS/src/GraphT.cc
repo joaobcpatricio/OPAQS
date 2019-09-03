@@ -75,9 +75,22 @@ int GraphT::returnVertIDSize(){
     return vertID.size();
 }
 
+/*int GraphT::returnCount(){
+    count =0;
+    for(int i=0;i<vertID.size()-1;i++){
+       if(vertID[i]!=""){
+           count++;
+       }
+
+    }
+    return count;
+}*/
+
 void GraphT::add_edge(int u, int v, int weight) { //function to add edge into the matrix
+    EV<<"Edges & Weight Added to Graph\n";
     graph[u][v] = weight;
     graph[v][u] = weight;
+    count++;
 }
 
 void GraphT::rem_edge(int u, int v){
@@ -100,7 +113,7 @@ string GraphT::returnGraphT(){
     for(k = 0; k < V; k++) {
         for(l = 0; l < V; l++) {
             if(graph[k][l]!=0){
-                graphS=graphS+std::to_string(k)+"->"+std::to_string(l)+":"+std::to_string(graph[k][l])+".\n";
+                graphS=graphS+std::to_string(k)+"->"+std::to_string(l)+":"+std::to_string(graph[k][l])+";\n";
             }
         }
     }

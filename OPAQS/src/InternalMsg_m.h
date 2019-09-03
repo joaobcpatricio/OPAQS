@@ -285,6 +285,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, routingDecisionsMsg& obj)
  * {
  *     //string graphN[];
  *     int numberVert;
+ *     //int countVert;
  *     string graphN;
  * 
  *     //double neighPos[];

@@ -13,6 +13,7 @@ void RoutingLayer::initialize(int stage)
 {
     if (stage == 0) {
         Stor=StorageM(); //constructor
+        graphR=GraphT();
         // get parameters
         nodeIndex = par("nodeIndex");
         ownMACAddress = par("ownMACAddress").stringValue();
@@ -127,13 +128,47 @@ void RoutingLayer::handleMessage(cMessage *msg)
     }
 }
 
+//Saves the received graph from neighboring here for later use in decision;
+bool RoutingLayer::getGraph(string graphS, int numberVert){ //String:" 1->2:4;\n2->1:4;\n "
+    std::string delimiter = ";";
 
+    int i=0;//, q1=0;
+    for(i=0;i<graphS.length();i++){
+        int j=graphS.find(delimiter,i);
+        if(j==std::string::npos){
+            return false;
+        }else{
+            std::string token = graphS.substr(i, j-i);
+            EV<<"Got the: "<<token<<" at: "<<j<<".\n";
+            int q1 = graphS.find("-",i);
+            int q2 = graphS.find(":",i);
+            string v1=graphS.substr(i,q1-i);
+            string v2=graphS.substr(q1+2,q2-(q1+2));
+            string w1=graphS.substr(q2+1,j-(q2+1));
+            //EV<<"Q1: "<<q1<<" V1: "<<v1<<" V2: "<<v2<<" W: "<<w1<<"\n";
+            int vert1 = std::stoi (v1);
+            int vert2 = std::stoi (v2);
+            double weight1 = std::stod (w1);
+            //EV<<" V1: "<<vert1<<" V2: "<<vert2<<" W: "<<weight1<<"\n";
+            graphR.add_edge(vert1,vert2,weight1);
+            //graphR.displayMatrix(3);
+            EV<<"Graph on Routing: \n";
+            string GraphSR=graphR.returnGraphT();
+            i +=j+1;
+
+        }
+    }
+}
 
 void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
     EV<<"Routing: handleNetworkGraphMsg\n";
     NetworkGraphMsg *neighGraphMsg = dynamic_cast<NetworkGraphMsg*>(msg);
     string graphS = neighGraphMsg->getGraphN();
+    int numberVert = neighGraphMsg->getNumberVert();
+    //int countVert = neighGraphMsg->getCountVert();
     EV<<"Recebeu-se: "<<graphS<<"\n";
+    bool updt=getGraph(graphS, numberVert);
+    if(updt){ EV<<"Graph Updated\n";}else{EV<<"Graph not updated due to empty string\n";}
 
     delete msg;
 }
@@ -441,30 +476,6 @@ bool RoutingLayer::msgIDexists(string messageID){
     return Stor.msgIDExists(messageID);
 }
 
-//nunca é chamada
-/*void RoutingLayer::pullOutMsg(cMessage *msg){
-    EV<<"Pulling out requested Msg \n";
-
-    vector<string> selectedMessageIDList;
-    returnSelectMsgIDList(selectedMessageIDList);
-
-    vector<string>::iterator iteratorMessageIDList;
-    iteratorMessageIDList = selectedMessageIDList.begin();
-
-        while (iteratorMessageIDList != selectedMessageIDList.end()) {
-            string messageID = *iteratorMessageIDList;
-            bool found = Stor.msgIDExists(messageID);
-            EV<<"OI4\n";
-            int position=Stor.msgIDListPos(messageID);
-            if(found){
-                EV<<"OI5 position= "<<position<<"\n";
-                        DataMsg *dataMsg = Stor.pullOutMsg(msg,ownMACAddress, position);
-                        EV<<"Sending Data Msg\n";
-                        send(dataMsg, "lowerLayerOut");
-                    }
-            iteratorMessageIDList++;
-        }
-}*/
 
 
 /************************************************************************************************

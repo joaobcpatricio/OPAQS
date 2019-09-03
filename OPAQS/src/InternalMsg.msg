@@ -67,6 +67,7 @@ packet routingDecisionsMsg {
 packet NetworkGraphMsg {
     //string graphN[];
     int numberVert;
+    //int countVert;
     string graphN;
     
     //double neighPos[];

@@ -42,6 +42,7 @@ public:
     int Vv=20;
     int maxVert;
     int graph[V][V]; //HARDECODED VARIABLE  //the adjacency matrix initially 0
+    int count=1;
 
     void maximumNoVert(int maximumNoVert);
     void displayMatrix(int v);
@@ -56,6 +57,8 @@ public:
 
     int returnVertIDSize();
     string returnGraphT();
+
+    //int returnCount();
 
 
 

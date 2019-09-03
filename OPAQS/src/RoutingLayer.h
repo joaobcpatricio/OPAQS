@@ -21,6 +21,7 @@
 
 #include "StorageM.h"
 #include <fstream>
+#include "GraphT.h";
 
 
 using namespace omnetpp;
@@ -68,6 +69,8 @@ private:
     void handleBeaconInfo(cMessage *msg);
 
     void handleNetworkGraphMsg(cMessage *msg);
+    GraphT graphR;
+    bool getGraph(string graphS, int numberVert);
 
 
     //Cache
