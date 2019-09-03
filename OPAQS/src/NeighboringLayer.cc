@@ -486,6 +486,16 @@ void NeighboringLayer::setSyncingNeighbourInfoForNextRoundBT()//neigh
     }
 }
 
+void NeighboringLayer::sendNetworkGraph(){
+    NetworkGraphMsg *neighGraphMsg = new NetworkGraphMsg("Network Graph Msg");
+    //neighGraphMsg->setGraphNArraySize(graphe.returnVertIDSize());
+    neighGraphMsg->setNumberVert(graphe.returnVertIDSize());
+    neighGraphMsg->setGraphN(graphe.returnGraphT().c_str());
+
+    send(neighGraphMsg, "upperLayerOut");
+
+}
+
 void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 {
     BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
@@ -494,36 +504,23 @@ EV<<"Teste graph: \n";
 //-Teste graph-------------------
 
     int v = 3; //there are 6 vertices in the graph
-
     string sourAdd = BeaconReceived->getSourceAddress();
     string myAdd;
-
-
     if((sourAdd.substr(0,2))=="BT"){
             myAdd = ownBTMACAddress;
         }else{
             myAdd=ownMACAddress;
         }
-
     int myV=graphe.add_element(myAdd);
     int sourV =graphe.add_element(sourAdd);
-
     EV<< "A var é:"<<myV<<"\n";
     //int posN = graphe.add_element(sourAdd);
-
     graphe.add_edge(myV, sourV, 2);
-    /*graphe.add_edge(0, 2, 2);
-    graphe.add_edge(0, 4, 3);
-    graphe.add_edge(0, 5, 4);
-    graphe.add_edge(1, 3, 5);
-    graphe.add_edge(2, 3, 6);
-    graphe.add_edge(4, 3, 7);
-    graphe.add_edge(5, 3, 8);*/
-    //graphe.add_edge(5, 4, 8);
     graphe.displayMatrix(v);
-
-    graphe.dijkstra(0);
-    graphe.dijkstra(1);
+    graphe.dijkstra(myV);
+    graphe.dijkstra(sourV);
+    //graphe.returnGraphT();
+    sendNetworkGraph();
 
     EV<<"End test: \n";
 //-------------------

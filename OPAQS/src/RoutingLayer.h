@@ -67,6 +67,9 @@ private:
     void handleDataReqMsg(cMessage *msg);
     void handleBeaconInfo(cMessage *msg);
 
+    void handleNetworkGraphMsg(cMessage *msg);
+
+
     //Cache
     StorageM Stor;
     bool msgIDexists(string messageID);

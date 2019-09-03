@@ -61,14 +61,6 @@ int GraphT::add_element(string source){
         i++;
     }
     if(!exists){
-       /* int u=0;
-        //EV<<" vertID= "<<vertID[i]<<"\n";
-        while(u<V){
-            if(vertID[u]==""){
-                break;
-            }
-            u++;
-        }*/
         int IDadd=std::stoi( source.substr(15,17));
         vertID.insert(itC+IDadd,source);
 
@@ -77,6 +69,10 @@ int GraphT::add_element(string source){
         int IDe=std::stoi( source.substr(15,17));
         return IDe;
     }
+}
+
+int GraphT::returnVertIDSize(){
+    return vertID.size();
 }
 
 void GraphT::add_edge(int u, int v, int weight) { //function to add edge into the matrix
@@ -98,7 +94,20 @@ void GraphT::rem_edge(int u, int v){
     return graf;
 }*/
 
+string GraphT::returnGraphT(){
+    std::string graphS;
+    int k,l;
+    for(k = 0; k < V; k++) {
+        for(l = 0; l < V; l++) {
+            if(graph[k][l]!=0){
+                graphS=graphS+std::to_string(k)+"->"+std::to_string(l)+":"+std::to_string(graph[k][l])+".\n";
+            }
+        }
+    }
+    EV<<"Gráfico: \n"<<graphS<<"\n";
 
+    return graphS;
+}
 
 
 /************************************************************************************************************

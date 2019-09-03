@@ -276,6 +276,53 @@ class routingDecisionsMsg : public ::omnetpp::cPacket
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const routingDecisionsMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, routingDecisionsMsg& obj) {obj.parsimUnpack(b);}
 
+/**
+ * Class generated from <tt>InternalMsg.msg:67</tt> by nedtool.
+ * <pre>
+ * //*****************************************************************************************************  /
+ * // Message to provide the current metwork graph
+ * packet NetworkGraphMsg
+ * {
+ *     //string graphN[];
+ *     int numberVert;
+ *     string graphN;
+ * 
+ *     //double neighPos[];
+ * }
+ * </pre>
+ */
+class NetworkGraphMsg : public ::omnetpp::cPacket
+{
+  protected:
+    int numberVert;
+    ::omnetpp::opp_string graphN;
+
+  private:
+    void copy(const NetworkGraphMsg& other);
+
+  protected:
+    // protected and unimplemented operator==(), to prevent accidental usage
+    bool operator==(const NetworkGraphMsg&);
+
+  public:
+    NetworkGraphMsg(const char *name=nullptr, short kind=0);
+    NetworkGraphMsg(const NetworkGraphMsg& other);
+    virtual ~NetworkGraphMsg();
+    NetworkGraphMsg& operator=(const NetworkGraphMsg& other);
+    virtual NetworkGraphMsg *dup() const override {return new NetworkGraphMsg(*this);}
+    virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
+    virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
+
+    // field getter/setter methods
+    virtual int getNumberVert() const;
+    virtual void setNumberVert(int numberVert);
+    virtual const char * getGraphN() const;
+    virtual void setGraphN(const char * graphN);
+};
+
+inline void doParsimPacking(omnetpp::cCommBuffer *b, const NetworkGraphMsg& obj) {obj.parsimPack(b);}
+inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NetworkGraphMsg& obj) {obj.parsimUnpack(b);}
+
 
 #endif // ifndef __INTERNALMSG_M_H
 

@@ -62,3 +62,13 @@ packet routingDecisionsMsg {
     bool sendWifiFirst;
 }
 
+//******************************************************************************************************//
+// Message to provide the current metwork graph
+packet NetworkGraphMsg {
+    //string graphN[];
+    int numberVert;
+    string graphN;
+    
+    //double neighPos[];
+}
+

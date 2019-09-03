@@ -111,6 +111,13 @@ void RoutingLayer::handleMessage(cMessage *msg)
             EV<<"Handling DataReqMsg\n";
             handleDataReqMsg(msg);
 
+
+        // data request message arrived from the lower layer (link layer)
+        } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<NetworkGraphMsg*>(msg) != NULL) {
+            EV<<"Handling NetworkGraphMsg\n";
+            handleNetworkGraphMsg(msg);
+
+
         // received some unexpected packet
         } else {
 
@@ -118,6 +125,17 @@ void RoutingLayer::handleMessage(cMessage *msg)
             delete msg;
         }
     }
+}
+
+
+
+void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
+    EV<<"Routing: handleNetworkGraphMsg\n";
+    NetworkGraphMsg *neighGraphMsg = dynamic_cast<NetworkGraphMsg*>(msg);
+    string graphS = neighGraphMsg->getGraphN();
+    EV<<"Recebeu-se: "<<graphS<<"\n";
+
+    delete msg;
 }
 
 //Added 25/06

@@ -9,6 +9,12 @@
 // SOURCE: https://www.sanfoundry.com/cpp-program-find-shortest-path-from-source-vertex-all-other-vertices-linear-time/
 //         https://www.tutorialspoint.com/cplusplus-program-to-represent-graph-using-adjacency-matrix
 
+/*
+ * Notes:
+The value of V is set here;
+As the ID of the nodes it is used the last 2 numbers of the MAC Address (considered in NeighboringLayer)
+ */
+
 #ifndef GRAPHT_H_
 #define GRAPHT_H_
 
@@ -48,10 +54,14 @@ public:
     int printSolution(int dist[], int n); //-> parar para parte vazia do array
     void dijkstra( int src);
 
+    int returnVertIDSize();
+    string returnGraphT();
+
 
 
 };
 
 
-
 #endif /* GRAPHT_H_ */
+
+
