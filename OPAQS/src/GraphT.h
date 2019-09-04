@@ -52,13 +52,20 @@ public:
     vector<string> vertID;
     int add_element(string source);
     int minDistance(int dist[], bool sptSet[]);
-    int printSolution(int dist[], int n); //-> parar para parte vazia do array
+    int printSolution(int dist[],int n, int parent[], int srcs);
+    void printPath(int parent[], int j);
+
+
     void dijkstra( int src);
 
     int returnVertIDSize();
     string returnGraphT();
 
     //int returnCount();
+
+
+
+
 
 
 

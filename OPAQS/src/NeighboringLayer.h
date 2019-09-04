@@ -25,6 +25,7 @@
 
 #include "GraphT.h"
 
+
 using namespace omnetpp;
 
 using namespace std;
@@ -104,6 +105,9 @@ private:
      int maximumNoVert;
 
      void sendNetworkGraph();
+
+     bool updateGraph(string graphS, string srcAdd);
+
 
 
 };

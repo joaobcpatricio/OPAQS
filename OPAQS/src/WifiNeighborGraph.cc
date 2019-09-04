@@ -30,6 +30,7 @@ bool WifiNeighborGraph::add_node(int eid) {
 
 
 bool WifiNeighborGraph::add_link(int s1, int s2, int weight) {
+    std::cout << 'Add NOde:\n' << std::endl;
     EdgeWeightProperty weight0(weight);
     if(!exists(s1) || !exists(s2) ) return false;
     try{// Add weighted edges

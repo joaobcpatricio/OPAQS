@@ -18,6 +18,7 @@ void NeighboringLayer::initialize(int stage)
 
         graphe=GraphT();
 
+
         // get parameters
         ownMACAddress = par("ownMACAddress").stringValue();
         ownBTMACAddress = par("ownBTMACAddress").stringValue();
@@ -39,7 +40,7 @@ void NeighboringLayer::initialize(int stage)
         delayPerDataMsg = par("delayPerDataMsg");
 
         maximumNoVert = par("maximumNoVert");
-        graphe.maximumNoVert(maximumNoVert);
+        //graphe.maximumNoVert(maximumNoVert);
 
 
     } else if (stage == 1) {
@@ -498,6 +499,66 @@ void NeighboringLayer::sendNetworkGraph(){
 
 }
 
+
+
+
+
+
+
+//Saves the received graph from neighboring here for later use in decision;
+bool NeighboringLayer::updateGraph(string graphS, string srcAdd){ //String:" 1->2:4;\n2->1:4;\n "
+/*    int srcID=graphe.add_element(srcAdd);
+
+    // check if sync entry is there
+
+    SyncedNeighbour *syncedNeighbour = NULL;
+
+    //list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
+    //iteratorSyncedNeighbour = syncedNeighbourList.begin();
+    auto iteratorSyncedNeighbour = syncedNeighbourList.begin();
+        bool found = FALSE;
+
+        while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
+            syncedNeighbour = *iteratorSyncedNeighbour;
+            if (syncedNeighbour->nodeMACAddress == nodeMACAddress) {
+                found = TRUE;
+                break;
+            }
+            iteratorSyncedNeighbour++;
+        }
+*/
+/*
+    //-----
+    std::string delimiter = ";";
+
+    int i=0;//, q1=0;
+    for(i=0;i<graphS.length();i++){
+        int j=graphS.find(delimiter,i);
+        if(j==std::string::npos){
+            return false;
+        }else{
+            std::string token = graphS.substr(i, j-i);
+            EV<<"Got the: "<<token<<" at: "<<j<<".\n";
+            int q1 = graphS.find("-",i);
+            int q2 = graphS.find(":",i);
+            string v1=graphS.substr(i,q1-i);
+            string v2=graphS.substr(q1+2,q2-(q1+2));
+            string w1=graphS.substr(q2+1,j-(q2+1));
+            //EV<<"Q1: "<<q1<<" V1: "<<v1<<" V2: "<<v2<<" W: "<<w1<<"\n";
+            int vert1 = std::stoi (v1);
+            int vert2 = std::stoi (v2);
+            double weight1 = std::stod (w1);
+            //EV<<" V1: "<<vert1<<" V2: "<<vert2<<" W: "<<weight1<<"\n";
+            graphR.add_edge(vert1,vert2,weight1);
+            //graphR.displayMatrix(3);
+            EV<<"Graph on Routing: \n";
+            string GraphSR=graphR.returnGraphT();
+            i +=j+1;
+
+        }
+    }*/
+}
+
 void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 {
     BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
@@ -505,7 +566,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 EV<<"Teste graph: \n";
 //-Teste graph-------------------
 
-    int v = 3; //there are 6 vertices in the graph
+    int v = 9; //there are 6 vertices in the graph
     string sourAdd = BeaconReceived->getSourceAddress();
     string myAdd;
     if((sourAdd.substr(0,2))=="BT"){
@@ -513,16 +574,45 @@ EV<<"Teste graph: \n";
         }else{
             myAdd=ownMACAddress;
         }
+
+
     int myV=graphe.add_element(myAdd);
     int sourV =graphe.add_element(sourAdd);
     EV<< "A var é:"<<myV<<"\n";
     //int posN = graphe.add_element(sourAdd);
-    graphe.add_edge(myV, sourV, 2);
+
+
+
+    /*graphe.add_edge(0,1,2);
+    graphe.add_edge(1,2,2);
+    graphe.add_edge(0,3,1);
+    graphe.add_edge(3,2,1);*/
+    graphe.add_edge(0,1,2);
+    graphe.add_edge(0,4,1);
+    graphe.add_edge(1,2,2);
+    graphe.add_edge(2,3,4);
+    graphe.add_edge(2,4,1);
+    graphe.add_edge(3,7,3);
+    graphe.add_edge(3,5,1);
+    graphe.add_edge(5,6,5);
+    graphe.add_edge(7,8,1);
+    graphe.add_edge(8,6,1);
+
+    graphe.dijkstra(0);
+
+
+    //graphe.add_edge(myV, sourV, 2);
     graphe.displayMatrix(v);
-    graphe.dijkstra(myV);
-    graphe.dijkstra(sourV);
+    //graphe.dijkstra(myV);
+    //graphe.dijkstra(sourV);
     //graphe.returnGraphT();
     sendNetworkGraph();
+
+
+
+
+
+
 
     EV<<"End test: \n";
 //-------------------

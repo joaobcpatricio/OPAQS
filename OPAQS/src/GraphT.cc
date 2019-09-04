@@ -86,8 +86,9 @@ int GraphT::returnVertIDSize(){
     return count;
 }*/
 
-void GraphT::add_edge(int u, int v, int weight) { //function to add edge into the matrix
-    EV<<"Edges & Weight Added to Graph\n";
+//function to add edge into the matrix
+void GraphT::add_edge(int u, int v, int weight) { //if weight is 0, it considers it a non-passing connection
+    //EV<<"Edges & Weight Added to Graph\n";
     graph[u][v] = weight;
     graph[v][u] = weight;
     count++;
@@ -131,7 +132,7 @@ string GraphT::returnGraphT(){
 // A utility function to find the vertex with minimum distance value, from
 // the set of vertices not yet included in shortest path tree
 int GraphT::minDistance(int dist[], bool sptSet[]){
-
+    //EV<<"Calculating minDistance \n";
     // Initialize min value
     int min = INT_MAX, min_index;
     for (int v = 0; v < V; v++){
@@ -144,16 +145,44 @@ int GraphT::minDistance(int dist[], bool sptSet[]){
 
 
 // A utility function to print the constructed distance array
-int GraphT::printSolution(int dist[], int n){
+/*int GraphT::printSolution(int dist[], int n){
 
-    EV<<"Vertex   Distance from Source\n";
+    EV<<"Vertex \t\t Distance from Source\n";
     for (int i = 0; i < V; i++){
-        if(dist[i]>=2000){
-            break;
+        if(dist[i]!=INT_MAX){
+            EV<<" "<<i<<"\t\t\t "<<dist[i]<<"\n";
         }
-        EV<<" "<<i<<"\t\t "<<dist[i]<<"\n";
     }
+
+}*/
+
+//------------------------------ADDED
+// Function to print shortest path from source to j using parent array
+void GraphT::printPath(int parent[], int j)
+{
+    // Base Case : If j is source -> it goes from the endpoint till it reaches the source through minimum paths
+    if (parent[j] == - 1)
+        return;
+    printPath(parent, parent[j]);
+    EV<<j;
 }
+
+// A utility function to print the constructed distance array
+int GraphT::printSolution(int dist[], int n,int parent[], int src)
+{
+    //int src = 0;
+    EV<<"Vertex\t Distance\t Path\n";
+    for (int i = 1; i < V; i++)
+    {
+        if(dist[i]!=INT_MAX){
+            EV<<src<<"->"<<i<<"\t\t"<<dist[i]<<"\t\t"<<src;
+            printPath(parent, i);
+            EV<<"\n";
+        }
+    }
+
+}
+//-----------------ENDADDED
 
 
 
@@ -163,15 +192,17 @@ void GraphT::dijkstra(int src){//(int graph[V][V], int src){
     //int graph[20][20]=vertArr;
 
     int dist[V]; // The output array.  dist[i] will hold the shortest distance from src to i
-    //initialize dist array;
-    /*for(int iz=0; iz<V;iz++){
-        dist[iz]=0;
-    }*/
 
     bool sptSet[V]; // sptSet[i] will true if vertex i is included in shortest path tree or shortest distance from src to i is finalized
+
+    // Parent array to store shortest path tree
+     int parent[V];
+
     // Initialize all distances as INFINITE and stpSet[] as false
-    for (int i = 0; i < V; i++)
+    for (int i = 0; i < V; i++){
+        parent[src] = -1;
         dist[i] = INT_MAX, sptSet[i] = false;
+    }
     // Distance of source vertex from itself is always 0
     dist[src] = 0;
     // Find shortest path for all vertices
@@ -186,13 +217,15 @@ void GraphT::dijkstra(int src){//(int graph[V][V], int src){
             // u to v, and total weight of path from src to  v through u is
             // smaller than current value of dist[v]
             if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX && dist[u]
-                    + graph[u][v] < dist[v])
+                    + graph[u][v] < dist[v]){
+                parent[v] = u;
                 dist[v] = dist[u] + graph[u][v];
+                EV<<"Confi"<<graph[u][v]<<"\n";
+            }
     }
-
+    EV<<"DJ parent:"<<parent[0]<<" "<<parent[1]<<" "<<parent[2]<<" "<<parent[3]<<" "<<parent[4]<<" "<<parent[5]<<" "<<parent[6]<<"\n";
     // print the constructed distance array
-    printSolution(dist, V);
-
+    printSolution(dist, V, parent, src);
 }
 
 
