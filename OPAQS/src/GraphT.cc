@@ -35,6 +35,9 @@ void GraphT::maximumNoVert(int maximumNoVert){
     maxVert=maximumNoVert;
 }
 
+int GraphT::returnMaxNoVert(){
+    return maxVert;
+}
 
 void GraphT::displayMatrix(int v) {
    int i, j;
@@ -123,6 +126,9 @@ string GraphT::returnGraphT(){
     return graphS;
 }
 
+int GraphT::returnWGrapfT(int u, int v){
+    return graph[u][v];
+}
 
 /************************************************************************************************************
  * Dijkstra Treatment - Calculate distance between Nodes
@@ -220,7 +226,6 @@ void GraphT::dijkstra(int src){//(int graph[V][V], int src){
                     + graph[u][v] < dist[v]){
                 parent[v] = u;
                 dist[v] = dist[u] + graph[u][v];
-                EV<<"Confi"<<graph[u][v]<<"\n";
             }
     }
     EV<<"DJ parent:"<<parent[0]<<" "<<parent[1]<<" "<<parent[2]<<" "<<parent[3]<<" "<<parent[4]<<" "<<parent[5]<<" "<<parent[6]<<"\n";

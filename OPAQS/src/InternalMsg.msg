@@ -43,6 +43,8 @@ packet BeaconInfoMsg {
 	double MyPosY;
 	double SSI;
 	//int Nic; //0=wifi, 1=Bt,
+	string neighGraph;
+	int numberVert;
 }
 
 //******************************************************************************************************//
@@ -63,7 +65,7 @@ packet routingDecisionsMsg {
 }
 
 //******************************************************************************************************//
-// Message to provide the current metwork graph
+// --THIS WAS INCLUDED IN BEACONINFOMSG too--Message to provide the current metwork graph
 packet NetworkGraphMsg {
     //string graphN[];
     int numberVert;

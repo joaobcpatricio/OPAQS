@@ -148,7 +148,7 @@ bool RoutingLayer::getGraph(string graphS, int numberVert){ //String:" 1->2:4;\n
             //EV<<"Q1: "<<q1<<" V1: "<<v1<<" V2: "<<v2<<" W: "<<w1<<"\n";
             int vert1 = std::stoi (v1);
             int vert2 = std::stoi (v2);
-            double weight1 = std::stod (w1);
+            int weight1 = std::stod (w1);
             //EV<<" V1: "<<vert1<<" V2: "<<vert2<<" W: "<<weight1<<"\n";
             graphR.add_edge(vert1,vert2,weight1);
             //graphR.displayMatrix(3);

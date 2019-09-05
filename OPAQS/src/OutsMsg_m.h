@@ -241,7 +241,8 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimU
  *     double Prob;
  *     double MyPosX;
  *     double MyPosY;
- *     string neighMatrix;
+ *     string neighGraph;
+ *     int numberVert;
  * 	//int Nic; //por remover, passa a usar-se pelo MacAdd
  * }
  * </pre>
@@ -255,7 +256,8 @@ class BeaconMsg : public ::omnetpp::cPacket
     double Prob;
     double MyPosX;
     double MyPosY;
-    ::omnetpp::opp_string neighMatrix;
+    ::omnetpp::opp_string neighGraph;
+    int numberVert;
 
   private:
     void copy(const BeaconMsg& other);
@@ -286,15 +288,17 @@ class BeaconMsg : public ::omnetpp::cPacket
     virtual void setMyPosX(double MyPosX);
     virtual double getMyPosY() const;
     virtual void setMyPosY(double MyPosY);
-    virtual const char * getNeighMatrix() const;
-    virtual void setNeighMatrix(const char * neighMatrix);
+    virtual const char * getNeighGraph() const;
+    virtual void setNeighGraph(const char * neighGraph);
+    virtual int getNumberVert() const;
+    virtual void setNumberVert(int numberVert);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:116</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:117</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Data Request message.

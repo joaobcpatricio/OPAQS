@@ -822,6 +822,7 @@ BeaconInfoMsg::BeaconInfoMsg(const char *name, short kind) : ::omnetpp::cPacket(
     this->MyPosX = 0;
     this->MyPosY = 0;
     this->SSI = 0;
+    this->numberVert = 0;
 }
 
 BeaconInfoMsg::BeaconInfoMsg(const BeaconInfoMsg& other) : ::omnetpp::cPacket(other)
@@ -851,6 +852,8 @@ void BeaconInfoMsg::copy(const BeaconInfoMsg& other)
     this->MyPosX = other.MyPosX;
     this->MyPosY = other.MyPosY;
     this->SSI = other.SSI;
+    this->neighGraph = other.neighGraph;
+    this->numberVert = other.numberVert;
 }
 
 void BeaconInfoMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -864,6 +867,8 @@ void BeaconInfoMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->MyPosX);
     doParsimPacking(b,this->MyPosY);
     doParsimPacking(b,this->SSI);
+    doParsimPacking(b,this->neighGraph);
+    doParsimPacking(b,this->numberVert);
 }
 
 void BeaconInfoMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -877,6 +882,8 @@ void BeaconInfoMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->MyPosX);
     doParsimUnpacking(b,this->MyPosY);
     doParsimUnpacking(b,this->SSI);
+    doParsimUnpacking(b,this->neighGraph);
+    doParsimUnpacking(b,this->numberVert);
 }
 
 const char * BeaconInfoMsg::getSourceAddress() const
@@ -959,6 +966,26 @@ void BeaconInfoMsg::setSSI(double SSI)
     this->SSI = SSI;
 }
 
+const char * BeaconInfoMsg::getNeighGraph() const
+{
+    return this->neighGraph.c_str();
+}
+
+void BeaconInfoMsg::setNeighGraph(const char * neighGraph)
+{
+    this->neighGraph = neighGraph;
+}
+
+int BeaconInfoMsg::getNumberVert() const
+{
+    return this->numberVert;
+}
+
+void BeaconInfoMsg::setNumberVert(int numberVert)
+{
+    this->numberVert = numberVert;
+}
+
 class BeaconInfoMsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -1024,7 +1051,7 @@ const char *BeaconInfoMsgDescriptor::getProperty(const char *propertyname) const
 int BeaconInfoMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 8+basedesc->getFieldCount() : 8;
+    return basedesc ? 10+basedesc->getFieldCount() : 10;
 }
 
 unsigned int BeaconInfoMsgDescriptor::getFieldTypeFlags(int field) const
@@ -1044,8 +1071,10 @@ unsigned int BeaconInfoMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<8) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<10) ? fieldTypeFlags[field] : 0;
 }
 
 const char *BeaconInfoMsgDescriptor::getFieldName(int field) const
@@ -1065,8 +1094,10 @@ const char *BeaconInfoMsgDescriptor::getFieldName(int field) const
         "MyPosX",
         "MyPosY",
         "SSI",
+        "neighGraph",
+        "numberVert",
     };
-    return (field>=0 && field<8) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<10) ? fieldNames[field] : nullptr;
 }
 
 int BeaconInfoMsgDescriptor::findField(const char *fieldName) const
@@ -1081,6 +1112,8 @@ int BeaconInfoMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='M' && strcmp(fieldName, "MyPosX")==0) return base+5;
     if (fieldName[0]=='M' && strcmp(fieldName, "MyPosY")==0) return base+6;
     if (fieldName[0]=='S' && strcmp(fieldName, "SSI")==0) return base+7;
+    if (fieldName[0]=='n' && strcmp(fieldName, "neighGraph")==0) return base+8;
+    if (fieldName[0]=='n' && strcmp(fieldName, "numberVert")==0) return base+9;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1101,8 +1134,10 @@ const char *BeaconInfoMsgDescriptor::getFieldTypeString(int field) const
         "double",
         "double",
         "double",
+        "string",
+        "int",
     };
-    return (field>=0 && field<8) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<10) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **BeaconInfoMsgDescriptor::getFieldPropertyNames(int field) const
@@ -1177,6 +1212,8 @@ std::string BeaconInfoMsgDescriptor::getFieldValueAsString(void *object, int fie
         case 5: return double2string(pp->getMyPosX());
         case 6: return double2string(pp->getMyPosY());
         case 7: return double2string(pp->getSSI());
+        case 8: return oppstring2string(pp->getNeighGraph());
+        case 9: return long2string(pp->getNumberVert());
         default: return "";
     }
 }
@@ -1199,6 +1236,8 @@ bool BeaconInfoMsgDescriptor::setFieldValueAsString(void *object, int field, int
         case 5: pp->setMyPosX(string2double(value)); return true;
         case 6: pp->setMyPosY(string2double(value)); return true;
         case 7: pp->setSSI(string2double(value)); return true;
+        case 8: pp->setNeighGraph((value)); return true;
+        case 9: pp->setNumberVert(string2long(value)); return true;
         default: return false;
     }
 }

@@ -106,7 +106,7 @@ private:
 
      void sendNetworkGraph();
 
-     bool updateGraph(string graphS, string srcAdd);
+     bool updateGraph(string graphS, string srcAdd, string myAdd);
 
 
 

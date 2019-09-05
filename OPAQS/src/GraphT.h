@@ -40,7 +40,7 @@ public:
     ~GraphT();
 
     int Vv=20;
-    int maxVert;
+    int maxVert=V;
     int graph[V][V]; //HARDECODED VARIABLE  //the adjacency matrix initially 0
     int count=1;
 
@@ -61,7 +61,8 @@ public:
     int returnVertIDSize();
     string returnGraphT();
 
-    //int returnCount();
+    int returnMaxNoVert();
+    int returnWGrapfT(int u, int v);
 
 
 

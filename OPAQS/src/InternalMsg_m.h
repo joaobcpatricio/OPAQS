@@ -131,7 +131,9 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NeighbourListMsg& obj) {o
  *     double MyPosX;
  *     double MyPosY;
  *     double SSI;
- * 	//int Nic; //0=wifi, 1=Bt,
+ *     //int Nic; //0=wifi, 1=Bt,
+ *     string neighGraph;
+ *     int numberVert;
  * }
  * </pre>
  */
@@ -146,6 +148,8 @@ class BeaconInfoMsg : public ::omnetpp::cPacket
     double MyPosX;
     double MyPosY;
     double SSI;
+    ::omnetpp::opp_string neighGraph;
+    int numberVert;
 
   private:
     void copy(const BeaconInfoMsg& other);
@@ -180,13 +184,17 @@ class BeaconInfoMsg : public ::omnetpp::cPacket
     virtual void setMyPosY(double MyPosY);
     virtual double getSSI() const;
     virtual void setSSI(double SSI);
+    virtual const char * getNeighGraph() const;
+    virtual void setNeighGraph(const char * neighGraph);
+    virtual int getNumberVert() const;
+    virtual void setNumberVert(int numberVert);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconInfoMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconInfoMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:52</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:54</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // \@author : João Patrício (castanheirapatricio\@ua.pt)
@@ -237,7 +245,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const NeighbourListMsgBT& o
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NeighbourListMsgBT& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:61</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:63</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // Message of routing commands: indicate the chosen Nic
@@ -277,10 +285,10 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const routingDecisionsMsg& 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, routingDecisionsMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:67</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:69</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
- * // Message to provide the current metwork graph
+ * // --THIS WAS INCLUDED IN BEACONINFOMSG too--Message to provide the current metwork graph
  * packet NetworkGraphMsg
  * {
  *     //string graphN[];
