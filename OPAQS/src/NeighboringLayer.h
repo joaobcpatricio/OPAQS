@@ -107,7 +107,7 @@ private:
      void sendNetworkGraph();
 
      bool updateGraph(cMessage *msg);
-     bool updateMyNGraph();
+     bool updateMyNGraph(cMessage *msg);
 
      int maxLengthGraph;
 

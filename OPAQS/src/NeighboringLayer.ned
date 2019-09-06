@@ -42,6 +42,8 @@ simple NeighboringLayer
         double delayPerDataMsg = default(0.1); //s
 
 		int maximumNoVert = default(50);
+		
+		int maxLengthGraph=default(20);
 
         
     

@@ -41,7 +41,7 @@ void NeighboringLayer::initialize(int stage)
 
         maximumNoVert = par("maximumNoVert");
         //graphe.maximumNoVert(maximumNoVert);
-        maxLengthGraph=20;
+        maxLengthGraph=par("maxLengthGraph");
 
 
     } else if (stage == 1) {
@@ -130,7 +130,6 @@ void NeighboringLayer::handleNeighbourListMsgFromLowerLayer(cMessage *msg)//neig
  *Verifies neighborhood and updates the neighbors list and checks if GW is my neighbor
  */
 void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
-
      NeighbourListMsg *neighListMsg = dynamic_cast<NeighbourListMsg*>(msg);
      // if no neighbours or cache is empty, just return
      if (neighListMsg->getNeighbourNameListArraySize() == 0){       //AQUI VIA SE A CACHE ESTAVA VAZIA
@@ -216,7 +215,9 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
      syncedNeighbourListIHasChanged = TRUE;
 
      //Remove no longer direct-neighbors from me on graph
-     bool updtMyNeig=updateMyNGraph();
+     bool updtMyNeig=updateMyNGraph(msg);
+    // EV<<"Updated remove from graph\n";
+     //string answ=graphe.returnGraphT();
 
      // delete the received neighbor list msg
      delete msg;
@@ -311,6 +312,14 @@ void NeighboringLayer::updateNeighbourListBT(cMessage *msg){ //por fazer
      // synched neighbour list must be updated in next round
      // as there were changes
      syncedNeighbourListBTHasChanged = TRUE;
+
+
+     //Remove no longer direct-neighbors from me on graph
+     //bool updtMyNeig=updateMyNGraph(msg);
+     // EV<<"Updated remove from graph\n";
+     //string answ=graphe.returnGraphT();
+
+
      // delete the received neighbor list msg
      delete msg;
 }
@@ -510,29 +519,32 @@ void NeighboringLayer::sendNetworkGraph(){
 
 
 //Checks my Neighbor list and removes no longer direct-neighbors from Graph.
-bool NeighboringLayer::updateMyNGraph(){
-    SyncedNeighbour *syncedNeighbour = NULL;
-    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
+bool NeighboringLayer::updateMyNGraph(cMessage *msg){
+ NeighbourListMsg *neighListMsg = dynamic_cast<NeighbourListMsg*>(msg);
+
     bool found = FALSE;
     string addrN;
-    int idN;
+    int o=0;
     int myID=graphe.add_element(ownMACAddress);
     for(int i=0;i<maxLengthGraph;i++){
-        iteratorSyncedNeighbour = syncedNeighbourList.begin();
-        while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
-            syncedNeighbour = *iteratorSyncedNeighbour;
-            addrN=syncedNeighbour->nodeMACAddress;
+        while (o < neighListMsg->getNeighbourNameListArraySize()){
+            addrN = neighListMsg->getNeighbourNameList(o);
+            //EV<<"AddrN: "<<addrN<<"\n";
             int idN=std::stoi( addrN.substr(15,17));
+            //EV<<"AddrNum: "<<idN<<"\n";
             if (i==idN) {
+                //EV<<"idN:"<<idN<<"\n";
                 found = TRUE;
                 break;
             }
-            iteratorSyncedNeighbour++;
+            o++;
         }
         if(!found){
+            EV<<"rem id:"<<i<<"\n";
             graphe.rem_edge(myID,i);
         }
         found=FALSE;
+        o=0;
     }
     return true;
 }
