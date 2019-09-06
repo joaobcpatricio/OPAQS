@@ -41,6 +41,7 @@ void NeighboringLayer::initialize(int stage)
 
         maximumNoVert = par("maximumNoVert");
         //graphe.maximumNoVert(maximumNoVert);
+        maxLengthGraph=20;
 
 
     } else if (stage == 1) {
@@ -213,6 +214,10 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
      // synched neighbour list must be updated in next round
      // as there were changes
      syncedNeighbourListIHasChanged = TRUE;
+
+     //Remove no longer direct-neighbors from me on graph
+     bool updtMyNeig=updateMyNGraph();
+
      // delete the received neighbor list msg
      delete msg;
 }
@@ -504,78 +509,76 @@ void NeighboringLayer::sendNetworkGraph(){
 }
 
 
-
-
-
+//Checks my Neighbor list and removes no longer direct-neighbors from Graph.
+bool NeighboringLayer::updateMyNGraph(){
+    SyncedNeighbour *syncedNeighbour = NULL;
+    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
+    bool found = FALSE;
+    string addrN;
+    int idN;
+    int myID=graphe.add_element(ownMACAddress);
+    for(int i=0;i<maxLengthGraph;i++){
+        iteratorSyncedNeighbour = syncedNeighbourList.begin();
+        while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
+            syncedNeighbour = *iteratorSyncedNeighbour;
+            addrN=syncedNeighbour->nodeMACAddress;
+            int idN=std::stoi( addrN.substr(15,17));
+            if (i==idN) {
+                found = TRUE;
+                break;
+            }
+            iteratorSyncedNeighbour++;
+        }
+        if(!found){
+            graphe.rem_edge(myID,i);
+        }
+        found=FALSE;
+    }
+    return true;
+}
 
 
 //Saves the received graph from neighboring here for later use in decision;
-bool NeighboringLayer::updateGraph(string graphS, string srcAdd, string myAdd){ //String:" 1->2:4;\n2->1:4;\n "
-    EV<<"oi\n";
+bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n "
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+    string srcAdd=BeaconReceived->getSourceAddress();
+    string graphS=BeaconReceived->getNeighGraph();
+    string myAdd=ownMACAddress;
+
     int srcID=graphe.add_element(srcAdd);
     int myID=graphe.add_element(myAdd);
     int weight =2;
 
-    int array[20][20];
+    int array[maxLengthGraph][maxLengthGraph];
     for(int p1=0;p1<20;p1++){
         for(int p2=0;p2<20;p2++){
             array[p1][p2]=-1;
         }
     }
-    /*int array[15][15] = {{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-                             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}};*/
 
-
-
-
-
-    //Transform string into matrix
     std::string delimiter = ";";
-EV<<"GraphS: "<<graphS<<"\n";
-EV<< "Primeiro:"<<graphS.find(delimiter,0)<<"\n";
+
     int i=0;//, q1=0;
     for(i=0;i<graphS.length();i++){
         int j=graphS.find(delimiter,i);
         if(j==std::string::npos){
-            EV<<"FALSE"<<graphS.find(delimiter,i)<<"\n";
             return false;
         }else{
-
-            EV<<"True"<<graphS.find(delimiter,i)<<"\n";
-
             std::string token = graphS.substr(i, j-i);
-            EV<<"Got the: "<<token<<" at: "<<j<<".\n";
             int q1 = graphS.find("-",i);
             int q2 = graphS.find(":",i);
             string v1=graphS.substr(i,q1-i);
             string v2=graphS.substr(q1+2,q2-(q1+2));
             string w1=graphS.substr(q2+1,j-(q2+1));
-            //EV<<"Q1: "<<q1<<" V1: "<<v1<<" V2: "<<v2<<" W: "<<w1<<"\n";
             int vert1 = std::stoi (v1);
             int vert2 = std::stoi (v2);
             int weight1 = std::stod (w1);
-            //EV<<" V1: "<<vert1<<" V2: "<<vert2<<" W: "<<weight1<<"\n";
             array[vert1][vert2]=weight1;
             array[vert2][vert1]=weight1;
-            //graphR.add_edge(vert1,vert2,weight1);
-            //graphR.displayMatrix(3);             */
             i +=j+1;
         }
     }
-EV<<"oizao \n";
+    /*
     int f=0, g=0;
        //int count=0;
        for(f = 0; f < 4; f++) {
@@ -583,11 +586,11 @@ EV<<"oizao \n";
              EV << array[f][g] << " ";
           }
           EV<<"\n";
-       }
+       }*/
 
     //Adding the received graph to mine
-    for(int s=0;s<20;s++){//graphe.returnMaxNoVert();s++){
-        for(int o=0;o<20;o++){//graphe.returnMaxNoVert();o++){
+    for(int s=0;s<maxLengthGraph;s++){//graphe.returnMaxNoVert();s++){
+        for(int o=0;o<maxLengthGraph;o++){//graphe.returnMaxNoVert();o++){
             if((s!=myID && o!=myID)&& array[s][o]>=0){
                 graphe.add_edge(s,o,array[s][o]);
             }
@@ -596,9 +599,15 @@ EV<<"oizao \n";
             }
         }
     }
-    graphe.displayMatrix(4);
 
-       return true;
+    //UpdateMyGraph
+    double ssi_ext=fabs(calculateSSI(msg));
+    int ssi_extInt = static_cast<int>(ssi_ext < 0 ? ssi_ext - 0.5 : ssi_ext + 0.5);
+    graphe.add_edge(myID, srcID, ssi_extInt);
+
+    //graphe.displayMatrix(maxLengthGraph);
+
+    return true;
 }
 
 void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
@@ -617,46 +626,18 @@ EV<<"Teste graph: \n";
             myAdd=ownMACAddress;
         }
 
+    EV<< "O meu v de display é:"<<v<<"\n";
 
-    int myV=graphe.add_element(myAdd);
-    int sourV =graphe.add_element(sourAdd);
-    EV<< "A var é:"<<myV<<"\n";
-    //int posN = graphe.add_element(sourAdd);
-
-
-
-    graphe.add_edge(0,1,2);
-    graphe.add_edge(1,2,2);
-    graphe.add_edge(0,3,1);
-    graphe.add_edge(3,2,1);
-    /*graphe.add_edge(0,1,2);
-    graphe.add_edge(0,4,1);
-    graphe.add_edge(1,2,2);
-    graphe.add_edge(2,3,4);
-    graphe.add_edge(2,4,1);
-    graphe.add_edge(3,7,3);
-    graphe.add_edge(3,5,1);
-    graphe.add_edge(5,6,5);
-    graphe.add_edge(7,8,1);
-    graphe.add_edge(8,6,1);*/
-
-    graphe.dijkstra(0);
-
-
-    //graphe.add_edge(myV, sourV, 2);
-    graphe.displayMatrix(v);
-    //graphe.dijkstra(myV);
-    //graphe.dijkstra(sourV);
-    //graphe.returnGraphT();
-   // sendNetworkGraph();
 
 
 //UPdate of graph
-    bool updG =updateGraph(BeaconReceived->getNeighGraph(), BeaconReceived->getSourceAddress(),ownMACAddress);
+    bool updG =updateGraph(msg);
+    //bool updMyG=updateMyNGraph();
+    //EV<<"RSSI:"<<calculateSSI(msg)<<"\n";
 
-
-
-
+    graphe.displayMatrix(v);
+    string answ=graphe.returnGraphT();
+    graphe.dijkstra(0);
     EV<<"End test: \n";
 //-------------------
 

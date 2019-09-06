@@ -121,8 +121,7 @@ string GraphT::returnGraphT(){
             }
         }
     }
-    EV<<"Gráfico: \n"<<graphS<<"\n";
-
+    EV<<"Graph: \n"<<graphS<<"\n";
     return graphS;
 }
 
@@ -177,11 +176,11 @@ void GraphT::printPath(int parent[], int j)
 int GraphT::printSolution(int dist[], int n,int parent[], int src)
 {
     //int src = 0;
-    EV<<"Vertex\t Distance\t Path\n";
+    EV<<"Vertex\t Weight\t Path\n";
     for (int i = 1; i < V; i++)
     {
         if(dist[i]!=INT_MAX){
-            EV<<src<<"->"<<i<<"\t\t"<<dist[i]<<"\t\t"<<src;
+            EV<<src<<"->"<<i<<"    \t\t"<<dist[i]<<"     \t\t"<<src;
             printPath(parent, i);
             EV<<"\n";
         }
@@ -228,7 +227,6 @@ void GraphT::dijkstra(int src){//(int graph[V][V], int src){
                 dist[v] = dist[u] + graph[u][v];
             }
     }
-    EV<<"DJ parent:"<<parent[0]<<" "<<parent[1]<<" "<<parent[2]<<" "<<parent[3]<<" "<<parent[4]<<" "<<parent[5]<<" "<<parent[6]<<"\n";
     // print the constructed distance array
     printSolution(dist, V, parent, src);
 }
