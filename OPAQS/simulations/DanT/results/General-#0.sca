@@ -1,8 +1,8 @@
 version 2
-run Moves5-0-20190905-22:58:43-23324
-attr configname Moves5
-attr datetime 20190905-22:58:43
-attr experiment Moves5
+run General-0-20190905-22:58:49-23324
+attr configname General
+attr datetime 20190905-22:58:49
+attr experiment General
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
@@ -14,7 +14,6 @@ attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"paths/Moves5.movements\""
 param **.numNodes 2
 param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
@@ -51,15 +50,15 @@ param **.mobilityType "\"BonnMotionMobility\""
 param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 232
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 185
-scalar NetworkTormV2.node[1].routing numEventsHandled 132
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 186
+scalar NetworkTormV2.node[0].routing numEventsHandled 241
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 232
+scalar NetworkTormV2.node[1].routing numEventsHandled 141
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 232
 scalar NetworkTormV2 neighbourhoodSize:min 0
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:max 1
 attr source neighbourhoodSize
-scalar NetworkTormV2 neighbourhoodSize:mean 0.56666666666667
+scalar NetworkTormV2 neighbourhoodSize:mean 0.70666666666667
 attr source neighbourhoodSize
 scalar NetworkTormV2 cacheBytesUpdatedSum:max -nan
 attr source sum(cacheBytesUpdated)

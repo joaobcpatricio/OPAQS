@@ -1,24 +1,22 @@
-file 23615 1567730449                                           
+file 10159 1567720720                                           
 version 2
-run A-1-20190906-01:40:45-31035
-attr configname A
-attr datetime 20190906-01:40:45
-attr experiment A
+run SteadyWithMsg-0-20190905-22:58:37-23324
+attr configname SteadyWithMsg
+attr datetime 20190905-22:58:37
+attr experiment SteadyWithMsg
 attr inifile SimV2.ini
-attr iterationvars $0=3
-attr iterationvarsf 3-
-attr measurement $0=3
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
 attr network NetworkTormV2
-attr processid 31035
+attr processid 23324
 attr repetition 0
 attr replication #0
 attr resultdir results
-attr runnumber 1
-attr seedset 1
-param **.mobility.traceFile "\"paths/A.movements\""
-param **.numNodes 3
-param **.wirelessIfc.wirelessRange 25m
-param **.bluetoothIfc.wirelessRange 25m
+attr runnumber 0
+attr seedset 0
+param **.application.dataGenerationInterval 4s
+param **.mobility.traceFile "\"paths/Steady1.movements\""
 param **.numNodes 2
 param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
@@ -41,7 +39,6 @@ param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
 param **.neighboring.sendWifiFirst true
-param **.neighboring.maxLengthGraph 20
 param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
@@ -64,8 +61,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2394 11769 10 6844 0.05 10 900 1 2 1200 1800
-1	14163 1657 19 244 0.1 0.199 100 -nan -nan -nan -nan
-2	15820 3897 762 3310 1.11904 2.072 200 36 7200 723600 3481963200
-3	19717 3897 762 3310 1.11904 2.072 200 36 7200 723600 3481963200
+0	2341 7663 7 2776 0.05 10 600 1 1 600 600
+1	10004 46 13 2235 0.1 8.1 3 -nan -nan -nan -nan
+2	10050 54 238 2316 1.11456 8.31456 3 36 108 216 18144
+3	10104 54 238 2316 1.11456 8.31456 3 36 108 216 18144
 

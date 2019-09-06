@@ -1,15 +1,15 @@
-file 50476 1566933960                                           
+file 15593 1567720726                                           
 version 2
-run Moves5-0-20190827-20:25:57-9812
+run Moves5-0-20190905-22:58:43-23324
 attr configname Moves5
-attr datetime 20190827-20:25:57
+attr datetime 20190905-22:58:43
 attr experiment Moves5
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 9812
+attr processid 23324
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -27,7 +27,8 @@ param **application.nodesThatGen true
 param **application.nodesGenMsg "\"0\""
 param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
-param **.routingLayer "\"EpidemicRoutingLayer\""
+param **application.hopsListSize 50
+param **.routingLayer "\"RoutingLayer\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
@@ -37,7 +38,6 @@ param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
 param **.neighboring.sendWifiFirst true
-param **.storage.maximumCacheSize 5000byte
 param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
@@ -60,8 +60,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2285 8158 7 12909 0.05 10 600 0 1 340 340
-1	10443 1652 13 230 0.1 0.199 100 -nan -nan -nan -nan
-2	12095 19190 645 12900 1.11456 9.99744 931 36 33516 15618456 349166202336
-3	31285 19190 645 12900 1.11456 9.99744 931 36 33516 15618456 349166202336
+0	2272 7842 7 3181 0.05 10 600 0 1 340 340
+1	10114 1652 13 230 0.1 0.199 100 -nan -nan -nan -nan
+2	11766 1913 645 1749 1.11456 1.65312 100 36 3600 181800 438501600
+3	13679 1913 645 1749 1.11456 1.65312 100 36 3600 181800 438501600
 
