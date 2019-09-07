@@ -40,6 +40,7 @@ int GraphT::returnMaxNoVert(){
 }
 
 void GraphT::displayMatrix(int v) {
+    EV<<"Matrix: \n";
    int i, j;
    //int count=0;
    for(i = 0; i < v; i++) {
@@ -129,6 +130,7 @@ int GraphT::returnWGrapfT(int u, int v){
     return graph[u][v];
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------//
 /************************************************************************************************************
  * Dijkstra Treatment - Calculate distance between Nodes
  */
@@ -148,6 +150,9 @@ int GraphT::minDistance(int dist[], bool sptSet[]){
     return min_index;
 }
 
+void GraphT::cleanSmallPath(){
+    smallPath.clear();
+}
 
 // A utility function to print the constructed distance array
 /*int GraphT::printSolution(int dist[], int n){
@@ -170,6 +175,7 @@ void GraphT::printPath(int parent[], int j)
         return;
     printPath(parent, parent[j]);
     EV<<j;
+    smallPath.append(std::to_string(j));
 }
 
 // A utility function to print the constructed distance array
@@ -177,23 +183,45 @@ int GraphT::printSolution(int dist[], int n,int parent[], int src)
 {
     //int src = 0;
     EV<<"Vertex\t Weight\t Path\n";
-    for (int i = 1; i < V; i++)
+    for (int i = 0; i < V-1; i++)
     {
         if(dist[i]!=INT_MAX){
             EV<<src<<"->"<<i<<"    \t\t"<<dist[i]<<"     \t\t"<<src;
+            smallPath=std::to_string(src);
             printPath(parent, i);
             EV<<"\n";
+           // EV<<"Small Path: "<<smallPath<<"\n";
+            cleanSmallPath();
         }
     }
 
 }
-//-----------------ENDADDED
+
+// A utility function to print the constructed distance array
+string GraphT::returnSmallPath(int dist[],int parent[], int src, int dst)
+{
+    string returnSmallPath;
+    //int src = 0;
+    EV<<"Small path between "<<src<<" and "<<dst<<"\n";
+    EV<<"Vertex\t Weight\t Path\n";
+    if(dist[dst]!=INT_MAX){
+        EV<<src<<"->"<<dst<<"    \t\t"<<dist[dst]<<"     \t\t"<<src;
+        smallPath=std::to_string(src);
+        printPath(parent, dst);
+        EV<<"\n";
+        EV<<"Small Path: "<<smallPath<<"\n";
+    }
+    returnSmallPath=smallPath;
+    cleanSmallPath();
+    return returnSmallPath;
+
+}
 
 
 
 // Funtion that implements Dijkstra's single source shortest path algorithm
 // for a graph represented using adjacency matrix representation
-void GraphT::dijkstra(int src){//(int graph[V][V], int src){
+void GraphT::dijkstra(int src, int dst){//(int graph[V][V], int src){
     //int graph[20][20]=vertArr;
 
     int dist[V]; // The output array.  dist[i] will hold the shortest distance from src to i
@@ -227,8 +255,10 @@ void GraphT::dijkstra(int src){//(int graph[V][V], int src){
                 dist[v] = dist[u] + graph[u][v];
             }
     }
+    cleanSmallPath();
     // print the constructed distance array
     printSolution(dist, V, parent, src);
+    returnSmallPath(dist,parent, src, dst);
 }
 
 

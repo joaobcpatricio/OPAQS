@@ -195,6 +195,8 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
 
              //Added 23/07/19 15h25
              if(sendWifiFirst){
+                 //bool updtMyNeig=updateMyNGraph(msg);
+
                  EV<<"Send Beacon through Wifi\n";
                  msgIsBT=false;
                  // send beacon (to start syncing)
@@ -203,6 +205,8 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
                  //Added 27/06 1h26
                  //get my prob based on distance
                  distProb=GWisMyNeigh(msg);
+                 //EV<<"Set on beacon g: "<<beaconMsg->getNeighGraph()<<"\n";
+                 //EV<<"Destin: "<<beaconMsg->getDestinationAddress()<<"\n";
                  send(beaconMsg, "lowerLayerOut");
              }
          }
@@ -293,6 +297,13 @@ void NeighboringLayer::updateNeighbourListBT(cMessage *msg){ //por fazer
 
              //Added 23/07/19 15h25
              if(!sendWifiFirst){
+
+
+                 //Remove no longer direct-neighbors from me on graph
+                      bool updtMyNeig=updateMyNGraph(msg);
+                      // EV<<"Updated remove from graph\n";
+                      //string answ=graphe.returnGraphT();
+
                  EV<<"N: Send Beacon through BT\n";
                  msgIsBT=true;
                  // send beacon (to start syncing)
@@ -315,7 +326,7 @@ void NeighboringLayer::updateNeighbourListBT(cMessage *msg){ //por fazer
 
 
      //Remove no longer direct-neighbors from me on graph
-     //bool updtMyNeig=updateMyNGraph(msg);
+    // bool updtMyNeig=updateMyNGraph(msg);
      // EV<<"Updated remove from graph\n";
      //string answ=graphe.returnGraphT();
 
@@ -357,6 +368,7 @@ BeaconMsg* NeighboringLayer::makeBeaconVectorMessage(cMessage *msg)//cache
     beaconMsg->setMyPosY(ownCoord.y);
     //Added 5/09/19
     beaconMsg->setNeighGraph(graphe.returnGraphT().c_str());
+    //EV<<"Set on beacon g: "<<graphe.returnGraphT().c_str()<<"\n";
     beaconMsg->setNumberVert(graphe.returnVertIDSize());
 
     return beaconMsg;
@@ -556,7 +568,7 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     string srcAdd=BeaconReceived->getSourceAddress();
     string graphS=BeaconReceived->getNeighGraph();
     string myAdd=ownMACAddress;
-
+    //EV<<"Graph Recebido: "<<graphS<<" de comprimento:"<<graphS.length()<<"\n";
     int srcID=graphe.add_element(srcAdd);
     int myID=graphe.add_element(myAdd);
     int weight =2;
@@ -585,40 +597,46 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
             int vert1 = std::stoi (v1);
             int vert2 = std::stoi (v2);
             int weight1 = std::stod (w1);
+            //EV<<"WEI: "<<w1<<"\n";
             array[vert1][vert2]=weight1;
             array[vert2][vert1]=weight1;
-            i +=j+1;
+            i =j+1;
+            //EV<<"i="<<i<<"\n";
         }
     }
-    /*
+   /* EV<<"Array recebido: \n";
     int f=0, g=0;
-       //int count=0;
-       for(f = 0; f < 4; f++) {
-          for(g = 0; g < 4; g++) {
-             EV << array[f][g] << " ";
-          }
-          EV<<"\n";
-       }*/
+    //int count=0;
+    for(f = 0; f < 5; f++) {
+        for(g = 0; g < 5; g++) {
+            EV << array[f][g] << " ";
+        }
+        EV<<"\n";
+    }*/
+
+    //Clean direct-link line
+    for(int h=0;h<maxLengthGraph;h++){
+        graphe.rem_edge(srcID, h);
+    }
 
     //Adding the received graph to mine
     for(int s=0;s<maxLengthGraph;s++){//graphe.returnMaxNoVert();s++){
         for(int o=0;o<maxLengthGraph;o++){//graphe.returnMaxNoVert();o++){
             if((s!=myID && o!=myID)&& array[s][o]>=0){
                 graphe.add_edge(s,o,array[s][o]);
+                //EV<<"Added: "<<array[s][o]<<"at"<<s<<o<<"\n";
             }
             if(((s==myID && o==srcID)||(s==srcID && o==myID))&& array[s][o]>=0){
                 graphe.add_edge(s,o,array[s][o]);
+                //EV<<"Added2: "<<array[s][o]<<"at"<<s<<o<<"\n";
             }
         }
     }
-
     //UpdateMyGraph
     double ssi_ext=fabs(calculateSSI(msg));
     int ssi_extInt = static_cast<int>(ssi_ext < 0 ? ssi_ext - 0.5 : ssi_ext + 0.5);
     graphe.add_edge(myID, srcID, ssi_extInt);
-
     //graphe.displayMatrix(maxLengthGraph);
-
     return true;
 }
 
@@ -629,7 +647,8 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 EV<<"Teste graph: \n";
 //-Teste graph-------------------
 
-    int v = 4;//9; //there are 6 vertices in the graph
+
+    int v = 5;//9; //there are 6 vertices in the graph
     string sourAdd = BeaconReceived->getSourceAddress();
     string myAdd;
     if((sourAdd.substr(0,2))=="BT"){
@@ -637,8 +656,14 @@ EV<<"Teste graph: \n";
         }else{
             myAdd=ownMACAddress;
         }
+    int srcID=graphe.add_element(sourAdd);
+    int myID=graphe.add_element(myAdd);
 
-    EV<< "O meu v de display é:"<<v<<"\n";
+    //EV<<"Graph Before Update: \n";
+    //graphe.displayMatrix(v);
+   // string answb=graphe.returnGraphT();
+
+    //EV<< "O meu v de display é:"<<v<<"\n";
 
 
 
@@ -647,9 +672,10 @@ EV<<"Teste graph: \n";
     //bool updMyG=updateMyNGraph();
     //EV<<"RSSI:"<<calculateSSI(msg)<<"\n";
 
-    graphe.displayMatrix(v);
+    //graphe.displayMatrix(v);
+    //EV<<"Graph After Update: \n";
     string answ=graphe.returnGraphT();
-    graphe.dijkstra(0);
+    graphe.dijkstra(myID,srcID);
     EV<<"End test: \n";
 //-------------------
 

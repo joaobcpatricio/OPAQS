@@ -1,14 +1,14 @@
 version 2
-run A-1-20190828-01:32:34-6638
+run A-1-20190907-04:38:29-11506
 attr configname A
-attr datetime 20190828-01:32:34
+attr datetime 20190907-04:38:29
 attr experiment A
 attr inifile SimV2.ini
 attr iterationvars $0=3
 attr iterationvarsf 3-
 attr measurement $0=3
 attr network NetworkTormV2
-attr processid 6638
+attr processid 11506
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -40,7 +40,7 @@ param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
 param **.neighboring.sendWifiFirst true
-param **.storage.maximumCacheSize 5000byte
+param **.neighboring.maxLengthGraph 20
 param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps

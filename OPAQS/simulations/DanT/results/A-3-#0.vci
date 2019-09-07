@@ -1,15 +1,15 @@
-file 23615 1567730449                                           
+file 23615 1567827513                                           
 version 2
-run A-1-20190906-01:40:45-31035
+run A-1-20190907-04:38:29-11506
 attr configname A
-attr datetime 20190906-01:40:45
+attr datetime 20190907-04:38:29
 attr experiment A
 attr inifile SimV2.ini
 attr iterationvars $0=3
 attr iterationvarsf 3-
 attr measurement $0=3
 attr network NetworkTormV2
-attr processid 31035
+attr processid 11506
 attr repetition 0
 attr replication #0
 attr resultdir results

@@ -56,7 +56,7 @@ public:
     void printPath(int parent[], int j);
 
 
-    void dijkstra( int src);
+    void dijkstra( int src, int dst);
 
     int returnVertIDSize();
     string returnGraphT();
@@ -64,6 +64,10 @@ public:
     int returnMaxNoVert();
     int returnWGrapfT(int u, int v);
 
+
+    string smallPath;
+    void cleanSmallPath();
+    string returnSmallPath(int dist[],int parent[], int src, int dst);
 
 
 
