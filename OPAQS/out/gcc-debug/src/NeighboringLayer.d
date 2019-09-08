@@ -11,8 +11,8 @@
  ../../inet/src/inet/common/geometry/common/Coord.h \
  ../../inet/src/inet/common/INETMath.h \
  ../../inet/src/inet/common/geometry/common/EulerAngles.h \
- ../../inet/src/inet/common/Units.h BaseNodeInfo.h WirelessInterface.h \
- BluetoothInterface.h
+ ../../inet/src/inet/common/Units.h GraphT.h BaseNodeInfo.h \
+ WirelessInterface.h BluetoothInterface.h
 
 NeighboringLayer.h:
 
@@ -47,6 +47,8 @@ StorageM.h:
 ../../inet/src/inet/common/geometry/common/EulerAngles.h:
 
 ../../inet/src/inet/common/Units.h:
+
+GraphT.h:
 
 BaseNodeInfo.h:
 

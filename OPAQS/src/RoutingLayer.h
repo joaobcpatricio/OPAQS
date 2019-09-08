@@ -70,7 +70,7 @@ private:
 
     void handleNetworkGraphMsg(cMessage *msg);
     GraphT graphR;
-    bool getGraph(string graphS, int numberVert);
+    bool getGraph(string graphS);//, int numberVert);
 
 
     //Cache

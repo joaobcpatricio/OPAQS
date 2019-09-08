@@ -1,15 +1,15 @@
-file 36050 1567730541                                           
+file 38312 1567962598                                           
 version 2
-run B-0-20190906-01:42:11-31142
+run B-0-20190908-18:09:42-8285
 attr configname B
-attr datetime 20190906-01:42:11
+attr datetime 20190908-18:09:42
 attr experiment B
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 31142
+attr processid 8285
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -24,8 +24,8 @@ param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:02\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.destinationAddr "\"Wf:00:00:00:00:09\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:09\""
 param **application.nodesThatGen true
 param **application.nodesGenMsg "\"0\""
 param **application.startMultipleMsg true
@@ -39,7 +39,7 @@ param **.neighboring.antiEntropyInterval 200ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
-param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
+param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.wirelessIfc.wirelessRange 15m
@@ -64,8 +64,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2390 16004 13 11781 0.05 10 1200 2 2 2400 4800
-1	18394 1663 25 259 0.1 0.199 100 -nan -nan -nan -nan
-2	20057 7996 1116 6410 1.12368 2.57792 400 36 14400 2887200 27751766400
-3	28053 7996 1116 6410 1.12368 2.57792 400 36 14400 2887200 27751766400
+0	2388 16108 13 12392 0.05 10 1200 2 2 2400 4800
+1	18496 1663 25 259 0.1 0.199 100 -nan -nan -nan -nan
+2	20159 9076 1116 7002 1.12368 2.56376 452 36 16272 3685608 40025702880
+3	29235 9076 1116 7002 1.12368 2.56376 452 36 16272 3685608 40025702880
 

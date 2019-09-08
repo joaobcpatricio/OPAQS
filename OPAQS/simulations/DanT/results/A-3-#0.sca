@@ -1,14 +1,14 @@
 version 2
-run A-1-20190907-04:38:29-11506
+run A-1-20190909-00:24:43-6358
 attr configname A
-attr datetime 20190907-04:38:29
+attr datetime 20190909-00:24:43
 attr experiment A
 attr inifile SimV2.ini
 attr iterationvars $0=3
 attr iterationvarsf 3-
 attr measurement $0=3
 attr network NetworkTormV2
-attr processid 11506
+attr processid 6358
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -38,7 +38,7 @@ param **.neighboring.antiEntropyInterval 200ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
-param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
+param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.wirelessIfc.wirelessRange 15m
@@ -55,11 +55,11 @@ param **.mobilityType "\"BonnMotionMobility\""
 param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 259
+scalar NetworkTormV2.node[0].routing numEventsHandled 260
 scalar NetworkTormV2.node[0].neighboring numEventsHandled 329
-scalar NetworkTormV2.node[1].routing numEventsHandled 320
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 359
-scalar NetworkTormV2.node[2].routing numEventsHandled 162
+scalar NetworkTormV2.node[1].routing numEventsHandled 322
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 361
+scalar NetworkTormV2.node[2].routing numEventsHandled 163
 scalar NetworkTormV2.node[2].neighboring numEventsHandled 331
 scalar NetworkTormV2 neighbourhoodSize:min 1
 attr source neighbourhoodSize

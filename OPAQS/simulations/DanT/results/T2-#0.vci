@@ -1,15 +1,15 @@
-file 16640 1567827470                                           
+file 60164 1567962545                                           
 version 2
-run T2-0-20190907-04:37:37-11506
+run T2-0-20190908-18:08:54-8285
 attr configname T2
-attr datetime 20190907-04:37:37
+attr datetime 20190908-18:08:54
 attr experiment T2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 11506
+attr processid 8285
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -24,8 +24,8 @@ param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:02\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.destinationAddr "\"Wf:00:00:00:00:09\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:09\""
 param **application.nodesThatGen true
 param **application.nodesGenMsg "\"0\""
 param **application.startMultipleMsg true
@@ -39,7 +39,7 @@ param **.neighboring.antiEntropyInterval 200ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
-param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
+param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.wirelessIfc.wirelessRange 15m
@@ -64,8 +64,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2394 3670 16 4112 0.05 1.95 290 1 3 696 1856
-1	6064 1669 31 274 0.1 0.199 100 -nan -nan -nan -nan
-2	7733 4453 1058 4384 1.12352 1.99608 227 36 8172 931608 5086579680
-3	12186 4453 1058 4384 1.12352 1.99608 227 36 8172 931608 5086579680
+0	2392 20720 16 19360 0.05 10 1500 1 3 3600 9600
+1	23112 1669 31 274 0.1 0.199 100 -nan -nan -nan -nan
+2	24781 17691 1058 12745 1.12352 3.34328 857 36 30852 13235508 272386754640
+3	42472 17691 1058 12745 1.12352 3.34328 857 36 30852 13235508 272386754640
 

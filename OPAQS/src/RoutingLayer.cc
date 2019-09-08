@@ -129,7 +129,7 @@ void RoutingLayer::handleMessage(cMessage *msg)
 }
 
 //Saves the received graph from neighboring here for later use in decision;
-bool RoutingLayer::getGraph(string graphS, int numberVert){ //String:" 1->2:4;\n2->1:4;\n "
+bool RoutingLayer::getGraph(string graphS){//, int numberVert){ //String:" 1->2:4;\n2->1:4;\n "
     std::string delimiter = ";";
 
     int i=0;//, q1=0;
@@ -152,9 +152,9 @@ bool RoutingLayer::getGraph(string graphS, int numberVert){ //String:" 1->2:4;\n
             //EV<<" V1: "<<vert1<<" V2: "<<vert2<<" W: "<<weight1<<"\n";
             graphR.add_edge(vert1,vert2,weight1);
             //graphR.displayMatrix(3);
-            EV<<"Graph on Routing: \n";
+            //EV<<"Graph on Routing: \n";
             string GraphSR=graphR.returnGraphT();
-            i +=j+1;
+            i =j+1;
 
         }
     }
@@ -164,10 +164,10 @@ void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
     EV<<"Routing: handleNetworkGraphMsg\n";
     NetworkGraphMsg *neighGraphMsg = dynamic_cast<NetworkGraphMsg*>(msg);
     string graphS = neighGraphMsg->getGraphN();
-    int numberVert = neighGraphMsg->getNumberVert();
+    //int numberVert = neighGraphMsg->getNumberVert();
     //int countVert = neighGraphMsg->getCountVert();
     EV<<"Recebeu-se: "<<graphS<<"\n";
-    bool updt=getGraph(graphS, numberVert);
+    bool updt=getGraph(graphS);
     if(updt){ EV<<"Graph Updated\n";}else{EV<<"Graph not updated due to empty string\n";}
 
     delete msg;
@@ -193,13 +193,13 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
         iteratorMessageIDList = selectedMessageIDList.begin();
         inCache = selectedMessageIDList.size();
         int i=0;
-        while (iteratorMessageIDList != selectedMessageIDList.end()) {
+        while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
             EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
             string messageID = *iteratorMessageIDList;
             bool found = Stor.msgIDExists(messageID);
             int position=Stor.msgIDListPos(messageID);
-            if(found){
-            //EV<<"OI5 position= "<<position<<"\n";
+            if(found){ //if there is a stored DataMsg
+
                 //verify NIC:
                 string SouceDRAdd = dataRequestMsg->getSourceAddress();
                 if((SouceDRAdd.substr(0,2))=="BT"){
@@ -208,15 +208,15 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                     MyAddH=ownMACAddress;
                 }
 
-                //DataMsg *dataMsg = Stor.pullOutMsg(msg,ownMACAddress, position);
                 DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
+                string destAdd = dataRequestMsg->getSourceAddress();
+                string gwAdd = dataMsg->getFinalDestinationNodeName();
 
-                //Verifies if destination is not on the prevHopList of  the Stored Msg
+                //Loop Avoidance
                 int count1=0;
-                bool foundH=false;
+                bool foundH=false, msgSent=false;
                 int sizeH = dataMsg->getPrevHopsListArraySize();
                 string HopAdd=dataMsg->getPrevHopsList(count1);
-                string destAdd = dataRequestMsg->getSourceAddress();
                 EV<<"Pos1: "<<dataMsg->getPrevHopsList(0)<<" source: "<<dataRequestMsg->getSourceAddress()<<"\n";
                 while(count1<sizeH){
                     HopAdd=dataMsg->getPrevHopsList(count1);
@@ -228,12 +228,44 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                     count1++;
                 }
 
-
-                EV<<"Sending Data Msg\n";
-                if(foundH==false){
+                //Verifies if DataMsg destination is this neighbor and DataMsg has not been send yet, if so, send directly with Loop Avoidance
+                if(dataMsg->getFinalDestinationNodeName()==destAdd && foundH==false){
+                    EV<<"Direct Neigh is final dest. \n";
                     send(dataMsg, "lowerLayerOut");
+                    msgSent = true;
+                    //break;
+                }else{
+                    int myID=graphR.add_element(MyAddH);
+                    int gwID=graphR.add_element(gwAdd);
+                    int dstID=graphR.add_element(destAdd);
+                    bool isInShortPath=false;
+                    graphR.dijkstra(myID, gwID);
+
+
+
+                    //Verifies if destination is not on the prevHopList of  the Stored Msg - Loop Avoidance
+                    EV<<"Sending Data Msg\n";
+                    if(foundH==false && msgSent==false){
+
+                        //Checks if there is a shortest path between me and GW
+                        string sPth=graphR.returnShortestPath(myID,gwID);
+                        EV<<"sPth="<<sPth<<".\n";
+                        bool existsPath=true;
+                        if(sPth==""){
+                            EV<<"No near Path\n";
+                            existsPath=false;
+                        }
+                        if(existsPath){
+                            //Verify if  that shortest path between me and GW includes this neighbor, if so, send
+                            isInShortPath=graphR.isInShortPath(myID,gwID, dstID);
+                            if(isInShortPath){
+                                send(dataMsg, "lowerLayerOut");
+                            }
+                        }
+                    }
                 }
             }
+            EV<<"Add++\n";
             iteratorMessageIDList++;
         }
     //} else{ EV<<"Probability too low to send mensage \n"; }
@@ -248,6 +280,15 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
 void RoutingLayer::handleBeaconInfo(cMessage *msg){
     EV<<"Routing: handleBeacon\n";
     BeaconInfoMsg *beaconMsg = dynamic_cast<BeaconInfoMsg*>(msg);
+
+
+    //Save Graph Matrix on RoutingLayer
+    string myGraph=beaconMsg->getNeighGraph();
+    //int npos=beaconMsg->getNumberVert();
+    EV<<"Graph in routing: \n";
+    getGraph(myGraph);
+
+
 
     DataReqMsg *dataRequestMsg = new DataReqMsg();
 //changed 23/07/19 17h54

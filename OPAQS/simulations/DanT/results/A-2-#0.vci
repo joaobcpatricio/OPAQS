@@ -1,15 +1,15 @@
-file 15710 1567827499                                           
+file 11591 1567984756                                           
 version 2
-run A-0-20190907-04:38:16-11506
+run A-0-20190909-00:19:14-6127
 attr configname A
-attr datetime 20190907-04:38:16
+attr datetime 20190909-00:19:14
 attr experiment A
 attr inifile SimV2.ini
 attr iterationvars $0=2
 attr iterationvarsf 2-
 attr measurement $0=2
 attr network NetworkTormV2
-attr processid 11506
+attr processid 6127
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -24,8 +24,8 @@ param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:02\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.destinationAddr "\"Wf:00:00:00:00:09\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:09\""
 param **application.nodesThatGen true
 param **application.nodesGenMsg "\"0\""
 param **application.startMultipleMsg true
@@ -39,7 +39,7 @@ param **.neighboring.antiEntropyInterval 200ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
-param **.neighboring.GWAddr "\"02:00:00:00:00:03\""
+param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.wirelessIfc.wirelessRange 15m
@@ -60,12 +60,6 @@ vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
 attr source neighbourhoodSize
 vector 1 NetworkTormV2 deliveryRatio:vector ETV
 attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
-vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
-attr source sum(dataBytesReceived)
-vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
-attr source sum(totalBytesReceived)
-0	2394 7842 7 3978 0.05 10 600 1 1 600 600
-1	10236 1651 13 229 0.1 0.199 100 -nan -nan -nan -nan
-2	11887 1911 634 1733 1.11456 1.65312 100 36 3600 181800 438501600
-3	13798 1911 634 1733 1.11456 1.65312 100 36 3600 181800 438501600
+0	2210 7729 7 2934 0.05 10 600 1 1 600 600
+1	9939 1651 13 229 0.1 0.199 100 -nan -nan -nan -nan
 

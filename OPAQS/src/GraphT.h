@@ -54,26 +54,17 @@ public:
     int minDistance(int dist[], bool sptSet[]);
     int printSolution(int dist[],int n, int parent[], int srcs);
     void printPath(int parent[], int j);
-
-
     void dijkstra( int src, int dst);
-
     int returnVertIDSize();
     string returnGraphT();
-
     int returnMaxNoVert();
     int returnWGrapfT(int u, int v);
-
-
     string smallPath;
     void cleanSmallPath();
     string returnSmallPath(int dist[],int parent[], int src, int dst);
 
-
-
-
-
-
+    string returnShortestPath(int src, int dst);
+    bool isInShortPath(int src, int gw, int dest);
 };
 
 

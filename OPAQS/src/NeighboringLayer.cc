@@ -335,8 +335,6 @@ void NeighboringLayer::updateNeighbourListBT(cMessage *msg){ //por fazer
      delete msg;
 }
 
-
-
 /*************************************************************************************************
  *Makes Msg that is sent under
  */
@@ -377,9 +375,8 @@ BeaconMsg* NeighboringLayer::makeBeaconVectorMessage(cMessage *msg)//cache
 
 
 /**********************************************************************************************************
- ⇒Receives a node's MACAdd, checks if it's on the list, if not it adds it at the list end; Returns the memory add where the syncedNeighbour(node) is saved;
+ * ⇒ Receives a node's MACAdd, checks if it's on the list, if not it adds it at the list end; Returns the memory add where the syncedNeighbour(node) is saved;
  */
-
 NeighboringLayer::SyncedNeighbour* NeighboringLayer::getSyncingNeighbourInfo(string nodeMACAddress)//neigh
 {
     // check if sync entry is there
@@ -457,7 +454,6 @@ void NeighboringLayer::setSyncingNeighbourInfoForNoNeighbours()//neigh
         iteratorSyncedNeighbour++;
     }
 }
-//ADDED 23/07/19 15h15
 void NeighboringLayer::setSyncingNeighbourInfoForNoNeighboursBT()//neigh
 {
     // loop thru syncing neighbor list and set for next round
@@ -518,7 +514,8 @@ void NeighboringLayer::setSyncingNeighbourInfoForNextRoundBT()//neigh
     }
 }
 
-void NeighboringLayer::sendNetworkGraph(){
+//not going to be used - DELETE
+/*void NeighboringLayer::sendNetworkGraph(){
     NetworkGraphMsg *neighGraphMsg = new NetworkGraphMsg("Network Graph Msg");
     //neighGraphMsg->setGraphNArraySize(graphe.returnVertIDSize());
     neighGraphMsg->setNumberVert(graphe.returnVertIDSize());
@@ -527,10 +524,11 @@ void NeighboringLayer::sendNetworkGraph(){
 
     send(neighGraphMsg, "upperLayerOut");
 
-}
+}*/
 
-
-//Checks my Neighbor list and removes no longer direct-neighbors from Graph.
+/*************************************************************************
+ * ⇒ Checks my Neighbor list and removes no longer direct-neighbors from Graph.
+ */
 bool NeighboringLayer::updateMyNGraph(cMessage *msg){
  NeighbourListMsg *neighListMsg = dynamic_cast<NeighbourListMsg*>(msg);
 
@@ -552,7 +550,7 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
             o++;
         }
         if(!found){
-            EV<<"rem id:"<<i<<"\n";
+            //EV<<"rem id:"<<i<<"\n";
             graphe.rem_edge(myID,i);
         }
         found=FALSE;
@@ -561,8 +559,9 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
     return true;
 }
 
-
-//Saves the received graph from neighboring here for later use in decision;
+/*************************************************************************
+ * ⇒ Saves the received graph from neighboring here for later use in decision;
+ */
 bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n "
     BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
     string srcAdd=BeaconReceived->getSourceAddress();
@@ -581,7 +580,6 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     }
 
     std::string delimiter = ";";
-
     int i=0;//, q1=0;
     for(i=0;i<graphS.length();i++){
         int j=graphS.find(delimiter,i);
@@ -640,6 +638,7 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     return true;
 }
 
+//Handle Received BeaconMsg
 void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 {
     BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
@@ -662,9 +661,7 @@ EV<<"Teste graph: \n";
     //EV<<"Graph Before Update: \n";
     //graphe.displayMatrix(v);
    // string answb=graphe.returnGraphT();
-
     //EV<< "O meu v de display é:"<<v<<"\n";
-
 
 
 //UPdate of graph
@@ -673,10 +670,11 @@ EV<<"Teste graph: \n";
     //EV<<"RSSI:"<<calculateSSI(msg)<<"\n";
 
     //graphe.displayMatrix(v);
-    //EV<<"Graph After Update: \n";
     string answ=graphe.returnGraphT();
+    EV<<"Graph After Update: "<<answ<<"\n";
     graphe.dijkstra(myID,srcID);
     EV<<"End test: \n";
+
 //-------------------
 
     EV<<"My first Add: "<<ownMACAddress.at(0)<<"\n";
@@ -760,7 +758,9 @@ void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selec
     EV<<"BackOffT canceled\n";
 }
 
-
+/*************************
+ * ⇒ Calculates the distance between the two nodes from the position data received in the beacon
+ */
 double NeighboringLayer::calculateDistance(cMessage *msg){
     BeaconMsg *beaconR = dynamic_cast<BeaconMsg*>(msg);
     int senderX=beaconR->getMyPosX();
@@ -772,6 +772,9 @@ double NeighboringLayer::calculateDistance(cMessage *msg){
 
 }
 
+/*************************
+ * ⇒ Calculates the estimated SSI between the two nodes from the position data received in the beacon
+ */
 double NeighboringLayer::calculateSSI(cMessage *msg){
     double x=calculateDistance(msg);
 
@@ -783,9 +786,11 @@ double NeighboringLayer::calculateSSI(cMessage *msg){
 
 }
 
+/*************************
+ * ⇒ Update the Quality Value between the two nodes.
+ */
 double NeighboringLayer::updateProbability(double distProb, double ssi){
-    EV<<"Gateway Addr: "<<GWAddr<<" \n";
-
+    //EV<<"Gateway Addr: "<<GWAddr<<" \n";
 
     double newProb;
     //set ssi range
@@ -803,10 +808,13 @@ double NeighboringLayer::updateProbability(double distProb, double ssi){
     }
 
     newProb=distProb*gama;
-    EV<<"Updated new Probability \n";
+    //EV<<"Updated new Probability \n";
     return newProb;
 }
 
+/*************************
+ * ⇒ Verifies if GW is my direct neighbor
+ */
 double NeighboringLayer::GWisMyNeigh(cMessage *msg){
     NeighbourListMsg *neighListMsg = dynamic_cast<NeighbourListMsg*>(msg);
     double isNeigh;
@@ -831,7 +839,6 @@ double NeighboringLayer::GWisMyNeigh(cMessage *msg){
 
     return isNeigh;
 }
-
 double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
     NeighbourListMsgBT *neighListMsg = dynamic_cast<NeighbourListMsgBT*>(msg);
     double isNeigh;
@@ -856,7 +863,6 @@ double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
 
     return isNeigh;
 }
-
 
 
 

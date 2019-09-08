@@ -257,7 +257,7 @@ void StorageM::updatePrevHopsList(int position, string HopAddr){
     int countM=1;
     //Gets to the element of the List requested
     while (countM<position) {
-        EV<<"pullOutMsg while SM \n";
+        //EV<<"pullOutMsg while SM \n";
         itC++;
         countM++;
     }
