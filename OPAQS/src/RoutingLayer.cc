@@ -239,6 +239,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                     int gwID=graphR.add_element(gwAdd);
                     int dstID=graphR.add_element(destAdd);
                     bool isInShortPath=false;
+                    EV<<"Dijkstra from myID to gwID\n";
                     graphR.dijkstra(myID, gwID);
 
 
@@ -341,6 +342,10 @@ void RoutingLayer::handleAckFromLowerLayer(cMessage *msg){
     if(found){
         Stor.updatePrevHopsList(position,HopAddr);
     }
+
+    //PAmuLQE-NACK - when received the ack it deletes the msg so only one copie is in the network
+
+    Stor.deleteMsg(messageID);
 
 
 

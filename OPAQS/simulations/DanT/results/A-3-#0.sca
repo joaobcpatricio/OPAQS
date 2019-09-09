@@ -1,14 +1,14 @@
 version 2
-run A-1-20190909-00:24:43-6358
+run A-1-20190909-02:31:51-14468
 attr configname A
-attr datetime 20190909-00:24:43
+attr datetime 20190909-02:31:51
 attr experiment A
 attr inifile SimV2.ini
 attr iterationvars $0=3
 attr iterationvarsf 3-
 attr measurement $0=3
 attr network NetworkTormV2
-attr processid 6358
+attr processid 14468
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -34,7 +34,7 @@ param **.routingLayer "\"RoutingLayer\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.neighboring.antiEntropyInterval 200ms
+param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
@@ -55,12 +55,12 @@ param **.mobilityType "\"BonnMotionMobility\""
 param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 260
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 329
-scalar NetworkTormV2.node[1].routing numEventsHandled 322
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 361
-scalar NetworkTormV2.node[2].routing numEventsHandled 163
-scalar NetworkTormV2.node[2].neighboring numEventsHandled 331
+scalar NetworkTormV2.node[0].routing numEventsHandled 235
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 317
+scalar NetworkTormV2.node[1].routing numEventsHandled 269
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 334
+scalar NetworkTormV2.node[2].routing numEventsHandled 135
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 317
 scalar NetworkTormV2 neighbourhoodSize:min 1
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:max 2

@@ -151,7 +151,7 @@ void GraphT::printPath(int parent[], int j){
     if (parent[j] == - 1)
         return;
     printPath(parent, parent[j]);
-    //EV<<"->"<<j;
+    EV<<"->"<<j;
     //sP.append(std::to_string(j));
     //EV<<"sP:"<<sP<<"\n";
     smallPath.append(std::to_string(j));//sP);
@@ -190,7 +190,7 @@ string GraphT::returnSmallPath(int dist[],int parent[], int src, int dst){
         smallPath.append("->");
         printPath(parent, dst);
         EV<<"\n";
-        EV<<"Small Path: "<<smallPath<<"\n";
+        //EV<<"Small Path: "<<smallPath<<"\n";
     }
     returnSmallPath=smallPath;
     return returnSmallPath;
@@ -215,20 +215,27 @@ bool GraphT::isInShortPath(int src,int gw, int dest){
         if(j==std::string::npos){
             return false;
         }else{
-                int q1 = sPath.find("-",i);
-                int q2 = sPath.find("-",q1+1);
-                string v1=sPath.substr(i,q1-i);
-                string v2=sPath.substr(q1+2,q2-1);
-                int vert1 = std::stoi (v1);
-                int vert2 = std::stoi (v2);
-               // EV<<"V1:"<<v1<<" V2:"<<v2<<"\n";
-                if(vert1==dest || vert2==dest){
-                    return true;
-                    //EV<<"Seria true \n";
-                }
-                i =q2+1;
+            string v2;
+            int vert2;
+            int q1 = sPath.find("-",i);
+            int q2 = sPath.find("-",q1+1);
+            string v1=sPath.substr(i,q1-i);
+            int vert1 = std::stoi (v1);
+            if(q2!=std::string::npos){
+                v2=sPath.substr(q1+2,q2-(q1+2));
+                vert2 = std::stoi(v2);
+            }else{
+                vert2=INT_MAX;
             }
+            if(vert1==dest || vert2==dest){
+                return true;
+                //EV<<"Seria true \n";
+            }
+            if(q2!=std::string::npos){
+            i =q2+1;
+            }else{break;}
         }
+    }
     return false;
 }
 
