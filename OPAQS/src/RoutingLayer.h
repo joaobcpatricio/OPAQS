@@ -87,6 +87,12 @@ private:
     simsignal_t cacheBytesRemovedSignal;
     simsignal_t cacheBytesAddedSignal;
     simsignal_t cacheBytesUpdatedSignal;
+
+    bool isSending=false;
+    bool isReceiving=false;
+    double waitS=0;
+    double waitBFsend;
+
 };
 
 #define ROUTINGLAYER_SIMMODULEINFO         " RoutingLayer>!<" << simTime() << ">!<" << getParentModule()->getFullName()

@@ -49,18 +49,17 @@ public:
 
     struct CacheEntry {
         char name[20];  //teste - apagar
-        int grade;      //teste - apagar
         string messageID;
         string dataName;
         int realPayloadSize;
-        string dummyPayloadContent;
+        //string dummyPayloadContent;
         double validUntilTime;
         int realPacketSize;
         bool destinationOriented;
         string originatorNodeMAC;
         string finalDestinationNodeName;
         int groupType;
-        int hopsTravelled;
+        //int hopsTravelled;
         int msgUniqueID;
         simtime_t injectedTime;
         double createdTime;

@@ -1,15 +1,15 @@
-file 38312 1567962598                                           
+file 30770 1568154866                                           
 version 2
-run B-0-20190908-18:09:42-8285
+run B-0-20190910-23:34:23-7919
 attr configname B
-attr datetime 20190908-18:09:42
+attr datetime 20190910-23:34:23
 attr experiment B
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 8285
+attr processid 7919
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -24,8 +24,8 @@ param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:09\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:09\""
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
 param **application.nodesThatGen true
 param **application.nodesGenMsg "\"0\""
 param **application.startMultipleMsg true
@@ -35,7 +35,8 @@ param **.routingLayer "\"RoutingLayer\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.neighboring.antiEntropyInterval 200ms
+param **.routing.waitBFsend 0.5
+param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
@@ -64,8 +65,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2388 16108 13 12392 0.05 10 1200 2 2 2400 4800
-1	18496 1663 25 259 0.1 0.199 100 -nan -nan -nan -nan
-2	20159 9076 1116 7002 1.12368 2.56376 452 36 16272 3685608 40025702880
-3	29235 9076 1116 7002 1.12368 2.56376 452 36 16272 3685608 40025702880
+0	2420 15640 13 7860 0.05 10 1200 2 2 2400 4800
+1	18060 1663 25 259 0.1 0.199 100 -nan -nan -nan -nan
+2	19723 5523 1212 5203 1.692484841936 5.262646465244 200 141 28200 2834100 53414282700
+3	25246 5523 1212 5203 1.692484841936 5.262646465244 200 141 28200 2834100 53414282700
 

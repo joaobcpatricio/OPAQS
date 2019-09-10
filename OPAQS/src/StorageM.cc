@@ -123,7 +123,7 @@ void StorageM::saveData(cMessage *msg, int origin){
         //if(origin==0){ cacheEntry.hopCount = 0; }
         cacheEntry.dataName = omnetDataMsg->getDataName();
         cacheEntry.realPayloadSize = omnetDataMsg->getRealPayloadSize();
-        cacheEntry.dummyPayloadContent = omnetDataMsg->getDummyPayloadContent();
+        //cacheEntry.dummyPayloadContent = omnetDataMsg->getDummyPayloadContent();
         cacheEntry.validUntilTime = omnetDataMsg->getValidUntilTime();
         cacheEntry.realPacketSize = omnetDataMsg->getRealPacketSize();
         cacheEntry.originatorNodeMAC = omnetDataMsg->getOriginatorNodeMAC();
@@ -133,8 +133,8 @@ void StorageM::saveData(cMessage *msg, int origin){
             EV<<"DataMsg has final destination: "<<cacheEntry.finalDestinationNodeName<<"\n";
         }
         cacheEntry.groupType = omnetDataMsg->getGroupType();
-        //if(origin==0){ cacheEntry.hopsTravelled = 0;}
-        cacheEntry.hopsTravelled = omnetDataMsg->getHopsTravelled();
+
+        //cacheEntry.hopsTravelled = omnetDataMsg->getHopsTravelled();
 
         cacheEntry.msgUniqueID = omnetDataMsg->getMsgUniqueID();
         cacheEntry.injectedTime = omnetDataMsg->getInjectedTime();
@@ -166,24 +166,6 @@ void StorageM::saveData(cMessage *msg, int origin){
 
     cacheEntry.lastAccessedTime = simTime().dbl();
 
-    /*if(origin==1){ //data from outside (lower)
-        cacheEntry.hopsTravelled = omnetDataMsg->getHopsTravelled();//DÁ ERRO SEGMENTATION FAULT
-        //cacheEntry.hopCount = omnetDataMsg->getHopCount();
-        //EV <<"HopsM: " <<cacheEntry.hopCount<<'\n';
-    }*/
-    //cacheEntry.nHops = omnetDataMsg->getNHops() + 1;
-    //EV<<" nHops= "<<omnetDataMsg->getNHops()+1<<" \n";
-
-
-    // log cache update or add
-    /*if (found) {
-        emit(cacheBytesUpdatedSignal, (long) cacheEntry.realPayloadSize);
-    } else {
-        emit(cacheBytesAddedSignal, (long) cacheEntry.realPayloadSize);
-    }*/
-
-    //delete msg;
-    //EV<<"Cache list size: "<<cacheList.size()<<"\n";
 }
 
 
@@ -293,11 +275,11 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     dataMsg->setSourceAddress(ownMACAddress.c_str());
     dataMsg->setDestinationAddress(dataRequestMsg->getSourceAddress());
     dataMsg->setDataName(itC->dataName.c_str());
-    dataMsg->setDummyPayloadContent(itC->dummyPayloadContent.c_str());
+    //dataMsg->setDummyPayloadContent(itC->dummyPayloadContent.c_str());
     dataMsg->setValidUntilTime(itC->validUntilTime);
     dataMsg->setRealPayloadSize(itC->realPayloadSize);
     //A  fazer: check OutsMsg.msg on sizing messages
-    int realPacketSize = 6 + 6 + 2 + itC->realPayloadSize + 4 + 6 + 1 + 1; //added +1 1/07
+    int realPacketSize = 6 + 6 +64 + 1 + 2 + itC->realPayloadSize + 4 + 6 + 6 + 1 + 2 + 1 + 32; //added  9/09
     dataMsg->setRealPacketSize(realPacketSize);
     dataMsg->setByteLength(realPacketSize);
     dataMsg->setOriginatorNodeMAC(itC->originatorNodeMAC.c_str());
@@ -311,7 +293,7 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     //
     //dataMsg->setHopCount(itC->hopCount);
     dataMsg->setGroupType(itC->groupType);
-    dataMsg->setHopsTravelled(itC->hopsTravelled);
+    //dataMsg->setHopsTravelled(itC->hopsTravelled);
     dataMsg->setMsgUniqueID(itC->msgUniqueID);
     dataMsg->setInjectedTime(itC->injectedTime);
     dataMsg->setNHops(itC->nHops);
@@ -360,9 +342,7 @@ vector<string> StorageM::returnSelectMsgIDList(vector<string> & selectedMessageI
     auto itC = cacheList.begin();
     while (itC != cacheList.end()) {
         EV<<"Maximum hop count: "<<maximumHopCount<<"\n";
-        //EV<<"itC hop count: "<<itC->hopCount<<"\n";
-       // if(itC->hopCount>100){EV<<"Ratifying hopCount \n"; itC->hopCount=1;}//Here is a bug giving a random enormous value to hopCount
-        if ((itC->nHops+1)<maximumHopCount){//   (itC->hopCount + 1) < maximumHopCount) {
+        if ((itC->nHops+1)<maximumHopCount){
             EV<<"Pushed back\n";
             selectedMessageIDList.push_back(itC->messageID);
         }

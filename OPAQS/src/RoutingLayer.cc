@@ -25,6 +25,7 @@ void RoutingLayer::initialize(int stage)
         useTTL = par("useTTL");
         numEventsHandled = 0;
         inCache=0;
+        waitBFsend = par("waitBFsend");
 
 
     } else if (stage == 1) {
@@ -193,61 +194,62 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
         iteratorMessageIDList = selectedMessageIDList.begin();
         inCache = selectedMessageIDList.size();
         int i=0;
-        while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
-            EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
-            string messageID = *iteratorMessageIDList;
-            bool found = Stor.msgIDExists(messageID);
-            int position=Stor.msgIDListPos(messageID);
-            if(found){ //if there is a stored DataMsg
 
-                //verify NIC:
-                string SouceDRAdd = dataRequestMsg->getSourceAddress();
-                if((SouceDRAdd.substr(0,2))=="BT"){
-                    MyAddH=ownBTMACAddress;
-                }else{
-                    MyAddH=ownMACAddress;
-                }
+        if(!isSending && !isReceiving && (waitS<=simTime().dbl())){
+            while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
+               isSending=true;
+               EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
+               string messageID = *iteratorMessageIDList;
+               bool found = Stor.msgIDExists(messageID);
+               int position=Stor.msgIDListPos(messageID);
+               if(found){ //if there is a stored DataMsg
+                   //verify NIC:
+                   string SouceDRAdd = dataRequestMsg->getSourceAddress();
+                   if((SouceDRAdd.substr(0,2))=="BT"){
+                       MyAddH=ownBTMACAddress;
+                   }else{
+                       MyAddH=ownMACAddress;
+                   }
+                   DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
+                   string destAdd = dataRequestMsg->getSourceAddress();
+                   string gwAdd = dataMsg->getFinalDestinationNodeName();
 
-                DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
-                string destAdd = dataRequestMsg->getSourceAddress();
-                string gwAdd = dataMsg->getFinalDestinationNodeName();
+                   //Loop Avoidance
+                   int count1=0;
+                   bool foundH=false, msgSent=false;
+                   int sizeH = dataMsg->getPrevHopsListArraySize();
+                   string HopAdd=dataMsg->getPrevHopsList(count1);
+                   EV<<"Pos1: "<<dataMsg->getPrevHopsList(0)<<" source: "<<dataRequestMsg->getSourceAddress()<<"\n";
+                   while(count1<sizeH){
+                       HopAdd=dataMsg->getPrevHopsList(count1);
+                       if(HopAdd==destAdd){
+                           foundH=true;
+                           EV<<"Found it \n";
+                           break;
+                       }
+                       count1++;
+                   }
 
-                //Loop Avoidance
-                int count1=0;
-                bool foundH=false, msgSent=false;
-                int sizeH = dataMsg->getPrevHopsListArraySize();
-                string HopAdd=dataMsg->getPrevHopsList(count1);
-                EV<<"Pos1: "<<dataMsg->getPrevHopsList(0)<<" source: "<<dataRequestMsg->getSourceAddress()<<"\n";
-                while(count1<sizeH){
-                    HopAdd=dataMsg->getPrevHopsList(count1);
-                    if(HopAdd==destAdd){
-                        foundH=true;
-                        EV<<"Found it \n";
-                        break;
-                    }
-                    count1++;
-                }
-
-                //Verifies if DataMsg destination is this neighbor and DataMsg has not been send yet, if so, send directly with Loop Avoidance
-                if(dataMsg->getFinalDestinationNodeName()==destAdd && foundH==false){
-                    EV<<"Direct Neigh is final dest. \n";
-                    send(dataMsg, "lowerLayerOut");
-                    msgSent = true;
+                   //Verifies if DataMsg destination is this neighbor and DataMsg has not been send yet, if so, send directly with Loop Avoidance
+                   if(dataMsg->getFinalDestinationNodeName()==destAdd && foundH==false){
+                       EV<<"Direct Neigh is final dest. \n";
+                       send(dataMsg, "lowerLayerOut");
+                       msgSent = true;
                     //break;
-                }else{
-                    int myID=graphR.add_element(MyAddH);
-                    int gwID=graphR.add_element(gwAdd);
-                    int dstID=graphR.add_element(destAdd);
-                    bool isInShortPath=false;
-                    EV<<"Dijkstra from myID to gwID\n";
-                    graphR.dijkstra(myID, gwID);
+                   }else{
 
+                       int myID=graphR.add_element(MyAddH);
+                       int gwID=graphR.add_element(gwAdd);
+                       int dstID=graphR.add_element(destAdd);
+                       bool isInShortPath=false;
+                       EV<<"Dijkstra from myID to gwID\n";
+                       graphR.dijkstra(myID, gwID);
 
 
                     //Verifies if destination is not on the prevHopList of  the Stored Msg - Loop Avoidance
-                    EV<<"Sending Data Msg\n";
-                    if(foundH==false && msgSent==false){
 
+                       EV<<"Sending Data Msg\n";
+                       if(foundH==false && msgSent==false){
                         //Checks if there is a shortest path between me and GW
                         string sPth=graphR.returnShortestPath(myID,gwID);
                         EV<<"sPth="<<sPth<<".\n";
@@ -263,12 +265,15 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                                 send(dataMsg, "lowerLayerOut");
                             }
                         }
-                    }
-                }
+                       }
+                   }
+               }
+               EV<<"Add++\n";
+                iteratorMessageIDList++;
             }
-            EV<<"Add++\n";
-            iteratorMessageIDList++;
         }
+
+        isSending=false;
     //} else{ EV<<"Probability too low to send mensage \n"; }
     delete msg;
 }
@@ -372,12 +377,12 @@ void RoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
  */
 void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
 {
+    isReceiving=true;
     DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
     bool found;
 
     // increment the travelled hop count
-    omnetDataMsg->setHopsTravelled(omnetDataMsg->getHopsTravelled() + 1);
-    //omnetDataMsg->setHopCount(omnetDataMsg->getHopCount() + 1);
+    //omnetDataMsg->setHopsTravelled(omnetDataMsg->getHopsTravelled() + 1);
     omnetDataMsg->setNHops(omnetDataMsg->getNHops() + 1);
 
     emit(dataBytesReceivedSignal, (long) omnetDataMsg->getByteLength());
@@ -387,7 +392,7 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     bool cacheData = TRUE;
     if ((omnetDataMsg->getDestinationOriented()
          && strstr(getParentModule()->getFullName(), omnetDataMsg->getFinalDestinationNodeName()) != NULL)
-            | omnetDataMsg->getNHops() >= maximumHopCount) {//omnetDataMsg->getHopCount() >= maximumHopCount) {
+            | omnetDataMsg->getNHops() >= maximumHopCount) {
         cacheData = FALSE;
     }
 
@@ -459,7 +464,7 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     ackMsg->setDestinationAddress(omnetDataMsg->getSourceAddress());
     ackMsg->setIsFinalDest(imDestiny);
     ackMsg->setMessageID(omnetDataMsg->getMessageID());
-    int realPacketSize = 6 + 6 + (1 * ROUTINGLAYER_MSG_ID_HASH_SIZE);
+    int realPacketSize = 6 + 6 + (1 * ROUTINGLAYER_MSG_ID_HASH_SIZE) + 1;
     ackMsg->setRealPacketSize(realPacketSize);
     EV<<"Sending ACK \n";
     send(ackMsg, "lowerLayerOut");
@@ -481,6 +486,10 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     } else {
         delete msg;
     }
+
+    isReceiving=false;
+    waitS=simTime().dbl()+waitBFsend;
+    EV<<"WaitS:"<<waitS<<"\n";;
 }
 
 

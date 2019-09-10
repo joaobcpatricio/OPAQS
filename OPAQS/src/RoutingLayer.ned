@@ -39,6 +39,10 @@ simple RoutingLayer like IRoutingLayer
 
 		//27=06
 		int inCache = default(0);
+		
+		double waitBFsend = default(0.5);
+		
+		
         // icon used
         @display("i=block/transport");
 

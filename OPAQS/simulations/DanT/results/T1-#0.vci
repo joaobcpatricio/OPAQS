@@ -1,15 +1,15 @@
-file 23618 1567962605                                           
+file 21251 1568154885                                           
 version 2
-run T1-0-20190908-18:10:01-8285
+run T1-0-20190910-23:34:35-7919
 attr configname T1
-attr datetime 20190908-18:10:01
+attr datetime 20190910-23:34:35
 attr experiment T1
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 8285
+attr processid 7919
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -24,8 +24,8 @@ param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:09\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:09\""
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
 param **application.nodesThatGen true
 param **application.nodesGenMsg "\"0\""
 param **application.startMultipleMsg true
@@ -35,7 +35,8 @@ param **.routingLayer "\"RoutingLayer\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.neighboring.antiEntropyInterval 200ms
+param **.routing.waitBFsend 0.5
+param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
@@ -64,8 +65,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2392 11769 10 5856 0.05 10 900 0 2 762 924
-1	14161 1658 19 245 0.1 0.199 100 -nan -nan -nan -nan
-2	15819 3899 773 3330 1.11904 2.072 200 36 7200 723600 3481963200
-3	19718 3899 773 3330 1.11904 2.072 200 36 7200 723600 3481963200
+0	2424 11724 10 4240 0.05 10 900 0 2 762 924
+1	14148 1658 19 245 0.1 0.199 100 -nan -nan -nan -nan
+2	15806 2722 974 2375 1.687868379119 3.058028379119 100 141 14100 712050 6726736350
+3	18528 2722 974 2375 1.687868379119 3.058028379119 100 141 14100 712050 6726736350
 

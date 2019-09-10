@@ -27,16 +27,16 @@ packet NeighbourListMsg {
 // @author : João Patrício (castanheirapatricio@ua.pt)
 // @date   : 26-june-2019
 //
-//               addrs | Prob 		| myProb	 |	MyPosX 	 | MyPosY	| SSI	    | total  |
-//               s & d | (4 byte)   |  (4 byte)  | (4 byte)  | (4 bytes)| (4 bytes) | (bytes)
-// Routing	 ->   6 + 6      4             4           4         4			4			32
+//               addrs | Prob 		| myProb	 |	MyPosX 	 | MyPosY	| SSI	    |neighGraph | numberVert | total  |
+//               s & d | (4 byte)   |  (4 byte)  | (4 byte)  | (4 bytes)| (4 bytes) | (bytes)   |            |        |
+// Routing	 ->   6 + 6      4             4           4         4			4		    64            1	          97
 //
 // Message that sends Beacon received information to routing layer
 packet BeaconInfoMsg {
       
     string sourceAddress;    
     string destinationAddress;
-    int realPacketSize;
+    int realPacketSize;	//Hardcoded in NeighboringLayer.cc
 	double Prob;
 	double myProb;	
 	double MyPosX;

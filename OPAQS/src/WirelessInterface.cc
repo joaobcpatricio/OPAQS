@@ -312,13 +312,13 @@ void WirelessInterface::sendPendingMsg()
                 double l = ((neighCoord.x - ownCoord.x) * (neighCoord.x - ownCoord.x)) + ((neighCoord.y - ownCoord.y) * (neighCoord.y - ownCoord.y));
                 double bitsToSend = (outPktCopy->getByteLength() * 8) + (wirelessHeaderSize * 8);
                 simtime_t  delay = bitsToSend / realAquaticAchievableThroughput(sqrt(l));
-
+                EV<<"Delay is:"<<delay<<"\n";
 
 
 
                 // send to node
-                //sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
-                sendDirect(outPktCopy,currentNeighbourNodeInfo->nodeModule, "radioIn");
+                sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
+                //sendDirect(outPktCopy,currentNeighbourNodeInfo->nodeModule, "radioIn");
 
                 break;
             }

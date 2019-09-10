@@ -18,7 +18,6 @@ void NeighboringLayer::initialize(int stage)
 
         graphe=GraphT();
 
-
         // get parameters
         ownMACAddress = par("ownMACAddress").stringValue();
         ownBTMACAddress = par("ownBTMACAddress").stringValue();
@@ -359,7 +358,7 @@ BeaconMsg* NeighboringLayer::makeBeaconVectorMessage(cMessage *msg)//cache
     }
     beaconMsg->setProb(myProb);
     EV<<" My current Prob is: "<<myProb<<" \n";
-    int realPacketSize = 6 + 6 + 4 + 4 + 4;//(1 * NEIGHBORINGLAYER_MSG_ID_HASH_SIZE); //REVER TAMANHO AQUI CORRETO
+    int realPacketSize = 6 + 6 + 4 + 4 + 4 +64 +1;//(1 * NEIGHBORINGLAYER_MSG_ID_HASH_SIZE); //REVER TAMANHO AQUI CORRETO
     beaconMsg->setRealPacketSize(realPacketSize);
     beaconMsg->setByteLength(realPacketSize);
     beaconMsg->setMyPosX(ownCoord.x);
@@ -694,7 +693,7 @@ EV<<"Teste graph: \n";
     infoMsg->setSourceAddress(BeaconReceived->getSourceAddress());
     infoMsg->setProb(BeaconReceived->getProb());    //Gives probability
     infoMsg->setMyProb(myProb);
-    int realPacketSize = 6 + 6 + 4 + 4 + 4 + 4 + 4;
+    int realPacketSize = 6 + 6 + 4 + 4 + 4 + 4 + 4 +64 +1;
     infoMsg->setRealPacketSize(realPacketSize);
     infoMsg->setByteLength(realPacketSize);
     infoMsg->setMyPosX(BeaconReceived->getMyPosX());

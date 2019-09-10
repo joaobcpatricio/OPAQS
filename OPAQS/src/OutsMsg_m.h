@@ -19,60 +19,53 @@
 
 
 /**
- * Class generated from <tt>OutsMsg.msg:17</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:16</tt> by nedtool.
  * <pre>
- * packet DataMsg
- * {
- *     // common fields
- *     string sourceAddress;
- *     string destinationAddress;
- *     string dataName;//sequence number?? - is the messageID em herald
- *     int msgUniqueID;	//ID da msg em int
- *     int groupType = 50;//(previouys goodness value) Groupt type    
- *     simtime_t injectedTime;	//timeStamp
- *     int realPayloadSize; //size of the data - dataSizeInBytes        
- *     int realPacketSize; //total size of the message
- * 
- *     string dummyPayloadContent;
- *     int msgType; //?? not sure 4 what
- *     double validUntilTime = 0; //ttl - defines when data time expires
- * 
- * 
- *     int hopsTravelled;// = 0;
- * 
- *     // destination oriented delivery specific fields
- *     string originatorNodeMAC; // I can chose to store here the MACAdd of the node that generated the Msg
- *     string finalDestinationNodeName; //final destination MAC - GW
- *     bool destinationOriented = false;
- * 
- * 
- * 
- *     // epidemic routing specific fields
- *     string messageID; //ID na storage->cacheList
- *     //int hopCount;// = 255;
- * 
- *     int nHops;
- * 
- *     //ADDED 1/07 15h28
- *     int nMsgOrder;
- * 
- *     //Added 27/08/19
- *     string prevHopsList[];	//	list of previous nodes where the data passes through - loop avoidance mechanism
- * }
- * 
- * 
- * 
- * //***********************************************************************************  /
- * // Acknowledge message.
+ * //
+ * // Format of a Data packet.
+ * //ver tese rodrigo pg55
  * //
  * // \@author : João Patrício (castanheirapatricio\@ua.pt)
- * // \@date   : 18-june-2019
+ * // \@date   : 10-sep-2019
  * //
  * // example sizes in bytes
  * //
- * //                addrs | msg ID hashes  | total  |
- * //                s & d | 2 bytes x count| (bytes)|
- * // Epidemic  ->   6 + 6     2 x 1           14
+ * //               addrs | data name | group type     | payload size | payload | valid until | final dest | Addr Generator | hops	     | nMsgOrder  | destination | prev Hops | total  |
+ * //               s & d | or msg ID |  (1 byte int)  | (2 byte int) | (bytes) | (4 byte int)| (dest orie)|   Node		 |  (1 byte) |            |  oriented   |  list     | (bytes)|
+ * // Epidemic ->   6 + 6 .    64     .       1        .      2       . 64      .      4      .      6     .      6		 .		1    .    2       .     1       .    32     .  231+64=295
+ * //
+ * //Real packet size hardcoded on StorageM.cc
+ * //
+ * packet DataMsg
+ * {
+ *     // common fields
+ *     string sourceAddress;		//												(6bytes)
+ *     string destinationAddress;	//												(6bytes)
+ *     string dataName;//sequence number?? - is the messageID em herald			(*-64 bytes)
+ *     string messageID; //ID na storage->cacheList  ?  							(*-64 bytes)
+ *     int msgUniqueID;	//ID da msg em int										(2)
+ *     int groupType = 50;//(previouys goodness value) Groupt type 				(1byte)   
+ *     simtime_t injectedTime;	//timeStamp											(?)
+ *     int realPacketSize; //tells total size of the message 						(2 byte)
+ *     int realPayloadSize; //size of the data -> dataSizeInBytes 					(10 bytes? .ini)       
+ *     double validUntilTime = 0; //ttl - defines when data time expires			(4b ytes)
+ *     string finalDestinationNodeName; //final destination MAC - GW				(6 bytes)
+ *     string originatorNodeMAC; // I can chose to store here the MACAdd 			(6 bytes)
+ *     						//of the node that generated the Msg				-------
+ *     //int hopsTravelled;// = 0;													------
+ *     int nHops;		//															(1byte)
+ *     int nMsgOrder;  	//Identifies the order of its generation on its node	(2bytes)
+ *     					//could be used instead msgUniqueID or messageID
+ *     bool destinationOriented = false;	//										(1 byte)
+ *     string prevHopsList[];	//	list of previous nodes where the data 			(32 bytes)
+ *     						//passes through - loop avoidance mechanism
+ * 
+ *     //OTHERS old:    
+ *     //string dummyPayloadContent;	
+ *     //int msgType; //?? not sure 4 what
+ *     // destination oriented delivery specific fields
+ * 
+ * }
  * </pre>
  */
 class DataMsg : public ::omnetpp::cPacket
@@ -81,21 +74,18 @@ class DataMsg : public ::omnetpp::cPacket
     ::omnetpp::opp_string sourceAddress;
     ::omnetpp::opp_string destinationAddress;
     ::omnetpp::opp_string dataName;
+    ::omnetpp::opp_string messageID;
     int msgUniqueID;
     int groupType;
     ::omnetpp::simtime_t injectedTime;
-    int realPayloadSize;
     int realPacketSize;
-    ::omnetpp::opp_string dummyPayloadContent;
-    int msgType;
+    int realPayloadSize;
     double validUntilTime;
-    int hopsTravelled;
-    ::omnetpp::opp_string originatorNodeMAC;
     ::omnetpp::opp_string finalDestinationNodeName;
-    bool destinationOriented;
-    ::omnetpp::opp_string messageID;
+    ::omnetpp::opp_string originatorNodeMAC;
     int nHops;
     int nMsgOrder;
+    bool destinationOriented;
     ::omnetpp::opp_string *prevHopsList; // array ptr
     unsigned int prevHopsList_arraysize;
 
@@ -122,36 +112,30 @@ class DataMsg : public ::omnetpp::cPacket
     virtual void setDestinationAddress(const char * destinationAddress);
     virtual const char * getDataName() const;
     virtual void setDataName(const char * dataName);
+    virtual const char * getMessageID() const;
+    virtual void setMessageID(const char * messageID);
     virtual int getMsgUniqueID() const;
     virtual void setMsgUniqueID(int msgUniqueID);
     virtual int getGroupType() const;
     virtual void setGroupType(int groupType);
     virtual ::omnetpp::simtime_t getInjectedTime() const;
     virtual void setInjectedTime(::omnetpp::simtime_t injectedTime);
-    virtual int getRealPayloadSize() const;
-    virtual void setRealPayloadSize(int realPayloadSize);
     virtual int getRealPacketSize() const;
     virtual void setRealPacketSize(int realPacketSize);
-    virtual const char * getDummyPayloadContent() const;
-    virtual void setDummyPayloadContent(const char * dummyPayloadContent);
-    virtual int getMsgType() const;
-    virtual void setMsgType(int msgType);
+    virtual int getRealPayloadSize() const;
+    virtual void setRealPayloadSize(int realPayloadSize);
     virtual double getValidUntilTime() const;
     virtual void setValidUntilTime(double validUntilTime);
-    virtual int getHopsTravelled() const;
-    virtual void setHopsTravelled(int hopsTravelled);
-    virtual const char * getOriginatorNodeMAC() const;
-    virtual void setOriginatorNodeMAC(const char * originatorNodeMAC);
     virtual const char * getFinalDestinationNodeName() const;
     virtual void setFinalDestinationNodeName(const char * finalDestinationNodeName);
-    virtual bool getDestinationOriented() const;
-    virtual void setDestinationOriented(bool destinationOriented);
-    virtual const char * getMessageID() const;
-    virtual void setMessageID(const char * messageID);
+    virtual const char * getOriginatorNodeMAC() const;
+    virtual void setOriginatorNodeMAC(const char * originatorNodeMAC);
     virtual int getNHops() const;
     virtual void setNHops(int nHops);
     virtual int getNMsgOrder() const;
     virtual void setNMsgOrder(int nMsgOrder);
+    virtual bool getDestinationOriented() const;
+    virtual void setDestinationOriented(bool destinationOriented);
     virtual void setPrevHopsListArraySize(unsigned int size);
     virtual unsigned int getPrevHopsListArraySize() const;
     virtual const char * getPrevHopsList(unsigned int k) const;
@@ -162,8 +146,21 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const DataMsg& obj) {obj.pa
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, DataMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:70</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:62</tt> by nedtool.
  * <pre>
+ * //***********************************************************************************  /
+ * // Acknowledge message.
+ * //
+ * // \@author : João Patrício (castanheirapatricio\@ua.pt)
+ * // \@date   : 18-june-2019
+ * //
+ * // example sizes in bytes
+ * //
+ * //                addrs | msg ID hashes  | if is final | total  |
+ * //                s & d | 2 bytes x count| destination | (bytes)|
+ * //           ->   6 + 6 .   2 x 1        .     1       .  15
+ * //Real packet size hardcoded on RoutingLayer
+ * //
  * packet AckMsg
  * {
  *     // common fields
@@ -173,6 +170,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, DataMsg& obj) {obj.parsim
  *     // routing specific fields
  *     string messageID;  // will inform the msg id
  *     bool isFinalDest;		//Indicates if it reached the final destination
+ *     //bool reachedGW - to insert later if to use (1 byte)
  * }
  * </pre>
  */
@@ -218,7 +216,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const AckMsg& obj) {obj.par
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:93</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:88</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Beacon message.
@@ -228,16 +226,18 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimU
  * //
  * // example sizes in bytes
  * //
- * //               addrs | Prob 		| MyPosX 	 | MyPosY	| total  |
- * //               s & d | (4 byte)   |  (4 byte)  | (4 byte) | (bytes)|
- * // Routing	 ->   6 + 6      4             4           4         24
+ * //               addrs | Prob 		| MyPosX 	 | MyPosY	| neighGraph | numberVert | total  |
+ * //               s & d | (4 byte)   |  (4 byte)  | (4 byte) |            |            | (bytes)|
+ * // Routing	 ->   6 + 6      4             4           4        64            1           89
+ * //
+ * //Real packet size hardcoded on NeighboringLayer
  * //
  * packet BeaconMsg
  * {
  *     // common fields
  *     string sourceAddress;
  *     string destinationAddress;
- *     int realPacketSize;
+ *     int realPacketSize;	//Hardcoded in NeighboringLayer.cc
  *     double Prob;
  *     double MyPosX;
  *     double MyPosY;
@@ -305,7 +305,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconMsg& obj) {obj.
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:118</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:113</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Data Request message.

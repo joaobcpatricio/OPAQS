@@ -223,13 +223,13 @@ void AppLayer::handleMessage(cMessage *msg)
         dataMsg->setNMsgOrder(nMsgOrder);
         //EV<<"nMsgOrder= "<<nMsgOrder<<" \n";
         sprintf(tempString, "Details of item-%0d", APPLAYER_START_ITEM_ID + nextGenerationNotification);
-        dataMsg->setDummyPayloadContent(tempString);
+        //dataMsg->setDummyPayloadContent(tempString);
         dataMsg->setByteLength(dataSizeInBytes);
-        dataMsg->setMsgType(0);
+        //dataMsg->setMsgType(0);
         dataMsg->setValidUntilTime(ttl);
         dataMsg->setInjectedTime(simTime().dbl());
         dataMsg->setNHops(0);
-        dataMsg->setHopsTravelled(0);
+        //dataMsg->setHopsTravelled(0);
 
         dataMsg->setPrevHopsListArraySize(hopsListSize);
         //dataMsg->setPrevHopsList(0, "");

@@ -268,8 +268,7 @@ void EpidemicRoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     bool found;
 
     // increment the travelled hop count
-    omnetDataMsg->setHopsTravelled(omnetDataMsg->getHopsTravelled() + 1);
-   // omnetDataMsg->setHopCount(omnetDataMsg->getHopCount() + 1);
+    //omnetDataMsg->setHopsTravelled(omnetDataMsg->getHopsTravelled() + 1);
     omnetDataMsg->setNHops(omnetDataMsg->getNHops() + 1);
 
     emit(dataBytesReceivedSignal, (long) omnetDataMsg->getByteLength());
@@ -279,7 +278,7 @@ void EpidemicRoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     bool cacheData = TRUE;
     if ((omnetDataMsg->getDestinationOriented()
          && strstr(getParentModule()->getFullName(), omnetDataMsg->getFinalDestinationNodeName()) != NULL)
-        || omnetDataMsg->getNHops() >= maximumHopCount) {//omnetDataMsg->getHopCount() >= maximumHopCount) {
+        || omnetDataMsg->getNHops() >= maximumHopCount) {
         cacheData = FALSE;
     }
 
@@ -351,7 +350,7 @@ void EpidemicRoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     ackMsg->setDestinationAddress(omnetDataMsg->getSourceAddress());
     ackMsg->setIsFinalDest(imDestiny);
     ackMsg->setMessageID(omnetDataMsg->getMessageID());
-    int realPacketSize = 6 + 6 + (1 * EPIDEMICROUTINGLAYER_MSG_ID_HASH_SIZE);
+    int realPacketSize = 6 + 6 + (1 * EPIDEMICROUTINGLAYER_MSG_ID_HASH_SIZE) + 1;
     ackMsg->setRealPacketSize(realPacketSize);
     EV<<"Sending ACK \n";
     send(ackMsg, "lowerLayerOut");

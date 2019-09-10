@@ -184,14 +184,12 @@ DataMsg::DataMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
     this->msgUniqueID = 0;
     this->groupType = 50;
     this->injectedTime = 0;
-    this->realPayloadSize = 0;
     this->realPacketSize = 0;
-    this->msgType = 0;
+    this->realPayloadSize = 0;
     this->validUntilTime = 0;
-    this->hopsTravelled = 0;
-    this->destinationOriented = false;
     this->nHops = 0;
     this->nMsgOrder = 0;
+    this->destinationOriented = false;
     prevHopsList_arraysize = 0;
     this->prevHopsList = 0;
 }
@@ -221,21 +219,18 @@ void DataMsg::copy(const DataMsg& other)
     this->sourceAddress = other.sourceAddress;
     this->destinationAddress = other.destinationAddress;
     this->dataName = other.dataName;
+    this->messageID = other.messageID;
     this->msgUniqueID = other.msgUniqueID;
     this->groupType = other.groupType;
     this->injectedTime = other.injectedTime;
-    this->realPayloadSize = other.realPayloadSize;
     this->realPacketSize = other.realPacketSize;
-    this->dummyPayloadContent = other.dummyPayloadContent;
-    this->msgType = other.msgType;
+    this->realPayloadSize = other.realPayloadSize;
     this->validUntilTime = other.validUntilTime;
-    this->hopsTravelled = other.hopsTravelled;
-    this->originatorNodeMAC = other.originatorNodeMAC;
     this->finalDestinationNodeName = other.finalDestinationNodeName;
-    this->destinationOriented = other.destinationOriented;
-    this->messageID = other.messageID;
+    this->originatorNodeMAC = other.originatorNodeMAC;
     this->nHops = other.nHops;
     this->nMsgOrder = other.nMsgOrder;
+    this->destinationOriented = other.destinationOriented;
     delete [] this->prevHopsList;
     this->prevHopsList = (other.prevHopsList_arraysize==0) ? nullptr : new ::omnetpp::opp_string[other.prevHopsList_arraysize];
     prevHopsList_arraysize = other.prevHopsList_arraysize;
@@ -249,21 +244,18 @@ void DataMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->sourceAddress);
     doParsimPacking(b,this->destinationAddress);
     doParsimPacking(b,this->dataName);
+    doParsimPacking(b,this->messageID);
     doParsimPacking(b,this->msgUniqueID);
     doParsimPacking(b,this->groupType);
     doParsimPacking(b,this->injectedTime);
-    doParsimPacking(b,this->realPayloadSize);
     doParsimPacking(b,this->realPacketSize);
-    doParsimPacking(b,this->dummyPayloadContent);
-    doParsimPacking(b,this->msgType);
+    doParsimPacking(b,this->realPayloadSize);
     doParsimPacking(b,this->validUntilTime);
-    doParsimPacking(b,this->hopsTravelled);
-    doParsimPacking(b,this->originatorNodeMAC);
     doParsimPacking(b,this->finalDestinationNodeName);
-    doParsimPacking(b,this->destinationOriented);
-    doParsimPacking(b,this->messageID);
+    doParsimPacking(b,this->originatorNodeMAC);
     doParsimPacking(b,this->nHops);
     doParsimPacking(b,this->nMsgOrder);
+    doParsimPacking(b,this->destinationOriented);
     b->pack(prevHopsList_arraysize);
     doParsimArrayPacking(b,this->prevHopsList,prevHopsList_arraysize);
 }
@@ -274,21 +266,18 @@ void DataMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->sourceAddress);
     doParsimUnpacking(b,this->destinationAddress);
     doParsimUnpacking(b,this->dataName);
+    doParsimUnpacking(b,this->messageID);
     doParsimUnpacking(b,this->msgUniqueID);
     doParsimUnpacking(b,this->groupType);
     doParsimUnpacking(b,this->injectedTime);
-    doParsimUnpacking(b,this->realPayloadSize);
     doParsimUnpacking(b,this->realPacketSize);
-    doParsimUnpacking(b,this->dummyPayloadContent);
-    doParsimUnpacking(b,this->msgType);
+    doParsimUnpacking(b,this->realPayloadSize);
     doParsimUnpacking(b,this->validUntilTime);
-    doParsimUnpacking(b,this->hopsTravelled);
-    doParsimUnpacking(b,this->originatorNodeMAC);
     doParsimUnpacking(b,this->finalDestinationNodeName);
-    doParsimUnpacking(b,this->destinationOriented);
-    doParsimUnpacking(b,this->messageID);
+    doParsimUnpacking(b,this->originatorNodeMAC);
     doParsimUnpacking(b,this->nHops);
     doParsimUnpacking(b,this->nMsgOrder);
+    doParsimUnpacking(b,this->destinationOriented);
     delete [] this->prevHopsList;
     b->unpack(prevHopsList_arraysize);
     if (prevHopsList_arraysize==0) {
@@ -329,6 +318,16 @@ void DataMsg::setDataName(const char * dataName)
     this->dataName = dataName;
 }
 
+const char * DataMsg::getMessageID() const
+{
+    return this->messageID.c_str();
+}
+
+void DataMsg::setMessageID(const char * messageID)
+{
+    this->messageID = messageID;
+}
+
 int DataMsg::getMsgUniqueID() const
 {
     return this->msgUniqueID;
@@ -359,16 +358,6 @@ void DataMsg::setInjectedTime(::omnetpp::simtime_t injectedTime)
     this->injectedTime = injectedTime;
 }
 
-int DataMsg::getRealPayloadSize() const
-{
-    return this->realPayloadSize;
-}
-
-void DataMsg::setRealPayloadSize(int realPayloadSize)
-{
-    this->realPayloadSize = realPayloadSize;
-}
-
 int DataMsg::getRealPacketSize() const
 {
     return this->realPacketSize;
@@ -379,24 +368,14 @@ void DataMsg::setRealPacketSize(int realPacketSize)
     this->realPacketSize = realPacketSize;
 }
 
-const char * DataMsg::getDummyPayloadContent() const
+int DataMsg::getRealPayloadSize() const
 {
-    return this->dummyPayloadContent.c_str();
+    return this->realPayloadSize;
 }
 
-void DataMsg::setDummyPayloadContent(const char * dummyPayloadContent)
+void DataMsg::setRealPayloadSize(int realPayloadSize)
 {
-    this->dummyPayloadContent = dummyPayloadContent;
-}
-
-int DataMsg::getMsgType() const
-{
-    return this->msgType;
-}
-
-void DataMsg::setMsgType(int msgType)
-{
-    this->msgType = msgType;
+    this->realPayloadSize = realPayloadSize;
 }
 
 double DataMsg::getValidUntilTime() const
@@ -409,26 +388,6 @@ void DataMsg::setValidUntilTime(double validUntilTime)
     this->validUntilTime = validUntilTime;
 }
 
-int DataMsg::getHopsTravelled() const
-{
-    return this->hopsTravelled;
-}
-
-void DataMsg::setHopsTravelled(int hopsTravelled)
-{
-    this->hopsTravelled = hopsTravelled;
-}
-
-const char * DataMsg::getOriginatorNodeMAC() const
-{
-    return this->originatorNodeMAC.c_str();
-}
-
-void DataMsg::setOriginatorNodeMAC(const char * originatorNodeMAC)
-{
-    this->originatorNodeMAC = originatorNodeMAC;
-}
-
 const char * DataMsg::getFinalDestinationNodeName() const
 {
     return this->finalDestinationNodeName.c_str();
@@ -439,24 +398,14 @@ void DataMsg::setFinalDestinationNodeName(const char * finalDestinationNodeName)
     this->finalDestinationNodeName = finalDestinationNodeName;
 }
 
-bool DataMsg::getDestinationOriented() const
+const char * DataMsg::getOriginatorNodeMAC() const
 {
-    return this->destinationOriented;
+    return this->originatorNodeMAC.c_str();
 }
 
-void DataMsg::setDestinationOriented(bool destinationOriented)
+void DataMsg::setOriginatorNodeMAC(const char * originatorNodeMAC)
 {
-    this->destinationOriented = destinationOriented;
-}
-
-const char * DataMsg::getMessageID() const
-{
-    return this->messageID.c_str();
-}
-
-void DataMsg::setMessageID(const char * messageID)
-{
-    this->messageID = messageID;
+    this->originatorNodeMAC = originatorNodeMAC;
 }
 
 int DataMsg::getNHops() const
@@ -477,6 +426,16 @@ int DataMsg::getNMsgOrder() const
 void DataMsg::setNMsgOrder(int nMsgOrder)
 {
     this->nMsgOrder = nMsgOrder;
+}
+
+bool DataMsg::getDestinationOriented() const
+{
+    return this->destinationOriented;
+}
+
+void DataMsg::setDestinationOriented(bool destinationOriented)
+{
+    this->destinationOriented = destinationOriented;
 }
 
 void DataMsg::setPrevHopsListArraySize(unsigned int size)
@@ -574,7 +533,7 @@ const char *DataMsgDescriptor::getProperty(const char *propertyname) const
 int DataMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 19+basedesc->getFieldCount() : 19;
+    return basedesc ? 16+basedesc->getFieldCount() : 16;
 }
 
 unsigned int DataMsgDescriptor::getFieldTypeFlags(int field) const
@@ -601,12 +560,9 @@ unsigned int DataMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
-        FD_ISEDITABLE,
-        FD_ISEDITABLE,
-        FD_ISEDITABLE,
         FD_ISARRAY | FD_ISEDITABLE,
     };
-    return (field>=0 && field<19) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<16) ? fieldTypeFlags[field] : 0;
 }
 
 const char *DataMsgDescriptor::getFieldName(int field) const
@@ -621,24 +577,21 @@ const char *DataMsgDescriptor::getFieldName(int field) const
         "sourceAddress",
         "destinationAddress",
         "dataName",
+        "messageID",
         "msgUniqueID",
         "groupType",
         "injectedTime",
-        "realPayloadSize",
         "realPacketSize",
-        "dummyPayloadContent",
-        "msgType",
+        "realPayloadSize",
         "validUntilTime",
-        "hopsTravelled",
-        "originatorNodeMAC",
         "finalDestinationNodeName",
-        "destinationOriented",
-        "messageID",
+        "originatorNodeMAC",
         "nHops",
         "nMsgOrder",
+        "destinationOriented",
         "prevHopsList",
     };
-    return (field>=0 && field<19) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<16) ? fieldNames[field] : nullptr;
 }
 
 int DataMsgDescriptor::findField(const char *fieldName) const
@@ -648,22 +601,19 @@ int DataMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='s' && strcmp(fieldName, "sourceAddress")==0) return base+0;
     if (fieldName[0]=='d' && strcmp(fieldName, "destinationAddress")==0) return base+1;
     if (fieldName[0]=='d' && strcmp(fieldName, "dataName")==0) return base+2;
-    if (fieldName[0]=='m' && strcmp(fieldName, "msgUniqueID")==0) return base+3;
-    if (fieldName[0]=='g' && strcmp(fieldName, "groupType")==0) return base+4;
-    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+5;
-    if (fieldName[0]=='r' && strcmp(fieldName, "realPayloadSize")==0) return base+6;
+    if (fieldName[0]=='m' && strcmp(fieldName, "messageID")==0) return base+3;
+    if (fieldName[0]=='m' && strcmp(fieldName, "msgUniqueID")==0) return base+4;
+    if (fieldName[0]=='g' && strcmp(fieldName, "groupType")==0) return base+5;
+    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+6;
     if (fieldName[0]=='r' && strcmp(fieldName, "realPacketSize")==0) return base+7;
-    if (fieldName[0]=='d' && strcmp(fieldName, "dummyPayloadContent")==0) return base+8;
-    if (fieldName[0]=='m' && strcmp(fieldName, "msgType")==0) return base+9;
-    if (fieldName[0]=='v' && strcmp(fieldName, "validUntilTime")==0) return base+10;
-    if (fieldName[0]=='h' && strcmp(fieldName, "hopsTravelled")==0) return base+11;
-    if (fieldName[0]=='o' && strcmp(fieldName, "originatorNodeMAC")==0) return base+12;
-    if (fieldName[0]=='f' && strcmp(fieldName, "finalDestinationNodeName")==0) return base+13;
+    if (fieldName[0]=='r' && strcmp(fieldName, "realPayloadSize")==0) return base+8;
+    if (fieldName[0]=='v' && strcmp(fieldName, "validUntilTime")==0) return base+9;
+    if (fieldName[0]=='f' && strcmp(fieldName, "finalDestinationNodeName")==0) return base+10;
+    if (fieldName[0]=='o' && strcmp(fieldName, "originatorNodeMAC")==0) return base+11;
+    if (fieldName[0]=='n' && strcmp(fieldName, "nHops")==0) return base+12;
+    if (fieldName[0]=='n' && strcmp(fieldName, "nMsgOrder")==0) return base+13;
     if (fieldName[0]=='d' && strcmp(fieldName, "destinationOriented")==0) return base+14;
-    if (fieldName[0]=='m' && strcmp(fieldName, "messageID")==0) return base+15;
-    if (fieldName[0]=='n' && strcmp(fieldName, "nHops")==0) return base+16;
-    if (fieldName[0]=='n' && strcmp(fieldName, "nMsgOrder")==0) return base+17;
-    if (fieldName[0]=='p' && strcmp(fieldName, "prevHopsList")==0) return base+18;
+    if (fieldName[0]=='p' && strcmp(fieldName, "prevHopsList")==0) return base+15;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -679,24 +629,21 @@ const char *DataMsgDescriptor::getFieldTypeString(int field) const
         "string",
         "string",
         "string",
+        "string",
         "int",
         "int",
         "simtime_t",
         "int",
         "int",
-        "string",
-        "int",
         "double",
+        "string",
+        "string",
         "int",
-        "string",
-        "string",
+        "int",
         "bool",
         "string",
-        "int",
-        "int",
-        "string",
     };
-    return (field>=0 && field<19) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<16) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **DataMsgDescriptor::getFieldPropertyNames(int field) const
@@ -735,7 +682,7 @@ int DataMsgDescriptor::getFieldArraySize(void *object, int field) const
     }
     DataMsg *pp = (DataMsg *)object; (void)pp;
     switch (field) {
-        case 18: return pp->getPrevHopsListArraySize();
+        case 15: return pp->getPrevHopsListArraySize();
         default: return 0;
     }
 }
@@ -767,22 +714,19 @@ std::string DataMsgDescriptor::getFieldValueAsString(void *object, int field, in
         case 0: return oppstring2string(pp->getSourceAddress());
         case 1: return oppstring2string(pp->getDestinationAddress());
         case 2: return oppstring2string(pp->getDataName());
-        case 3: return long2string(pp->getMsgUniqueID());
-        case 4: return long2string(pp->getGroupType());
-        case 5: return simtime2string(pp->getInjectedTime());
-        case 6: return long2string(pp->getRealPayloadSize());
+        case 3: return oppstring2string(pp->getMessageID());
+        case 4: return long2string(pp->getMsgUniqueID());
+        case 5: return long2string(pp->getGroupType());
+        case 6: return simtime2string(pp->getInjectedTime());
         case 7: return long2string(pp->getRealPacketSize());
-        case 8: return oppstring2string(pp->getDummyPayloadContent());
-        case 9: return long2string(pp->getMsgType());
-        case 10: return double2string(pp->getValidUntilTime());
-        case 11: return long2string(pp->getHopsTravelled());
-        case 12: return oppstring2string(pp->getOriginatorNodeMAC());
-        case 13: return oppstring2string(pp->getFinalDestinationNodeName());
+        case 8: return long2string(pp->getRealPayloadSize());
+        case 9: return double2string(pp->getValidUntilTime());
+        case 10: return oppstring2string(pp->getFinalDestinationNodeName());
+        case 11: return oppstring2string(pp->getOriginatorNodeMAC());
+        case 12: return long2string(pp->getNHops());
+        case 13: return long2string(pp->getNMsgOrder());
         case 14: return bool2string(pp->getDestinationOriented());
-        case 15: return oppstring2string(pp->getMessageID());
-        case 16: return long2string(pp->getNHops());
-        case 17: return long2string(pp->getNMsgOrder());
-        case 18: return oppstring2string(pp->getPrevHopsList(i));
+        case 15: return oppstring2string(pp->getPrevHopsList(i));
         default: return "";
     }
 }
@@ -800,22 +744,19 @@ bool DataMsgDescriptor::setFieldValueAsString(void *object, int field, int i, co
         case 0: pp->setSourceAddress((value)); return true;
         case 1: pp->setDestinationAddress((value)); return true;
         case 2: pp->setDataName((value)); return true;
-        case 3: pp->setMsgUniqueID(string2long(value)); return true;
-        case 4: pp->setGroupType(string2long(value)); return true;
-        case 5: pp->setInjectedTime(string2simtime(value)); return true;
-        case 6: pp->setRealPayloadSize(string2long(value)); return true;
+        case 3: pp->setMessageID((value)); return true;
+        case 4: pp->setMsgUniqueID(string2long(value)); return true;
+        case 5: pp->setGroupType(string2long(value)); return true;
+        case 6: pp->setInjectedTime(string2simtime(value)); return true;
         case 7: pp->setRealPacketSize(string2long(value)); return true;
-        case 8: pp->setDummyPayloadContent((value)); return true;
-        case 9: pp->setMsgType(string2long(value)); return true;
-        case 10: pp->setValidUntilTime(string2double(value)); return true;
-        case 11: pp->setHopsTravelled(string2long(value)); return true;
-        case 12: pp->setOriginatorNodeMAC((value)); return true;
-        case 13: pp->setFinalDestinationNodeName((value)); return true;
+        case 8: pp->setRealPayloadSize(string2long(value)); return true;
+        case 9: pp->setValidUntilTime(string2double(value)); return true;
+        case 10: pp->setFinalDestinationNodeName((value)); return true;
+        case 11: pp->setOriginatorNodeMAC((value)); return true;
+        case 12: pp->setNHops(string2long(value)); return true;
+        case 13: pp->setNMsgOrder(string2long(value)); return true;
         case 14: pp->setDestinationOriented(string2bool(value)); return true;
-        case 15: pp->setMessageID((value)); return true;
-        case 16: pp->setNHops(string2long(value)); return true;
-        case 17: pp->setNMsgOrder(string2long(value)); return true;
-        case 18: pp->setPrevHopsList(i,(value)); return true;
+        case 15: pp->setPrevHopsList(i,(value)); return true;
         default: return false;
     }
 }

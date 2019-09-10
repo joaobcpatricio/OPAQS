@@ -1,15 +1,15 @@
-file 35667 1567992612                                           
+file 40490 1568154912                                           
 version 2
-run T2-0-20190909-02:30:08-14378
+run T2-0-20190910-23:35:09-8000
 attr configname T2
-attr datetime 20190909-02:30:08
+attr datetime 20190910-23:35:09
 attr experiment T2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 14378
+attr processid 8000
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -35,6 +35,7 @@ param **.routingLayer "\"RoutingLayer\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -64,8 +65,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2394 19765 16 10947 0.05 10 1500 1 3 3600 9600
-1	22159 1669 31 274 0.1 0.199 100 -nan -nan -nan -nan
-2	23828 5919 1865 6500 2.22352 3.90608 300 36 10800 1625400 11722384800
-3	29747 5919 1865 6500 2.22352 3.90608 300 36 10800 1625400 11722384800
+0	2424 19750 16 10765 0.05 10 1500 1 3 3600 9600
+1	22174 1669 31 274 0.1 0.199 100 -nan -nan -nan -nan
+2	23843 8323 1877 9227 2.247548379119 8.012661748192 300 141 42300 6366150 179824639050
+3	32166 8323 1877 9227 2.247548379119 8.012661748192 300 141 42300 6366150 179824639050
 
