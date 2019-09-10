@@ -101,7 +101,8 @@ packet BeaconMsg {
 	double MyPosY;
 	string neighGraph;
 	int numberVert;
-	//int Nic; //por remover, passa a usar-se pelo MacAdd
+	simtime_t sentTime;	//timeStamp
+	simtime_t receivedTime;	//timeStamp
 }
 
 //***********************************************************************************//

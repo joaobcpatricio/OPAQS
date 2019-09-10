@@ -75,6 +75,10 @@ private:
     // statistics related variable
     simsignal_t neighbourhoodSizeSignal;
 
+    void setReceivedTime(cMessage *msg);
+    void setSentTime(cMessage *msg);
+    double realAquaticAchievableThroughput(double x);
+
 };
 
 

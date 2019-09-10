@@ -646,7 +646,8 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 EV<<"Teste graph: \n";
 //-Teste graph-------------------
 
-
+    EV<<"Beacon Msg time sent:"<<BeaconReceived->getSentTime() <<"\n";
+    EV<<"Beacon Msg time received:"<<BeaconReceived->getReceivedTime() <<"\n";
     int v = 5;//9; //there are 6 vertices in the graph
     string sourAdd = BeaconReceived->getSourceAddress();
     string myAdd;

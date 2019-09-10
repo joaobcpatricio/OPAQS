@@ -236,6 +236,7 @@ void WirelessInterface::handleMessage(cMessage *msg)
         } else {
             EV<<"Wifi sending to upper layer \n";
             // send msg to upper layer
+            setReceivedTime(msg);
             send(msg, "upperLayerOut");
 
         }
@@ -271,6 +272,7 @@ void WirelessInterface::setupSendingMsg(cMessage *msg)
     // compute transmission duration
     cPacket *currentPendingPkt = dynamic_cast<cPacket*>(currentPendingMsg);
     double bitsToSend = (currentPendingPkt->getByteLength() * 8) + (wirelessHeaderSize * 8);
+    EV<<"Bytes to send="<<bitsToSend/8<<"\n";
     double txDuration = bitsToSend / bandwidthBitRate;
 
     // setup timer to trigger at tx duration
@@ -294,11 +296,29 @@ void WirelessInterface::sendPendingMsg()
             // check if node is still in neighbourhood
             if (atTxNeighbourNodeAddress == currentNeighbourNodeAddress) {
 
+                //Set sending Time
+
+                //cMessage *msgB =currentPendingMsg;
+                EV<<"Sent currentPendingMsg \n";
+                setSentTime(currentPendingMsg);
+
                 // make duplicate of packet
                 cPacket *outPktCopy =  dynamic_cast<cPacket*>(currentPendingMsg->dup());
 
+                //Added 9/09/19
+                //We indtroduce delay measured on real simulations
+                inet::Coord ownCoord = ownNodeInfo->nodeMobilityModule->getCurrentPosition();
+                inet::Coord neighCoord = currentNeighbourNodeInfo->nodeMobilityModule->getCurrentPosition();
+                double l = ((neighCoord.x - ownCoord.x) * (neighCoord.x - ownCoord.x)) + ((neighCoord.y - ownCoord.y) * (neighCoord.y - ownCoord.y));
+                double bitsToSend = (outPktCopy->getByteLength() * 8) + (wirelessHeaderSize * 8);
+                simtime_t  delay = bitsToSend / realAquaticAchievableThroughput(sqrt(l));
+
+
+
+
                 // send to node
-                sendDirect(outPktCopy, currentNeighbourNodeInfo->nodeModule, "radioIn");
+                //sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
+                sendDirect(outPktCopy,currentNeighbourNodeInfo->nodeModule, "radioIn");
 
                 break;
             }
@@ -322,6 +342,34 @@ void WirelessInterface::sendPendingMsg()
 
 }
 
+double WirelessInterface::realAquaticAchievableThroughput(double x){ //xE[5,40]m;
+    double AT=-0.00017*pow(x,4)-0.01603*pow(x,3)+0.472862*pow(x,2)-4.20788*x-14.6655; //Mbs/s
+    return abs(AT*pow(10,6));
+
+
+}
+
+//Set the time that the Msg was received here
+void WirelessInterface::setSentTime(cMessage *msg){
+    EV<<"setSentTime\n";
+    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
+    if (beaconMsg) {
+        EV<<"Set sent time:"<<simTime().dbl()<<"\n";
+        beaconMsg->setSentTime(simTime().dbl());
+        //return beaconMsg->getDestinationAddress();
+    }
+}
+
+//set the time the Msg was sent from here
+void WirelessInterface::setReceivedTime(cMessage *msg){
+    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
+    if (beaconMsg) {
+        EV<<"Set received time:"<<simTime().dbl()<<"\n";
+        beaconMsg->setReceivedTime(simTime().dbl());
+    }
+}
+
+
 string WirelessInterface::getDestinationAddress(cMessage *msg)
 {
     DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
@@ -330,25 +378,22 @@ string WirelessInterface::getDestinationAddress(cMessage *msg)
     }
 
 
-
-
-
-
     //Added 17/06 22:34
     AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
-        if (ackMsg) {
-            return ackMsg->getDestinationAddress();
-        }
+    if (ackMsg) {
+        return ackMsg->getDestinationAddress();
+    }
 
     //Added 25/07 16h11
-        DataReqMsg *dataReqMsg = dynamic_cast<DataReqMsg*>(msg);
-            if (dataReqMsg) {
-                return dataReqMsg->getDestinationAddress();
-            }
-            BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
-                if (beaconMsg) {
-                    return beaconMsg->getDestinationAddress();
-                }
+    DataReqMsg *dataReqMsg = dynamic_cast<DataReqMsg*>(msg);
+    if (dataReqMsg) {
+        return dataReqMsg->getDestinationAddress();
+    }
+
+    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
+    if (beaconMsg) {
+        return beaconMsg->getDestinationAddress();
+    }
 
 
     EV_FATAL <<  WIRELESSINTERFACE_SIMMODULEINFO << ">!<Unknown message type. Check \"string WirelessInterface::getDestinationAddress(cMessage *msg)\"\n";
