@@ -226,7 +226,7 @@ void AppLayer::handleMessage(cMessage *msg)
         //dataMsg->setDummyPayloadContent(tempString);
         dataMsg->setByteLength(dataSizeInBytes);
         //dataMsg->setMsgType(0);
-        dataMsg->setValidUntilTime(ttl);
+        dataMsg->setValidUntilTime(simTime().dbl()+ttl);
         dataMsg->setInjectedTime(simTime().dbl());
         dataMsg->setNHops(0);
         //dataMsg->setHopsTravelled(0);

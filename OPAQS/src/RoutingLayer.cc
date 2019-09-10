@@ -26,10 +26,10 @@ void RoutingLayer::initialize(int stage)
         numEventsHandled = 0;
         inCache=0;
         waitBFsend = par("waitBFsend");
-
+        max_age = par("max_age");
 
     } else if (stage == 1) {
-
+        Stor.updateMaxAge(max_age);
 
     } else if (stage == 2) {
 

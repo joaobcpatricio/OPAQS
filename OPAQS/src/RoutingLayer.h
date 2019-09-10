@@ -92,6 +92,7 @@ private:
     bool isReceiving=false;
     double waitS=0;
     double waitBFsend;
+    double max_age;
 
 };
 

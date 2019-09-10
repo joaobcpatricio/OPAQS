@@ -42,6 +42,8 @@ void NeighboringLayer::initialize(int stage)
         //graphe.maximumNoVert(maximumNoVert);
         maxLengthGraph=par("maxLengthGraph");
 
+        max_age = par("max_age");
+
 
     } else if (stage == 1) {
         // get own module info
@@ -865,6 +867,53 @@ double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
 }
 
 
+double NeighboringLayer::calcWeight(cMessage *msg){
+    double Weight=(1-calcLinkQuality(msg))*100;
+    return Weight;
+}
+
+//Calculate the quality of the link
+double NeighboringLayer::calcLinkQuality(cMessage *msg){
+    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double B = calcFactorB(msg);
+    double SSI_ext = calculateSSI(msg);
+    double SSI_ext_norm;        //falta normalizar
+    double BitRate=calcBitRate(msg);
+    double BitRate_norm;        //falta normalizar
+    double Age_factor=calcAgeFact(msg);
+
+    double Link_Quality=(1-B)*SSI_ext_norm*B*(BitRate_norm*Age_factor)/Age_factor;
+
+    return Link_Quality;
+
+
+}
+
+//Calculate the BitRate
+double NeighboringLayer::calcBitRate(cMessage *msg){
+    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double pk_delay= BecMsg->getReceivedTime().dbl() - BecMsg->getSendingTime().dbl();
+    double pk_size=(BecMsg->getByteLength() * 8);
+    double bit_rate=pk_size/pk_delay;
+    return bit_rate;
+}
+
+//Calculate factor B
+double NeighboringLayer::calcFactorB(cMessage *msg){
+    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double B=calcAgeFact(msg)/1;
+    return B;
+}
+
+//Returns Age Factor
+double NeighboringLayer::calcAgeFact(cMessage *msg){
+    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double time_rec=BecMsg->getReceivedTime().dbl();
+    double time_now=simTime().dbl();
+    double dif=time_now-time_rec;
+    double AF=1-(std::min(dif,max_age))/max_age;
+    return AF;
+}
 
 //FINISH
 void NeighboringLayer::finish(){

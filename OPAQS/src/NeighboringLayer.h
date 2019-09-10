@@ -110,6 +110,12 @@ private:
      bool updateMyNGraph(cMessage *msg);
 
      int maxLengthGraph;
+     double max_age;
+     double calcAgeFact(cMessage *msg);
+     double calcFactorB(cMessage *msg);
+     double calcBitRate(cMessage *msg);
+     double calcLinkQuality(cMessage *msg);
+     double calcWeight(cMessage *msg);
 
 
 };

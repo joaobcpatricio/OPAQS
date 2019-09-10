@@ -44,6 +44,8 @@ simple NeighboringLayer
 		int maximumNoVert = default(50);
 		
 		int maxLengthGraph=default(20);
+		
+		double max_age @unit(s) = default(999999999999s);
 
         
     

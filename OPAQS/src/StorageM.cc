@@ -124,7 +124,7 @@ void StorageM::saveData(cMessage *msg, int origin){
         cacheEntry.dataName = omnetDataMsg->getDataName();
         cacheEntry.realPayloadSize = omnetDataMsg->getRealPayloadSize();
         //cacheEntry.dummyPayloadContent = omnetDataMsg->getDummyPayloadContent();
-        cacheEntry.validUntilTime = omnetDataMsg->getValidUntilTime();
+        cacheEntry.validUntilTime = simTime().dbl()+max_age;//omnetDataMsg->getValidUntilTime();    //sets new aging
         cacheEntry.realPacketSize = omnetDataMsg->getRealPacketSize();
         cacheEntry.originatorNodeMAC = omnetDataMsg->getOriginatorNodeMAC();
         cacheEntry.destinationOriented = omnetDataMsg->getDestinationOriented();
@@ -166,6 +166,10 @@ void StorageM::saveData(cMessage *msg, int origin){
 
     cacheEntry.lastAccessedTime = simTime().dbl();
 
+}
+
+void StorageM::updateMaxAge(double value){
+    max_age=value;
 }
 
 

@@ -41,6 +41,9 @@ simple RoutingLayer like IRoutingLayer
 		int inCache = default(0);
 		
 		double waitBFsend = default(0.5);
+		double max_age @unit(s) = default(999999999999s);
+		
+		
 		
 		
         // icon used

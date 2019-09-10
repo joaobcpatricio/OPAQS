@@ -72,6 +72,9 @@ public:
     };
 
     list<CacheEntry> cacheList;
+
+    double max_age=9999;
+    void updateMaxAge(double value);
 };
 
 
