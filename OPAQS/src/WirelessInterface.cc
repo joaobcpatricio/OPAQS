@@ -314,12 +314,25 @@ void WirelessInterface::sendPendingMsg()
                 simtime_t  delay = bitsToSend / realAquaticAchievableThroughput(sqrt(l));
                 EV<<"Delay is:"<<delay<<"\n";
 
+                //Simulates measured lin stability on aquatic environments;
+                double dst=sqrt(l);
+                double link_stability=-0.002*pow(dst,3)+0.0104762*pow(dst,2)+0.454762*dst+ 97.2143; //xE[5,40]
+                bool loosePkt=true;
+                if(dst<5){
+                    loosePkt=false;
+                }else{
+                    loosePkt = (rand() % 100) < link_stability;
+                    loosePkt=!loosePkt;
+                    EV<<"Loose:"<<loosePkt<<" val:"<<link_stability<<"\n";
+                }
 
 
+                if(!loosePkt){
                 // send to node
-                sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
+                    EV<<"Sending\n";
+                    sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
                 //sendDirect(outPktCopy,currentNeighbourNodeInfo->nodeModule, "radioIn");
-
+                }
                 break;
             }
 
