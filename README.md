@@ -82,7 +82,7 @@ Generally, an OPSNode has the following protocol layers.
                            |  +--------+---------+  |
                            |           |            |
                            |  +--------+---------+  |
-                           |  |    Link Layer    |  |
+                           |  |     NIC Layer    |  |
                            |  | +--------------+ |  |
                            |  | |   Mobility   | |  |
                            |  | +--------------+ |  |
