@@ -116,6 +116,9 @@ private:
      double calcBitRate(cMessage *msg);
      double calcLinkQuality(cMessage *msg);
      double calcWeight(cMessage *msg);
+     double calcNeighWeight(cMessage *msg);
+     double calcMyLQE(cMessage *msg);
+     double calculateLinkStability(cMessage *msg);
 
 
 };

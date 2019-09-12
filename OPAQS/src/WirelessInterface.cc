@@ -5,6 +5,9 @@
 // @major changes by : João Patrício (castanheirapatricio@ua.pt)
 // @date :   3-jul-2019
 //
+// Achievable Throughput: https://www.wolframalpha.com/input/?i=fit+%7B5%2C25.510175%7D%2C%7B10%2C24.481619%7D%2C%7B15%2C16.450636%7D+%2C%7B20+%2C8.27464%7D%2C%7B25%2C+6.756953%7D%2C%7B30%2C++5.875773%7D%2C%7B35%2C3.537482%7D%7B40%2C+0.075%7D
+//
+//
 
 #include "WirelessInterface.h"
 
@@ -356,9 +359,12 @@ void WirelessInterface::sendPendingMsg()
 }
 
 double WirelessInterface::realAquaticAchievableThroughput(double x){ //xE[5,40]m;
-    double AT=-0.00017*pow(x,4)-0.01603*pow(x,3)+0.472862*pow(x,2)-4.20788*x-14.6655; //Mbs/s
-    return abs(AT*pow(10,6));
-
+    if(x<5){
+        return 0;
+    }else{
+        double AT=-0.000177*pow(x,4)+0.01603*pow(x,3)-0.472862*pow(x,2)+4.20788*x+14.6655; //Mbs/s
+        return abs(AT*pow(10,6));
+    }
 
 }
 

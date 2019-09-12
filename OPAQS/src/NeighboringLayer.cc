@@ -631,11 +631,27 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
             }
         }
     }
-    //UpdateMyGraph
-    double ssi_ext=fabs(calculateSSI(msg));
+    //UpdateMyGraph (OLD)
+/*    double ssi_ext=fabs(calculateSSI(msg));
     int ssi_extInt = static_cast<int>(ssi_ext < 0 ? ssi_ext - 0.5 : ssi_ext + 0.5);
     graphe.add_edge(myID, srcID, ssi_extInt);
     //graphe.displayMatrix(maxLengthGraph);
+*/
+
+
+    //Daniela ( está com erros por compatibilidade de implementação):
+    /*double nWeight=calcNeighWeight(msg);
+    int nWeight_Int = static_cast<int>(nWeight < 0 ? nWeight - 0.5 : nWeight + 0.5);
+    EV<<"RSSI="<<ssi_extInt<<" nWeight="<<nWeight<<" nWeight_Int="<<nWeight_Int<<"\n";
+    //graphe.add_edge(myID, srcID, nWeight_Int);*/
+
+    //My Weight:
+    double myCalcWeight=(1-calcMyLQE(msg))*100;
+    int myCalcWeight_Int = static_cast<int>(myCalcWeight < 0 ? myCalcWeight - 0.5 : myCalcWeight + 0.5);
+    EV<<"MyCalcWeight="<<myCalcWeight<<" MyCalcWeight_Int"<<myCalcWeight_Int<<"\n";
+    graphe.add_edge(myID, srcID, myCalcWeight_Int);
+
+
     return true;
 }
 
@@ -788,6 +804,21 @@ double NeighboringLayer::calculateSSI(cMessage *msg){
 
 }
 
+double NeighboringLayer::calculateLinkStability(cMessage *msg){
+    double x=calculateDistance(msg);
+    double link_stability=0;
+
+    if(x<5){
+        link_stability=1;
+    }else if(x>=40){
+        link_stability=0;
+    }else{
+        link_stability=-0.002*pow(x,3)+0.0104762*pow(x,2)+0.454762*x+97.2143;
+    }
+        return link_stability;
+
+}
+
 /*************************
  * ⇒ Update the Quality Value between the two nodes.
  */
@@ -872,21 +903,44 @@ double NeighboringLayer::calcWeight(cMessage *msg){
     return Weight;
 }
 
+
+double NeighboringLayer::calcNeighWeight(cMessage *msg){
+    double weight = (1-calcLinkQuality(msg))*100;
+    return weight;
+}
+
+double NeighboringLayer::calcMyLQE(cMessage *msg){
+    double SSI_ext = calculateSSI(msg);
+    double rssi_norm = 1.0 + ((float)((SSI_ext - (-56)) * (0 - 1)) / ((-100) - (-56)));
+
+    double link_stability = calculateLinkStability(msg)/100;
+
+    double Link_Quality=(rssi_norm+link_stability)/2;
+
+    EV<<"My Link Quality="<<Link_Quality<<" My ssi_norm"<<rssi_norm<<" my link_stability"<<link_stability<<"\n";
+
+    return Link_Quality;
+}
+
 //Calculate the quality of the link
 double NeighboringLayer::calcLinkQuality(cMessage *msg){
     BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double bps_norm=0;
     double B = calcFactorB(msg);
     double SSI_ext = calculateSSI(msg);
-    double SSI_ext_norm;        //falta normalizar
+    double rssi_norm = 1.0 + ((float)((SSI_ext - (-56)) * (0 - 1)) / ((-100) - (-56)));
     double BitRate=calcBitRate(msg);
-    double BitRate_norm;        //falta normalizar
+    if(BitRate<=180000){
+            bps_norm = 1 + (((BitRate - (180000)) * (0 - 1)) / (0 - 180000));
+        }else{
+            bps_norm=1;
+        }
     double Age_factor=calcAgeFact(msg);
+    double Link_Quality=(1-B)*rssi_norm+B*(bps_norm*Age_factor)/Age_factor;
 
-    double Link_Quality=(1-B)*SSI_ext_norm*B*(BitRate_norm*Age_factor)/Age_factor;
+    EV<<"Link Quality="<<Link_Quality<<"\n";
 
     return Link_Quality;
-
-
 }
 
 //Calculate the BitRate
@@ -895,6 +949,15 @@ double NeighboringLayer::calcBitRate(cMessage *msg){
     double pk_delay= BecMsg->getReceivedTime().dbl() - BecMsg->getSendingTime().dbl();
     double pk_size=(BecMsg->getByteLength() * 8);
     double bit_rate=pk_size/pk_delay;
+
+    if(bit_rate<=180000){
+        double bps_norm = 1 + (((bit_rate - (180000)) * (0 - 1)) / (0 - 180000));
+    }else{
+        double bps_norm=1;
+    }
+
+    EV<<"BitRate="<<bit_rate<<"\n";
+
     return bit_rate;
 }
 
@@ -902,6 +965,8 @@ double NeighboringLayer::calcBitRate(cMessage *msg){
 double NeighboringLayer::calcFactorB(cMessage *msg){
     BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
     double B=calcAgeFact(msg)/1;
+
+    EV<<"B factor="<<B<<"\n";
     return B;
 }
 
@@ -910,8 +975,10 @@ double NeighboringLayer::calcAgeFact(cMessage *msg){
     BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
     double time_rec=BecMsg->getReceivedTime().dbl();
     double time_now=simTime().dbl();
+    EV<<"time now:"<<time_now<<"time rec:"<<time_rec<<"\n";
     double dif=time_now-time_rec;
     double AF=1-(std::min(dif,max_age))/max_age;
+    EV<<"Dif="<<dif<<"Age factor="<<AF<<"\n";
     return AF;
 }
 
