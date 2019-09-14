@@ -1,15 +1,15 @@
-file 26842 1568154808                                           
+file 28791 1568419068                                           
 version 2
-run A-0-20190910-23:33:25-7919
+run A-0-20190914-00:57:47-26332
 attr configname A
-attr datetime 20190910-23:33:25
+attr datetime 20190914-00:57:47
 attr experiment A
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 7919
+attr processid 26332
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -17,8 +17,8 @@ attr runnumber 0
 attr seedset 0
 param **.mobility.traceFile "\"paths/A.movements\""
 param **.numNodes 3
-param **.wirelessIfc.wirelessRange 25m
-param **.bluetoothIfc.wirelessRange 25m
+param **.wirelessIfc.wirelessRange 40m
+param **.bluetoothIfc.wirelessRange 40m
 param **.numNodes 2
 param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
@@ -36,6 +36,7 @@ param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -43,6 +44,7 @@ param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
+param **.neighboring.max_age 999999s
 param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
@@ -55,6 +57,7 @@ param **.bluetoothIfc.wirelessHeaderSize 16byte
 param **.bluetoothIfc.minSSI -90
 param **.mobilityType "\"BonnMotionMobility\""
 param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.is3D false
 param **.mobility.nodeId -1
 
 vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
@@ -65,8 +68,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2420 11724 10 6116 0.05 10 900 1 2 1200 1800
-1	14144 1657 19 244 0.1 0.199 100 -nan -nan -nan -nan
-2	15801 5520 958 4317 1.687868379119 5.248363244372 200 141 28200 2834100 53414282700
-3	21321 5520 958 4317 1.687868379119 5.248363244372 200 141 28200 2834100 53414282700
+0	2521 11724 10 6468 0.05 10 900 1 2 1200 1800
+1	14245 1657 19 244 0.1 0.199 100 -nan -nan -nan -nan
+2	15902 6444 958 5063 1.688032534095 6.279813385287 233 141 32853 3843801 84367588149
+3	22346 6444 958 5063 1.688032534095 6.279813385287 233 141 32853 3843801 84367588149
 

@@ -1,24 +1,24 @@
-file 42319 1568301162                                           
+file 165264 1568399500                                          
 version 2
-run T2-0-20190912-16:12:39-1216
-attr configname T2
-attr datetime 20190912-16:12:39
-attr experiment T2
+run C-0-20190913-18:57:03-14060
+attr configname C
+attr datetime 20190913-18:57:03
+attr experiment C
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 1216
+attr processid 14060
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"paths/T2.movements\""
-param **.numNodes 5
-param **.wirelessIfc.wirelessRange 25m
-param **.bluetoothIfc.wirelessRange 25m
+param **.mobility.traceFile "\"paths/C.movements\""
+param **.numNodes 4
+param **.wirelessIfc.wirelessRange 35m
+param **.bluetoothIfc.wirelessRange 35m
 param **.numNodes 2
 param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
@@ -63,12 +63,13 @@ vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
 attr source neighbourhoodSize
 vector 1 NetworkTormV2 deliveryRatio:vector ETV
 attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
-vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
-attr source sum(dataBytesReceived)
-vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
-attr source sum(totalBytesReceived)
-0	2494 19765 16 10875 0.05 10 1500 1 3 3600 9600
-1	22259 1669 31 274 0.1 0.199 100 -nan -nan -nan -nan
-2	23928 9195 1889 10859 2.252352534095 9.978448212145 331 141 46671 7747386 241416295146
-3	33123 9195 1889 10859 2.252352534095 9.978448212145 331 141 46671 7747386 241416295146
+0	2310 1600 13 592 0.05 1.1 132 3 3 396 1188
+1	3910 1663 25 259 0.1 0.199 100 -nan -nan -nan -nan
+
+NetworkTormV2 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 1 NetworkTormV2 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+0	2610 160988 13 51636 0.05 90 10800 0 3 26506 70198
+1	163598 1665 25 263 0.1 0.199 100 -nan -nan -nan -nan
 

@@ -69,6 +69,8 @@ public:
         int nHops;
         string prevHopsList[200];
         int prevHopListSize=1;
+        simtime_t sentTime; //timeStamp
+        simtime_t receivedTime; //timeStamp
     };
 
     list<CacheEntry> cacheList;

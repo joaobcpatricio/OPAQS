@@ -192,6 +192,8 @@ DataMsg::DataMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
     this->destinationOriented = false;
     prevHopsList_arraysize = 0;
     this->prevHopsList = 0;
+    this->sentTime = 0;
+    this->receivedTime = 0;
 }
 
 DataMsg::DataMsg(const DataMsg& other) : ::omnetpp::cPacket(other)
@@ -236,6 +238,8 @@ void DataMsg::copy(const DataMsg& other)
     prevHopsList_arraysize = other.prevHopsList_arraysize;
     for (unsigned int i=0; i<prevHopsList_arraysize; i++)
         this->prevHopsList[i] = other.prevHopsList[i];
+    this->sentTime = other.sentTime;
+    this->receivedTime = other.receivedTime;
 }
 
 void DataMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -258,6 +262,8 @@ void DataMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->destinationOriented);
     b->pack(prevHopsList_arraysize);
     doParsimArrayPacking(b,this->prevHopsList,prevHopsList_arraysize);
+    doParsimPacking(b,this->sentTime);
+    doParsimPacking(b,this->receivedTime);
 }
 
 void DataMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -286,6 +292,8 @@ void DataMsg::parsimUnpack(omnetpp::cCommBuffer *b)
         this->prevHopsList = new ::omnetpp::opp_string[prevHopsList_arraysize];
         doParsimArrayUnpacking(b,this->prevHopsList,prevHopsList_arraysize);
     }
+    doParsimUnpacking(b,this->sentTime);
+    doParsimUnpacking(b,this->receivedTime);
 }
 
 const char * DataMsg::getSourceAddress() const
@@ -468,6 +476,26 @@ void DataMsg::setPrevHopsList(unsigned int k, const char * prevHopsList)
     this->prevHopsList[k] = prevHopsList;
 }
 
+::omnetpp::simtime_t DataMsg::getSentTime() const
+{
+    return this->sentTime;
+}
+
+void DataMsg::setSentTime(::omnetpp::simtime_t sentTime)
+{
+    this->sentTime = sentTime;
+}
+
+::omnetpp::simtime_t DataMsg::getReceivedTime() const
+{
+    return this->receivedTime;
+}
+
+void DataMsg::setReceivedTime(::omnetpp::simtime_t receivedTime)
+{
+    this->receivedTime = receivedTime;
+}
+
 class DataMsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -533,7 +561,7 @@ const char *DataMsgDescriptor::getProperty(const char *propertyname) const
 int DataMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 16+basedesc->getFieldCount() : 16;
+    return basedesc ? 18+basedesc->getFieldCount() : 18;
 }
 
 unsigned int DataMsgDescriptor::getFieldTypeFlags(int field) const
@@ -561,8 +589,10 @@ unsigned int DataMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISARRAY | FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<16) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<18) ? fieldTypeFlags[field] : 0;
 }
 
 const char *DataMsgDescriptor::getFieldName(int field) const
@@ -590,8 +620,10 @@ const char *DataMsgDescriptor::getFieldName(int field) const
         "nMsgOrder",
         "destinationOriented",
         "prevHopsList",
+        "sentTime",
+        "receivedTime",
     };
-    return (field>=0 && field<16) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<18) ? fieldNames[field] : nullptr;
 }
 
 int DataMsgDescriptor::findField(const char *fieldName) const
@@ -614,6 +646,8 @@ int DataMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='n' && strcmp(fieldName, "nMsgOrder")==0) return base+13;
     if (fieldName[0]=='d' && strcmp(fieldName, "destinationOriented")==0) return base+14;
     if (fieldName[0]=='p' && strcmp(fieldName, "prevHopsList")==0) return base+15;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+16;
+    if (fieldName[0]=='r' && strcmp(fieldName, "receivedTime")==0) return base+17;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -642,8 +676,10 @@ const char *DataMsgDescriptor::getFieldTypeString(int field) const
         "int",
         "bool",
         "string",
+        "simtime_t",
+        "simtime_t",
     };
-    return (field>=0 && field<16) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<18) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **DataMsgDescriptor::getFieldPropertyNames(int field) const
@@ -727,6 +763,8 @@ std::string DataMsgDescriptor::getFieldValueAsString(void *object, int field, in
         case 13: return long2string(pp->getNMsgOrder());
         case 14: return bool2string(pp->getDestinationOriented());
         case 15: return oppstring2string(pp->getPrevHopsList(i));
+        case 16: return simtime2string(pp->getSentTime());
+        case 17: return simtime2string(pp->getReceivedTime());
         default: return "";
     }
 }
@@ -757,6 +795,8 @@ bool DataMsgDescriptor::setFieldValueAsString(void *object, int field, int i, co
         case 13: pp->setNMsgOrder(string2long(value)); return true;
         case 14: pp->setDestinationOriented(string2bool(value)); return true;
         case 15: pp->setPrevHopsList(i,(value)); return true;
+        case 16: pp->setSentTime(string2simtime(value)); return true;
+        case 17: pp->setReceivedTime(string2simtime(value)); return true;
         default: return false;
     }
 }

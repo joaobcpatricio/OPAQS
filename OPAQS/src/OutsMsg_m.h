@@ -45,7 +45,7 @@
  *     string messageID; //ID na storage->cacheList  ?  							(*-64 bytes)
  *     int msgUniqueID;	//ID da msg em int										(2)
  *     int groupType = 50;//(previouys goodness value) Groupt type 				(1byte)   
- *     simtime_t injectedTime;	//timeStamp											(?)
+ *     simtime_t injectedTime;	//timeStamp	, generation time						(?)
  *     int realPacketSize; //tells total size of the message 						(2 byte)
  *     int realPayloadSize; //size of the data -> dataSizeInBytes 					(10 bytes? .ini)       
  *     double validUntilTime = 0; //ttl - defines when data time expires			(4b ytes)
@@ -59,6 +59,9 @@
  *     bool destinationOriented = false;	//										(1 byte)
  *     string prevHopsList[];	//	list of previous nodes where the data 			(32 bytes)
  *     						//passes through - loop avoidance mechanism
+ * 
+ *     simtime_t sentTime;	//timeStamp
+ *     simtime_t receivedTime;	//timeStamp
  * 
  *     //OTHERS old:    
  *     //string dummyPayloadContent;	
@@ -88,6 +91,8 @@ class DataMsg : public ::omnetpp::cPacket
     bool destinationOriented;
     ::omnetpp::opp_string *prevHopsList; // array ptr
     unsigned int prevHopsList_arraysize;
+    ::omnetpp::simtime_t sentTime;
+    ::omnetpp::simtime_t receivedTime;
 
   private:
     void copy(const DataMsg& other);
@@ -140,13 +145,17 @@ class DataMsg : public ::omnetpp::cPacket
     virtual unsigned int getPrevHopsListArraySize() const;
     virtual const char * getPrevHopsList(unsigned int k) const;
     virtual void setPrevHopsList(unsigned int k, const char * prevHopsList);
+    virtual ::omnetpp::simtime_t getSentTime() const;
+    virtual void setSentTime(::omnetpp::simtime_t sentTime);
+    virtual ::omnetpp::simtime_t getReceivedTime() const;
+    virtual void setReceivedTime(::omnetpp::simtime_t receivedTime);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const DataMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, DataMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:62</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:65</tt> by nedtool.
  * <pre>
  * //***********************************************************************************  /
  * // Acknowledge message.
@@ -216,7 +225,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const AckMsg& obj) {obj.par
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:88</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:91</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Beacon message.
@@ -305,7 +314,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconMsg& obj) {obj.
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:113</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:116</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Data Request message.

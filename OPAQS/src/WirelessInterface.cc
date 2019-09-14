@@ -314,7 +314,16 @@ void WirelessInterface::sendPendingMsg()
                 inet::Coord neighCoord = currentNeighbourNodeInfo->nodeMobilityModule->getCurrentPosition();
                 double l = ((neighCoord.x - ownCoord.x) * (neighCoord.x - ownCoord.x)) + ((neighCoord.y - ownCoord.y) * (neighCoord.y - ownCoord.y));
                 double bitsToSend = (outPktCopy->getByteLength() * 8) + (wirelessHeaderSize * 8);
-                simtime_t  delay = bitsToSend / realAquaticAchievableThroughput(sqrt(l));
+                EV<<"R="<<sqrt(l)<<"Bits to send:"<<bitsToSend<<" AT="<<realAquaticAchievableThroughput(sqrt(l))<<"\n";
+
+                simtime_t  delay;
+                if(realAquaticAchievableThroughput(sqrt(l))==0){
+                    delay = bitsToSend;
+                    EV<<"SHOULD NOT END UP HERE \n";
+                    EV_INFO << WIRELESSINTERFACE_SIMMODULEINFO << "Range to big for real scenario data" << "\n";
+                }else{
+                    delay = bitsToSend / realAquaticAchievableThroughput(sqrt(l));
+                }
                 EV<<"Delay is:"<<delay<<"\n";
 
                 //Simulates measured lin stability on aquatic environments;
@@ -359,10 +368,14 @@ void WirelessInterface::sendPendingMsg()
 }
 
 double WirelessInterface::realAquaticAchievableThroughput(double x){ //xE[5,40]m;
-    if(x<5){
+    if(x>=40){
         return 0;
+    }else if(x<5){
+        return abs(25*pow(10,6));
     }else{
         double AT=-0.000177*pow(x,4)+0.01603*pow(x,3)-0.472862*pow(x,2)+4.20788*x+14.6655; //Mbs/s
+        //EV<<"AT:"<<abs(AT*pow(10,6))<<"AT5="<<-0.000177*pow(5,4)+0.01603*pow(5,3)-0.472862*pow(5,2)+4.20788*5+14.6655<<"AT40="<<-0.000177*pow(40,4)+0.01603*pow(40,3)-0.472862*pow(40,2)+4.20788*40+14.6655<<"\n";
+        //EV<<"BIG"<<-0.000177*pow(200,4)+0.01603*pow(200,3)-0.472862*pow(200,2)+4.20788*200+14.6655<<"\n";
         return abs(AT*pow(10,6));
     }
 
@@ -373,10 +386,16 @@ void WirelessInterface::setSentTime(cMessage *msg){
     EV<<"setSentTime\n";
     BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
     if (beaconMsg) {
-        EV<<"Set sent time:"<<simTime().dbl()<<"\n";
+        EV<<"Set sent time of Beacon:"<<simTime().dbl()<<"\n";
         beaconMsg->setSentTime(simTime().dbl());
         //return beaconMsg->getDestinationAddress();
     }
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+    if (dataMsg) {
+        EV<<"Set sent time of DataMsg:"<<simTime().dbl()<<"\n";
+        dataMsg->setSentTime(simTime().dbl());
+    }
+
 }
 
 //set the time the Msg was sent from here
@@ -385,6 +404,11 @@ void WirelessInterface::setReceivedTime(cMessage *msg){
     if (beaconMsg) {
         EV<<"Set received time:"<<simTime().dbl()<<"\n";
         beaconMsg->setReceivedTime(simTime().dbl());
+    }
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+    if (dataMsg) {
+        EV<<"Set received time:"<<simTime().dbl()<<"\n";
+        dataMsg->setReceivedTime(simTime().dbl());
     }
 }
 

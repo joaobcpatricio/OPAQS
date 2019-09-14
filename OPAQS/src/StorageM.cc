@@ -141,6 +141,8 @@ void StorageM::saveData(cMessage *msg, int origin){
         cacheEntry.nHops = omnetDataMsg->getNHops();
         cacheEntry.createdTime = simTime().dbl();
         cacheEntry.updatedTime = simTime().dbl();
+        cacheEntry.sentTime = omnetDataMsg->getSentTime();
+        cacheEntry.receivedTime = omnetDataMsg->getReceivedTime();
 
 
         //Added 28/07/19 14h23
@@ -301,6 +303,8 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     dataMsg->setMsgUniqueID(itC->msgUniqueID);
     dataMsg->setInjectedTime(itC->injectedTime);
     dataMsg->setNHops(itC->nHops);
+    dataMsg->setSentTime(itC->sentTime);
+    dataMsg->setReceivedTime(itC->receivedTime);
 
     //Added 28/07/19 14h23
     int vi=0;

@@ -45,10 +45,35 @@ void RoutingLayer::initialize(int stage)
 
 
         //Create File that saves Data
-        ofstream file;
-        file.open ("GwResults.txt");
-        file << "Here is information Obtained in Gw\n";
+        /*ofstream file;
+        string nameF="Results";
+        string noS=ownMACAddress.substr(15,17);
+        nameF.append(noS);
+        nameF.append(".txt");
+        file.open (nameF);
+        file << "Here is information Obtained in this node\n";
         file.close();
+        file.open(nameF);
+        file << "Here is another information Obtained in this node\n";
+                file.close();*/
+
+        string nameF="Results";
+        string noS=ownMACAddress.substr(15,17);
+        nameF.append(noS);
+        nameF.append(".txt");
+        //EV<<"nameF: "<<nameF<<"\n";
+        ofstream outfile(nameF,ios::out);
+        outfile<<"RESULTS FILE \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
+        outfile.close();
+
+        std::ofstream out(nameF, std::ios_base::app);
+        auto start = std::chrono::system_clock::now();
+        // Some computation here
+        auto end = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end-start;
+        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+        out<< "Started simulation at " << std::ctime(&end_time) << "elapsed time: " << elapsed_seconds.count() << "s\n";
+        out.close();
 
 
     } else {
@@ -338,6 +363,7 @@ void RoutingLayer::handleAckFromLowerLayer(cMessage *msg){
 
     if(isFinalDest){
         //Stor.deleteMsg(messageID); //PARA JÁ NAO QUERO QUE APAGUE PARA TESTAR SITUAÇÃO ATUAL DE SPREAD
+        EV<<"It reached the GW! \n";
     }
 
     //Update previous Hops List
@@ -362,6 +388,8 @@ void RoutingLayer::handleAckFromLowerLayer(cMessage *msg){
 
 void RoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
 {
+    DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
+    upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
     Stor.saveData(msg,0);
     delete msg;
 }
@@ -400,7 +428,38 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     bool imDestiny = FALSE;
     if(omnetDataMsg->getDestinationOriented()){
         if(omnetDataMsg->getFinalDestinationNodeName()==ownMACAddress){
-            EV<<"SOU IGUAL \n";
+            EV<<"Sou a final destination \n";
+
+            //save info into file
+            string nameF="Results";
+            string noS=ownMACAddress.substr(15,17);
+            nameF.append(noS);
+            nameF.append(".txt");
+            std::ofstream out(nameF, std::ios_base::app);
+            //Generation Mac
+            string srcMAC=omnetDataMsg->getOriginatorNodeMAC();
+            string srcer="Source: ";
+            srcer.append(srcMAC);
+            out<<srcer;
+            //MessageID
+            std::string msID=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
+            string msIDis=" | Message ID: ";
+            msIDis.append(msID);
+            out<<msIDis;
+            //Time generated
+            std::string timeMsg = std::to_string(omnetDataMsg->getInjectedTime().dbl());
+            string timeGen=" | Time generated: ";
+            timeGen.append(timeMsg);
+            out<<timeGen;
+            //time received here
+            std::string timeRMsg = std::to_string(omnetDataMsg->getReceivedTime().dbl());
+            string timeRec=" | Time received: ";
+            timeRec.append(timeRMsg);
+            out<<timeRec;
+            out<<" |End \n";
+            out.close();
+
+
             cacheData=FALSE;
             imDestiny=TRUE;
         }

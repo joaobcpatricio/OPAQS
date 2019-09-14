@@ -22,7 +22,7 @@ packet DataMsg {
     string messageID; //ID na storage->cacheList  ?  							(*-64 bytes)
     int msgUniqueID;	//ID da msg em int										(2)
     int groupType = 50;//(previouys goodness value) Groupt type 				(1byte)   
-    simtime_t injectedTime;	//timeStamp											(?)
+    simtime_t injectedTime;	//timeStamp	, generation time						(?)
     int realPacketSize; //tells total size of the message 						(2 byte)
     int realPayloadSize; //size of the data -> dataSizeInBytes 					(10 bytes? .ini)       
 	double validUntilTime = 0; //ttl - defines when data time expires			(4b ytes)
@@ -36,6 +36,9 @@ packet DataMsg {
     bool destinationOriented = false;	//										(1 byte)
     string prevHopsList[];	//	list of previous nodes where the data 			(32 bytes)
     						//passes through - loop avoidance mechanism
+    						
+    simtime_t sentTime;	//timeStamp
+	simtime_t receivedTime;	//timeStamp
     
     //OTHERS old:    
     //string dummyPayloadContent;	
