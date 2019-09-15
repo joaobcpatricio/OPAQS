@@ -32,6 +32,12 @@
 
 #include <sstream>
 
+//file libs
+#include <iostream>
+#include <chrono>
+#include <ctime>
+#include <fstream>
+
 using namespace omnetpp;
 
 using namespace std;
@@ -78,6 +84,8 @@ private:
     void setReceivedTime(cMessage *msg);
     void setSentTime(cMessage *msg);
     double realAquaticAchievableThroughput(double x);
+    void setSentTimeSrc(cMessage *msg);
+    void setRecTimeGW(cMessage *msg);
 
 };
 

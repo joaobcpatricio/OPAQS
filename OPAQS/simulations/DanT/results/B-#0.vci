@@ -1,15 +1,15 @@
-file 30770 1568154866                                           
+file 173559 1568501395                                          
 version 2
-run B-0-20190910-23:34:23-7919
+run B-0-20190914-23:49:47-22536
 attr configname B
-attr datetime 20190910-23:34:23
+attr datetime 20190914-23:49:47
 attr experiment B
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 7919
+attr processid 22536
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -17,8 +17,15 @@ attr runnumber 0
 attr seedset 0
 param **.mobility.traceFile "\"paths/B.movements\""
 param **.numNodes 4
-param **.wirelessIfc.wirelessRange 35m
-param **.bluetoothIfc.wirelessRange 35m
+param **.wirelessIfc.wirelessRange 40m
+param **.bluetoothIfc.wirelessRange 40m
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0,1\""
+param **application.startMultipleMsg true
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
 param **.numNodes 2
 param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
@@ -36,6 +43,7 @@ param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -43,6 +51,7 @@ param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
+param **.neighboring.max_age 999999s
 param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
@@ -55,6 +64,7 @@ param **.bluetoothIfc.wirelessHeaderSize 16byte
 param **.bluetoothIfc.minSSI -90
 param **.mobilityType "\"BonnMotionMobility\""
 param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.is3D false
 param **.mobility.nodeId -1
 
 vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
@@ -65,8 +75,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2420 15640 13 7860 0.05 10 1200 2 2 2400 4800
-1	18060 1663 25 259 0.1 0.199 100 -nan -nan -nan -nan
-2	19723 5523 1212 5203 1.692484841936 5.262646465244 200 141 28200 2834100 53414282700
-3	25246 5523 1212 5203 1.692484841936 5.262646465244 200 141 28200 2834100 53414282700
+0	2840 142916 13 40457 0.05 80 9600 2 2 19200 38400
+1	145756 3352 25 458 0.1 0.199 200 -nan -nan -nan -nan
+2	149108 12225 1054 25621 1.138430839471 45.728750839471 430 141 60630 13065765 528732312255
+3	161333 12225 1054 25621 1.138430839471 45.728750839471 430 141 60630 13065765 528732312255
 

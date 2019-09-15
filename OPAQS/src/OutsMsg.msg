@@ -36,7 +36,9 @@ packet DataMsg {
     bool destinationOriented = false;	//										(1 byte)
     string prevHopsList[];	//	list of previous nodes where the data 			(32 bytes)
     						//passes through - loop avoidance mechanism
-    						
+    	
+    simtime_t sentTimeRout;//Time messaged sent from routing
+    simtime_t receivedTimeRout;//Time msg received in routing						
     simtime_t sentTime;	//timeStamp
 	simtime_t receivedTime;	//timeStamp
     

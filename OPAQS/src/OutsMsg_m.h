@@ -60,6 +60,8 @@
  *     string prevHopsList[];	//	list of previous nodes where the data 			(32 bytes)
  *     						//passes through - loop avoidance mechanism
  * 
+ *     simtime_t sentTimeRout;//Time messaged sent from routing
+ *     simtime_t receivedTimeRout;//Time msg received in routing						
  *     simtime_t sentTime;	//timeStamp
  *     simtime_t receivedTime;	//timeStamp
  * 
@@ -91,6 +93,8 @@ class DataMsg : public ::omnetpp::cPacket
     bool destinationOriented;
     ::omnetpp::opp_string *prevHopsList; // array ptr
     unsigned int prevHopsList_arraysize;
+    ::omnetpp::simtime_t sentTimeRout;
+    ::omnetpp::simtime_t receivedTimeRout;
     ::omnetpp::simtime_t sentTime;
     ::omnetpp::simtime_t receivedTime;
 
@@ -145,6 +149,10 @@ class DataMsg : public ::omnetpp::cPacket
     virtual unsigned int getPrevHopsListArraySize() const;
     virtual const char * getPrevHopsList(unsigned int k) const;
     virtual void setPrevHopsList(unsigned int k, const char * prevHopsList);
+    virtual ::omnetpp::simtime_t getSentTimeRout() const;
+    virtual void setSentTimeRout(::omnetpp::simtime_t sentTimeRout);
+    virtual ::omnetpp::simtime_t getReceivedTimeRout() const;
+    virtual void setReceivedTimeRout(::omnetpp::simtime_t receivedTimeRout);
     virtual ::omnetpp::simtime_t getSentTime() const;
     virtual void setSentTime(::omnetpp::simtime_t sentTime);
     virtual ::omnetpp::simtime_t getReceivedTime() const;
@@ -155,7 +163,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const DataMsg& obj) {obj.pa
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, DataMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:65</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:67</tt> by nedtool.
  * <pre>
  * //***********************************************************************************  /
  * // Acknowledge message.
@@ -225,7 +233,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const AckMsg& obj) {obj.par
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:91</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:93</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Beacon message.
@@ -314,7 +322,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconMsg& obj) {obj.
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:116</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:118</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Data Request message.

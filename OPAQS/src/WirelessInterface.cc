@@ -50,6 +50,58 @@ void WirelessInterface::initialize(int stage)
         ownNodeInfo->nodeWirelessIfcModule = this;
 
 
+        //File stores data if I'm Src
+        string nameF="ResultsSrc";
+        string noS=ownMACAddress.substr(15,17);
+        nameF.append(noS);
+        nameF.append(".txt");
+        //EV<<"nameF: "<<nameF<<"\n";
+        ofstream outfile(nameF,ios::out);
+        outfile<<"RESULTS FILE \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
+        outfile.close();
+        std::ofstream out(nameF, std::ios_base::app);
+        auto start = std::chrono::system_clock::now();
+        // Some computation here
+        auto end = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end-start;
+        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+        out<< "Started simulation at " << std::ctime(&end_time) << "elapsed time: " << elapsed_seconds.count() << "s\n";
+        out.close();
+
+        //File stores sent data
+        string nameS="ResultsSent";
+        nameS.append(noS);
+        nameS.append(".txt");
+        ofstream outfileS(nameS,ios::out);
+        outfileS<<"RESULTS Sent DataMsg \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
+        outfileS.close();
+        std::ofstream outS(nameS, std::ios_base::app);
+        auto startS = std::chrono::system_clock::now();
+        // Some computation here
+        auto endS = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_secondsS = endS-startS;
+        std::time_t end_timeS = std::chrono::system_clock::to_time_t(endS);
+        outS<< "Started simulation at " << std::ctime(&end_timeS) << "elapsed time: " << elapsed_secondsS.count() << "s\n";
+        outS.close();
+
+        //File stores Received data
+        string nameR="ResultsReceived";
+                nameR.append(noS);
+                nameR.append(".txt");
+                ofstream outfileR(nameR,ios::out);
+                outfileR<<"RESULTS Received DataMsg \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
+                outfileR.close();
+                std::ofstream outR(nameR, std::ios_base::app);
+                auto startR = std::chrono::system_clock::now();
+                // Some computation here
+                auto endR = std::chrono::system_clock::now();
+                std::chrono::duration<double> elapsed_secondsR = endR-startR;
+                std::time_t end_timeR = std::chrono::system_clock::to_time_t(endR);
+                outR<< "Started simulation at " << std::ctime(&end_timeR) << "elapsed time: " << elapsed_secondsR.count() << "s\n";
+                outR.close();
+
+
+
     } else if (stage == 2) {
 
         // get module info of all other nodes in network
@@ -221,7 +273,7 @@ void WirelessInterface::handleMessage(cMessage *msg)
 
         // msg from upper layer
         if (strstr(gateName, "upperLayerIn") != NULL) {
-
+            //setSentTimeSrc(msg);
             // if currently there is a pending msg, then queue this msg
             if (sendPacketTimeoutEvent->isScheduled()) {
 
@@ -240,6 +292,7 @@ void WirelessInterface::handleMessage(cMessage *msg)
             EV<<"Wifi sending to upper layer \n";
             // send msg to upper layer
             setReceivedTime(msg);
+            setRecTimeGW(msg);
             send(msg, "upperLayerOut");
 
         }
@@ -304,6 +357,7 @@ void WirelessInterface::sendPendingMsg()
                 //cMessage *msgB =currentPendingMsg;
                 EV<<"Sent currentPendingMsg \n";
                 setSentTime(currentPendingMsg);
+                setSentTimeSrc(currentPendingMsg);
 
                 // make duplicate of packet
                 cPacket *outPktCopy =  dynamic_cast<cPacket*>(currentPendingMsg->dup());
@@ -394,9 +448,86 @@ void WirelessInterface::setSentTime(cMessage *msg){
     if (dataMsg) {
         EV<<"Set sent time of DataMsg:"<<simTime().dbl()<<"\n";
         dataMsg->setSentTime(simTime().dbl());
+
+        //save info into file
+                    string nameF="ResultsSent";
+                    string noS=ownMACAddress.substr(15,17);
+                    nameF.append(noS);
+                    nameF.append(".txt");
+                    std::ofstream out(nameF, std::ios_base::app);
+                    //Generation Mac
+                    string srcMAC=dataMsg->getOriginatorNodeMAC();
+                    string srcer="Source: ";
+                    srcer.append(srcMAC);
+                    out<<srcer;
+                    //Destination next
+                    string dstMAC=dataMsg->getDestinationAddress();
+                    string dster=" | NextDest: ";
+                    dster.append(dstMAC);
+                    out<<dster;
+                    //MessageID
+                    std::string msID=std::to_string(dataMsg->getNMsgOrder());//getMsgUniqueID();
+                    string msIDis=" | Message ID: ";
+                    msIDis.append(msID);
+                    out<<msIDis;
+                    //Time sent
+                    std::string timeMsg = std::to_string(dataMsg->getSentTime().dbl());//getInjectedTime().dbl());
+                    string timeGen=" | Time SentFromHere: ";
+                    timeGen.append(timeMsg);
+                    out<<timeGen;
+                    out<<" | End \n";
+                    out.close();
+
+
+
     }
 
 }
+
+void WirelessInterface::setSentTimeSrc(cMessage *msg){
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+    if (dataMsg) {
+        if(ownMACAddress==dataMsg->getOriginatorNodeMAC()){
+            dataMsg->setSentTimeRout(simTime().dbl());
+            EV<<"Set sent time from src \n";
+
+            //save info into file
+            string nameF="ResultsSrc";
+            string noS=ownMACAddress.substr(15,17);
+            nameF.append(noS);
+            nameF.append(".txt");
+            std::ofstream out(nameF, std::ios_base::app);
+            //Generation Mac
+            string srcMAC=dataMsg->getOriginatorNodeMAC();
+            string srcer="Source: ";
+            srcer.append(srcMAC);
+            out<<srcer;
+            //MessageID
+            std::string msID=std::to_string(dataMsg->getNMsgOrder());//getMsgUniqueID();
+            string msIDis=" | Message ID: ";
+            msIDis.append(msID);
+            out<<msIDis;
+            //Time generated
+            std::string timeMsg = std::to_string(dataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
+            string timeGen=" | Time SentFromSrc: ";
+            timeGen.append(timeMsg);
+            out<<timeGen;
+            out<<" |End \n";
+            out.close();
+        }
+    }
+}
+
+void WirelessInterface::setRecTimeGW(cMessage *msg){
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+    if (dataMsg) {
+        if(ownMACAddress==dataMsg->getFinalDestinationNodeName()){
+            dataMsg->setReceivedTimeRout(simTime().dbl());
+            EV<<"Set received time from on GW \n";
+        }
+    }
+}
+
 
 //set the time the Msg was sent from here
 void WirelessInterface::setReceivedTime(cMessage *msg){
@@ -409,6 +540,35 @@ void WirelessInterface::setReceivedTime(cMessage *msg){
     if (dataMsg) {
         EV<<"Set received time:"<<simTime().dbl()<<"\n";
         dataMsg->setReceivedTime(simTime().dbl());
+
+        //save info into file
+                    string nameF="ResultsReceived";
+                    string noS=ownMACAddress.substr(15,17);
+                    nameF.append(noS);
+                    nameF.append(".txt");
+                    std::ofstream out(nameF, std::ios_base::app);
+                    //Generation Mac
+                    string srcMAC=dataMsg->getOriginatorNodeMAC();
+                    string srcer="Source: ";
+                    srcer.append(srcMAC);
+                    out<<srcer;
+                    //From neighbor
+                    string dstMAC=dataMsg->getSourceAddress();
+                    string dster=" | From: ";
+                    dster.append(dstMAC);
+                    out<<dster;
+                    //MessageID
+                    std::string msID=std::to_string(dataMsg->getNMsgOrder());//getMsgUniqueID();
+                    string msIDis=" | Message ID: ";
+                    msIDis.append(msID);
+                    out<<msIDis;
+                    //Time generated
+                    std::string timeMsg = std::to_string(dataMsg->getReceivedTime().dbl());//getInjectedTime().dbl());
+                    string timeGen=" | Time Received Here: ";
+                    timeGen.append(timeMsg);
+                    out<<timeGen;
+                    out<<" | End \n";
+                    out.close();
     }
 }
 

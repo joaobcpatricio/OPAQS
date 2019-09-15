@@ -71,6 +71,8 @@ public:
         int prevHopListSize=1;
         simtime_t sentTime; //timeStamp
         simtime_t receivedTime; //timeStamp
+        simtime_t sentTimeRout; //timeStamp
+        simtime_t receivedTimeRout; //timeStamp
     };
 
     list<CacheEntry> cacheList;
