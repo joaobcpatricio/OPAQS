@@ -1,15 +1,15 @@
-file 173559 1568501395                                          
+file 174723 1568577617                                          
 version 2
-run B-0-20190914-23:49:47-22536
+run B-0-20190915-21:00:11-6133
 attr configname B
-attr datetime 20190914-23:49:47
+attr datetime 20190915-21:00:11
 attr experiment B
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 22536
+attr processid 6133
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -75,8 +75,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2840 142916 13 40457 0.05 80 9600 2 2 19200 38400
-1	145756 3352 25 458 0.1 0.199 200 -nan -nan -nan -nan
-2	149108 12225 1054 25621 1.138430839471 45.728750839471 430 141 60630 13065765 528732312255
-3	161333 12225 1054 25621 1.138430839471 45.728750839471 430 141 60630 13065765 528732312255
+0	2838 142756 13 40308 0.05 80 9600 2 2 19200 38400
+1	145594 3352 25 458 0.1 0.199 200 -nan -nan -nan -nan
+2	148946 12888 1056 31900 1.138430839471 60.678750839471 446 141 62886 14055021 589903286391
+3	161834 12888 1056 31900 1.138430839471 60.678750839471 446 141 62886 14055021 589903286391
 

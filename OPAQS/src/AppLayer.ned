@@ -64,6 +64,8 @@ simple AppLayer
 		double numMultipleMsg = default(100);	// number of messages to be generated at the begining
 
 		int hopsListSize = default(50);
+		
+		double endGeneratingMsg @unit(s) = default(999999999999s);
 
     gates:
 

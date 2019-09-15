@@ -284,7 +284,7 @@ void WirelessInterface::handleMessage(cMessage *msg)
             //setSentTimeSrc(msg);
             // if currently there is a pending msg, then queue this msg
             if (sendPacketTimeoutEvent->isScheduled()) {
-
+                EV<<"Packet in queue \n";
                 packetQueue.push(msg);
 
             // no queued msgs

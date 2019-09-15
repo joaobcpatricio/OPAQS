@@ -8,595 +8,814 @@ Num. Msg: Test: 2 Node Index: Node Index: 0 Time: 0.1
 Num. Msg: Test: 2 Node Index: Node Index: 1 Time: 0.1
 
  Running
-Num. Msg: Test: 3 Node Index: Node Index: 0 Time: 0.101
+Num. Msg: Test: 2 Node Index: Node Index: 3 Time: 0.1
 
  Running
-Num. Msg: Test: 3 Node Index: Node Index: 1 Time: 0.101
+Num. Msg: Test: 3 Node Index: Node Index: 0 Time: 1.1
 
  Running
-Num. Msg: Test: 4 Node Index: Node Index: 0 Time: 0.102
+Num. Msg: Test: 3 Node Index: Node Index: 1 Time: 1.1
 
  Running
-Num. Msg: Test: 4 Node Index: Node Index: 1 Time: 0.102
+Num. Msg: Test: 3 Node Index: Node Index: 3 Time: 1.1
 
  Running
-Num. Msg: Test: 5 Node Index: Node Index: 0 Time: 0.103
+Num. Msg: Test: 4 Node Index: Node Index: 0 Time: 2.1
 
  Running
-Num. Msg: Test: 5 Node Index: Node Index: 1 Time: 0.103
+Num. Msg: Test: 4 Node Index: Node Index: 1 Time: 2.1
 
  Running
-Num. Msg: Test: 6 Node Index: Node Index: 0 Time: 0.104
+Num. Msg: Test: 4 Node Index: Node Index: 3 Time: 2.1
 
  Running
-Num. Msg: Test: 6 Node Index: Node Index: 1 Time: 0.104
+Num. Msg: Test: 5 Node Index: Node Index: 0 Time: 3.1
 
  Running
-Num. Msg: Test: 7 Node Index: Node Index: 0 Time: 0.105
+Num. Msg: Test: 5 Node Index: Node Index: 1 Time: 3.1
 
  Running
-Num. Msg: Test: 7 Node Index: Node Index: 1 Time: 0.105
+Num. Msg: Test: 5 Node Index: Node Index: 3 Time: 3.1
 
  Running
-Num. Msg: Test: 8 Node Index: Node Index: 0 Time: 0.106
+Num. Msg: Test: 6 Node Index: Node Index: 0 Time: 4.1
 
  Running
-Num. Msg: Test: 8 Node Index: Node Index: 1 Time: 0.106
+Num. Msg: Test: 6 Node Index: Node Index: 1 Time: 4.1
 
  Running
-Num. Msg: Test: 9 Node Index: Node Index: 0 Time: 0.107
+Num. Msg: Test: 6 Node Index: Node Index: 3 Time: 4.1
 
  Running
-Num. Msg: Test: 9 Node Index: Node Index: 1 Time: 0.107
+Num. Msg: Test: 7 Node Index: Node Index: 0 Time: 5.1
 
  Running
-Num. Msg: Test: 10 Node Index: Node Index: 0 Time: 0.108
+Num. Msg: Test: 7 Node Index: Node Index: 1 Time: 5.1
 
  Running
-Num. Msg: Test: 10 Node Index: Node Index: 1 Time: 0.108
+Num. Msg: Test: 7 Node Index: Node Index: 3 Time: 5.1
 
  Running
-Num. Msg: Test: 11 Node Index: Node Index: 0 Time: 0.109
+Num. Msg: Test: 8 Node Index: Node Index: 0 Time: 6.1
 
  Running
-Num. Msg: Test: 11 Node Index: Node Index: 1 Time: 0.109
+Num. Msg: Test: 8 Node Index: Node Index: 1 Time: 6.1
 
  Running
-Num. Msg: Test: 12 Node Index: Node Index: 0 Time: 0.11
+Num. Msg: Test: 8 Node Index: Node Index: 3 Time: 6.1
 
  Running
-Num. Msg: Test: 12 Node Index: Node Index: 1 Time: 0.11
+Num. Msg: Test: 9 Node Index: Node Index: 0 Time: 7.1
 
  Running
-Num. Msg: Test: 13 Node Index: Node Index: 0 Time: 0.111
+Num. Msg: Test: 9 Node Index: Node Index: 1 Time: 7.1
 
  Running
-Num. Msg: Test: 13 Node Index: Node Index: 1 Time: 0.111
+Num. Msg: Test: 9 Node Index: Node Index: 3 Time: 7.1
 
  Running
-Num. Msg: Test: 14 Node Index: Node Index: 0 Time: 0.112
+Num. Msg: Test: 10 Node Index: Node Index: 0 Time: 8.1
 
  Running
-Num. Msg: Test: 14 Node Index: Node Index: 1 Time: 0.112
+Num. Msg: Test: 10 Node Index: Node Index: 1 Time: 8.1
 
  Running
-Num. Msg: Test: 15 Node Index: Node Index: 0 Time: 0.113
+Num. Msg: Test: 10 Node Index: Node Index: 3 Time: 8.1
 
  Running
-Num. Msg: Test: 15 Node Index: Node Index: 1 Time: 0.113
+Num. Msg: Test: 11 Node Index: Node Index: 0 Time: 9.1
 
  Running
-Num. Msg: Test: 16 Node Index: Node Index: 0 Time: 0.114
+Num. Msg: Test: 11 Node Index: Node Index: 1 Time: 9.1
 
  Running
-Num. Msg: Test: 16 Node Index: Node Index: 1 Time: 0.114
+Num. Msg: Test: 11 Node Index: Node Index: 3 Time: 9.1
 
  Running
-Num. Msg: Test: 17 Node Index: Node Index: 0 Time: 0.115
+Num. Msg: Test: 12 Node Index: Node Index: 0 Time: 10.1
 
  Running
-Num. Msg: Test: 17 Node Index: Node Index: 1 Time: 0.115
+Num. Msg: Test: 12 Node Index: Node Index: 1 Time: 10.1
 
  Running
-Num. Msg: Test: 18 Node Index: Node Index: 0 Time: 0.116
+Num. Msg: Test: 12 Node Index: Node Index: 3 Time: 10.1
 
  Running
-Num. Msg: Test: 18 Node Index: Node Index: 1 Time: 0.116
+Num. Msg: Test: 13 Node Index: Node Index: 0 Time: 11.1
 
  Running
-Num. Msg: Test: 19 Node Index: Node Index: 0 Time: 0.117
+Num. Msg: Test: 13 Node Index: Node Index: 1 Time: 11.1
 
  Running
-Num. Msg: Test: 19 Node Index: Node Index: 1 Time: 0.117
+Num. Msg: Test: 13 Node Index: Node Index: 3 Time: 11.1
 
  Running
-Num. Msg: Test: 20 Node Index: Node Index: 0 Time: 0.118
+Num. Msg: Test: 14 Node Index: Node Index: 0 Time: 12.1
 
  Running
-Num. Msg: Test: 20 Node Index: Node Index: 1 Time: 0.118
+Num. Msg: Test: 14 Node Index: Node Index: 1 Time: 12.1
 
  Running
-Num. Msg: Test: 21 Node Index: Node Index: 0 Time: 0.119
+Num. Msg: Test: 14 Node Index: Node Index: 3 Time: 12.1
 
  Running
-Num. Msg: Test: 21 Node Index: Node Index: 1 Time: 0.119
+Num. Msg: Test: 15 Node Index: Node Index: 0 Time: 13.1
 
  Running
-Num. Msg: Test: 22 Node Index: Node Index: 0 Time: 0.12
+Num. Msg: Test: 15 Node Index: Node Index: 1 Time: 13.1
 
  Running
-Num. Msg: Test: 22 Node Index: Node Index: 1 Time: 0.12
+Num. Msg: Test: 15 Node Index: Node Index: 3 Time: 13.1
 
  Running
-Num. Msg: Test: 23 Node Index: Node Index: 0 Time: 0.121
+Num. Msg: Test: 16 Node Index: Node Index: 0 Time: 14.1
 
  Running
-Num. Msg: Test: 23 Node Index: Node Index: 1 Time: 0.121
+Num. Msg: Test: 16 Node Index: Node Index: 1 Time: 14.1
 
  Running
-Num. Msg: Test: 24 Node Index: Node Index: 0 Time: 0.122
+Num. Msg: Test: 16 Node Index: Node Index: 3 Time: 14.1
 
  Running
-Num. Msg: Test: 24 Node Index: Node Index: 1 Time: 0.122
+Num. Msg: Test: 17 Node Index: Node Index: 0 Time: 15.1
 
  Running
-Num. Msg: Test: 25 Node Index: Node Index: 0 Time: 0.123
+Num. Msg: Test: 17 Node Index: Node Index: 1 Time: 15.1
 
  Running
-Num. Msg: Test: 25 Node Index: Node Index: 1 Time: 0.123
+Num. Msg: Test: 17 Node Index: Node Index: 3 Time: 15.1
 
  Running
-Num. Msg: Test: 26 Node Index: Node Index: 0 Time: 0.124
+Num. Msg: Test: 18 Node Index: Node Index: 0 Time: 16.1
 
  Running
-Num. Msg: Test: 26 Node Index: Node Index: 1 Time: 0.124
+Num. Msg: Test: 18 Node Index: Node Index: 1 Time: 16.1
 
  Running
-Num. Msg: Test: 27 Node Index: Node Index: 0 Time: 0.125
+Num. Msg: Test: 18 Node Index: Node Index: 3 Time: 16.1
 
  Running
-Num. Msg: Test: 27 Node Index: Node Index: 1 Time: 0.125
+Num. Msg: Test: 19 Node Index: Node Index: 0 Time: 17.1
 
  Running
-Num. Msg: Test: 28 Node Index: Node Index: 0 Time: 0.126
+Num. Msg: Test: 19 Node Index: Node Index: 1 Time: 17.1
 
  Running
-Num. Msg: Test: 28 Node Index: Node Index: 1 Time: 0.126
+Num. Msg: Test: 19 Node Index: Node Index: 3 Time: 17.1
 
  Running
-Num. Msg: Test: 29 Node Index: Node Index: 0 Time: 0.127
+Num. Msg: Test: 20 Node Index: Node Index: 0 Time: 18.1
 
  Running
-Num. Msg: Test: 29 Node Index: Node Index: 1 Time: 0.127
+Num. Msg: Test: 20 Node Index: Node Index: 1 Time: 18.1
 
  Running
-Num. Msg: Test: 30 Node Index: Node Index: 0 Time: 0.128
+Num. Msg: Test: 20 Node Index: Node Index: 3 Time: 18.1
 
  Running
-Num. Msg: Test: 30 Node Index: Node Index: 1 Time: 0.128
+Num. Msg: Test: 21 Node Index: Node Index: 0 Time: 19.1
 
  Running
-Num. Msg: Test: 31 Node Index: Node Index: 0 Time: 0.129
+Num. Msg: Test: 21 Node Index: Node Index: 1 Time: 19.1
 
  Running
-Num. Msg: Test: 31 Node Index: Node Index: 1 Time: 0.129
+Num. Msg: Test: 21 Node Index: Node Index: 3 Time: 19.1
 
  Running
-Num. Msg: Test: 32 Node Index: Node Index: 0 Time: 0.13
+Num. Msg: Test: 22 Node Index: Node Index: 0 Time: 20.1
 
  Running
-Num. Msg: Test: 32 Node Index: Node Index: 1 Time: 0.13
+Num. Msg: Test: 22 Node Index: Node Index: 1 Time: 20.1
 
  Running
-Num. Msg: Test: 33 Node Index: Node Index: 0 Time: 0.131
+Num. Msg: Test: 22 Node Index: Node Index: 3 Time: 20.1
 
  Running
-Num. Msg: Test: 33 Node Index: Node Index: 1 Time: 0.131
+Num. Msg: Test: 23 Node Index: Node Index: 0 Time: 21.1
 
  Running
-Num. Msg: Test: 34 Node Index: Node Index: 0 Time: 0.132
+Num. Msg: Test: 23 Node Index: Node Index: 1 Time: 21.1
 
  Running
-Num. Msg: Test: 34 Node Index: Node Index: 1 Time: 0.132
+Num. Msg: Test: 23 Node Index: Node Index: 3 Time: 21.1
 
  Running
-Num. Msg: Test: 35 Node Index: Node Index: 0 Time: 0.133
+Num. Msg: Test: 24 Node Index: Node Index: 0 Time: 22.1
 
  Running
-Num. Msg: Test: 35 Node Index: Node Index: 1 Time: 0.133
+Num. Msg: Test: 24 Node Index: Node Index: 1 Time: 22.1
 
  Running
-Num. Msg: Test: 36 Node Index: Node Index: 0 Time: 0.134
+Num. Msg: Test: 24 Node Index: Node Index: 3 Time: 22.1
 
  Running
-Num. Msg: Test: 36 Node Index: Node Index: 1 Time: 0.134
+Num. Msg: Test: 25 Node Index: Node Index: 0 Time: 23.1
 
  Running
-Num. Msg: Test: 37 Node Index: Node Index: 0 Time: 0.135
+Num. Msg: Test: 25 Node Index: Node Index: 1 Time: 23.1
 
  Running
-Num. Msg: Test: 37 Node Index: Node Index: 1 Time: 0.135
+Num. Msg: Test: 25 Node Index: Node Index: 3 Time: 23.1
 
  Running
-Num. Msg: Test: 38 Node Index: Node Index: 0 Time: 0.136
+Num. Msg: Test: 26 Node Index: Node Index: 0 Time: 24.1
 
  Running
-Num. Msg: Test: 38 Node Index: Node Index: 1 Time: 0.136
+Num. Msg: Test: 26 Node Index: Node Index: 1 Time: 24.1
 
  Running
-Num. Msg: Test: 39 Node Index: Node Index: 0 Time: 0.137
+Num. Msg: Test: 26 Node Index: Node Index: 3 Time: 24.1
 
  Running
-Num. Msg: Test: 39 Node Index: Node Index: 1 Time: 0.137
+Num. Msg: Test: 27 Node Index: Node Index: 0 Time: 25.1
 
  Running
-Num. Msg: Test: 40 Node Index: Node Index: 0 Time: 0.138
+Num. Msg: Test: 27 Node Index: Node Index: 1 Time: 25.1
 
  Running
-Num. Msg: Test: 40 Node Index: Node Index: 1 Time: 0.138
+Num. Msg: Test: 27 Node Index: Node Index: 3 Time: 25.1
 
  Running
-Num. Msg: Test: 41 Node Index: Node Index: 0 Time: 0.139
+Num. Msg: Test: 28 Node Index: Node Index: 0 Time: 26.1
 
  Running
-Num. Msg: Test: 41 Node Index: Node Index: 1 Time: 0.139
+Num. Msg: Test: 28 Node Index: Node Index: 1 Time: 26.1
 
  Running
-Num. Msg: Test: 42 Node Index: Node Index: 0 Time: 0.14
+Num. Msg: Test: 28 Node Index: Node Index: 3 Time: 26.1
 
  Running
-Num. Msg: Test: 42 Node Index: Node Index: 1 Time: 0.14
+Num. Msg: Test: 29 Node Index: Node Index: 0 Time: 27.1
 
  Running
-Num. Msg: Test: 43 Node Index: Node Index: 0 Time: 0.141
+Num. Msg: Test: 29 Node Index: Node Index: 1 Time: 27.1
 
  Running
-Num. Msg: Test: 43 Node Index: Node Index: 1 Time: 0.141
+Num. Msg: Test: 29 Node Index: Node Index: 3 Time: 27.1
 
  Running
-Num. Msg: Test: 44 Node Index: Node Index: 0 Time: 0.142
+Num. Msg: Test: 30 Node Index: Node Index: 0 Time: 28.1
 
  Running
-Num. Msg: Test: 44 Node Index: Node Index: 1 Time: 0.142
+Num. Msg: Test: 30 Node Index: Node Index: 1 Time: 28.1
 
  Running
-Num. Msg: Test: 45 Node Index: Node Index: 0 Time: 0.143
+Num. Msg: Test: 30 Node Index: Node Index: 3 Time: 28.1
 
  Running
-Num. Msg: Test: 45 Node Index: Node Index: 1 Time: 0.143
+Num. Msg: Test: 31 Node Index: Node Index: 0 Time: 29.1
 
  Running
-Num. Msg: Test: 46 Node Index: Node Index: 0 Time: 0.144
+Num. Msg: Test: 31 Node Index: Node Index: 1 Time: 29.1
 
  Running
-Num. Msg: Test: 46 Node Index: Node Index: 1 Time: 0.144
+Num. Msg: Test: 31 Node Index: Node Index: 3 Time: 29.1
 
  Running
-Num. Msg: Test: 47 Node Index: Node Index: 0 Time: 0.145
+Num. Msg: Test: 32 Node Index: Node Index: 0 Time: 30.1
 
  Running
-Num. Msg: Test: 47 Node Index: Node Index: 1 Time: 0.145
+Num. Msg: Test: 32 Node Index: Node Index: 1 Time: 30.1
 
  Running
-Num. Msg: Test: 48 Node Index: Node Index: 0 Time: 0.146
+Num. Msg: Test: 32 Node Index: Node Index: 3 Time: 30.1
 
  Running
-Num. Msg: Test: 48 Node Index: Node Index: 1 Time: 0.146
+Num. Msg: Test: 33 Node Index: Node Index: 0 Time: 31.1
 
  Running
-Num. Msg: Test: 49 Node Index: Node Index: 0 Time: 0.147
+Num. Msg: Test: 33 Node Index: Node Index: 1 Time: 31.1
 
  Running
-Num. Msg: Test: 49 Node Index: Node Index: 1 Time: 0.147
+Num. Msg: Test: 33 Node Index: Node Index: 3 Time: 31.1
 
  Running
-Num. Msg: Test: 50 Node Index: Node Index: 0 Time: 0.148
+Num. Msg: Test: 34 Node Index: Node Index: 0 Time: 32.1
 
  Running
-Num. Msg: Test: 50 Node Index: Node Index: 1 Time: 0.148
+Num. Msg: Test: 34 Node Index: Node Index: 1 Time: 32.1
 
  Running
-Num. Msg: Test: 51 Node Index: Node Index: 0 Time: 0.149
+Num. Msg: Test: 34 Node Index: Node Index: 3 Time: 32.1
 
  Running
-Num. Msg: Test: 51 Node Index: Node Index: 1 Time: 0.149
+Num. Msg: Test: 35 Node Index: Node Index: 0 Time: 33.1
 
  Running
-Num. Msg: Test: 52 Node Index: Node Index: 0 Time: 0.15
+Num. Msg: Test: 35 Node Index: Node Index: 1 Time: 33.1
 
  Running
-Num. Msg: Test: 52 Node Index: Node Index: 1 Time: 0.15
+Num. Msg: Test: 35 Node Index: Node Index: 3 Time: 33.1
 
  Running
-Num. Msg: Test: 53 Node Index: Node Index: 0 Time: 0.151
+Num. Msg: Test: 36 Node Index: Node Index: 0 Time: 34.1
 
  Running
-Num. Msg: Test: 53 Node Index: Node Index: 1 Time: 0.151
+Num. Msg: Test: 36 Node Index: Node Index: 1 Time: 34.1
 
  Running
-Num. Msg: Test: 54 Node Index: Node Index: 0 Time: 0.152
+Num. Msg: Test: 36 Node Index: Node Index: 3 Time: 34.1
 
  Running
-Num. Msg: Test: 54 Node Index: Node Index: 1 Time: 0.152
+Num. Msg: Test: 37 Node Index: Node Index: 0 Time: 35.1
 
  Running
-Num. Msg: Test: 55 Node Index: Node Index: 0 Time: 0.153
+Num. Msg: Test: 37 Node Index: Node Index: 1 Time: 35.1
 
  Running
-Num. Msg: Test: 55 Node Index: Node Index: 1 Time: 0.153
+Num. Msg: Test: 37 Node Index: Node Index: 3 Time: 35.1
 
  Running
-Num. Msg: Test: 56 Node Index: Node Index: 0 Time: 0.154
+Num. Msg: Test: 38 Node Index: Node Index: 0 Time: 36.1
 
  Running
-Num. Msg: Test: 56 Node Index: Node Index: 1 Time: 0.154
+Num. Msg: Test: 38 Node Index: Node Index: 1 Time: 36.1
 
  Running
-Num. Msg: Test: 57 Node Index: Node Index: 0 Time: 0.155
+Num. Msg: Test: 38 Node Index: Node Index: 3 Time: 36.1
 
  Running
-Num. Msg: Test: 57 Node Index: Node Index: 1 Time: 0.155
+Num. Msg: Test: 39 Node Index: Node Index: 0 Time: 37.1
 
  Running
-Num. Msg: Test: 58 Node Index: Node Index: 0 Time: 0.156
+Num. Msg: Test: 39 Node Index: Node Index: 1 Time: 37.1
 
  Running
-Num. Msg: Test: 58 Node Index: Node Index: 1 Time: 0.156
+Num. Msg: Test: 39 Node Index: Node Index: 3 Time: 37.1
 
  Running
-Num. Msg: Test: 59 Node Index: Node Index: 0 Time: 0.157
+Num. Msg: Test: 40 Node Index: Node Index: 0 Time: 38.1
 
  Running
-Num. Msg: Test: 59 Node Index: Node Index: 1 Time: 0.157
+Num. Msg: Test: 40 Node Index: Node Index: 1 Time: 38.1
 
  Running
-Num. Msg: Test: 60 Node Index: Node Index: 0 Time: 0.158
+Num. Msg: Test: 40 Node Index: Node Index: 3 Time: 38.1
 
  Running
-Num. Msg: Test: 60 Node Index: Node Index: 1 Time: 0.158
+Num. Msg: Test: 41 Node Index: Node Index: 0 Time: 39.1
 
  Running
-Num. Msg: Test: 61 Node Index: Node Index: 0 Time: 0.159
+Num. Msg: Test: 41 Node Index: Node Index: 1 Time: 39.1
 
  Running
-Num. Msg: Test: 61 Node Index: Node Index: 1 Time: 0.159
+Num. Msg: Test: 41 Node Index: Node Index: 3 Time: 39.1
 
  Running
-Num. Msg: Test: 62 Node Index: Node Index: 0 Time: 0.16
+Num. Msg: Test: 42 Node Index: Node Index: 0 Time: 40.1
 
  Running
-Num. Msg: Test: 62 Node Index: Node Index: 1 Time: 0.16
+Num. Msg: Test: 42 Node Index: Node Index: 1 Time: 40.1
 
  Running
-Num. Msg: Test: 63 Node Index: Node Index: 0 Time: 0.161
+Num. Msg: Test: 42 Node Index: Node Index: 3 Time: 40.1
 
  Running
-Num. Msg: Test: 63 Node Index: Node Index: 1 Time: 0.161
+Num. Msg: Test: 43 Node Index: Node Index: 0 Time: 41.1
 
  Running
-Num. Msg: Test: 64 Node Index: Node Index: 0 Time: 0.162
+Num. Msg: Test: 43 Node Index: Node Index: 1 Time: 41.1
 
  Running
-Num. Msg: Test: 64 Node Index: Node Index: 1 Time: 0.162
+Num. Msg: Test: 43 Node Index: Node Index: 3 Time: 41.1
 
  Running
-Num. Msg: Test: 65 Node Index: Node Index: 0 Time: 0.163
+Num. Msg: Test: 44 Node Index: Node Index: 0 Time: 42.1
 
  Running
-Num. Msg: Test: 65 Node Index: Node Index: 1 Time: 0.163
+Num. Msg: Test: 44 Node Index: Node Index: 1 Time: 42.1
 
  Running
-Num. Msg: Test: 66 Node Index: Node Index: 0 Time: 0.164
+Num. Msg: Test: 44 Node Index: Node Index: 3 Time: 42.1
 
  Running
-Num. Msg: Test: 66 Node Index: Node Index: 1 Time: 0.164
+Num. Msg: Test: 45 Node Index: Node Index: 0 Time: 43.1
 
  Running
-Num. Msg: Test: 67 Node Index: Node Index: 0 Time: 0.165
+Num. Msg: Test: 45 Node Index: Node Index: 1 Time: 43.1
 
  Running
-Num. Msg: Test: 67 Node Index: Node Index: 1 Time: 0.165
+Num. Msg: Test: 45 Node Index: Node Index: 3 Time: 43.1
 
  Running
-Num. Msg: Test: 68 Node Index: Node Index: 0 Time: 0.166
+Num. Msg: Test: 46 Node Index: Node Index: 0 Time: 44.1
 
  Running
-Num. Msg: Test: 68 Node Index: Node Index: 1 Time: 0.166
+Num. Msg: Test: 46 Node Index: Node Index: 1 Time: 44.1
 
  Running
-Num. Msg: Test: 69 Node Index: Node Index: 0 Time: 0.167
+Num. Msg: Test: 46 Node Index: Node Index: 3 Time: 44.1
 
  Running
-Num. Msg: Test: 69 Node Index: Node Index: 1 Time: 0.167
+Num. Msg: Test: 47 Node Index: Node Index: 0 Time: 45.1
 
  Running
-Num. Msg: Test: 70 Node Index: Node Index: 0 Time: 0.168
+Num. Msg: Test: 47 Node Index: Node Index: 1 Time: 45.1
 
  Running
-Num. Msg: Test: 70 Node Index: Node Index: 1 Time: 0.168
+Num. Msg: Test: 47 Node Index: Node Index: 3 Time: 45.1
 
  Running
-Num. Msg: Test: 71 Node Index: Node Index: 0 Time: 0.169
+Num. Msg: Test: 48 Node Index: Node Index: 0 Time: 46.1
 
  Running
-Num. Msg: Test: 71 Node Index: Node Index: 1 Time: 0.169
+Num. Msg: Test: 48 Node Index: Node Index: 1 Time: 46.1
 
  Running
-Num. Msg: Test: 72 Node Index: Node Index: 0 Time: 0.17
+Num. Msg: Test: 48 Node Index: Node Index: 3 Time: 46.1
 
  Running
-Num. Msg: Test: 72 Node Index: Node Index: 1 Time: 0.17
+Num. Msg: Test: 49 Node Index: Node Index: 0 Time: 47.1
 
  Running
-Num. Msg: Test: 73 Node Index: Node Index: 0 Time: 0.171
+Num. Msg: Test: 49 Node Index: Node Index: 1 Time: 47.1
 
  Running
-Num. Msg: Test: 73 Node Index: Node Index: 1 Time: 0.171
+Num. Msg: Test: 49 Node Index: Node Index: 3 Time: 47.1
 
  Running
-Num. Msg: Test: 74 Node Index: Node Index: 0 Time: 0.172
+Num. Msg: Test: 50 Node Index: Node Index: 0 Time: 48.1
 
  Running
-Num. Msg: Test: 74 Node Index: Node Index: 1 Time: 0.172
+Num. Msg: Test: 50 Node Index: Node Index: 1 Time: 48.1
 
  Running
-Num. Msg: Test: 75 Node Index: Node Index: 0 Time: 0.173
+Num. Msg: Test: 50 Node Index: Node Index: 3 Time: 48.1
 
  Running
-Num. Msg: Test: 75 Node Index: Node Index: 1 Time: 0.173
+Num. Msg: Test: 51 Node Index: Node Index: 0 Time: 49.1
 
  Running
-Num. Msg: Test: 76 Node Index: Node Index: 0 Time: 0.174
+Num. Msg: Test: 51 Node Index: Node Index: 1 Time: 49.1
 
  Running
-Num. Msg: Test: 76 Node Index: Node Index: 1 Time: 0.174
+Num. Msg: Test: 51 Node Index: Node Index: 3 Time: 49.1
 
  Running
-Num. Msg: Test: 77 Node Index: Node Index: 0 Time: 0.175
+Num. Msg: Test: 52 Node Index: Node Index: 0 Time: 50.1
 
  Running
-Num. Msg: Test: 77 Node Index: Node Index: 1 Time: 0.175
+Num. Msg: Test: 52 Node Index: Node Index: 1 Time: 50.1
 
  Running
-Num. Msg: Test: 78 Node Index: Node Index: 0 Time: 0.176
+Num. Msg: Test: 52 Node Index: Node Index: 3 Time: 50.1
 
  Running
-Num. Msg: Test: 78 Node Index: Node Index: 1 Time: 0.176
+Num. Msg: Test: 53 Node Index: Node Index: 0 Time: 51.1
 
  Running
-Num. Msg: Test: 79 Node Index: Node Index: 0 Time: 0.177
+Num. Msg: Test: 53 Node Index: Node Index: 1 Time: 51.1
 
  Running
-Num. Msg: Test: 79 Node Index: Node Index: 1 Time: 0.177
+Num. Msg: Test: 53 Node Index: Node Index: 3 Time: 51.1
 
  Running
-Num. Msg: Test: 80 Node Index: Node Index: 0 Time: 0.178
+Num. Msg: Test: 54 Node Index: Node Index: 0 Time: 52.1
 
  Running
-Num. Msg: Test: 80 Node Index: Node Index: 1 Time: 0.178
+Num. Msg: Test: 54 Node Index: Node Index: 1 Time: 52.1
 
  Running
-Num. Msg: Test: 81 Node Index: Node Index: 0 Time: 0.179
+Num. Msg: Test: 54 Node Index: Node Index: 3 Time: 52.1
 
  Running
-Num. Msg: Test: 81 Node Index: Node Index: 1 Time: 0.179
+Num. Msg: Test: 55 Node Index: Node Index: 0 Time: 53.1
 
  Running
-Num. Msg: Test: 82 Node Index: Node Index: 0 Time: 0.18
+Num. Msg: Test: 55 Node Index: Node Index: 1 Time: 53.1
 
  Running
-Num. Msg: Test: 82 Node Index: Node Index: 1 Time: 0.18
+Num. Msg: Test: 55 Node Index: Node Index: 3 Time: 53.1
 
  Running
-Num. Msg: Test: 83 Node Index: Node Index: 0 Time: 0.181
+Num. Msg: Test: 56 Node Index: Node Index: 0 Time: 54.1
 
  Running
-Num. Msg: Test: 83 Node Index: Node Index: 1 Time: 0.181
+Num. Msg: Test: 56 Node Index: Node Index: 1 Time: 54.1
 
  Running
-Num. Msg: Test: 84 Node Index: Node Index: 0 Time: 0.182
+Num. Msg: Test: 56 Node Index: Node Index: 3 Time: 54.1
 
  Running
-Num. Msg: Test: 84 Node Index: Node Index: 1 Time: 0.182
+Num. Msg: Test: 57 Node Index: Node Index: 0 Time: 55.1
 
  Running
-Num. Msg: Test: 85 Node Index: Node Index: 0 Time: 0.183
+Num. Msg: Test: 57 Node Index: Node Index: 1 Time: 55.1
 
  Running
-Num. Msg: Test: 85 Node Index: Node Index: 1 Time: 0.183
+Num. Msg: Test: 57 Node Index: Node Index: 3 Time: 55.1
 
  Running
-Num. Msg: Test: 86 Node Index: Node Index: 0 Time: 0.184
+Num. Msg: Test: 58 Node Index: Node Index: 0 Time: 56.1
 
  Running
-Num. Msg: Test: 86 Node Index: Node Index: 1 Time: 0.184
+Num. Msg: Test: 58 Node Index: Node Index: 1 Time: 56.1
 
  Running
-Num. Msg: Test: 87 Node Index: Node Index: 0 Time: 0.185
+Num. Msg: Test: 58 Node Index: Node Index: 3 Time: 56.1
 
  Running
-Num. Msg: Test: 87 Node Index: Node Index: 1 Time: 0.185
+Num. Msg: Test: 59 Node Index: Node Index: 0 Time: 57.1
 
  Running
-Num. Msg: Test: 88 Node Index: Node Index: 0 Time: 0.186
+Num. Msg: Test: 59 Node Index: Node Index: 1 Time: 57.1
 
  Running
-Num. Msg: Test: 88 Node Index: Node Index: 1 Time: 0.186
+Num. Msg: Test: 59 Node Index: Node Index: 3 Time: 57.1
 
  Running
-Num. Msg: Test: 89 Node Index: Node Index: 0 Time: 0.187
+Num. Msg: Test: 60 Node Index: Node Index: 0 Time: 58.1
 
  Running
-Num. Msg: Test: 89 Node Index: Node Index: 1 Time: 0.187
+Num. Msg: Test: 60 Node Index: Node Index: 1 Time: 58.1
 
  Running
-Num. Msg: Test: 90 Node Index: Node Index: 0 Time: 0.188
+Num. Msg: Test: 60 Node Index: Node Index: 3 Time: 58.1
 
  Running
-Num. Msg: Test: 90 Node Index: Node Index: 1 Time: 0.188
+Num. Msg: Test: 61 Node Index: Node Index: 0 Time: 59.1
 
  Running
-Num. Msg: Test: 91 Node Index: Node Index: 0 Time: 0.189
+Num. Msg: Test: 61 Node Index: Node Index: 1 Time: 59.1
 
  Running
-Num. Msg: Test: 91 Node Index: Node Index: 1 Time: 0.189
+Num. Msg: Test: 61 Node Index: Node Index: 3 Time: 59.1
 
  Running
-Num. Msg: Test: 92 Node Index: Node Index: 0 Time: 0.19
+Num. Msg: Test: 62 Node Index: Node Index: 0 Time: 60.1
 
  Running
-Num. Msg: Test: 92 Node Index: Node Index: 1 Time: 0.19
+Num. Msg: Test: 62 Node Index: Node Index: 1 Time: 60.1
 
  Running
-Num. Msg: Test: 93 Node Index: Node Index: 0 Time: 0.191
+Num. Msg: Test: 62 Node Index: Node Index: 3 Time: 60.1
 
  Running
-Num. Msg: Test: 93 Node Index: Node Index: 1 Time: 0.191
+Num. Msg: Test: 63 Node Index: Node Index: 0 Time: 61.1
 
  Running
-Num. Msg: Test: 94 Node Index: Node Index: 0 Time: 0.192
+Num. Msg: Test: 63 Node Index: Node Index: 1 Time: 61.1
 
  Running
-Num. Msg: Test: 94 Node Index: Node Index: 1 Time: 0.192
+Num. Msg: Test: 63 Node Index: Node Index: 3 Time: 61.1
 
  Running
-Num. Msg: Test: 95 Node Index: Node Index: 0 Time: 0.193
+Num. Msg: Test: 64 Node Index: Node Index: 0 Time: 62.1
 
  Running
-Num. Msg: Test: 95 Node Index: Node Index: 1 Time: 0.193
+Num. Msg: Test: 64 Node Index: Node Index: 1 Time: 62.1
 
  Running
-Num. Msg: Test: 96 Node Index: Node Index: 0 Time: 0.194
+Num. Msg: Test: 64 Node Index: Node Index: 3 Time: 62.1
 
  Running
-Num. Msg: Test: 96 Node Index: Node Index: 1 Time: 0.194
+Num. Msg: Test: 65 Node Index: Node Index: 0 Time: 63.1
 
  Running
-Num. Msg: Test: 97 Node Index: Node Index: 0 Time: 0.195
+Num. Msg: Test: 65 Node Index: Node Index: 1 Time: 63.1
 
  Running
-Num. Msg: Test: 97 Node Index: Node Index: 1 Time: 0.195
+Num. Msg: Test: 65 Node Index: Node Index: 3 Time: 63.1
 
  Running
-Num. Msg: Test: 98 Node Index: Node Index: 0 Time: 0.196
+Num. Msg: Test: 66 Node Index: Node Index: 0 Time: 64.1
 
  Running
-Num. Msg: Test: 98 Node Index: Node Index: 1 Time: 0.196
+Num. Msg: Test: 66 Node Index: Node Index: 1 Time: 64.1
 
  Running
-Num. Msg: Test: 99 Node Index: Node Index: 0 Time: 0.197
+Num. Msg: Test: 66 Node Index: Node Index: 3 Time: 64.1
 
  Running
-Num. Msg: Test: 99 Node Index: Node Index: 1 Time: 0.197
+Num. Msg: Test: 67 Node Index: Node Index: 0 Time: 65.1
 
  Running
-Num. Msg: Test: 100 Node Index: Node Index: 0 Time: 0.198
+Num. Msg: Test: 67 Node Index: Node Index: 1 Time: 65.1
 
  Running
-Num. Msg: Test: 100 Node Index: Node Index: 1 Time: 0.198
+Num. Msg: Test: 67 Node Index: Node Index: 3 Time: 65.1
 
  Running
-Num. Msg: Test: 101 Node Index: Node Index: 0 Time: 0.199
+Num. Msg: Test: 68 Node Index: Node Index: 0 Time: 66.1
 
  Running
-Num. Msg: Test: 101 Node Index: Node Index: 1 Time: 0.199
+Num. Msg: Test: 68 Node Index: Node Index: 1 Time: 66.1
+
+ Running
+Num. Msg: Test: 68 Node Index: Node Index: 3 Time: 66.1
+
+ Running
+Num. Msg: Test: 69 Node Index: Node Index: 0 Time: 67.1
+
+ Running
+Num. Msg: Test: 69 Node Index: Node Index: 1 Time: 67.1
+
+ Running
+Num. Msg: Test: 69 Node Index: Node Index: 3 Time: 67.1
+
+ Running
+Num. Msg: Test: 70 Node Index: Node Index: 0 Time: 68.1
+
+ Running
+Num. Msg: Test: 70 Node Index: Node Index: 1 Time: 68.1
+
+ Running
+Num. Msg: Test: 70 Node Index: Node Index: 3 Time: 68.1
+
+ Running
+Num. Msg: Test: 71 Node Index: Node Index: 0 Time: 69.1
+
+ Running
+Num. Msg: Test: 71 Node Index: Node Index: 1 Time: 69.1
+
+ Running
+Num. Msg: Test: 71 Node Index: Node Index: 3 Time: 69.1
+
+ Running
+Num. Msg: Test: 72 Node Index: Node Index: 0 Time: 70.1
+
+ Running
+Num. Msg: Test: 72 Node Index: Node Index: 1 Time: 70.1
+
+ Running
+Num. Msg: Test: 72 Node Index: Node Index: 3 Time: 70.1
+
+ Running
+Num. Msg: Test: 73 Node Index: Node Index: 0 Time: 71.1
+
+ Running
+Num. Msg: Test: 73 Node Index: Node Index: 1 Time: 71.1
+
+ Running
+Num. Msg: Test: 73 Node Index: Node Index: 3 Time: 71.1
+
+ Running
+Num. Msg: Test: 74 Node Index: Node Index: 0 Time: 72.1
+
+ Running
+Num. Msg: Test: 74 Node Index: Node Index: 1 Time: 72.1
+
+ Running
+Num. Msg: Test: 74 Node Index: Node Index: 3 Time: 72.1
+
+ Running
+Num. Msg: Test: 75 Node Index: Node Index: 0 Time: 73.1
+
+ Running
+Num. Msg: Test: 75 Node Index: Node Index: 1 Time: 73.1
+
+ Running
+Num. Msg: Test: 75 Node Index: Node Index: 3 Time: 73.1
+
+ Running
+Num. Msg: Test: 76 Node Index: Node Index: 0 Time: 74.1
+
+ Running
+Num. Msg: Test: 76 Node Index: Node Index: 1 Time: 74.1
+
+ Running
+Num. Msg: Test: 76 Node Index: Node Index: 3 Time: 74.1
+
+ Running
+Num. Msg: Test: 77 Node Index: Node Index: 0 Time: 75.1
+
+ Running
+Num. Msg: Test: 77 Node Index: Node Index: 1 Time: 75.1
+
+ Running
+Num. Msg: Test: 77 Node Index: Node Index: 3 Time: 75.1
+
+ Running
+Num. Msg: Test: 78 Node Index: Node Index: 0 Time: 76.1
+
+ Running
+Num. Msg: Test: 78 Node Index: Node Index: 1 Time: 76.1
+
+ Running
+Num. Msg: Test: 78 Node Index: Node Index: 3 Time: 76.1
+
+ Running
+Num. Msg: Test: 79 Node Index: Node Index: 0 Time: 77.1
+
+ Running
+Num. Msg: Test: 79 Node Index: Node Index: 1 Time: 77.1
+
+ Running
+Num. Msg: Test: 79 Node Index: Node Index: 3 Time: 77.1
+
+ Running
+Num. Msg: Test: 80 Node Index: Node Index: 0 Time: 78.1
+
+ Running
+Num. Msg: Test: 80 Node Index: Node Index: 1 Time: 78.1
+
+ Running
+Num. Msg: Test: 80 Node Index: Node Index: 3 Time: 78.1
+
+ Running
+Num. Msg: Test: 81 Node Index: Node Index: 0 Time: 79.1
+
+ Running
+Num. Msg: Test: 81 Node Index: Node Index: 1 Time: 79.1
+
+ Running
+Num. Msg: Test: 81 Node Index: Node Index: 3 Time: 79.1
+
+ Running
+Num. Msg: Test: 82 Node Index: Node Index: 0 Time: 80.1
+
+ Running
+Num. Msg: Test: 82 Node Index: Node Index: 1 Time: 80.1
+
+ Running
+Num. Msg: Test: 82 Node Index: Node Index: 3 Time: 80.1
+
+ Running
+Num. Msg: Test: 83 Node Index: Node Index: 0 Time: 81.1
+
+ Running
+Num. Msg: Test: 83 Node Index: Node Index: 1 Time: 81.1
+
+ Running
+Num. Msg: Test: 83 Node Index: Node Index: 3 Time: 81.1
+
+ Running
+Num. Msg: Test: 84 Node Index: Node Index: 0 Time: 82.1
+
+ Running
+Num. Msg: Test: 84 Node Index: Node Index: 1 Time: 82.1
+
+ Running
+Num. Msg: Test: 84 Node Index: Node Index: 3 Time: 82.1
+
+ Running
+Num. Msg: Test: 85 Node Index: Node Index: 0 Time: 83.1
+
+ Running
+Num. Msg: Test: 85 Node Index: Node Index: 1 Time: 83.1
+
+ Running
+Num. Msg: Test: 85 Node Index: Node Index: 3 Time: 83.1
+
+ Running
+Num. Msg: Test: 86 Node Index: Node Index: 0 Time: 84.1
+
+ Running
+Num. Msg: Test: 86 Node Index: Node Index: 1 Time: 84.1
+
+ Running
+Num. Msg: Test: 86 Node Index: Node Index: 3 Time: 84.1
+
+ Running
+Num. Msg: Test: 87 Node Index: Node Index: 0 Time: 85.1
+
+ Running
+Num. Msg: Test: 87 Node Index: Node Index: 1 Time: 85.1
+
+ Running
+Num. Msg: Test: 87 Node Index: Node Index: 3 Time: 85.1
+
+ Running
+Num. Msg: Test: 88 Node Index: Node Index: 0 Time: 86.1
+
+ Running
+Num. Msg: Test: 88 Node Index: Node Index: 1 Time: 86.1
+
+ Running
+Num. Msg: Test: 88 Node Index: Node Index: 3 Time: 86.1
+
+ Running
+Num. Msg: Test: 89 Node Index: Node Index: 0 Time: 87.1
+
+ Running
+Num. Msg: Test: 89 Node Index: Node Index: 1 Time: 87.1
+
+ Running
+Num. Msg: Test: 89 Node Index: Node Index: 3 Time: 87.1
+
+ Running
+Num. Msg: Test: 90 Node Index: Node Index: 0 Time: 88.1
+
+ Running
+Num. Msg: Test: 90 Node Index: Node Index: 1 Time: 88.1
+
+ Running
+Num. Msg: Test: 90 Node Index: Node Index: 3 Time: 88.1
+
+ Running
+Num. Msg: Test: 91 Node Index: Node Index: 0 Time: 89.1
+
+ Running
+Num. Msg: Test: 91 Node Index: Node Index: 1 Time: 89.1
+
+ Running
+Num. Msg: Test: 91 Node Index: Node Index: 3 Time: 89.1
+
+ Running
+Num. Msg: Test: 92 Node Index: Node Index: 0 Time: 90.1
+
+ Running
+Num. Msg: Test: 92 Node Index: Node Index: 1 Time: 90.1
+
+ Running
+Num. Msg: Test: 92 Node Index: Node Index: 3 Time: 90.1

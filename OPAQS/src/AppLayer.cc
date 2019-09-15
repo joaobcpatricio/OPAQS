@@ -44,6 +44,9 @@ void AppLayer::initialize(int stage)
         countMultipleMsg=0;
         hopsListSize=par("hopsListSize");
 
+        endGeneratingMsg = par("endGeneratingMsg");
+
+
         // setup the event notification array
         for (int i = 0; i < notificationCount; i++)
         {
@@ -266,7 +269,9 @@ void AppLayer::handleMessage(cMessage *msg)
                     countMultipleMsg++;
                 }
             }else{
-                    scheduleAt(simTime() + dataGenerationInterval, msg);
+                if(simTime()<=endGeneratingMsg){
+                        scheduleAt(simTime() + dataGenerationInterval, msg);
+                }
                 }
             nMsgOrder++;
         }

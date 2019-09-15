@@ -1,15 +1,15 @@
-file 48189 1568499099                                           
+file 48578 1568571326                                           
 version 2
-run A2-0-20190914-23:11:34-21347
+run A2-0-20190915-19:15:22-5113
 attr configname A2
-attr datetime 20190914-23:11:34
+attr datetime 20190915-19:15:22
 attr experiment A2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 21347
+attr processid 5113
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -19,7 +19,13 @@ param **.mobility.traceFile "\"paths/A.movements\""
 param **.numNodes 3
 param **.wirelessIfc.wirelessRange 40m
 param **.bluetoothIfc.wirelessRange 40m
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
 param **application.nodesGenMsg "\"0,1\""
+param **application.startMultipleMsg true
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
 param **.numNodes 2
 param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
@@ -69,8 +75,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2566 24798 10 10909 0.05 20 1800 1 2 2400 3600
-1	27364 3346 19 443 0.1 0.199 200 -nan -nan -nan -nan
-2	30710 8739 960 6322 1.142624192201 6.515082578373 315 141 44415 7017570 208120073490
-3	39449 8739 960 6322 1.142624192201 6.515082578373 315 141 44415 7017570 208120073490
+0	2841 24798 10 10959 0.05 20 1800 1 2 2400 3600
+1	27639 3346 19 443 0.1 0.199 200 -nan -nan -nan -nan
+2	30985 8796 962 6337 1.142624192201 6.564602578373 317 141 44697 7106823 212103132435
+3	39781 8796 962 6337 1.142624192201 6.564602578373 317 141 44697 7106823 212103132435
 
