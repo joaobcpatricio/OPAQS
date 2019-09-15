@@ -82,6 +82,7 @@ void StorageM::saveData(cMessage *msg, int origin){
    EV<<"saveData: \n";
 
     DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
+    EV<<"Saving Msg with ID "<<omnetDataMsg->getNMsgOrder()<<" at time: "<<simTime().dbl()<<" with the name:"<<omnetDataMsg->getDataName()<<"\n";
     //EV<<"omnetDataMsg: "<<omnetDataMsg->getHopCount()<<'\n'; //teste para verificar se funfa check
     CacheEntry cacheEntry;//added
     auto itC = cacheList.begin();
@@ -106,6 +107,7 @@ void StorageM::saveData(cMessage *msg, int origin){
             while (itC != cacheList.end()) {
                 if (itC->validUntilTime < removingCacheEntry->validUntilTime) {
                     removingCacheEntry = itC;
+                    EV<<"Removing from Storage:"<<itC->nMsgOrder<<"\n";
                 }
                 itC++;
             }
@@ -113,6 +115,8 @@ void StorageM::saveData(cMessage *msg, int origin){
             cacheList.erase(removingCacheEntry);
             //emit(cacheBytesRemovedSignal, (long) removingCacheEntry->realPayloadSize);
         }
+
+        //EV<<"Saving Msg with ID "<<omnetDataMsg->getNMsgOrder()<<" at time: "<<simTime().dbl()<<"\n";
 
         strcpy(cacheEntry.name,"God");
         // Here it saves the DataMsg in Cache
@@ -276,7 +280,7 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     int countM=1;
     //Gets to the element of the List requested
     while (countM<count) {
-        EV<<"pullOutMsg while SM \n";
+        //EV<<"counting \n";
         itC++;
         countM++;
     }
@@ -315,7 +319,7 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     int vi=0;
     int siz=itC->prevHopListSize;
             //->getPrevHopsListArraySize();
-    EV<<"Size 2 is: "<<siz<<" e cont: "<<countM<<"\n";
+    //EV<<"Size 2 is: "<<siz<<" e cont: "<<countM<<"\n";
     //copies the precious Hop List
     dataMsg->setPrevHopsListArraySize(itC->prevHopListSize);
     while(vi<siz){
@@ -342,7 +346,7 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
 
 
 
-    EV<<"pullOutMsg return SM \n";
+    EV<<"pullOutMsg "<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
     return dataMsg;
 }
 

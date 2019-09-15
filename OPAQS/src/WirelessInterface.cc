@@ -273,6 +273,14 @@ void WirelessInterface::handleMessage(cMessage *msg)
 
         // msg from upper layer
         if (strstr(gateName, "upperLayerIn") != NULL) {
+
+            /*DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+            if (dataMsg) {
+                EV<<"Wir: DataMsg:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
+            }*/
+
+
+
             //setSentTimeSrc(msg);
             // if currently there is a pending msg, then queue this msg
             if (sendPacketTimeoutEvent->isScheduled()) {
@@ -361,6 +369,16 @@ void WirelessInterface::sendPendingMsg()
 
                 // make duplicate of packet
                 cPacket *outPktCopy =  dynamic_cast<cPacket*>(currentPendingMsg->dup());
+
+                //print to trace Msg
+                DataMsg *dataMsg = dynamic_cast<DataMsg*>(currentPendingMsg->dup());
+                if (dataMsg) {
+                    EV<<"Wir: DataMsg:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
+                }
+
+
+
+
 
                 //Added 9/09/19
                 //We indtroduce delay measured on real simulations

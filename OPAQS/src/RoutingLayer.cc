@@ -245,6 +245,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                        MyAddH=ownMACAddress;
                    }
                    DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
+                   //EV<<"pulled to rout Msg:"<<dataMsg->getNMsgOrder()<<" at time "<<simTime().dbl()<<"\n";
                    string destAdd = dataRequestMsg->getSourceAddress();
                    string gwAdd = dataMsg->getFinalDestinationNodeName();
 
@@ -267,6 +268,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                    //Verifies if DataMsg destination is this neighbor and DataMsg has not been send yet, if so, send directly with Loop Avoidance
                    if(dataMsg->getFinalDestinationNodeName()==destAdd && foundH==false){
                        EV<<"Direct Neigh is final dest. \n";
+                       EV<<"Sent Direct Msg from Rout:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
                        send(dataMsg, "lowerLayerOut");
                        msgSent = true;
                     //break;
@@ -297,7 +299,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                             isInShortPath=graphR.isInShortPath(myID,gwID, dstID);
                             if(isInShortPath){
 
-
+                                EV<<"Sent Msg from Rout:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
                                 send(dataMsg, "lowerLayerOut");
                             }
                         }
@@ -449,6 +451,8 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
 {
     isReceiving=true;
     DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
+
+    EV<<"Rout: received msg:"<<omnetDataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
     bool found;
     //omnetDataMsg->setReceivedTimeRout(simTime().dbl());
 
@@ -522,8 +526,8 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
 
     //Saving Data
     if(cacheData) {
-        Stor.saveData(msg,1);
         EV<<"Saving data in cache from lower layer \n";
+        Stor.saveData(msg,1);
     }
 
 

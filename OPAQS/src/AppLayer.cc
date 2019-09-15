@@ -215,7 +215,14 @@ void AppLayer::handleMessage(cMessage *msg)
         }
         //--
         sprintf(tempString, "/app/item-%0d", APPLAYER_START_ITEM_ID + nextGenerationNotification);
-        dataMsg->setDataName(tempString);
+        string ind = "/app/node";
+        ind.append(std::to_string(nodeIndex));
+        ind.append("/item-");
+        int iqq=APPLAYER_START_ITEM_ID + nextGenerationNotification;
+        ind.append(to_string(iqq));
+        EV<<"New name:"<<ind<<"\n";
+
+        dataMsg->setDataName(ind.c_str());//tempString);
         //dataMsg->setGroupType(myLikenesses[nextGenerationNotification]);
         dataMsg->setRealPayloadSize(dataSizeInBytes);
         dataMsg->setMsgUniqueID(nextGenerationNotification);

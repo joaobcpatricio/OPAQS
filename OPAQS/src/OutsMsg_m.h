@@ -41,9 +41,9 @@
  *     // common fields
  *     string sourceAddress;		//												(6bytes)
  *     string destinationAddress;	//												(6bytes)
- *     string dataName;//sequence number?? - is the messageID em herald			(*-64 bytes)
- *     string messageID; //ID na storage->cacheList  ?  							(*-64 bytes)
- *     int msgUniqueID;	//ID da msg em int										(2)
+ *     string dataName;//sequence number?? - is the messageID em herald			(*-64 bytes)		Eg.:"/app/item-22086"
+ *     string messageID; //ID na storage->cacheList  ?  							(*-64 bytes)		Eg.:"/app/item-22086"
+ *     int msgUniqueID;	//ID da msg em int										(2)					Eg.:"86"
  *     int groupType = 50;//(previouys goodness value) Groupt type 				(1byte)   
  *     simtime_t injectedTime;	//timeStamp	, generation time						(?)
  *     int realPacketSize; //tells total size of the message 						(2 byte)
@@ -54,7 +54,7 @@
  *     						//of the node that generated the Msg				-------
  *     //int hopsTravelled;// = 0;													------
  *     int nHops;		//															(1byte)
- *     int nMsgOrder;  	//Identifies the order of its generation on its node	(2bytes)
+ *     int nMsgOrder;  	//Identifies the order of its generation on its node	(2bytes)			Eg.:"87"
  *     					//could be used instead msgUniqueID or messageID
  *     bool destinationOriented = false;	//										(1 byte)
  *     string prevHopsList[];	//	list of previous nodes where the data 			(32 bytes)
