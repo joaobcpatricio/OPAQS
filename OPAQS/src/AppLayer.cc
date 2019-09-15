@@ -218,7 +218,7 @@ void AppLayer::handleMessage(cMessage *msg)
         string ind = "/app/node";
         ind.append(std::to_string(nodeIndex));
         ind.append("/item-");
-        int iqq=APPLAYER_START_ITEM_ID + nextGenerationNotification;
+        int iqq=APPLAYER_START_ITEM_ID + nMsgOrder;//nextGenerationNotification;
         ind.append(to_string(iqq));
         EV<<"New name:"<<ind<<"\n";
 

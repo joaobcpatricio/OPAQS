@@ -346,7 +346,7 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
 
 
 
-    EV<<"pullOutMsg "<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
+    EV<<"pull Out Msg "<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<" with the name:"<<dataMsg->getDataName()<<"\n";
     return dataMsg;
 }
 
