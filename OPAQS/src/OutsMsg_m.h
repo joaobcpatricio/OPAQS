@@ -60,8 +60,8 @@
  *     string prevHopsList[];	//	list of previous nodes where the data 			(32 bytes)
  *     						//passes through - loop avoidance mechanism
  * 
- *     simtime_t sentTimeRout;//Time messaged sent from routing
- *     simtime_t receivedTimeRout;//Time msg received in routing						
+ *     simtime_t sentTimeRout;//Time messaged sent from routing from generated node
+ *     simtime_t receivedTimeRout;//Time msg received in routing of any receiving node						
  *     simtime_t sentTime;	//timeStamp
  *     simtime_t receivedTime;	//timeStamp
  * 
@@ -188,6 +188,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, DataMsg& obj) {obj.parsim
  *     string messageID;  // will inform the msg id
  *     bool isFinalDest;		//Indicates if it reached the final destination
  *     //bool reachedGW - to insert later if to use (1 byte)
+ *     simtime_t injectedTime;	//timeStamp	, generation time	
  * }
  * </pre>
  */
@@ -199,6 +200,7 @@ class AckMsg : public ::omnetpp::cPacket
     int realPacketSize;
     ::omnetpp::opp_string messageID;
     bool isFinalDest;
+    ::omnetpp::simtime_t injectedTime;
 
   private:
     void copy(const AckMsg& other);
@@ -227,13 +229,15 @@ class AckMsg : public ::omnetpp::cPacket
     virtual void setMessageID(const char * messageID);
     virtual bool getIsFinalDest() const;
     virtual void setIsFinalDest(bool isFinalDest);
+    virtual ::omnetpp::simtime_t getInjectedTime() const;
+    virtual void setInjectedTime(::omnetpp::simtime_t injectedTime);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const AckMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:93</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:94</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Beacon message.
@@ -262,6 +266,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimU
  *     int numberVert;
  *     simtime_t sentTime;	//timeStamp
  *     simtime_t receivedTime;	//timeStamp
+ *     simtime_t injectedTime;	//timeStamp	, generation time	
  * }
  * </pre>
  */
@@ -278,6 +283,7 @@ class BeaconMsg : public ::omnetpp::cPacket
     int numberVert;
     ::omnetpp::simtime_t sentTime;
     ::omnetpp::simtime_t receivedTime;
+    ::omnetpp::simtime_t injectedTime;
 
   private:
     void copy(const BeaconMsg& other);
@@ -316,13 +322,15 @@ class BeaconMsg : public ::omnetpp::cPacket
     virtual void setSentTime(::omnetpp::simtime_t sentTime);
     virtual ::omnetpp::simtime_t getReceivedTime() const;
     virtual void setReceivedTime(::omnetpp::simtime_t receivedTime);
+    virtual ::omnetpp::simtime_t getInjectedTime() const;
+    virtual void setInjectedTime(::omnetpp::simtime_t injectedTime);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:118</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:120</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Data Request message.
@@ -346,7 +354,8 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.pars
  *     //double MyPosX;
  *     //double MyPosY;
  *     double SSI;
- * 	//int Nic; //0=wifi, 1=Bt,
+ *     //int Nic; //0=wifi, 1=Bt,
+ *     simtime_t injectedTime;	//timeStamp	, generation time	
  * }
  * //**********************************************************************************  /
  * </pre>
@@ -360,6 +369,7 @@ class DataReqMsg : public ::omnetpp::cPacket
     bool SendMeData;
     double Prob;
     double SSI;
+    ::omnetpp::simtime_t injectedTime;
 
   private:
     void copy(const DataReqMsg& other);
@@ -390,6 +400,8 @@ class DataReqMsg : public ::omnetpp::cPacket
     virtual void setProb(double Prob);
     virtual double getSSI() const;
     virtual void setSSI(double SSI);
+    virtual ::omnetpp::simtime_t getInjectedTime() const;
+    virtual void setInjectedTime(::omnetpp::simtime_t injectedTime);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const DataReqMsg& obj) {obj.parsimPack(b);}

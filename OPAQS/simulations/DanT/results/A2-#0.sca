@@ -1,14 +1,14 @@
 version 2
-run A2-0-20190915-19:15:22-5113
+run A2-0-20190917-02:50:00-15202
 attr configname A2
-attr datetime 20190915-19:15:22
+attr datetime 20190917-02:50:00
 attr experiment A2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 5113
+attr processid 15202
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -37,6 +37,7 @@ param **application.nodesGenMsg "\"0\""
 param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
+param **.application.endGeneratingMsg 999999s
 param **.routingLayer "\"RoutingLayer\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
@@ -56,6 +57,7 @@ param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 500ms
 param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
@@ -66,12 +68,12 @@ param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.is3D false
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 246
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 624
-scalar NetworkTormV2.node[1].routing numEventsHandled 509
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 652
-scalar NetworkTormV2.node[2].routing numEventsHandled 269
-scalar NetworkTormV2.node[2].neighboring numEventsHandled 628
+scalar NetworkTormV2.node[0].routing numEventsHandled 104
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 78
+scalar NetworkTormV2.node[1].routing numEventsHandled 201
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 80
+scalar NetworkTormV2.node[2].routing numEventsHandled 102
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 78
 scalar NetworkTormV2 neighbourhoodSize:min 1
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:max 2
@@ -90,9 +92,9 @@ scalar NetworkTormV2 cacheBytesRemovedSum:max -nan
 attr source sum(cacheBytesRemoved)
 scalar NetworkTormV2 cacheBytesRemovedSum:last -nan
 attr source sum(cacheBytesRemoved)
-scalar NetworkTormV2 totalBytesReceivedSum:max 44697
+scalar NetworkTormV2 totalBytesReceivedSum:max 13818
 attr source sum(totalBytesReceived)
-scalar NetworkTormV2 totalBytesReceivedSum:last 44697
+scalar NetworkTormV2 totalBytesReceivedSum:last 13818
 attr source sum(totalBytesReceived)
 scalar NetworkTormV2 dataReqBytesReceivedSum:max -nan
 attr source sum(dataReqBytesReceived)
@@ -102,9 +104,9 @@ scalar NetworkTormV2 sumVecBytesReceivedSum:max -nan
 attr source sum(sumVecBytesReceived)
 scalar NetworkTormV2 sumVecBytesReceivedSum:last -nan
 attr source sum(sumVecBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:max 44697
+scalar NetworkTormV2 dataBytesReceivedSum:max 13818
 attr source sum(dataBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:last 44697
+scalar NetworkTormV2 dataBytesReceivedSum:last 13818
 attr source sum(dataBytesReceived)
 scalar NetworkTormV2 deliveryRatio:max -nan
 attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)

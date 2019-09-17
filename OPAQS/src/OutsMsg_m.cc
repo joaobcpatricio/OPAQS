@@ -874,6 +874,7 @@ AckMsg::AckMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
 {
     this->realPacketSize = 0;
     this->isFinalDest = false;
+    this->injectedTime = 0;
 }
 
 AckMsg::AckMsg(const AckMsg& other) : ::omnetpp::cPacket(other)
@@ -900,6 +901,7 @@ void AckMsg::copy(const AckMsg& other)
     this->realPacketSize = other.realPacketSize;
     this->messageID = other.messageID;
     this->isFinalDest = other.isFinalDest;
+    this->injectedTime = other.injectedTime;
 }
 
 void AckMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -910,6 +912,7 @@ void AckMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->realPacketSize);
     doParsimPacking(b,this->messageID);
     doParsimPacking(b,this->isFinalDest);
+    doParsimPacking(b,this->injectedTime);
 }
 
 void AckMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -920,6 +923,7 @@ void AckMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->realPacketSize);
     doParsimUnpacking(b,this->messageID);
     doParsimUnpacking(b,this->isFinalDest);
+    doParsimUnpacking(b,this->injectedTime);
 }
 
 const char * AckMsg::getSourceAddress() const
@@ -970,6 +974,16 @@ bool AckMsg::getIsFinalDest() const
 void AckMsg::setIsFinalDest(bool isFinalDest)
 {
     this->isFinalDest = isFinalDest;
+}
+
+::omnetpp::simtime_t AckMsg::getInjectedTime() const
+{
+    return this->injectedTime;
+}
+
+void AckMsg::setInjectedTime(::omnetpp::simtime_t injectedTime)
+{
+    this->injectedTime = injectedTime;
 }
 
 class AckMsgDescriptor : public omnetpp::cClassDescriptor
@@ -1037,7 +1051,7 @@ const char *AckMsgDescriptor::getProperty(const char *propertyname) const
 int AckMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 5+basedesc->getFieldCount() : 5;
+    return basedesc ? 6+basedesc->getFieldCount() : 6;
 }
 
 unsigned int AckMsgDescriptor::getFieldTypeFlags(int field) const
@@ -1054,8 +1068,9 @@ unsigned int AckMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<5) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<6) ? fieldTypeFlags[field] : 0;
 }
 
 const char *AckMsgDescriptor::getFieldName(int field) const
@@ -1072,8 +1087,9 @@ const char *AckMsgDescriptor::getFieldName(int field) const
         "realPacketSize",
         "messageID",
         "isFinalDest",
+        "injectedTime",
     };
-    return (field>=0 && field<5) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<6) ? fieldNames[field] : nullptr;
 }
 
 int AckMsgDescriptor::findField(const char *fieldName) const
@@ -1085,6 +1101,7 @@ int AckMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='r' && strcmp(fieldName, "realPacketSize")==0) return base+2;
     if (fieldName[0]=='m' && strcmp(fieldName, "messageID")==0) return base+3;
     if (fieldName[0]=='i' && strcmp(fieldName, "isFinalDest")==0) return base+4;
+    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+5;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1102,8 +1119,9 @@ const char *AckMsgDescriptor::getFieldTypeString(int field) const
         "int",
         "string",
         "bool",
+        "simtime_t",
     };
-    return (field>=0 && field<5) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<6) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **AckMsgDescriptor::getFieldPropertyNames(int field) const
@@ -1175,6 +1193,7 @@ std::string AckMsgDescriptor::getFieldValueAsString(void *object, int field, int
         case 2: return long2string(pp->getRealPacketSize());
         case 3: return oppstring2string(pp->getMessageID());
         case 4: return bool2string(pp->getIsFinalDest());
+        case 5: return simtime2string(pp->getInjectedTime());
         default: return "";
     }
 }
@@ -1194,6 +1213,7 @@ bool AckMsgDescriptor::setFieldValueAsString(void *object, int field, int i, con
         case 2: pp->setRealPacketSize(string2long(value)); return true;
         case 3: pp->setMessageID((value)); return true;
         case 4: pp->setIsFinalDest(string2bool(value)); return true;
+        case 5: pp->setInjectedTime(string2simtime(value)); return true;
         default: return false;
     }
 }
@@ -1236,6 +1256,7 @@ BeaconMsg::BeaconMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kin
     this->numberVert = 0;
     this->sentTime = 0;
     this->receivedTime = 0;
+    this->injectedTime = 0;
 }
 
 BeaconMsg::BeaconMsg(const BeaconMsg& other) : ::omnetpp::cPacket(other)
@@ -1267,6 +1288,7 @@ void BeaconMsg::copy(const BeaconMsg& other)
     this->numberVert = other.numberVert;
     this->sentTime = other.sentTime;
     this->receivedTime = other.receivedTime;
+    this->injectedTime = other.injectedTime;
 }
 
 void BeaconMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -1282,6 +1304,7 @@ void BeaconMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->numberVert);
     doParsimPacking(b,this->sentTime);
     doParsimPacking(b,this->receivedTime);
+    doParsimPacking(b,this->injectedTime);
 }
 
 void BeaconMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -1297,6 +1320,7 @@ void BeaconMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->numberVert);
     doParsimUnpacking(b,this->sentTime);
     doParsimUnpacking(b,this->receivedTime);
+    doParsimUnpacking(b,this->injectedTime);
 }
 
 const char * BeaconMsg::getSourceAddress() const
@@ -1399,6 +1423,16 @@ void BeaconMsg::setReceivedTime(::omnetpp::simtime_t receivedTime)
     this->receivedTime = receivedTime;
 }
 
+::omnetpp::simtime_t BeaconMsg::getInjectedTime() const
+{
+    return this->injectedTime;
+}
+
+void BeaconMsg::setInjectedTime(::omnetpp::simtime_t injectedTime)
+{
+    this->injectedTime = injectedTime;
+}
+
 class BeaconMsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -1464,7 +1498,7 @@ const char *BeaconMsgDescriptor::getProperty(const char *propertyname) const
 int BeaconMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 10+basedesc->getFieldCount() : 10;
+    return basedesc ? 11+basedesc->getFieldCount() : 11;
 }
 
 unsigned int BeaconMsgDescriptor::getFieldTypeFlags(int field) const
@@ -1486,8 +1520,9 @@ unsigned int BeaconMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<10) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<11) ? fieldTypeFlags[field] : 0;
 }
 
 const char *BeaconMsgDescriptor::getFieldName(int field) const
@@ -1509,8 +1544,9 @@ const char *BeaconMsgDescriptor::getFieldName(int field) const
         "numberVert",
         "sentTime",
         "receivedTime",
+        "injectedTime",
     };
-    return (field>=0 && field<10) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<11) ? fieldNames[field] : nullptr;
 }
 
 int BeaconMsgDescriptor::findField(const char *fieldName) const
@@ -1527,6 +1563,7 @@ int BeaconMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='n' && strcmp(fieldName, "numberVert")==0) return base+7;
     if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+8;
     if (fieldName[0]=='r' && strcmp(fieldName, "receivedTime")==0) return base+9;
+    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+10;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1549,8 +1586,9 @@ const char *BeaconMsgDescriptor::getFieldTypeString(int field) const
         "int",
         "simtime_t",
         "simtime_t",
+        "simtime_t",
     };
-    return (field>=0 && field<10) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<11) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **BeaconMsgDescriptor::getFieldPropertyNames(int field) const
@@ -1627,6 +1665,7 @@ std::string BeaconMsgDescriptor::getFieldValueAsString(void *object, int field, 
         case 7: return long2string(pp->getNumberVert());
         case 8: return simtime2string(pp->getSentTime());
         case 9: return simtime2string(pp->getReceivedTime());
+        case 10: return simtime2string(pp->getInjectedTime());
         default: return "";
     }
 }
@@ -1651,6 +1690,7 @@ bool BeaconMsgDescriptor::setFieldValueAsString(void *object, int field, int i, 
         case 7: pp->setNumberVert(string2long(value)); return true;
         case 8: pp->setSentTime(string2simtime(value)); return true;
         case 9: pp->setReceivedTime(string2simtime(value)); return true;
+        case 10: pp->setInjectedTime(string2simtime(value)); return true;
         default: return false;
     }
 }
@@ -1690,6 +1730,7 @@ DataReqMsg::DataReqMsg(const char *name, short kind) : ::omnetpp::cPacket(name,k
     this->SendMeData = false;
     this->Prob = 0;
     this->SSI = 0;
+    this->injectedTime = 0;
 }
 
 DataReqMsg::DataReqMsg(const DataReqMsg& other) : ::omnetpp::cPacket(other)
@@ -1717,6 +1758,7 @@ void DataReqMsg::copy(const DataReqMsg& other)
     this->SendMeData = other.SendMeData;
     this->Prob = other.Prob;
     this->SSI = other.SSI;
+    this->injectedTime = other.injectedTime;
 }
 
 void DataReqMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -1728,6 +1770,7 @@ void DataReqMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->SendMeData);
     doParsimPacking(b,this->Prob);
     doParsimPacking(b,this->SSI);
+    doParsimPacking(b,this->injectedTime);
 }
 
 void DataReqMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -1739,6 +1782,7 @@ void DataReqMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->SendMeData);
     doParsimUnpacking(b,this->Prob);
     doParsimUnpacking(b,this->SSI);
+    doParsimUnpacking(b,this->injectedTime);
 }
 
 const char * DataReqMsg::getSourceAddress() const
@@ -1799,6 +1843,16 @@ double DataReqMsg::getSSI() const
 void DataReqMsg::setSSI(double SSI)
 {
     this->SSI = SSI;
+}
+
+::omnetpp::simtime_t DataReqMsg::getInjectedTime() const
+{
+    return this->injectedTime;
+}
+
+void DataReqMsg::setInjectedTime(::omnetpp::simtime_t injectedTime)
+{
+    this->injectedTime = injectedTime;
 }
 
 class DataReqMsgDescriptor : public omnetpp::cClassDescriptor
@@ -1866,7 +1920,7 @@ const char *DataReqMsgDescriptor::getProperty(const char *propertyname) const
 int DataReqMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 6+basedesc->getFieldCount() : 6;
+    return basedesc ? 7+basedesc->getFieldCount() : 7;
 }
 
 unsigned int DataReqMsgDescriptor::getFieldTypeFlags(int field) const
@@ -1884,8 +1938,9 @@ unsigned int DataReqMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<6) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<7) ? fieldTypeFlags[field] : 0;
 }
 
 const char *DataReqMsgDescriptor::getFieldName(int field) const
@@ -1903,8 +1958,9 @@ const char *DataReqMsgDescriptor::getFieldName(int field) const
         "SendMeData",
         "Prob",
         "SSI",
+        "injectedTime",
     };
-    return (field>=0 && field<6) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<7) ? fieldNames[field] : nullptr;
 }
 
 int DataReqMsgDescriptor::findField(const char *fieldName) const
@@ -1917,6 +1973,7 @@ int DataReqMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='S' && strcmp(fieldName, "SendMeData")==0) return base+3;
     if (fieldName[0]=='P' && strcmp(fieldName, "Prob")==0) return base+4;
     if (fieldName[0]=='S' && strcmp(fieldName, "SSI")==0) return base+5;
+    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+6;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1935,8 +1992,9 @@ const char *DataReqMsgDescriptor::getFieldTypeString(int field) const
         "bool",
         "double",
         "double",
+        "simtime_t",
     };
-    return (field>=0 && field<6) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<7) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **DataReqMsgDescriptor::getFieldPropertyNames(int field) const
@@ -2009,6 +2067,7 @@ std::string DataReqMsgDescriptor::getFieldValueAsString(void *object, int field,
         case 3: return bool2string(pp->getSendMeData());
         case 4: return double2string(pp->getProb());
         case 5: return double2string(pp->getSSI());
+        case 6: return simtime2string(pp->getInjectedTime());
         default: return "";
     }
 }
@@ -2029,6 +2088,7 @@ bool DataReqMsgDescriptor::setFieldValueAsString(void *object, int field, int i,
         case 3: pp->setSendMeData(string2bool(value)); return true;
         case 4: pp->setProb(string2double(value)); return true;
         case 5: pp->setSSI(string2double(value)); return true;
+        case 6: pp->setInjectedTime(string2simtime(value)); return true;
         default: return false;
     }
 }

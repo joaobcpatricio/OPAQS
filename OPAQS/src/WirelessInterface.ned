@@ -24,6 +24,8 @@ simple WirelessInterface
         int wirelessHeaderSize @unit(byte) = default(32byte); // 32byte = 802.11 a/b/g, 16byte = BT
         
         int minSSI = default(-90);	//Limit of SSI lvl, default is -90dbM
+        
+        double limitQueueTime @unit(s) = default (60s); //after this time, it doesn't send the msg, it deletes it
 
         // icon
         @display("i=device/card");

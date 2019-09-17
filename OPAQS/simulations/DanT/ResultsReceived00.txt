@@ -1,20 +1,4 @@
 RESULTS Received DataMsg 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Sun Sep 15 23:55:57 2019
-elapsed time: 4.3e-08s
-Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: 3 | Time Received Here: 2.256890 | End 
-Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: 4 | Time Received Here: 3.356891 | End 
-Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: 5 | Time Received Here: 4.456853 | End 
-Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: 5 | Time Received Here: 4.456893 | End 
-Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: 6 | Time Received Here: 5.556853 | End 
-Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: 6 | Time Received Here: 5.556896 | End 
-Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: 7 | Time Received Here: 6.656853 | End 
-Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: 7 | Time Received Here: 6.656899 | End 
-Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: 8 | Time Received Here: 7.206854 | End 
-Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: 8 | Time Received Here: 7.206901 | End 
-Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: 9 | Time Received Here: 8.306906 | End 
-Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: 9 | Time Received Here: 8.320696 | End 
-Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: 10 | Time Received Here: 9.406912 | End 
-Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: 10 | Time Received Here: 9.420698 | End 
-Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: 11 | Time Received Here: 10.520702 | End 
-Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: 13 | Time Received Here: 12.156868 | End 
+Started simulation at Tue Sep 17 02:50:00 2019
+elapsed time: 5.7e-08s

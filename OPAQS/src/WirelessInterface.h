@@ -62,6 +62,9 @@ private:
 //ADDED 7/07/19 18h49
     int minSSI;
     int valSSI;
+
+    double limitQueueTime;
+
     double calculateSSI(double x);
 
     string broadcastMACAddress;
@@ -86,6 +89,7 @@ private:
     double realAquaticAchievableThroughput(double x);
     void setSentTimeSrc(cMessage *msg);
     void setRecTimeGW(cMessage *msg);
+    double getPacketInjectedTime(cMessage *msg);
 
 };
 

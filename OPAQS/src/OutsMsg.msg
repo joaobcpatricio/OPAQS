@@ -37,8 +37,8 @@ packet DataMsg {
     string prevHopsList[];	//	list of previous nodes where the data 			(32 bytes)
     						//passes through - loop avoidance mechanism
     	
-    simtime_t sentTimeRout;//Time messaged sent from routing
-    simtime_t receivedTimeRout;//Time msg received in routing						
+    simtime_t sentTimeRout;//Time messaged sent from routing from generated node
+    simtime_t receivedTimeRout;//Time msg received in routing of any receiving node						
     simtime_t sentTime;	//timeStamp
 	simtime_t receivedTime;	//timeStamp
     
@@ -74,6 +74,7 @@ packet AckMsg {
     string messageID;  // will inform the msg id
     bool isFinalDest;		//Indicates if it reached the final destination
     //bool reachedGW - to insert later if to use (1 byte)
+    simtime_t injectedTime;	//timeStamp	, generation time	
 }
 
 //***********************************************************************************//
@@ -103,6 +104,7 @@ packet BeaconMsg {
 	int numberVert;
 	simtime_t sentTime;	//timeStamp
 	simtime_t receivedTime;	//timeStamp
+	simtime_t injectedTime;	//timeStamp	, generation time	
 }
 
 //***********************************************************************************//
@@ -128,6 +130,7 @@ packet DataReqMsg {
 	//double MyPosY;
 	double SSI;
 	//int Nic; //0=wifi, 1=Bt,
+	simtime_t injectedTime;	//timeStamp	, generation time	
 }
 //***********************************************************************************//
 

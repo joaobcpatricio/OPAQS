@@ -1,4 +1,4 @@
 RESULTS Sent DataMsg 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Sun Sep 15 23:55:57 2019
-elapsed time: 4.1e-08s
+Started simulation at Tue Sep 17 02:50:00 2019
+elapsed time: 5e-08s

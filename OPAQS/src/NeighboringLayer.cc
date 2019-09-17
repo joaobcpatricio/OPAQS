@@ -369,6 +369,7 @@ BeaconMsg* NeighboringLayer::makeBeaconVectorMessage(cMessage *msg)//cache
     beaconMsg->setNeighGraph(graphe.returnGraphT().c_str());
     //EV<<"Set on beacon g: "<<graphe.returnGraphT().c_str()<<"\n";
     beaconMsg->setNumberVert(graphe.returnVertIDSize());
+    beaconMsg->setInjectedTime(simTime().dbl()); //timeStamp , generation time
 
     return beaconMsg;
     //Aqui cria o beacon de broadcast que faz reconhecer a vizinhança
@@ -809,7 +810,7 @@ double NeighboringLayer::calculateLinkStability(cMessage *msg){
     double link_stability=0;
 
     if(x<5){
-        link_stability=1;
+        link_stability=100;
     }else if(x>=40){
         link_stability=0;
     }else{

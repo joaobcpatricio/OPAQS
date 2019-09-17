@@ -64,6 +64,26 @@ void RoutingLayer::initialize(int stage)
         out<< "Started simulation at " << std::ctime(&end_time) << "elapsed time: " << elapsed_seconds.count() << "s\n";
         out.close();
 
+
+        //FILE RESULTS Storaged Msgs
+        string nameFstor="ResultsStor";
+        string noSstor=ownMACAddress.substr(15,17);
+        nameFstor.append(noSstor);
+        nameFstor.append(".txt");
+        //EV<<"nameF: "<<nameF<<"\n";
+        ofstream outfilestor(nameFstor,ios::out);
+        outfilestor<<"RESULTS FILE \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
+        outfilestor.close();
+        std::ofstream outstor(nameFstor, std::ios_base::app);
+        auto startstor = std::chrono::system_clock::now();
+        // Some computation here
+        auto endstor = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_secondsstor = endstor-startstor;
+        std::time_t end_timestor = std::chrono::system_clock::to_time_t(endstor);
+        outstor<< "Started simulation at " << std::ctime(&end_timestor) << "elapsed time: " << elapsed_secondsstor.count() << "s\n";
+        outstor.close();
+
+
         //FILE RESULTS GW
         string nameFgw="ResultsGW";
                 string noSgw=ownMACAddress.substr(15,17);
@@ -269,6 +289,12 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                    if(dataMsg->getFinalDestinationNodeName()==destAdd && foundH==false){
                        EV<<"Direct Neigh is final dest. \n";
                        EV<<"Sent Direct Msg from Rout:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
+
+                       //If this is my generated data Msg i set the time I sent it from here
+                       if(dataMsg->getOriginatorNodeMAC()==ownMACAddress || dataMsg->getOriginatorNodeMAC()==ownBTMACAddress){
+                           dataMsg->setSentTimeRout(simTime().dbl());
+                       }
+
                        send(dataMsg, "lowerLayerOut");
                        msgSent = true;
                     //break;
@@ -280,6 +306,37 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                        bool isInShortPath=false;
                        EV<<"Dijkstra from myID to gwID\n";
                        graphR.dijkstra(myID, gwID);
+                       //string sPat=graphR.returnShortestPath;
+
+
+                       //Save Data
+                           /*//save info into file
+                           string nameF="ResultsLQE";
+                           string noS=ownMACAddress.substr(15,17);
+                           nameF.append(noS);
+                           nameF.append(".txt");
+                           std::ofstream out(nameF, std::ios_base::app);
+                           //My Short Path
+                           graphR.dijkstra(myID, gwID);
+                           string sPat=graphR.returnShortestPath(myID,gwID);
+                           string srcer="ShortPath Me&GW: \n";
+                           srcer.append(sPat);
+                           out<<srcer;
+                           //Graph
+                           string GraphSR=graphR.returnGraphT();
+                           string msIDis="Graph: \n";
+                           EV<<"LQE graph: "<<msIDis<<"\n";
+                           msIDis.append(GraphSR);
+                           out<<msIDis;
+                           //Time
+                           std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+                           string timeGen="Time is : ";
+                           timeGen.append(timeMsg);
+                           out<<timeGen;
+                           out<<" |End \n";
+                           out.close();*/
+
+
 
 
                     //Verifies if destination is not on the prevHopList of  the Stored Msg - Loop Avoidance
@@ -298,7 +355,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                             //Verify if  that shortest path between me and GW includes this neighbor, if so, send
                             isInShortPath=graphR.isInShortPath(myID,gwID, dstID);
                             if(isInShortPath){
-
+                                dataMsg->setSentTimeRout(simTime().dbl());
                                 EV<<"Sent Msg from Rout:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
                                 send(dataMsg, "lowerLayerOut");
                             }
@@ -339,6 +396,7 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
     getGraph(myGraph);
 
 
+
     //Save Data
     //save info into file
     string nameF="ResultsLQE";
@@ -346,9 +404,21 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
     nameF.append(noS);
     nameF.append(".txt");
     std::ofstream out(nameF, std::ios_base::app);
-    //My Add
-    /*string srcer="My Address: ";
+    //My Short Path
+    /*string MyAddh;
+    string SouceDRAdd = beaconMsg->getSourceAddress();
+    if((SouceDRAdd.substr(0,2))=="BT"){
+                           MyAddH=ownBTMACAddress;
+                       }else{
+                           MyAddH=ownMACAddress;
+                       }
+    int myID=graphR.add_element(MyAddH);
+                           int gwID=graphR.add_element(gwAdd);
+    graphR.dijkstra(myID, gwID);
+                           string sPat=graphR.returnShortestPath;
+    string srcer="My Address: ";
     srcer.append(ownMACAddress);
+
     out<<srcer;*/
     //Graph
     string GraphSR=graphR.returnGraphT();
@@ -385,6 +455,7 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
     dataRequestMsg->setByteLength(realPacketSize);
     dataRequestMsg->setSSI(beaconMsg->getSSI());
     dataRequestMsg->setProb(beaconMsg->getMyProb());      //VERIFICAR VALOR DE PROB QUE AQUI METO pk é o meu
+    dataRequestMsg->setInjectedTime(simTime().dbl());
 
     //Para retirar futuramente
     if(beaconMsg->getProb()>0.5){
@@ -392,6 +463,7 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
         dataRequestMsg->setSendMeData(true);
     } else{ dataRequestMsg->setSendMeData(false);}
 
+    EV<<"Send DataRequestMsg \n";
     send(dataRequestMsg, "lowerLayerOut");
     delete msg;
 }
@@ -454,7 +526,7 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
 
     EV<<"Rout: received msg:"<<omnetDataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
     bool found;
-    //omnetDataMsg->setReceivedTimeRout(simTime().dbl());
+    omnetDataMsg->setReceivedTimeRout(simTime().dbl());
 
     // increment the travelled hop count
     //omnetDataMsg->setHopsTravelled(omnetDataMsg->getHopsTravelled() + 1);
@@ -480,44 +552,44 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
             //save info into file
             string nameF="ResultsGW";
             string noS=ownMACAddress.substr(15,17);
-            nameF.append(noS);
-            nameF.append(".txt");
-            std::ofstream out(nameF, std::ios_base::app);
-            //Generation Mac
-            string srcMAC=omnetDataMsg->getOriginatorNodeMAC();
-            string srcer="Source: ";
-            srcer.append(srcMAC);
-            out<<srcer;
-            //MessageID
-            std::string msID=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
-            string msIDis=" | Message ID: ";
-            msIDis.append(msID);
-            out<<msIDis;
-            //Time generated
-            std::string timeMsg = std::to_string(omnetDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
-            string timeGen=" | Time generated: ";
-            timeGen.append(timeMsg);
-            out<<timeGen;
-            //Time sent from src
-            std::string timeSMsg = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
-            string timeSSrc=" | Time sentFromSrc: ";
-            timeSSrc.append(timeSMsg);
-            out<<timeSSrc;
-            //Time sent from neigh
-            std::string timeSMsgN = std::to_string(omnetDataMsg->getSentTime().dbl());//getInjectedTime().dbl());
-            string timeSN=" | Time sentFromNeigh: ";
-            timeSN.append(timeSMsgN);
-             out<<timeSN;
-            //time received here
-            std::string timeRMsg = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
-            string timeRec=" | Time received: ";
-            timeRec.append(timeRMsg);
-            out<<timeRec;
-            out<<" |End \n";
-            out.close();
+                              nameF.append(noS);
+                              nameF.append(".txt");
+                              std::ofstream out(nameF, std::ios_base::app);
+                              //Data Name
+                              string srcMAC=omnetDataMsg->getDataName();
+                              string srcer="Source: ";
+                              srcer.append(srcMAC);
+                              out<<srcer;
+                              //MessageID
+                              std::string msID=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
+                              string msIDis=" | Message ID: ";
+                              msIDis.append(msID);
+                              out<<msIDis;
+                              /*//Time generated
+                              std::string timeMsg = std::to_string(omnetDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
+                              string timeGen=" | Time generated: ";
+                              timeGen.append(timeMsg);
+                              out<<timeGen;*/
+                              //Time sent from src
+                              std::string timeSMsg = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
+                              string timeSSrc=" | Time sentFromSrcR: ";
+                              timeSSrc.append(timeSMsg);
+                              out<<timeSSrc;
+                              /*//Time sent from neigh
+                              std::string timeSMsgN = std::to_string(omnetDataMsg->getSentTime().dbl());//getInjectedTime().dbl());
+                              string timeSN=" | Time sentFromNeigh: ";
+                              timeSN.append(timeSMsgN);
+                               out<<timeSN;*/
+                              //time received here
+                              std::string timeRMsg = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
+                              string timeRec=" | Time receivedFromSrcR: ";
+                              timeRec.append(timeRMsg);
+                              out<<timeRec;
+                              out<<" |End \n";
+                              out.close();
 
 
-            cacheData=FALSE;
+            //cacheData=FALSE;
             imDestiny=TRUE;
         }
     }
@@ -537,64 +609,11 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     //Data Treatment if I'm gateway:
     if(imDestiny){ //GwResults
         if(Stor.msgExistsInC(msg)){
-            EV<<"Sava \n";
-
-
-
-            //Save Data to file if I'mGW
-            //Nº Msg | NodeIndex | time Gen
-            /*string fNam, pri, tim1, ti1;
-            fNam="Test: ";
-            ostringstream fn, oss, tim2, ti2;
-            fn <<fNam << omnetDataMsg->getNMsgOrder();
-            fNam=fn.str();
-            pri="Node Index: ";
-            oss <<pri << nodeIndex;;
-            pri=oss.str();
-            simtime_t tim3;     //get generation time
-            tim3=omnetDataMsg->getInjectedTime();
-            tim2 << " Time: "<<tim3;
-            tim1=tim2.str();
-            //time received
-            simtime_t ti3 = simTime().dbl();     //get generation time
-            //ti3=omnetDataMsg->getInjectedTime();
-            ti2 << " Time rec: "<<ti3;
-            ti1=ti2.str();
-            //Save Data to file
-            fstream fileE;
-            //file.open (fNam+".txt");
-            fileE.open ("GwResults.txt",ios::app);
-            fileE << "\n Running\n";
-            fileE << "Num. Msg: "+fNam+" Node Index: " + pri + tim1 + ti1+ "\n";//pri+"\n";
-            fileE.close();*/
+            //guarda aqui nº pacotes recebidos que ja tinha recebido antes e guardado.
+            //EV<<"Sava \n";
         }
-        //Save Data to file if I'mGW
-                    //Nº Msg | NodeIndex | time Gen
-                    string fNam, pri, tim1, ti1;
-                    fNam="Test: ";
-                    ostringstream fn, oss, tim2, ti2;
-                    fn <<fNam << omnetDataMsg->getNMsgOrder();
-                    fNam=fn.str();
-                    pri="Node Index: ";
-                    oss <<pri << nodeIndex;;
-                    pri=oss.str();
-                    simtime_t tim3;     //get generation time
-                    tim3=omnetDataMsg->getInjectedTime();
-                    tim2 << " Time: "<<tim3;
-                    tim1=tim2.str();
-                    //time received
-                    simtime_t ti3 = simTime().dbl();     //get generation time
-                    //ti3=omnetDataMsg->getInjectedTime();
-                    ti2 << " Time rec: "<<ti3;
-                    ti1=ti2.str();
-                    //Save Data to file
-                    fstream fileE;
-                    //file.open (fNam+".txt");
-                    fileE.open ("GwResults.txt",ios::app);
-                    fileE << "\n Running\n";
-                    fileE << "Num. Msg: "+fNam+" Node Index: " + pri + tim1 + ti1+ "\n";//pri+"\n";
-                    fileE.close();
     }
+
 
     //AckMsg
     AckMsg *ackMsg = new AckMsg();
@@ -611,6 +630,7 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     ackMsg->setMessageID(omnetDataMsg->getMessageID());
     int realPacketSize = 6 + 6 + (1 * ROUTINGLAYER_MSG_ID_HASH_SIZE) + 1;
     ackMsg->setRealPacketSize(realPacketSize);
+    ackMsg->setInjectedTime(simTime().dbl());
     EV<<"Sending ACK \n";
     send(ackMsg, "lowerLayerOut");
 

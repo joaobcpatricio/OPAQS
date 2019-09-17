@@ -31,8 +31,10 @@ void WirelessInterface::initialize(int stage)
         // set other parameters
         broadcastMACAddress = "FF:FF:FF:FF:FF:FF";
 
-        //added 7/07/19 18h51
+
         minSSI=par("minSSI");
+
+        limitQueueTime = par("limitQueueTime");
 
 
     } else if (stage == 1) {
@@ -360,6 +362,16 @@ void WirelessInterface::sendPendingMsg()
             // check if node is still in neighbourhood
             if (atTxNeighbourNodeAddress == currentNeighbourNodeAddress) {
 
+
+                //Verify if msg time has reached its limit
+                EV<<"Current pkt time gen:"<<getPacketInjectedTime(currentPendingMsg)<<" and current time:"<<simTime().dbl()<<"\n";
+                if((simTime().dbl()-getPacketInjectedTime(currentPendingMsg))>=limitQueueTime){
+                    EV<<"Packet reached Queue time limit \n";
+                    break;
+                }
+
+
+
                 //Set sending Time
 
                 //cMessage *msgB =currentPendingMsg;
@@ -416,6 +428,8 @@ void WirelessInterface::sendPendingMsg()
                     EV<<"Sending\n";
                     sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
                 //sendDirect(outPktCopy,currentNeighbourNodeInfo->nodeModule, "radioIn");
+                }else{
+                    EV<<"Packet Lost \n";
                 }
                 break;
             }
@@ -483,6 +497,11 @@ void WirelessInterface::setSentTime(cMessage *msg){
                     string dster=" | NextDest: ";
                     dster.append(dstMAC);
                     out<<dster;
+                    //Message Name
+                    std::string msNam=dataMsg->getDataName();//getMsgUniqueID();
+                    string msNamIs=" | Message ID: ";
+                    msNamIs.append(msNam);
+                    out<<msNamIs;
                     //MessageID
                     std::string msID=std::to_string(dataMsg->getNMsgOrder());//getMsgUniqueID();
                     string msIDis=" | Message ID: ";
@@ -575,6 +594,11 @@ void WirelessInterface::setReceivedTime(cMessage *msg){
                     string dster=" | From: ";
                     dster.append(dstMAC);
                     out<<dster;
+                    //Message Name
+                    std::string msNam=dataMsg->getDataName();//getMsgUniqueID();
+                    string msNamIs=" | Message ID: ";
+                    msNamIs.append(msNam);
+                    out<<msNamIs;
                     //MessageID
                     std::string msID=std::to_string(dataMsg->getNMsgOrder());//getMsgUniqueID();
                     string msIDis=" | Message ID: ";
@@ -634,6 +658,40 @@ double WirelessInterface::calculateSSI(double x){
     return ssi_ext;
 
 }
+
+
+double WirelessInterface::getPacketInjectedTime(cMessage *msg){
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+
+    if (dataMsg) {
+        //return dataMsg->getSentTimeRout().dbl();
+        return simTime().dbl();
+    }
+
+    AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
+    if (ackMsg) {
+        return ackMsg->getInjectedTime().dbl();
+    }
+
+    DataReqMsg *dataReqMsg = dynamic_cast<DataReqMsg*>(msg);
+    if (dataReqMsg) {
+        return dataReqMsg->getInjectedTime().dbl();
+    }
+
+    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
+    if (beaconMsg) {
+        return beaconMsg->getInjectedTime().dbl();
+    }
+
+
+
+    EV_FATAL <<  WIRELESSINTERFACE_SIMMODULEINFO << ">!<Unknown message type. Check \"string WirelessInterface::getPAcketInjectedTime(cMessage *msg)\"\n";
+    throw cRuntimeError("Unknown message type in KWirelessnterface");
+    return double();
+}
+
+
+
 
 void WirelessInterface::finish()
 {

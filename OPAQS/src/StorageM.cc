@@ -98,6 +98,58 @@ void StorageM::saveData(cMessage *msg, int origin){
             itC++;
         }
     if (!found) {
+
+        //Save saved 1st time msgs
+        string nameF="ResultsStor";
+        string ownMACAddress;
+        if(origin){
+            ownMACAddress = omnetDataMsg->getDestinationAddress();
+        }else{
+            ownMACAddress = omnetDataMsg->getOriginatorNodeMAC();
+        }
+                   string noS=ownMACAddress.substr(15,17);
+                   nameF.append(noS);
+                   nameF.append(".txt");
+                   std::ofstream out(nameF, std::ios_base::app);
+                   //Data Name
+                   string srcMAC=omnetDataMsg->getDataName();
+                   string srcer="Source: ";
+                   srcer.append(srcMAC);
+                   out<<srcer;
+                   //MessageID
+                   std::string msID=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
+                   string msIDis=" | Message ID: ";
+                   msIDis.append(msID);
+                   out<<msIDis;
+                   //Time generated
+                   std::string timeMsg = std::to_string(omnetDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
+                   string timeGen=" | Time generated: ";
+                   timeGen.append(timeMsg);
+                   out<<timeGen;
+                   //Time sent from src
+                   std::string timeSMsg = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
+                   string timeSSrc=" | Time sentFromSrcR: ";
+                   timeSSrc.append(timeSMsg);
+                   out<<timeSSrc;
+                   /*//Time sent from neigh
+                   std::string timeSMsgN = std::to_string(omnetDataMsg->getSentTime().dbl());//getInjectedTime().dbl());
+                   string timeSN=" | Time sentFromNeigh: ";
+                   timeSN.append(timeSMsgN);
+                    out<<timeSN;*/
+                   //time received here
+                   std::string timeRMsg = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
+                   string timeRec=" | Time receivedFromSrcR: ";
+                   timeRec.append(timeRMsg);
+                   out<<timeRec;
+                   out<<" |End \n";
+                   out.close();
+
+
+
+
+
+
+
     // Applies caching policy if limited cache and cache is full (deletes oldest)
         if (maximumCacheSize != 0 && (currentCacheSize + omnetDataMsg->getRealPayloadSize()) > maximumCacheSize && cacheList.size() > 0) {
 
@@ -408,3 +460,5 @@ void StorageM::deleteMsg(string messageID){
         EV<<"ERRO: MSG N EXISTE NA CACHE\n";
     }
 }
+
+
