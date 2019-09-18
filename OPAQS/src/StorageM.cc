@@ -100,7 +100,7 @@ void StorageM::saveData(cMessage *msg, int origin){
     if (!found) {
 
         //Save saved 1st time msgs
-        string nameF="ResultsStor";
+        string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsStor";
         string ownMACAddress;
         if(origin){
             ownMACAddress = omnetDataMsg->getDestinationAddress();
@@ -143,6 +143,57 @@ void StorageM::saveData(cMessage *msg, int origin){
                    out<<timeRec;
                    out<<" |End \n";
                    out.close();
+
+
+                   if(origin){
+                       ownMACAddress = omnetDataMsg->getDestinationAddress();
+                       string destMACAddress=omnetDataMsg->getOriginatorNodeMAC() ;
+
+                       string nameFInd="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsStorInd";
+                       string nMY=ownMACAddress.substr(15,17);
+                       string nD=destMACAddress.substr(15,17);
+                       nameFInd.append(nMY);
+                       nameFInd.append("_");
+                       nameFInd.append(nD);
+                       nameFInd.append(".txt");
+
+
+
+                       std::ofstream outInd(nameFInd, std::ios_base::app);
+                                          //Data Name
+                                          string srcMACInd=omnetDataMsg->getDataName();
+                                          string srcerInd="Source: ";
+                                          srcerInd.append(srcMACInd);
+                                          outInd<<srcerInd;
+                                          //MessageID
+                                          std::string msIDInd=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
+                                          string msIDisInd=" | Message ID: ";
+                                          msIDisInd.append(msIDInd);
+                                          outInd<<msIDisInd;
+                                          //Time generated
+                                          std::string timeMsgInd = std::to_string(omnetDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
+                                          string timeGenInd=" | Time generated: ";
+                                          timeGenInd.append(timeMsgInd);
+                                          outInd<<timeGenInd;
+                                          //Time sent from src
+                                          std::string timeSMsgInd = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
+                                          string timeSSrcInd=" | Time sentFromSrcR: ";
+                                          timeSSrcInd.append(timeSMsgInd);
+                                          outInd<<timeSSrcInd;
+                                          /*//Time sent from neigh
+                                          std::string timeSMsgN = std::to_string(omnetDataMsg->getSentTime().dbl());//getInjectedTime().dbl());
+                                          string timeSN=" | Time sentFromNeigh: ";
+                                          timeSN.append(timeSMsgN);
+                                           out<<timeSN;*/
+                                          //time received here
+                                          std::string timeRMsgInd = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
+                                          string timeRecInd=" | Time receivedFromSrcR: ";
+                                          timeRecInd.append(timeRMsgInd);
+                                          outInd<<timeRecInd;
+                                          outInd<<" |End \n";
+                                          outInd.close();
+
+                   }
 
 
 
@@ -270,7 +321,7 @@ bool StorageM::msgIDExists(string messageID){
     while (itC != cacheList.end()) {
         if (itC->messageID == messageID) {
             found = TRUE;
-            EV <<"Verdade \n";
+            EV <<"Verdade-exists \n";
             return true;
             break;
         }
@@ -446,7 +497,7 @@ void StorageM::deleteMsg(string messageID){
             while (itC != cacheList.end()) {
                 if (itC->messageID == messageID) {
                     msgFound = TRUE;
-                    EV <<"Verdade \n";
+                    EV <<"Verdade-erase \n";
                     break;
                 }
                 itC++;

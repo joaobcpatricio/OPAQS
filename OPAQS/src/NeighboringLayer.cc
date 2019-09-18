@@ -43,6 +43,7 @@ void NeighboringLayer::initialize(int stage)
         maxLengthGraph=par("maxLengthGraph");
 
         max_age = par("max_age");
+        max_absent_time = par("max_absent_time");
 
 
     } else if (stage == 1) {
@@ -57,6 +58,7 @@ void NeighboringLayer::initialize(int stage)
                 }
 
     } else if (stage == 2) {
+
 
 
     } else {
@@ -116,6 +118,116 @@ void NeighboringLayer::handleMessage(cMessage *msg)
             delete msg;
         }
     }
+}
+
+
+
+//Handle Received BeaconMsg
+void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
+{
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+
+    int v = 5;//9; //there are 6 vertices in the graph
+    string sourAdd = BeaconReceived->getSourceAddress();
+
+
+    saveLastBeContact(sourAdd);
+
+    cleanOldContacts();
+
+
+    string myAdd;
+    if((sourAdd.substr(0,2))=="BT"){
+            myAdd = ownBTMACAddress;
+        }else{
+            myAdd=ownMACAddress;
+        }
+    int srcID=graphe.add_element(sourAdd);
+    int myID=graphe.add_element(myAdd);
+
+    //EV<<"Graph Before Update: \n";
+    //graphe.displayMatrix(v);
+   // string answb=graphe.returnGraphT();
+    //EV<< "O meu v de display é:"<<v<<"\n";
+
+
+//UPdate of graph
+    bool updG =updateGraph(msg);
+    //bool updMyG=updateMyNGraph();
+    //EV<<"RSSI:"<<calculateSSI(msg)<<"\n";
+
+    //graphe.displayMatrix(v);
+    string answ=graphe.returnGraphT();
+    EV<<"Graph After Update: "<<answ<<"\n";
+    graphe.dijkstra(myID,srcID);
+    //EV<<"End test: \n";
+
+
+    //Save weight
+    //FILE Results
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsWeight";
+    string noS=ownMACAddress.substr(15,17);
+    string noN=BeaconReceived->getSourceAddress();
+    nameF.append(noS);
+    nameF.append("_");
+    nameF.append(noN.substr(15,17));
+    nameF.append(".txt");
+    std::ofstream outfile(nameF, std::ios_base::app);
+
+
+    //Weight
+    int weigH=graphe.returnWGrapfT(myID,srcID);
+    std::string weightH = std::to_string(weigH);//getReceivedTime().dbl());
+    string weightB="Weight: ";
+    weightB.append(weightH);
+    outfile<<weightB;
+    //time received here
+    std::string timeRMsg = std::to_string(simTime().dbl());//getReceivedTime().dbl());
+    string timeRec=" | Time now: ";
+    timeRec.append(timeRMsg);
+    outfile<<timeRec;
+    outfile<<" |End \n";
+    outfile.close();
+
+
+
+//-------------------
+
+    double ssi_ext=calculateSSI(msg);
+
+    myProb=updateProbability(distProb,ssi_ext);
+
+    isNeighNeigh=BeaconReceived->getProb();
+
+    //make Beacon copy with extra info for upper layer
+    BeaconInfoMsg *infoMsg = new BeaconInfoMsg();
+    infoMsg->setSourceAddress(BeaconReceived->getSourceAddress());
+    infoMsg->setProb(BeaconReceived->getProb());    //Gives probability
+    infoMsg->setMyProb(myProb);
+    int realPacketSize = 6 + 6 + 4 + 4 + 4 + 4 + 4 +64 +1;
+    infoMsg->setRealPacketSize(realPacketSize);
+    infoMsg->setByteLength(realPacketSize);
+    infoMsg->setMyPosX(BeaconReceived->getMyPosX());
+    infoMsg->setMyPosY(BeaconReceived->getMyPosY());
+    infoMsg->setDestinationAddress(BeaconReceived->getDestinationAddress());
+    infoMsg->setNeighGraph(graphe.returnGraphT().c_str());
+    infoMsg->setNumberVert(graphe.returnVertIDSize());
+    //infoMsg->setNic(BeaconReceived->getNic());
+
+    //EV<<"Beac: "<<BeaconReceived->getRealPacketSize()<<" Cop of beac: "<<infoMsg->getRealPacketSize()<<" \n";
+
+    EV<<"Neighboring: Sending msg to upperLayer\n";
+    send(infoMsg, "upperLayerOut");
+
+//Added 26/07/2019
+    string SouceBAdd = BeaconReceived->getSourceAddress();
+    if((SouceBAdd.substr(0,2))=="BT"){
+        cancelBackOffTBT(msg);
+    }else{
+        cancelBackOffT(msg);
+    }
+    //cancelBackOffT(msg);
+    delete(msg);
 }
 
 
@@ -516,6 +628,101 @@ void NeighboringLayer::setSyncingNeighbourInfoForNextRoundBT()//neigh
     }
 }
 
+
+
+
+void NeighboringLayer::saveLastBeContact(string Naddress)//neigh
+{
+
+    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
+    iteratorSyncedNeighbour = syncedNeighbourList.begin();
+    while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
+        SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
+        if (syncedNeighbour->nodeMACAddress.c_str()==Naddress) {
+            syncedNeighbour->lastBrecT = simTime().dbl();
+            EV<<"Last contact time saved \n";
+            break;
+        }
+
+        iteratorSyncedNeighbour++;
+    }
+}
+
+void NeighboringLayer::cleanOldContacts(){
+    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
+        iteratorSyncedNeighbour = syncedNeighbourList.begin();
+        while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
+            SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
+            if ((simTime().dbl()-syncedNeighbour->lastBrecT) >=max_absent_time) {
+
+                int myID=graphe.add_element(ownMACAddress);
+                string addrN=syncedNeighbour->nodeMACAddress;
+                int idN=std::stoi( addrN.substr(15,17));
+                graphe.rem_edge(myID,idN);
+                EV<<"Removed absent neigh from graph: "<<idN<<"\n";
+            }
+
+            iteratorSyncedNeighbour++;
+        }
+
+}
+
+
+void NeighboringLayer::cancelBackOffT(cMessage *msg){ //vector<string> & selectedMessageIDList, cMessage *msg){ //REVER PARA FUTURO
+    EV<<"Canceling BackOffT\n";
+    //vector<string> selectedMessageIDList;
+    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
+
+    // cancel the random backoff timer (because neighbour started syncing)
+    string nodeMACAddress = beaconMsg->getSourceAddress();
+    SyncedNeighbour *syncedNeighbour = getSyncingNeighbourInfo(nodeMACAddress);
+    syncedNeighbour->randomBackoffStarted = FALSE;
+    syncedNeighbour->randomBackoffEndTime = 0.0;
+    // second - start wait timer until neighbour has finished syncing
+    syncedNeighbour->neighbourSyncing = TRUE;
+    //double delayPerDataMessage = 0.1; // assume 100ms//500 milli seconds per data message
+    syncedNeighbour->neighbourSyncEndTime = simTime().dbl() + (1 * delayPerDataMsg);//(selectedMessageIDList.size() * delayPerDataMessage); //REVER PARA FUTURO
+    // synched neighbour list must be updated in next round
+    // as there were changes
+    syncedNeighbourListIHasChanged = TRUE;
+    EV<<"BackOffT canceled\n";
+}
+void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selectedMessageIDList, cMessage *msg){ //REVER PARA FUTURO
+    EV<<"Canceling BackOffT\n";
+    //vector<string> selectedMessageIDList;
+    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
+
+    // cancel the random backoff timer (because neighbour started syncing)
+    string nodeMACAddress = beaconMsg->getSourceAddress();
+    SyncedNeighbour *syncedNeighbour = getSyncingNeighbourInfoBT(nodeMACAddress);
+    syncedNeighbour->randomBackoffStarted = FALSE;
+    syncedNeighbour->randomBackoffEndTime = 0.0;
+    // second - start wait timer until neighbour has finished syncing
+    syncedNeighbour->neighbourSyncing = TRUE;
+    //double delayPerDataMessage = 0.1; // assume 100ms//500 milli seconds per data message
+    syncedNeighbour->neighbourSyncEndTime = simTime().dbl() + (1 * delayPerDataMsg);//(selectedMessageIDList.size() * delayPerDataMessage); //REVER PARA FUTURO
+    // synched neighbour list must be updated in next round
+    // as there were changes
+    syncedNeighbourListBTHasChanged = TRUE;
+    EV<<"BackOffT canceled\n";
+}
+
+/*double NeighboringLayer::findInNeigLayerList(string addrN){
+    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
+    iteratorSyncedNeighbour = syncedNeighbourList.begin();
+    while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
+        SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
+        if (syncedNeighbour->nodeMACAddress.c_str()==addrN) {
+            double timstp= syncedNeighbour->lastBrecT.dbl();
+            return timstp;
+        }
+        iteratorSyncedNeighbour++;
+
+    }
+    return 0;
+}*/
+
+
 //not going to be used - DELETE
 /*void NeighboringLayer::sendNetworkGraph(){
     NetworkGraphMsg *neighGraphMsg = new NetworkGraphMsg("Network Graph Msg");
@@ -545,9 +752,29 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
             int idN=std::stoi( addrN.substr(15,17));
             //EV<<"AddrNum: "<<idN<<"\n";
             if (i==idN) {
-                //EV<<"idN:"<<idN<<"\n";
-                found = TRUE;
-                break;
+
+                /*double answf =findInNeigLayerList(addrN);
+                if(answf!=0){
+                   double difTime= simTime().dbl()-answf;
+                   if(difTime<=max_absent_time){
+                       //EV<<"idN:"<<idN<<"\n";
+                       found = TRUE;
+                       break;
+                   }else{
+                       EV<<"Absent too long \n";
+                   }
+                }else{
+                    found =TRUE;
+                    break;
+                }
+            }
+            if(found){
+                break;*/
+
+
+               found=TRUE;
+               break;
+
             }
             o++;
         }
@@ -656,126 +883,7 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     return true;
 }
 
-//Handle Received BeaconMsg
-void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
-{
-    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
 
-EV<<"Teste graph: \n";
-//-Teste graph-------------------
-
-    EV<<"Beacon Msg time sent:"<<BeaconReceived->getSentTime() <<"\n";
-    EV<<"Beacon Msg time received:"<<BeaconReceived->getReceivedTime() <<"\n";
-    int v = 5;//9; //there are 6 vertices in the graph
-    string sourAdd = BeaconReceived->getSourceAddress();
-    string myAdd;
-    if((sourAdd.substr(0,2))=="BT"){
-            myAdd = ownBTMACAddress;
-        }else{
-            myAdd=ownMACAddress;
-        }
-    int srcID=graphe.add_element(sourAdd);
-    int myID=graphe.add_element(myAdd);
-
-    //EV<<"Graph Before Update: \n";
-    //graphe.displayMatrix(v);
-   // string answb=graphe.returnGraphT();
-    //EV<< "O meu v de display é:"<<v<<"\n";
-
-
-//UPdate of graph
-    bool updG =updateGraph(msg);
-    //bool updMyG=updateMyNGraph();
-    //EV<<"RSSI:"<<calculateSSI(msg)<<"\n";
-
-    //graphe.displayMatrix(v);
-    string answ=graphe.returnGraphT();
-    EV<<"Graph After Update: "<<answ<<"\n";
-    graphe.dijkstra(myID,srcID);
-    EV<<"End test: \n";
-
-//-------------------
-
-    EV<<"My first Add: "<<ownMACAddress.at(0)<<"\n";
-    EV<<"My first Add: "<<ownMACAddress.substr(0,2)<<"\n";
-
-
-
-    double ssi_ext=calculateSSI(msg);
-
-    myProb=updateProbability(distProb,ssi_ext);
-
-    isNeighNeigh=BeaconReceived->getProb();
-
-    //make Beacon copy with extra info for upper layer
-    BeaconInfoMsg *infoMsg = new BeaconInfoMsg();
-    infoMsg->setSourceAddress(BeaconReceived->getSourceAddress());
-    infoMsg->setProb(BeaconReceived->getProb());    //Gives probability
-    infoMsg->setMyProb(myProb);
-    int realPacketSize = 6 + 6 + 4 + 4 + 4 + 4 + 4 +64 +1;
-    infoMsg->setRealPacketSize(realPacketSize);
-    infoMsg->setByteLength(realPacketSize);
-    infoMsg->setMyPosX(BeaconReceived->getMyPosX());
-    infoMsg->setMyPosY(BeaconReceived->getMyPosY());
-    infoMsg->setDestinationAddress(BeaconReceived->getDestinationAddress());
-    infoMsg->setNeighGraph(graphe.returnGraphT().c_str());
-    infoMsg->setNumberVert(graphe.returnVertIDSize());
-    //infoMsg->setNic(BeaconReceived->getNic());
-
-    //EV<<"Beac: "<<BeaconReceived->getRealPacketSize()<<" Cop of beac: "<<infoMsg->getRealPacketSize()<<" \n";
-
-    EV<<"Neighboring: Sending msg to upperLayer\n";
-    send(infoMsg, "upperLayerOut");
-
-//Added 26/07/2019
-    string SouceBAdd = BeaconReceived->getSourceAddress();
-    if((SouceBAdd.substr(0,2))=="BT"){
-        cancelBackOffTBT(msg);
-    }else{
-        cancelBackOffT(msg);
-    }
-    //cancelBackOffT(msg);
-    delete(msg);
-}
-
-void NeighboringLayer::cancelBackOffT(cMessage *msg){ //vector<string> & selectedMessageIDList, cMessage *msg){ //REVER PARA FUTURO
-    EV<<"Canceling BackOffT\n";
-    //vector<string> selectedMessageIDList;
-    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
-
-    // cancel the random backoff timer (because neighbour started syncing)
-    string nodeMACAddress = beaconMsg->getSourceAddress();
-    SyncedNeighbour *syncedNeighbour = getSyncingNeighbourInfo(nodeMACAddress);
-    syncedNeighbour->randomBackoffStarted = FALSE;
-    syncedNeighbour->randomBackoffEndTime = 0.0;
-    // second - start wait timer until neighbour has finished syncing
-    syncedNeighbour->neighbourSyncing = TRUE;
-    //double delayPerDataMessage = 0.1; // assume 100ms//500 milli seconds per data message
-    syncedNeighbour->neighbourSyncEndTime = simTime().dbl() + (1 * delayPerDataMsg);//(selectedMessageIDList.size() * delayPerDataMessage); //REVER PARA FUTURO
-    // synched neighbour list must be updated in next round
-    // as there were changes
-    syncedNeighbourListIHasChanged = TRUE;
-    EV<<"BackOffT canceled\n";
-}
-void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selectedMessageIDList, cMessage *msg){ //REVER PARA FUTURO
-    EV<<"Canceling BackOffT\n";
-    //vector<string> selectedMessageIDList;
-    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
-
-    // cancel the random backoff timer (because neighbour started syncing)
-    string nodeMACAddress = beaconMsg->getSourceAddress();
-    SyncedNeighbour *syncedNeighbour = getSyncingNeighbourInfoBT(nodeMACAddress);
-    syncedNeighbour->randomBackoffStarted = FALSE;
-    syncedNeighbour->randomBackoffEndTime = 0.0;
-    // second - start wait timer until neighbour has finished syncing
-    syncedNeighbour->neighbourSyncing = TRUE;
-    //double delayPerDataMessage = 0.1; // assume 100ms//500 milli seconds per data message
-    syncedNeighbour->neighbourSyncEndTime = simTime().dbl() + (1 * delayPerDataMsg);//(selectedMessageIDList.size() * delayPerDataMessage); //REVER PARA FUTURO
-    // synched neighbour list must be updated in next round
-    // as there were changes
-    syncedNeighbourListBTHasChanged = TRUE;
-    EV<<"BackOffT canceled\n";
-}
 
 /*************************
  * ⇒ Calculates the distance between the two nodes from the position data received in the beacon
@@ -846,6 +954,7 @@ double NeighboringLayer::updateProbability(double distProb, double ssi){
     return newProb;
 }
 
+
 /*************************
  * ⇒ Verifies if GW is my direct neighbor
  */
@@ -873,6 +982,7 @@ double NeighboringLayer::GWisMyNeigh(cMessage *msg){
 
     return isNeigh;
 }
+
 double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
     NeighbourListMsgBT *neighListMsg = dynamic_cast<NeighbourListMsgBT*>(msg);
     double isNeigh;
@@ -898,12 +1008,10 @@ double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
     return isNeigh;
 }
 
-
 double NeighboringLayer::calcWeight(cMessage *msg){
     double Weight=(1-calcLinkQuality(msg))*100;
     return Weight;
 }
-
 
 double NeighboringLayer::calcNeighWeight(cMessage *msg){
     double weight = (1-calcLinkQuality(msg))*100;
@@ -982,6 +1090,7 @@ double NeighboringLayer::calcAgeFact(cMessage *msg){
     EV<<"Dif="<<dif<<"Age factor="<<AF<<"\n";
     return AF;
 }
+
 
 //FINISH
 void NeighboringLayer::finish(){

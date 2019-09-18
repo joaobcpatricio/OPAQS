@@ -65,6 +65,7 @@ public:
 
     string returnShortestPath(int src, int dst);
     bool isInShortPath(int src, int gw, int dest);
+    void cleanGraph();
 };
 
 

@@ -47,7 +47,26 @@ void RoutingLayer::initialize(int stage)
 
 
         //FILE Results
-        string nameF="ResultsLQE";
+                string nameGen="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGen";
+                string noGen=ownMACAddress.substr(15,17);
+                nameGen.append(noGen);
+                nameGen.append(".txt");
+                //EV<<"nameF: "<<nameF<<"\n";
+                ofstream outfileGen(nameGen,ios::out);
+                outfileGen<<"Generated Data \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
+                outfileGen.close();
+                std::ofstream outGen(nameGen, std::ios_base::app);
+                auto startGen = std::chrono::system_clock::now();
+                // Some computation here
+                auto endGen = std::chrono::system_clock::now();
+                std::chrono::duration<double> elapsed_secondsGen = endGen-startGen;
+                std::time_t end_timeGen = std::chrono::system_clock::to_time_t(endGen);
+                outGen<< "Started simulation at " << std::ctime(&end_timeGen) << "elapsed time: " << elapsed_secondsGen.count() << "s\n";
+                outGen.close();
+
+
+        //FILE Results
+        string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
         string noS=ownMACAddress.substr(15,17);
         nameF.append(noS);
         nameF.append(".txt");
@@ -66,7 +85,7 @@ void RoutingLayer::initialize(int stage)
 
 
         //FILE RESULTS Storaged Msgs
-        string nameFstor="ResultsStor";
+        string nameFstor="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsStor";
         string noSstor=ownMACAddress.substr(15,17);
         nameFstor.append(noSstor);
         nameFstor.append(".txt");
@@ -85,7 +104,7 @@ void RoutingLayer::initialize(int stage)
 
 
         //FILE RESULTS GW
-        string nameFgw="ResultsGW";
+        string nameFgw="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGW";
                 string noSgw=ownMACAddress.substr(15,17);
                 nameFgw.append(noSgw);
                 nameFgw.append(".txt");
@@ -185,6 +204,10 @@ void RoutingLayer::handleMessage(cMessage *msg)
 
 //Saves the received graph from neighboring here for later use in decision;
 bool RoutingLayer::getGraph(string graphS){//, int numberVert){ //String:" 1->2:4;\n2->1:4;\n "
+
+
+    graphR.cleanGraph();
+
     std::string delimiter = ";";
 
     int i=0;//, q1=0;
@@ -250,6 +273,8 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
         int i=0;
 
         if(!isSending && !isReceiving && (waitS<=simTime().dbl())){
+
+            int cnt=0;
             while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
                isSending=true;
                EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
@@ -269,6 +294,51 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                    string destAdd = dataRequestMsg->getSourceAddress();
                    string gwAdd = dataMsg->getFinalDestinationNodeName();
 
+
+                   //Save Data
+
+                   if(cnt<=1){
+                       //save info into file
+                       string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
+                       string nMY=MyAddH.substr(15,17);
+                       string nGW=gwAdd.substr(15,17);
+                       nameF.append(nMY);
+                       nameF.append("_");
+                       nameF.append(nGW);
+                       nameF.append(".txt");
+                       std::ofstream out(nameF, std::ios_base::app);
+                       //My Short Path
+                       int myID=graphR.add_element(MyAddH);
+                       int gwID=graphR.add_element(gwAdd);
+                       string shrtPath=graphR.returnShortestPath(myID,gwID);
+                       //EV<<"Epah"<<shrtPath<<"\n";
+                       string stP="ShortPath: \n";
+                       stP.append(shrtPath);
+                       out<<stP;
+
+
+                       //Graph
+                       string GraphSR=graphR.returnGraphT();
+                       string msIDis=" | Graph: \n";
+                       msIDis.append(GraphSR);
+                       out<<msIDis;
+                       //Time
+                       std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+                       string timeGen=" | Time is : ";
+                       timeGen.append(timeMsg);
+                       out<<timeGen;
+                       out<<" |End \n";
+                       out.close();
+
+                       cnt++;
+                   }
+
+
+
+
+
+
+
                    //Loop Avoidance
                    int count1=0;
                    bool foundH=false, msgSent=false;
@@ -279,7 +349,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                        HopAdd=dataMsg->getPrevHopsList(count1);
                        if(HopAdd==destAdd){
                            foundH=true;
-                           EV<<"Found it \n";
+                           EV<<"Loop Avoidance: Found it "<<dataMsg->getDataName() <<"\n";
                            break;
                        }
                        count1++;
@@ -287,6 +357,15 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
 
                    //Verifies if DataMsg destination is this neighbor and DataMsg has not been send yet, if so, send directly with Loop Avoidance
                    if(dataMsg->getFinalDestinationNodeName()==destAdd && foundH==false){
+                       int myID=graphR.add_element(MyAddH);
+                       int dstID=graphR.add_element(destAdd);
+                       int weightH=graphR.returnWGrapfT(myID, dstID);
+
+                       //verifica se o vizinho direto está no grafo
+                       if((weightH>0)){
+
+
+
                        EV<<"Direct Neigh is final dest. \n";
                        EV<<"Sent Direct Msg from Rout:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
 
@@ -298,6 +377,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
                        send(dataMsg, "lowerLayerOut");
                        msgSent = true;
                     //break;
+                       }
                    }else{
 
                        int myID=graphR.add_element(MyAddH);
@@ -311,7 +391,7 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
 
                        //Save Data
                            /*//save info into file
-                           string nameF="ResultsLQE";
+                           string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
                            string noS=ownMACAddress.substr(15,17);
                            nameF.append(noS);
                            nameF.append(".txt");
@@ -397,29 +477,31 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
 
 
 
-    //Save Data
+/*    //Save Data
     //save info into file
-    string nameF="ResultsLQE";
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
     string noS=ownMACAddress.substr(15,17);
     nameF.append(noS);
     nameF.append(".txt");
     std::ofstream out(nameF, std::ios_base::app);
     //My Short Path
-    /*string MyAddh;
+    string MyAddh;
     string SouceDRAdd = beaconMsg->getSourceAddress();
     if((SouceDRAdd.substr(0,2))=="BT"){
-                           MyAddH=ownBTMACAddress;
-                       }else{
-                           MyAddH=ownMACAddress;
-                       }
+        MyAddH=ownBTMACAddress;
+    }else{
+        MyAddH=ownMACAddress;
+    }
+    string gwAd=GWAddr
     int myID=graphR.add_element(MyAddH);
-                           int gwID=graphR.add_element(gwAdd);
+    int gwID=graphR.add_element(gwAdd);
     graphR.dijkstra(myID, gwID);
-                           string sPat=graphR.returnShortestPath;
+    string sPat=graphR.returnShortestPath;
     string srcer="My Address: ";
     srcer.append(ownMACAddress);
+    out<<srcer;
 
-    out<<srcer;*/
+
     //Graph
     string GraphSR=graphR.returnGraphT();
     string msIDis="Graph: \n";
@@ -431,7 +513,7 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
     timeGen.append(timeMsg);
     out<<timeGen;
     out<<" |End \n";
-    out.close();
+    out.close();*/
 
 
 
@@ -507,6 +589,32 @@ void RoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
     DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
     upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
     Stor.saveData(msg,0);
+
+
+        //Save Data
+        //save info into file
+        string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGen";
+        string noS=ownMACAddress.substr(15,17);
+        nameF.append(noS);
+        nameF.append(".txt");
+        std::ofstream out(nameF, std::ios_base::app);
+
+        //Graph
+        string dataN=upperDataMsg->getDataName();
+        string msIDis="Data Name: ";
+        msIDis.append(dataN);
+        out<<msIDis;
+        //Time
+        std::string timeMsg = std::to_string(upperDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
+        string timeGen=" | Generated Time is : ";
+        timeGen.append(timeMsg);
+        out<<timeGen;
+        out<<" |End \n";
+        out.close();
+
+
+
+
     delete msg;
 }
 
@@ -550,7 +658,7 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
             EV<<"Sou a final destination \n";
 
             //save info into file
-            string nameF="ResultsGW";
+            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGW";
             string noS=ownMACAddress.substr(15,17);
                               nameF.append(noS);
                               nameF.append(".txt");

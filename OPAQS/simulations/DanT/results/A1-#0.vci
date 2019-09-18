@@ -1,15 +1,15 @@
-file 28838 1568669267                                           
+file 28082 1568812896                                           
 version 2
-run A1-0-20190916-22:27:44-7702
+run A1-0-20190918-14:21:34-24921
 attr configname A1
-attr datetime 20190916-22:27:44
+attr datetime 20190918-14:21:34
 attr experiment A1
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 7702
+attr processid 24921
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -42,15 +42,17 @@ param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
-param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
+param **.neighboring.max_absent_time 1s
 param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 400ms
 param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
@@ -69,8 +71,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2568 11724 10 6468 0.05 10 900 1 2 1200 1800
-1	14292 1657 19 244 0.1 0.199 100 -nan -nan -nan -nan
-2	15949 6444 958 5063 1.688032534095 6.279813385287 233 141 32853 3843801 84367588149
-3	22393 6444 958 5063 1.688032534095 6.279813385287 233 141 32853 3843801 84367588149
+0	2652 11724 10 6252 0.05 10 900 1 2 1200 1800
+1	14376 1657 19 244 0.1 0.199 100 -nan -nan -nan -nan
+2	16033 6024 958 5251 1.688032534095 7.251973385287 218 141 30738 3365811 69130392129
+3	22057 6024 958 5251 1.688032534095 7.251973385287 218 141 30738 3365811 69130392129
 

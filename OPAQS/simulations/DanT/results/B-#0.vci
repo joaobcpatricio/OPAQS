@@ -1,15 +1,15 @@
-file 174723 1568577617                                          
+file 93473 1568764020                                           
 version 2
-run B-0-20190915-21:00:11-6133
+run B-0-20190918-00:46:53-14358
 attr configname B
-attr datetime 20190915-21:00:11
+attr datetime 20190918-00:46:53
 attr experiment B
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 6133
+attr processid 14358
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -38,6 +38,7 @@ param **application.nodesGenMsg "\"0\""
 param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
+param **.application.endGeneratingMsg 999999s
 param **.routingLayer "\"RoutingLayer\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
@@ -48,7 +49,7 @@ param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
-param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
@@ -57,6 +58,7 @@ param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 400ms
 param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
@@ -75,8 +77,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2838 142756 13 40308 0.05 80 9600 2 2 19200 38400
-1	145594 3352 25 458 0.1 0.199 200 -nan -nan -nan -nan
-2	148946 12888 1056 31900 1.138430839471 60.678750839471 446 141 62886 14055021 589903286391
-3	161834 12888 1056 31900 1.138430839471 60.678750839471 446 141 62886 14055021 589903286391
+0	2928 59260 13 21105 0.05 34.15 4096 2 2 8192 16384
+1	62188 3352 25 458 0.1 0.199 200 -nan -nan -nan -nan
+2	65540 13966 1056 19849 1.138430839471 31.278750839471 485 141 68385 16617555 758375357535
+3	79506 13966 1056 19849 1.138430839471 31.278750839471 485 141 68385 16617555 758375357535
 

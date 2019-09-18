@@ -53,7 +53,7 @@ void WirelessInterface::initialize(int stage)
 
 
         //File stores data if I'm Src
-        string nameF="ResultsSrc";
+        string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsSrc";
         string noS=ownMACAddress.substr(15,17);
         nameF.append(noS);
         nameF.append(".txt");
@@ -71,7 +71,7 @@ void WirelessInterface::initialize(int stage)
         out.close();
 
         //File stores sent data
-        string nameS="ResultsSent";
+        string nameS="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsSent";
         nameS.append(noS);
         nameS.append(".txt");
         ofstream outfileS(nameS,ios::out);
@@ -87,7 +87,7 @@ void WirelessInterface::initialize(int stage)
         outS.close();
 
         //File stores Received data
-        string nameR="ResultsReceived";
+        string nameR="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsReceived";
                 nameR.append(noS);
                 nameR.append(".txt");
                 ofstream outfileR(nameR,ios::out);
@@ -198,8 +198,23 @@ void WirelessInterface::handleMessage(cMessage *msg)
 //ADDED 7/07/2019 18h47
             valSSI=(calculateSSI(sqrt(l)));
             if (l <= r && (valSSI)>=minSSI) {
-                EV<<"SSI wireless nic: "<<valSSI<<" dBm \n";
-                currentNeighbourNodeInfoList.push_back(nodeInfo);
+                /*double dst=sqrt(l);
+                double link_stability=-0.002*pow(dst,3)+0.0104762*pow(dst,2)+0.454762*dst+ 97.2143; //xE[5,40]
+                bool loosePkt=true;
+                if(dst<5){
+                    loosePkt=false;
+                }else{
+                    loosePkt = (rand() % 100) < link_stability;
+                    loosePkt=!loosePkt;
+                    //EV<<"Loose:"<<loosePkt<<" val:"<<link_stability<<"\n";
+                    //loosePkt=false;
+                }*/
+
+                //if(!loosePkt){
+                    EV<<"SSI wireless nic: "<<valSSI<<" dBm \n";
+                    currentNeighbourNodeInfoList.push_back(nodeInfo);
+                //}else{ EV<<"Lost neigh wifi \n"; }
+
             }
             iteratorAllNodeInfo++;
         }
@@ -420,6 +435,7 @@ void WirelessInterface::sendPendingMsg()
                     loosePkt = (rand() % 100) < link_stability;
                     loosePkt=!loosePkt;
                     EV<<"Loose:"<<loosePkt<<" val:"<<link_stability<<"\n";
+                    //loosePkt=false;
                 }
 
 
@@ -429,7 +445,7 @@ void WirelessInterface::sendPendingMsg()
                     sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
                 //sendDirect(outPktCopy,currentNeighbourNodeInfo->nodeModule, "radioIn");
                 }else{
-                    EV<<"Packet Lost \n";
+                    EV<<"Packet lost here "<<ownMACAddress<<"\n";
                 }
                 break;
             }
@@ -482,7 +498,7 @@ void WirelessInterface::setSentTime(cMessage *msg){
         dataMsg->setSentTime(simTime().dbl());
 
         //save info into file
-                    string nameF="ResultsSent";
+                    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsSent";
                     string noS=ownMACAddress.substr(15,17);
                     nameF.append(noS);
                     nameF.append(".txt");
@@ -529,7 +545,7 @@ void WirelessInterface::setSentTimeSrc(cMessage *msg){
             EV<<"Set sent time from src \n";
 
             //save info into file
-            string nameF="ResultsSrc";
+            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsSrc";
             string noS=ownMACAddress.substr(15,17);
             nameF.append(noS);
             nameF.append(".txt");
@@ -579,7 +595,7 @@ void WirelessInterface::setReceivedTime(cMessage *msg){
         dataMsg->setReceivedTime(simTime().dbl());
 
         //save info into file
-                    string nameF="ResultsReceived";
+                    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsReceived";
                     string noS=ownMACAddress.substr(15,17);
                     nameF.append(noS);
                     nameF.append(".txt");

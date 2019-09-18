@@ -27,6 +27,19 @@ GraphT::GraphT(){
 GraphT::~GraphT(){
 }
 
+
+void GraphT::cleanGraph(){
+      int i, j;
+      int v = V;
+      //int count=0;
+      for(i = 0; i < v; i++) {
+         for(j = 0; j < v; j++) {
+             rem_edge(i,j);
+         }
+      }
+}
+
+
 /*****************************************************************************
  * Defines the maximum size of graph - NOT WORKING YET
  */

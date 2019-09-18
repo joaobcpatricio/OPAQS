@@ -1,15 +1,15 @@
-file 14513 1568685098                                           
+file 48825 1568742736                                           
 version 2
-run A2-0-20190917-02:50:00-15202
+run A2-0-20190917-18:52:13-3612
 attr configname A2
-attr datetime 20190917-02:50:00
+attr datetime 20190917-18:52:13
 attr experiment A2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 15202
+attr processid 3612
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -49,7 +49,7 @@ param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
-param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
@@ -58,7 +58,7 @@ param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
-param **.wirelessIfc.limitQueueTime 500ms
+param **.wirelessIfc.limitQueueTime 400ms
 param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
@@ -77,8 +77,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2931 2907 10 2315 0.05 2.55 228 1 2 304 456
-1	5838 3346 19 443 0.1 0.199 200 -nan -nan -nan -nan
-2	9184 2664 962 2377 1.142624192201 2.593253385287 98 141 13818 683991 6333072669
-3	11848 2664 962 2377 1.142624192201 2.593253385287 98 141 13818 683991 6333072669
+0	2929 24789 10 10912 0.05 20 1800 1 2 2400 3600
+1	27718 3346 19 443 0.1 0.199 200 -nan -nan -nan -nan
+2	31064 8880 962 7021 1.142624192201 8.643493385287 320 141 45120 7241760 218172503520
+3	39944 8880 962 7021 1.142624192201 8.643493385287 320 141 45120 7241760 218172503520
 

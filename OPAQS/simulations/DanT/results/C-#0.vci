@@ -1,15 +1,15 @@
-file 545192 1568670648                                          
+file 350288 1568814753                                          
 version 2
-run C-0-20190916-22:50:30-8906
+run C-0-20190918-14:51:49-26293
 attr configname C
-attr datetime 20190916-22:50:30
+attr datetime 20190918-14:51:49
 attr experiment C
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 8906
+attr processid 26293
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -54,15 +54,17 @@ param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
-param **.neighboring.GWAddr "\"02:00:00:00:00:09\""
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
+param **.neighboring.max_absent_time 1s
 param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 400ms
 param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
@@ -81,8 +83,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3080 521179 13 148693 0.05 270 32400 1 3 82970 221110
-1	524259 4830 25 55746 0.1 90.1 273 -nan -nan -nan -nan
-2	529089 8051 650 117350 1.156852969044 208.478765781507 286 141 40326 5786781 155843799111
-3	537140 8051 650 117350 1.156852969044 208.478765781507 286 141 40326 5786781 155843799111
+0	3164 315371 13 99371 0.05 170 20400 1 3 52970 143110
+1	318535 4830 25 58259 0.1 90.1 273 -nan -nan -nan -nan
+2	323365 13461 650 59974 1.156852969044 93.142213860823 465 141 65565 15276645 668460155265
+3	336826 13461 650 59974 1.156852969044 93.142213860823 465 141 65565 15276645 668460155265
 

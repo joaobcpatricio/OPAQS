@@ -57,6 +57,7 @@ private:
     double distProb;
     double isNeighNeigh;
     double delayPerDataMsg;
+    double max_absent_time;
 
     struct SyncedNeighbour {
         string nodeMACAddress;
@@ -66,6 +67,7 @@ private:
         bool neighbourSyncing;
         double neighbourSyncEndTime;
         bool nodeConsidered;
+        simtime_t lastBrecT=0;
     };
 
 
@@ -119,6 +121,9 @@ private:
      double calcNeighWeight(cMessage *msg);
      double calcMyLQE(cMessage *msg);
      double calculateLinkStability(cMessage *msg);
+     void saveLastBeContact(string Naddress);    //updates the last time this direct-neigh sent a beacon
+     void cleanOldContacts(); //removes direct neighbors that are absent from graph
+     //double findInNeigLayerList(string addrN);  //returns the time of the last contact on the previous saved list of neighbors
 
 
 };
