@@ -30,11 +30,9 @@ void WirelessInterface::initialize(int stage)
 
         // set other parameters
         broadcastMACAddress = "FF:FF:FF:FF:FF:FF";
-
-
         minSSI=par("minSSI");
-
         limitQueueTime = par("limitQueueTime");
+        my_limit_rate = par("my_limit_rate");
 
 
     } else if (stage == 1) {
@@ -318,6 +316,7 @@ void WirelessInterface::handleMessage(cMessage *msg)
             // send msg to upper layer
             setReceivedTime(msg);
             setRecTimeGW(msg);
+            outputResultsReceived();
             send(msg, "upperLayerOut");
 
         }
@@ -355,6 +354,12 @@ void WirelessInterface::setupSendingMsg(cMessage *msg)
     double bitsToSend = (currentPendingPkt->getByteLength() * 8) + (wirelessHeaderSize * 8);
     EV<<"Bytes to send="<<bitsToSend/8<<"\n";
     double txDuration = bitsToSend / bandwidthBitRate;
+
+    //Added 19/09/2019 -> The txDuration is for the wifi bitrate, my_limit_rate is the limit on bitrate that I define, under the wifi bitrate.
+    if(my_limit_rate>0){
+        double txSumDuration=bitsToSend/my_limit_rate;
+        txDuration+=txSumDuration;
+    }
 
     // setup timer to trigger at tx duration
     scheduleAt(simTime() + txDuration, sendPacketTimeoutEvent);
@@ -441,6 +446,7 @@ void WirelessInterface::sendPendingMsg()
 
                 if(!loosePkt){
                 // send to node
+                    outputResultsSent();
                     EV<<"Sending\n";
                     sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
                 //sendDirect(outPktCopy,currentNeighbourNodeInfo->nodeModule, "radioIn");
@@ -706,7 +712,42 @@ double WirelessInterface::getPacketInjectedTime(cMessage *msg){
     return double();
 }
 
-
+void WirelessInterface::outputResultsSent(){
+    //save info into file
+                        string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/AllPktSent";
+                        string noS=ownMACAddress.substr(15,17);
+                        nameF.append(noS);
+                        nameF.append(".txt");
+                        std::ofstream out(nameF, std::ios_base::app);
+                        //Generation Mac
+                        string srcer="Sent ";
+                        out<<srcer;
+                        //Time sent
+                        std::string timeMsg = std::to_string(simTime().dbl());
+                        string timeGen=" | Time SentFromHere: ";
+                        timeGen.append(timeMsg);
+                        out<<timeGen;
+                        out<<" | End \n";
+                        out.close();
+}
+void WirelessInterface::outputResultsReceived(){
+    //save info into file
+                        string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/AllPktRec";
+                        string noS=ownMACAddress.substr(15,17);
+                        nameF.append(noS);
+                        nameF.append(".txt");
+                        std::ofstream out(nameF, std::ios_base::app);
+                        //Generation Mac
+                        string srcer="Received ";
+                        out<<srcer;
+                        //Time sent
+                        std::string timeMsg = std::to_string(simTime().dbl());
+                        string timeGen=" | Time SentFromHere: ";
+                        timeGen.append(timeMsg);
+                        out<<timeGen;
+                        out<<" | End \n";
+                        out.close();
+}
 
 
 void WirelessInterface::finish()

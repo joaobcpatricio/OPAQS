@@ -27,9 +27,14 @@ void RoutingLayer::initialize(int stage)
         inCache=0;
         waitBFsend = par("waitBFsend");
         max_age = par("max_age");
+        gateway_list = par("gateway_list").stringValue();
+        actual_gateway = par("actual_gateway").stringValue();
 
     } else if (stage == 1) {
         Stor.updateMaxAge(max_age);
+        setGatewayList();
+        printGatewayList();
+        updateGateway();
 
     } else if (stage == 2) {
 
@@ -46,26 +51,25 @@ void RoutingLayer::initialize(int stage)
 
 
 
-        //FILE Results
-                string nameGen="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGen";
-                string noGen=ownMACAddress.substr(15,17);
-                nameGen.append(noGen);
-                nameGen.append(".txt");
-                //EV<<"nameF: "<<nameF<<"\n";
-                ofstream outfileGen(nameGen,ios::out);
-                outfileGen<<"Generated Data \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
-                outfileGen.close();
-                std::ofstream outGen(nameGen, std::ios_base::app);
-                auto startGen = std::chrono::system_clock::now();
-                // Some computation here
-                auto endGen = std::chrono::system_clock::now();
-                std::chrono::duration<double> elapsed_secondsGen = endGen-startGen;
-                std::time_t end_timeGen = std::chrono::system_clock::to_time_t(endGen);
-                outGen<< "Started simulation at " << std::ctime(&end_timeGen) << "elapsed time: " << elapsed_secondsGen.count() << "s\n";
-                outGen.close();
+        //FILE ResultsGen
+        string nameGen="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGen";
+        string noGen=ownMACAddress.substr(15,17);
+        nameGen.append(noGen);
+        nameGen.append(".txt");
+        //EV<<"nameF: "<<nameF<<"\n";
+        ofstream outfileGen(nameGen,ios::out);
+        outfileGen<<"Generated Data \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
+        outfileGen.close();
+        std::ofstream outGen(nameGen, std::ios_base::app);
+        auto startGen = std::chrono::system_clock::now();
+        // Some computation here
+        auto endGen = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_secondsGen = endGen-startGen;
+        std::time_t end_timeGen = std::chrono::system_clock::to_time_t(endGen);
+        outGen<< "Started simulation at " << std::ctime(&end_timeGen) << "elapsed time: " << elapsed_secondsGen.count() << "s\n";
+        outGen.close();
 
-
-        //FILE Results
+        //FILE ResultsLQE
         string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
         string noS=ownMACAddress.substr(15,17);
         nameF.append(noS);
@@ -83,8 +87,7 @@ void RoutingLayer::initialize(int stage)
         out<< "Started simulation at " << std::ctime(&end_time) << "elapsed time: " << elapsed_seconds.count() << "s\n";
         out.close();
 
-
-        //FILE RESULTS Storaged Msgs
+        //File ResultsStor
         string nameFstor="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsStor";
         string noSstor=ownMACAddress.substr(15,17);
         nameFstor.append(noSstor);
@@ -102,24 +105,23 @@ void RoutingLayer::initialize(int stage)
         outstor<< "Started simulation at " << std::ctime(&end_timestor) << "elapsed time: " << elapsed_secondsstor.count() << "s\n";
         outstor.close();
 
-
-        //FILE RESULTS GW
+        //File ResultsGW
         string nameFgw="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGW";
-                string noSgw=ownMACAddress.substr(15,17);
-                nameFgw.append(noSgw);
-                nameFgw.append(".txt");
-                //EV<<"nameF: "<<nameF<<"\n";
-                ofstream outfilegw(nameFgw,ios::out);
-                outfilegw<<"RESULTS FILE \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
-                outfilegw.close();
-                std::ofstream outgw(nameFgw, std::ios_base::app);
-                auto startgw = std::chrono::system_clock::now();
-                // Some computation here
-                auto endgw = std::chrono::system_clock::now();
-                std::chrono::duration<double> elapsed_secondsgw = endgw-startgw;
-                std::time_t end_timegw = std::chrono::system_clock::to_time_t(endgw);
-                outgw<< "Started simulation at " << std::ctime(&end_timegw) << "elapsed time: " << elapsed_secondsgw.count() << "s\n";
-                outgw.close();
+        string noSgw=ownMACAddress.substr(15,17);
+        nameFgw.append(noSgw);
+        nameFgw.append(".txt");
+        //EV<<"nameF: "<<nameF<<"\n";
+        ofstream outfilegw(nameFgw,ios::out);
+        outfilegw<<"RESULTS FILE \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
+        outfilegw.close();
+        std::ofstream outgw(nameFgw, std::ios_base::app);
+        auto startgw = std::chrono::system_clock::now();
+        // Some computation here
+        auto endgw = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_secondsgw = endgw-startgw;
+        std::time_t end_timegw = std::chrono::system_clock::to_time_t(endgw);
+        outgw<< "Started simulation at " << std::ctime(&end_timegw) << "elapsed time: " << elapsed_secondsgw.count() << "s\n";
+        outgw.close();
 
 
 
@@ -236,6 +238,7 @@ bool RoutingLayer::getGraph(string graphS){//, int numberVert){ //String:" 1->2:
 
         }
     }
+    return true;
 }
 
 void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
@@ -258,6 +261,7 @@ void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
  * pulls out the dataMsg prepared to send and sends it to lowerLayer if the destination is not on the previous Hops List of the DataMsg
  */
 void RoutingLayer::handleDataReqMsg(cMessage *msg){
+    updateGateway();
 
     EV<<"Routing: handleDataReqMsg\n";
     //pullOutMsg(msg);
@@ -465,6 +469,8 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
  * Get's beacon, identifies from which NIC it came, creates dataReqMsg and sends to lowerLayer
  */
 void RoutingLayer::handleBeaconInfo(cMessage *msg){
+    updateGateway();
+
     EV<<"Routing: handleBeacon\n";
     BeaconInfoMsg *beaconMsg = dynamic_cast<BeaconInfoMsg*>(msg);
 
@@ -555,6 +561,7 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
  *Get's Ack, checks if the other was the final Destiny.
  */
 void RoutingLayer::handleAckFromLowerLayer(cMessage *msg){
+    updateGateway();
     AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
     string messageID = ackMsg->getMessageID();
     bool isFinalDest=ackMsg->getIsFinalDest();
@@ -586,7 +593,9 @@ void RoutingLayer::handleAckFromLowerLayer(cMessage *msg){
 
 void RoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
 {
+    updateGateway();
     DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
+    upperDataMsg->setFinalDestinationNodeName(actual_gateway.c_str());
     upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
     Stor.saveData(msg,0);
 
@@ -632,7 +641,11 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     isReceiving=true;
     DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
 
-    EV<<"Rout: received msg:"<<omnetDataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
+    //Set updated GW address
+    updateGateway();
+    omnetDataMsg->setFinalDestinationNodeName(actual_gateway.c_str());
+
+    //EV<<"Rout: received msg:"<<omnetDataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
     bool found;
     omnetDataMsg->setReceivedTimeRout(simTime().dbl());
 
@@ -821,6 +834,80 @@ int RoutingLayer::cacheListSize(){
     return Stor.cacheListSize();
 }
 
+bool RoutingLayer::setGatewayList(){
+    GatewayN *gatewayN = NULL;
+    std::string delimiter = "|";
+    int i=0;//, q1=0;
+    for(i=0;i<gateway_list.length();i++){
+        int j=gateway_list.find(delimiter,i);
+        if(j==std::string::npos){
+            return false;
+        }else{
+            int q1 = gateway_list.find(";",i);
+            string GWis=gateway_list.substr(i,q1-i);
+            int q2 = gateway_list.find("|",i);
+            string timeIs=gateway_list.substr(q1+1,q2-(q1+1));
+            //EV<<"Gw is: "<<GWis<<" until time: "<<timeIs<<"\n";
+            //
+            EV<<"Been here gw \n";
+            gatewayN = new GatewayN;
+            gatewayN->nodeMACAddress = GWis;
+            gatewayN->untilTime = std::stod(timeIs);
+            GatewayList.push_back(gatewayN);
+            i =j;
+        }
+    }
+    //printGatewayList();
+    return true;
+}
+
+void RoutingLayer::printGatewayList(){
+    //EV<<"Print here \n";
+    GatewayN *gatewayN = NULL;
+    auto itC= GatewayList.begin();
+    //EV<<"Print gw "<<GatewayList.size() <<" \n";
+    while (itC != GatewayList.end()) {
+        gatewayN = *itC;
+        EV<<"Gateway is "<<gatewayN->nodeMACAddress<<" at "<<gatewayN->untilTime<<" s \n";
+          itC++;
+      }
+}
+
+void RoutingLayer::updateGateway(){
+    GatewayN *gatewayN = NULL;
+    string currentGW;
+    double deadT;
+    bool hereFirst=true;
+    bool foreverGW=true;
+    auto itC= GatewayList.begin();
+    //EV<<"Print gw "<<GatewayList.size() <<" \n";
+   double timeG;
+    while (itC != GatewayList.end()) {
+        gatewayN = *itC;
+        timeG=gatewayN->untilTime;
+        if(timeG >simTime().dbl() && hereFirst){
+            currentGW=gatewayN->nodeMACAddress;
+            deadT=gatewayN->untilTime;
+            hereFirst=false;
+            foreverGW=false;
+
+        }else if(timeG >simTime().dbl() && (timeG<deadT)){
+            currentGW=gatewayN->nodeMACAddress;
+            deadT=gatewayN->untilTime;
+            foreverGW=false;
+        }else{ if(timeG==0 && foreverGW){
+            currentGW=gatewayN->nodeMACAddress;
+            deadT=gatewayN->untilTime;
+            EV<<"Reached last GW set \n";
+        }
+
+        }
+        itC++;
+        //foreverGW=true;
+    }
+    actual_gateway=currentGW;
+    EV<<"Current Gateway is "<<actual_gateway<<" until "<<deadT<<" s \n";
+}
 
 /***************************************************************************************
  * Cleans the list of AppRegisteredApps, calls the destructor of the Cache/Storage
@@ -837,6 +924,17 @@ void RoutingLayer::finish(){
         registeredAppList.remove(appInfo);
         delete appInfo;
     }
+
+
+    // clear gateway list
+
+    while (GatewayList.size() > 0) {
+            list<GatewayN*>::iterator iteratorRegisteredApp = GatewayList.begin();
+            GatewayN *gatewayN= *iteratorRegisteredApp;
+            GatewayList.remove(gatewayN);
+            delete gatewayN;
+        }
+
 
     // clear cache list
     Stor.~StorageM();   //Destructor

@@ -42,6 +42,8 @@ simple RoutingLayer like IRoutingLayer
 		
 		double waitBFsend = default(0.5);
 		double max_age @unit(s) = default(999999999999s);
+		string actual_gateway = default("Wf:00:00:00:00:02");
+		string gateway_list = default("Wf:00:00:00:00:02;0|.");
 		
 		
 		

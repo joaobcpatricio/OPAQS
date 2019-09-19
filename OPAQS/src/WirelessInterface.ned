@@ -26,6 +26,9 @@ simple WirelessInterface
         int minSSI = default(-90);	//Limit of SSI lvl, default is -90dbM
         
         double limitQueueTime @unit(s) = default (60s); //after this time, it doesn't send the msg, it deletes it
+	
+		double my_limit_rate @unit(bps) = default(100000bps);
+
 
         // icon
         @display("i=device/card");

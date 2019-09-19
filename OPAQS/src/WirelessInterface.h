@@ -59,11 +59,10 @@ private:
     double neighbourScanInterval;
     double bandwidthBitRate;
     int wirelessHeaderSize;
-//ADDED 7/07/19 18h49
     int minSSI;
     int valSSI;
-
     double limitQueueTime;
+    double my_limit_rate;
 
     double calculateSSI(double x);
 
@@ -90,6 +89,8 @@ private:
     void setSentTimeSrc(cMessage *msg);
     void setRecTimeGW(cMessage *msg);
     double getPacketInjectedTime(cMessage *msg);
+    void outputResultsReceived();
+    void outputResultsSent();
 
 };
 

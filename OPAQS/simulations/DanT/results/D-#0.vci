@@ -1,0 +1,90 @@
+file 130413 1568847749                                          
+version 2
+run D-0-20190919-00:02:25-7072
+attr configname D
+attr datetime 20190919-00:02:25
+attr experiment D
+attr inifile SimV2.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network NetworkTormV2
+attr processid 7072
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.mobility.traceFile "\"paths/D.movements\""
+param **.numNodes 3
+param **.wirelessIfc.wirelessRange 40m
+param **.bluetoothIfc.wirelessRange 40m
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0,1\""
+param **application.startMultipleMsg false
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 90s
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1ms
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0\""
+param **application.startMultipleMsg true
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 999999s
+param **.routingLayer "\"RoutingLayer\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.neighboring.antiEntropyInterval 500ms
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **.neighboring.delayPerDataMsg 0.1
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
+param **.neighboring.sendWifiFirst true
+param **.neighboring.maxLengthGraph 20
+param **.neighboring.max_age 999999s
+param **.neighboring.max_absent_time 1s
+param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.neighbourScanInterval 50ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 32byte
+param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 400ms
+param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.neighbourScanInterval 100ms
+param **.bluetoothIfc.bandwidthBitRate 100000bps
+param **.bluetoothIfc.wirelessHeaderSize 16byte
+param **.bluetoothIfc.minSSI -90
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.is3D false
+param **.mobility.nodeId -1
+
+vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 1 NetworkTormV2 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+0	3160 117650 10 22041 0.05 90 8100 0 2 4526 5092
+1	120810 3116 19 21793 0.1 89.1 180 -nan -nan -nan -nan
+2	123926 3243 396 21925 1.142624192201 89.52831766021 114 141 16074 924255 9947756565
+3	127169 3243 396 21925 1.142624192201 89.52831766021 114 141 16074 924255 9947756565
+

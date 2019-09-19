@@ -1,14 +1,14 @@
 version 2
-run C-0-20190918-14:51:49-26293
+run C-0-20190919-00:58:46-7598
 attr configname C
-attr datetime 20190918-14:51:49
+attr datetime 20190919-00:58:46
 attr experiment C
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 26293
+attr processid 7598
 attr repetition 0
 attr replication #0
 attr resultdir results

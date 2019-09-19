@@ -54,6 +54,14 @@ private:
     string MyAddAck;
     int nodeIndex;
 
+    bool isSending=false;
+    bool isReceiving=false;
+    double waitS=0;
+    double waitBFsend;
+    double max_age;
+
+    string actual_gateway;
+
     struct AppInfo {
         int appID;
         string appName;
@@ -61,6 +69,16 @@ private:
     };
 
     list<AppInfo*> registeredAppList;
+
+
+    //19/09
+    string gateway_list;
+    struct GatewayN{
+        string nodeMACAddress;
+        double untilTime;
+    };
+    list<GatewayN*> GatewayList;
+
 
     void handleAppRegistrationMsg(cMessage *msg);
     void handleDataMsgFromUpperLayer(cMessage *msg);
@@ -72,17 +90,22 @@ private:
     void handleBeacon(cMessage *msg);
     void handleDataReqMsg(cMessage *msg);
     void handleBeaconInfo(cMessage *msg);
-
-    void handleNetworkGraphMsg(cMessage *msg);
-    GraphT graphR;
-    bool getGraph(string graphS);//, int numberVert);
-
-
     //Cache
     StorageM Stor;
     bool msgIDexists(string messageID);
     void returnSelectMsgIDList(vector<string> & selectedMessageIDList);
     int cacheListSize();
+    //Graph
+    void handleNetworkGraphMsg(cMessage *msg);
+    GraphT graphR;
+    bool getGraph(string graphS);//, int numberVert);
+    //GW
+    bool setGatewayList();
+    void printGatewayList();
+    void updateGateway();
+
+
+
 
     // stats related variables
     simsignal_t dataBytesReceivedSignal;
@@ -93,11 +116,6 @@ private:
     simsignal_t cacheBytesAddedSignal;
     simsignal_t cacheBytesUpdatedSignal;
 
-    bool isSending=false;
-    bool isReceiving=false;
-    double waitS=0;
-    double waitBFsend;
-    double max_age;
 
 };
 

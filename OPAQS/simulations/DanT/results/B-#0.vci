@@ -1,15 +1,15 @@
-file 93473 1568764020                                           
+file 181722 1568847255                                          
 version 2
-run B-0-20190918-00:46:53-14358
+run B-0-20190918-23:54:05-6431
 attr configname B
-attr datetime 20190918-00:46:53
+attr datetime 20190918-23:54:05
 attr experiment B
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 14358
+attr processid 6431
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -53,6 +53,7 @@ param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
 param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
+param **.neighboring.max_absent_time 1s
 param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
@@ -77,8 +78,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2928 59260 13 21105 0.05 34.15 4096 2 2 8192 16384
-1	62188 3352 25 458 0.1 0.199 200 -nan -nan -nan -nan
-2	65540 13966 1056 19849 1.138430839471 31.278750839471 485 141 68385 16617555 758375357535
-3	79506 13966 1056 19849 1.138430839471 31.278750839471 485 141 68385 16617555 758375357535
+0	2966 142849 13 41737 0.05 80 9600 2 2 19200 38400
+1	145815 3352 25 458 0.1 0.199 200 -nan -nan -nan -nan
+2	149167 16277 1358 36363 1.842590839471 67.578750839471 562 141 79242 22306623 1179462691125
+3	165444 16277 1358 36363 1.842590839471 67.578750839471 562 141 79242 22306623 1179462691125
 

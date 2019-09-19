@@ -1,14 +1,14 @@
 version 2
-run A1-0-20190918-14:21:34-24921
+run A1-0-20190920-00:40:10-28469
 attr configname A1
-attr datetime 20190918-14:21:34
+attr datetime 20190920-00:40:10
 attr experiment A1
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 24921
+attr processid 28469
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -37,6 +37,8 @@ param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
+param **.routing.gateway_list "\"Wf:00:00:00:00:02;5|.\""
+param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -52,6 +54,7 @@ param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
+param **.wirelessIfc.my_limit_rate 0bps
 param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps

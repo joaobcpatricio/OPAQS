@@ -106,6 +106,9 @@ class AppLayer : public cSimpleModule
         double countMultipleMsg;
         int hopsListSize;
         double endGeneratingMsg;
+
+
+
 };
 
 #endif /* APPLAYER_H_ */

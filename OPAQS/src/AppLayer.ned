@@ -34,8 +34,7 @@ simple AppLayer
         // TTL of messages - message valid until time - defines when data time expires
         double ttl @unit(s) = default(999999999999s);
 
-        // icon used
-        @display("i=block/app");
+        
 
         // statistics and signals
         @signal[likedDataBytesReceived](type=long);
@@ -66,6 +65,11 @@ simple AppLayer
 		int hopsListSize = default(50);
 		
 		double endGeneratingMsg @unit(s) = default(999999999999s);
+		
+
+
+		// icon used
+        @display("i=block/app");
 
     gates:
 

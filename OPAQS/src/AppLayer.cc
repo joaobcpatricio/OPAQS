@@ -47,6 +47,7 @@ void AppLayer::initialize(int stage)
         endGeneratingMsg = par("endGeneratingMsg");
 
 
+
         // setup the event notification array
         for (int i = 0; i < notificationCount; i++)
         {
@@ -336,6 +337,7 @@ void AppLayer::handleMessage(cMessage *msg)
     }
 
 }
+
 
 void AppLayer::finish()
 {
