@@ -360,7 +360,7 @@ void WirelessInterface::setupSendingMsg(cMessage *msg)
         double txSumDuration=bitsToSend/my_limit_rate;
         txDuration+=txSumDuration;
     }
-
+    EV<<"Schedule to send at "<<simTime()+txDuration<<"\n";
     // setup timer to trigger at tx duration
     scheduleAt(simTime() + txDuration, sendPacketTimeoutEvent);
 

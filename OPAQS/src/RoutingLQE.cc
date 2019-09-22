@@ -5,11 +5,11 @@
 // @date   : 19-march-2019
 //
 
-#include "RoutingLayer.h"
+#include "RoutingLQE.h"
 
-Define_Module(RoutingLayer);
+Define_Module(RoutingLQE);
 
-void RoutingLayer::initialize(int stage)
+void RoutingLQE::initialize(int stage)
 {
     if (stage == 0) {
         Stor=StorageM(); //constructor
@@ -127,18 +127,18 @@ void RoutingLayer::initialize(int stage)
 
 
     } else {
-        EV_FATAL << ROUTINGLAYER_SIMMODULEINFO << "Something is radically wrong in initialisation \n";
+        EV_FATAL << ROUTINGLQE_SIMMODULEINFO << "Something is radically wrong in initialisation \n";
     }
 }
 
-int RoutingLayer::numInitStages() const
+int RoutingLQE::numInitStages() const
 {
     return 3;
 }
 
 
 
-void RoutingLayer::handleMessage(cMessage *msg)
+void RoutingLQE::handleMessage(cMessage *msg)
 {
 
     cGate *gate;
@@ -152,7 +152,7 @@ void RoutingLayer::handleMessage(cMessage *msg)
 
     // self messages
     if (msg->isSelfMessage()) {
-        EV_INFO << ROUTINGLAYER_SIMMODULEINFO << "Received unexpected self message" << "\n";
+        EV_INFO << ROUTINGLQE_SIMMODULEINFO << "Received unexpected self message" << "\n";
         delete msg;
 
     // messages from other layers
@@ -198,14 +198,14 @@ void RoutingLayer::handleMessage(cMessage *msg)
         // received some unexpected packet
         } else {
 
-            EV_INFO << ROUTINGLAYER_SIMMODULEINFO << "Received unexpected packet" << "\n";
+            EV_INFO << ROUTINGLQE_SIMMODULEINFO << "Received unexpected packet" << "\n";
             delete msg;
         }
     }
 }
 
 //Saves the received graph from neighboring here for later use in decision;
-bool RoutingLayer::getGraph(string graphS){//, int numberVert){ //String:" 1->2:4;\n2->1:4;\n "
+bool RoutingLQE::getGraph(string graphS){//, int numberVert){ //String:" 1->2:4;\n2->1:4;\n "
 
 
     graphR.cleanGraph();
@@ -241,7 +241,7 @@ bool RoutingLayer::getGraph(string graphS){//, int numberVert){ //String:" 1->2:
     return true;
 }
 
-void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
+void RoutingLQE::handleNetworkGraphMsg(cMessage *msg){
     EV<<"Routing: handleNetworkGraphMsg\n";
     NetworkGraphMsg *neighGraphMsg = dynamic_cast<NetworkGraphMsg*>(msg);
     string graphS = neighGraphMsg->getGraphN();
@@ -260,7 +260,7 @@ void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
  * (NOT_If the prob is good enough,) Gets List of Msgs in cache, for each MsgID of the list it searches if msg exists and gets its position,
  * pulls out the dataMsg prepared to send and sends it to lowerLayer if the destination is not on the previous Hops List of the DataMsg
  */
-void RoutingLayer::handleDataReqMsg(cMessage *msg){
+void RoutingLQE::handleDataReqMsg(cMessage *msg){
     updateGateway();
 
     EV<<"Routing: handleDataReqMsg\n";
@@ -473,14 +473,14 @@ void RoutingLayer::handleDataReqMsg(cMessage *msg){
 /*********************************************************************************************************
  * Get's beacon, identifies from which NIC it came, creates dataReqMsg and sends to lowerLayer
  */
-void RoutingLayer::handleBeaconInfo(cMessage *msg){
+void RoutingLQE::handleBeaconInfo(cMessage *msg){
     updateGateway();
 
     EV<<"Routing: handleBeacon\n";
     BeaconInfoMsg *beaconMsg = dynamic_cast<BeaconInfoMsg*>(msg);
 
 
-    //Save Graph Matrix on RoutingLayer
+    //Save Graph Matrix on RoutingLQE
     string myGraph=beaconMsg->getNeighGraph();
     //int npos=beaconMsg->getNumberVert();
     EV<<"Graph in routing: \n";
@@ -542,7 +542,7 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
         dataRequestMsg->setSourceAddress(ownMACAddress.c_str());
     }
     dataRequestMsg->setDestinationAddress(beaconMsg->getSourceAddress());
-    int realPacketSize = 6 + 6 + 6 + 4 + 4;//(1 * ROUTINGLAYER_MSG_ID_HASH_SIZE);  //A REVER NO FUTURO
+    int realPacketSize = 6 + 6 + 6 + 4 + 4;//(1 * ROUTINGLQE_MSG_ID_HASH_SIZE);  //A REVER NO FUTURO
     //EV<<"Real packet size of DataMsg: "<<realPacketSize<<"\n";
     dataRequestMsg->setRealPacketSize(realPacketSize);
     dataRequestMsg->setByteLength(realPacketSize);
@@ -565,7 +565,7 @@ void RoutingLayer::handleBeaconInfo(cMessage *msg){
 /********************************************************************************
  *Get's Ack, checks if the other was the final Destiny.
  */
-void RoutingLayer::handleAckFromLowerLayer(cMessage *msg){
+void RoutingLQE::handleAckFromLowerLayer(cMessage *msg){
     updateGateway();
     AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
     string messageID = ackMsg->getMessageID();
@@ -596,7 +596,7 @@ void RoutingLayer::handleAckFromLowerLayer(cMessage *msg){
     delete msg;
 }
 
-void RoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
+void RoutingLQE::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
 {
     updateGateway();
     DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
@@ -641,7 +641,7 @@ void RoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
  *
  * Outputs some data for avaluation of simulation
  */
-void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
+void RoutingLQE::handleDataMsgFromLowerLayer(cMessage *msg)//cache
 {
     isReceiving=true;
     DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
@@ -754,7 +754,7 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     ackMsg->setDestinationAddress(omnetDataMsg->getSourceAddress());
     ackMsg->setIsFinalDest(imDestiny);
     ackMsg->setMessageID(omnetDataMsg->getMessageID());
-    int realPacketSize = 6 + 6 + (1 * ROUTINGLAYER_MSG_ID_HASH_SIZE) + 1;
+    int realPacketSize = 6 + 6 + (1 * ROUTINGLQE_MSG_ID_HASH_SIZE) + 1;
     ackMsg->setRealPacketSize(realPacketSize);
     ackMsg->setInjectedTime(simTime().dbl());
     EV<<"Sending ACK \n";
@@ -787,7 +787,7 @@ void RoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
 /****************************************************************************************
 *AppLayer -> Registers the AppMsg, if it's not already registered, in the list of registeredAppMsgs
 ****************************************************************************************/
-void RoutingLayer::handleAppRegistrationMsg(cMessage *msg) //App
+void RoutingLQE::handleAppRegistrationMsg(cMessage *msg) //App
 {
     RegisterAppMsg *regAppMsg = dynamic_cast<RegisterAppMsg*>(msg);
     AppInfo *appInfo = NULL;
@@ -818,7 +818,7 @@ void RoutingLayer::handleAppRegistrationMsg(cMessage *msg) //App
 /*********************************************************************************************************
  *Verifies if message ID exists in cache
  */
-bool RoutingLayer::msgIDexists(string messageID){
+bool RoutingLQE::msgIDexists(string messageID){
     return Stor.msgIDExists(messageID);
 }
 
@@ -827,7 +827,7 @@ bool RoutingLayer::msgIDexists(string messageID){
 /************************************************************************************************
  * Gets List of MsgsIDs in cache
  */
-void RoutingLayer::returnSelectMsgIDList(vector<string> & selectedMessageIDList){
+void RoutingLQE::returnSelectMsgIDList(vector<string> & selectedMessageIDList){
    selectedMessageIDList=Stor.returnSelectMsgIDList(selectedMessageIDList, maximumHopCount);
 }
 
@@ -835,11 +835,11 @@ void RoutingLayer::returnSelectMsgIDList(vector<string> & selectedMessageIDList)
 /***********************************************************************************************
  * Gets the size of the list oh cache Msgs (nº of Msgs in cache)
  */
-int RoutingLayer::cacheListSize(){
+int RoutingLQE::cacheListSize(){
     return Stor.cacheListSize();
 }
 
-bool RoutingLayer::setGatewayList(){
+bool RoutingLQE::setGatewayList(){
     GatewayN *gatewayN = NULL;
     std::string delimiter = "|";
     int i=0;//, q1=0;
@@ -866,7 +866,7 @@ bool RoutingLayer::setGatewayList(){
     return true;
 }
 
-void RoutingLayer::printGatewayList(){
+void RoutingLQE::printGatewayList(){
     //EV<<"Print here \n";
     GatewayN *gatewayN = NULL;
     auto itC= GatewayList.begin();
@@ -878,7 +878,7 @@ void RoutingLayer::printGatewayList(){
       }
 }
 
-void RoutingLayer::updateGateway(){
+void RoutingLQE::updateGateway(){
     GatewayN *gatewayN = NULL;
     string currentGW;
     double deadT;
@@ -918,7 +918,7 @@ void RoutingLayer::updateGateway(){
  * Cleans the list of AppRegisteredApps, calls the destructor of the Cache/Storage
  */
 //FINISH
-void RoutingLayer::finish(){
+void RoutingLQE::finish(){
 
     recordScalar("numEventsHandled", numEventsHandled);
 

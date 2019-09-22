@@ -38,6 +38,7 @@ OBJS = \
     $O/LinkAdaptLayer.o \
     $O/NeighboringLayer.o \
     $O/RoutingLayer.o \
+    $O/RoutingLQE.o \
     $O/StorageM.o \
     $O/WirelessInterface.o \
     $O/InternalMsg_m.o \

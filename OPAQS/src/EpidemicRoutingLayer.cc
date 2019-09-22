@@ -198,6 +198,9 @@ void EpidemicRoutingLayer::handleBeaconInfo(cMessage *msg){
     EV<<"KEpidemic: handleBeacon\n";
     BeaconInfoMsg *beaconMsg = dynamic_cast<BeaconInfoMsg*>(msg);
 
+
+
+
     DataReqMsg *dataRequestMsg = new DataReqMsg();
 //changed 23/07/19 17h54
     string SouceAdd = beaconMsg->getSourceAddress();
@@ -217,6 +220,7 @@ void EpidemicRoutingLayer::handleBeaconInfo(cMessage *msg){
     dataRequestMsg->setByteLength(realPacketSize);
     dataRequestMsg->setSSI(beaconMsg->getSSI());
     dataRequestMsg->setProb(beaconMsg->getMyProb());      //VERIFICAR VALOR DE PROB QUE AQUI METO pk é o meu
+    dataRequestMsg->setInjectedTime(simTime().dbl());
 
     //Para retirar futuramente
     if(beaconMsg->getProb()>0.5){
@@ -249,7 +253,17 @@ void EpidemicRoutingLayer::handleAckFromLowerLayer(cMessage *msg){
  */
 void EpidemicRoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
 {
+    DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
+        upperDataMsg->setFinalDestinationNodeName("Wf:00:00:00:00:ff");
+        upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
     Stor.saveData(msg,0);
+
+
+
+
+
+
+
     delete msg;
 }
 
@@ -352,6 +366,7 @@ void EpidemicRoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     ackMsg->setMessageID(omnetDataMsg->getMessageID());
     int realPacketSize = 6 + 6 + (1 * EPIDEMICROUTINGLAYER_MSG_ID_HASH_SIZE) + 1;
     ackMsg->setRealPacketSize(realPacketSize);
+    ackMsg->setInjectedTime(simTime().dbl());
     EV<<"Sending ACK \n";
     send(ackMsg, "lowerLayerOut");
 
