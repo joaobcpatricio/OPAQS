@@ -124,6 +124,7 @@ private:
      void saveLastBeContact(string Naddress);    //updates the last time this direct-neigh sent a beacon
      void cleanOldContacts(); //removes direct neighbors that are absent from graph
      //double findInNeigLayerList(string addrN);  //returns the time of the last contact on the previous saved list of neighbors
+     void handleDataReqMsgFromLowerLayer(cMessage *msg);
 
 
 };

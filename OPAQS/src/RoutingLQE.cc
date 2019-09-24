@@ -184,7 +184,7 @@ void RoutingLQE::handleMessage(cMessage *msg)
             handleBeaconInfo(msg);
 
          // data request message arrived from the lower layer (link layer)
-        } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
+        } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
             EV<<"Handling DataReqMsg\n";
             handleDataReqMsg(msg);
 
@@ -549,6 +549,7 @@ void RoutingLQE::handleBeaconInfo(cMessage *msg){
     dataRequestMsg->setSSI(beaconMsg->getSSI());
     dataRequestMsg->setProb(beaconMsg->getMyProb());      //VERIFICAR VALOR DE PROB QUE AQUI METO pk é o meu
     dataRequestMsg->setInjectedTime(simTime().dbl());
+    dataRequestMsg->setBeaconSentT(beaconMsg->getSentTime().dbl());
 
     //Para retirar futuramente
     if(beaconMsg->getProb()>0.5){

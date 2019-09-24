@@ -134,6 +134,9 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NeighbourListMsg& obj) {o
  *     //int Nic; //0=wifi, 1=Bt,
  *     string neighGraph;
  *     int numberVert;
+ *     simtime_t sentTime;	//timeStamp
+ *     simtime_t receivedTime;	//timeStamp
+ *     simtime_t injectedTime;	//timeStamp	, generation time on neighboring 
  * }
  * </pre>
  */
@@ -150,6 +153,9 @@ class BeaconInfoMsg : public ::omnetpp::cPacket
     double SSI;
     ::omnetpp::opp_string neighGraph;
     int numberVert;
+    ::omnetpp::simtime_t sentTime;
+    ::omnetpp::simtime_t receivedTime;
+    ::omnetpp::simtime_t injectedTime;
 
   private:
     void copy(const BeaconInfoMsg& other);
@@ -188,13 +194,19 @@ class BeaconInfoMsg : public ::omnetpp::cPacket
     virtual void setNeighGraph(const char * neighGraph);
     virtual int getNumberVert() const;
     virtual void setNumberVert(int numberVert);
+    virtual ::omnetpp::simtime_t getSentTime() const;
+    virtual void setSentTime(::omnetpp::simtime_t sentTime);
+    virtual ::omnetpp::simtime_t getReceivedTime() const;
+    virtual void setReceivedTime(::omnetpp::simtime_t receivedTime);
+    virtual ::omnetpp::simtime_t getInjectedTime() const;
+    virtual void setInjectedTime(::omnetpp::simtime_t injectedTime);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconInfoMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconInfoMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:54</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:57</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // \@author : João Patrício (castanheirapatricio\@ua.pt)
@@ -245,7 +257,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const NeighbourListMsgBT& o
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NeighbourListMsgBT& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:63</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:66</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // Message of routing commands: indicate the chosen Nic
@@ -285,7 +297,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const routingDecisionsMsg& 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, routingDecisionsMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:69</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:72</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // --THIS WAS INCLUDED IN BEACONINFOMSG too--Message to provide the current metwork graph

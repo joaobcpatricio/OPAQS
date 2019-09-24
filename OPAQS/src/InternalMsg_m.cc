@@ -823,6 +823,9 @@ BeaconInfoMsg::BeaconInfoMsg(const char *name, short kind) : ::omnetpp::cPacket(
     this->MyPosY = 0;
     this->SSI = 0;
     this->numberVert = 0;
+    this->sentTime = 0;
+    this->receivedTime = 0;
+    this->injectedTime = 0;
 }
 
 BeaconInfoMsg::BeaconInfoMsg(const BeaconInfoMsg& other) : ::omnetpp::cPacket(other)
@@ -854,6 +857,9 @@ void BeaconInfoMsg::copy(const BeaconInfoMsg& other)
     this->SSI = other.SSI;
     this->neighGraph = other.neighGraph;
     this->numberVert = other.numberVert;
+    this->sentTime = other.sentTime;
+    this->receivedTime = other.receivedTime;
+    this->injectedTime = other.injectedTime;
 }
 
 void BeaconInfoMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -869,6 +875,9 @@ void BeaconInfoMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->SSI);
     doParsimPacking(b,this->neighGraph);
     doParsimPacking(b,this->numberVert);
+    doParsimPacking(b,this->sentTime);
+    doParsimPacking(b,this->receivedTime);
+    doParsimPacking(b,this->injectedTime);
 }
 
 void BeaconInfoMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -884,6 +893,9 @@ void BeaconInfoMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->SSI);
     doParsimUnpacking(b,this->neighGraph);
     doParsimUnpacking(b,this->numberVert);
+    doParsimUnpacking(b,this->sentTime);
+    doParsimUnpacking(b,this->receivedTime);
+    doParsimUnpacking(b,this->injectedTime);
 }
 
 const char * BeaconInfoMsg::getSourceAddress() const
@@ -986,6 +998,36 @@ void BeaconInfoMsg::setNumberVert(int numberVert)
     this->numberVert = numberVert;
 }
 
+::omnetpp::simtime_t BeaconInfoMsg::getSentTime() const
+{
+    return this->sentTime;
+}
+
+void BeaconInfoMsg::setSentTime(::omnetpp::simtime_t sentTime)
+{
+    this->sentTime = sentTime;
+}
+
+::omnetpp::simtime_t BeaconInfoMsg::getReceivedTime() const
+{
+    return this->receivedTime;
+}
+
+void BeaconInfoMsg::setReceivedTime(::omnetpp::simtime_t receivedTime)
+{
+    this->receivedTime = receivedTime;
+}
+
+::omnetpp::simtime_t BeaconInfoMsg::getInjectedTime() const
+{
+    return this->injectedTime;
+}
+
+void BeaconInfoMsg::setInjectedTime(::omnetpp::simtime_t injectedTime)
+{
+    this->injectedTime = injectedTime;
+}
+
 class BeaconInfoMsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -1051,7 +1093,7 @@ const char *BeaconInfoMsgDescriptor::getProperty(const char *propertyname) const
 int BeaconInfoMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 10+basedesc->getFieldCount() : 10;
+    return basedesc ? 13+basedesc->getFieldCount() : 13;
 }
 
 unsigned int BeaconInfoMsgDescriptor::getFieldTypeFlags(int field) const
@@ -1073,8 +1115,11 @@ unsigned int BeaconInfoMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<10) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<13) ? fieldTypeFlags[field] : 0;
 }
 
 const char *BeaconInfoMsgDescriptor::getFieldName(int field) const
@@ -1096,8 +1141,11 @@ const char *BeaconInfoMsgDescriptor::getFieldName(int field) const
         "SSI",
         "neighGraph",
         "numberVert",
+        "sentTime",
+        "receivedTime",
+        "injectedTime",
     };
-    return (field>=0 && field<10) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<13) ? fieldNames[field] : nullptr;
 }
 
 int BeaconInfoMsgDescriptor::findField(const char *fieldName) const
@@ -1114,6 +1162,9 @@ int BeaconInfoMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='S' && strcmp(fieldName, "SSI")==0) return base+7;
     if (fieldName[0]=='n' && strcmp(fieldName, "neighGraph")==0) return base+8;
     if (fieldName[0]=='n' && strcmp(fieldName, "numberVert")==0) return base+9;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+10;
+    if (fieldName[0]=='r' && strcmp(fieldName, "receivedTime")==0) return base+11;
+    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+12;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1136,8 +1187,11 @@ const char *BeaconInfoMsgDescriptor::getFieldTypeString(int field) const
         "double",
         "string",
         "int",
+        "simtime_t",
+        "simtime_t",
+        "simtime_t",
     };
-    return (field>=0 && field<10) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<13) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **BeaconInfoMsgDescriptor::getFieldPropertyNames(int field) const
@@ -1214,6 +1268,9 @@ std::string BeaconInfoMsgDescriptor::getFieldValueAsString(void *object, int fie
         case 7: return double2string(pp->getSSI());
         case 8: return oppstring2string(pp->getNeighGraph());
         case 9: return long2string(pp->getNumberVert());
+        case 10: return simtime2string(pp->getSentTime());
+        case 11: return simtime2string(pp->getReceivedTime());
+        case 12: return simtime2string(pp->getInjectedTime());
         default: return "";
     }
 }
@@ -1238,6 +1295,9 @@ bool BeaconInfoMsgDescriptor::setFieldValueAsString(void *object, int field, int
         case 7: pp->setSSI(string2double(value)); return true;
         case 8: pp->setNeighGraph((value)); return true;
         case 9: pp->setNumberVert(string2long(value)); return true;
+        case 10: pp->setSentTime(string2simtime(value)); return true;
+        case 11: pp->setReceivedTime(string2simtime(value)); return true;
+        case 12: pp->setInjectedTime(string2simtime(value)); return true;
         default: return false;
     }
 }

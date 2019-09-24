@@ -104,7 +104,7 @@ packet BeaconMsg {
 	int numberVert;
 	simtime_t sentTime;	//timeStamp
 	simtime_t receivedTime;	//timeStamp
-	simtime_t injectedTime;	//timeStamp	, generation time	
+	simtime_t injectedTime;	//timeStamp	, generation time on neighboring 
 }
 
 //***********************************************************************************//
@@ -129,8 +129,11 @@ packet DataReqMsg {
 	//double MyPosX;
 	//double MyPosY;
 	double SSI;
+	simtime_t beaconSentT; //Time when the received beacon was sent
 	//int Nic; //0=wifi, 1=Bt,
 	simtime_t injectedTime;	//timeStamp	, generation time	
+	simtime_t sentTime;	//timeStamp
+	simtime_t receivedTime;	//timeStamp
 }
 //***********************************************************************************//
 

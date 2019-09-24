@@ -266,7 +266,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimU
  *     int numberVert;
  *     simtime_t sentTime;	//timeStamp
  *     simtime_t receivedTime;	//timeStamp
- *     simtime_t injectedTime;	//timeStamp	, generation time	
+ *     simtime_t injectedTime;	//timeStamp	, generation time on neighboring 
  * }
  * </pre>
  */
@@ -354,8 +354,11 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.pars
  *     //double MyPosX;
  *     //double MyPosY;
  *     double SSI;
+ *     simtime_t beaconSentT; //Time when the received beacon was sent
  *     //int Nic; //0=wifi, 1=Bt,
  *     simtime_t injectedTime;	//timeStamp	, generation time	
+ *     simtime_t sentTime;	//timeStamp
+ *     simtime_t receivedTime;	//timeStamp
  * }
  * //**********************************************************************************  /
  * </pre>
@@ -369,7 +372,10 @@ class DataReqMsg : public ::omnetpp::cPacket
     bool SendMeData;
     double Prob;
     double SSI;
+    ::omnetpp::simtime_t beaconSentT;
     ::omnetpp::simtime_t injectedTime;
+    ::omnetpp::simtime_t sentTime;
+    ::omnetpp::simtime_t receivedTime;
 
   private:
     void copy(const DataReqMsg& other);
@@ -400,8 +406,14 @@ class DataReqMsg : public ::omnetpp::cPacket
     virtual void setProb(double Prob);
     virtual double getSSI() const;
     virtual void setSSI(double SSI);
+    virtual ::omnetpp::simtime_t getBeaconSentT() const;
+    virtual void setBeaconSentT(::omnetpp::simtime_t beaconSentT);
     virtual ::omnetpp::simtime_t getInjectedTime() const;
     virtual void setInjectedTime(::omnetpp::simtime_t injectedTime);
+    virtual ::omnetpp::simtime_t getSentTime() const;
+    virtual void setSentTime(::omnetpp::simtime_t sentTime);
+    virtual ::omnetpp::simtime_t getReceivedTime() const;
+    virtual void setReceivedTime(::omnetpp::simtime_t receivedTime);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const DataReqMsg& obj) {obj.parsimPack(b);}

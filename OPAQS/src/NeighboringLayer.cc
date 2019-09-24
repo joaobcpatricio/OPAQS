@@ -109,6 +109,11 @@ void NeighboringLayer::handleMessage(cMessage *msg)
                 EV<<"Neighboring: handleNeighBourListMsgBT vizinhos\n";
                 updateNeighbourListBT(msg);
 
+        // DataReq message arrived from the lower layer (link layer)
+        } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
+            EV<<"Neighboring: handling DataReq\n";
+            handleDataReqMsgFromLowerLayer(msg);
+
 
 
         // received some unexpected packet
@@ -212,6 +217,9 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     infoMsg->setDestinationAddress(BeaconReceived->getDestinationAddress());
     infoMsg->setNeighGraph(graphe.returnGraphT().c_str());
     infoMsg->setNumberVert(graphe.returnVertIDSize());
+    infoMsg->setSentTime(BeaconReceived->getSentTime().dbl());
+    infoMsg->setReceivedTime(BeaconReceived->getReceivedTime().dbl());
+    infoMsg->setInjectedTime(BeaconReceived->getInjectedTime().dbl());
     //infoMsg->setNic(BeaconReceived->getNic());
 
     //EV<<"Beac: "<<BeaconReceived->getRealPacketSize()<<" Cop of beac: "<<infoMsg->getRealPacketSize()<<" \n";
@@ -230,6 +238,18 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     delete(msg);
 }
 
+//Handle Received DataReqMsg from neighbor
+void NeighboringLayer::handleDataReqMsgFromLowerLayer(cMessage *msg){
+    EV<<"Sending dataReq from Neigh \n";
+    DataReqMsg *dataRequestMsg = dynamic_cast<DataReqMsg*>(msg);
+
+    double timeSt=dataRequestMsg->getBeaconSentT().dbl();
+    double timeRc=simTime().dbl();
+    double difTims=timeRc-timeSt;
+    EV<<"Delay Beacon to Req:"<<difTims<<"\n";
+
+    send(dataRequestMsg, "upperLayerOut");
+}
 
 /*******************************************************************************************
  *Handles Msg from lower layer (Wireless)
@@ -1030,6 +1050,8 @@ double NeighboringLayer::calcMyLQE(cMessage *msg){
 
     return Link_Quality;
 }
+
+
 
 //Calculate the quality of the link
 double NeighboringLayer::calcLinkQuality(cMessage *msg){

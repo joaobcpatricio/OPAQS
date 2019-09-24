@@ -108,7 +108,13 @@ void EpidemicRoutingLayer::handleMessage(cMessage *msg)
 
          // data request message arrived from the lower layer (link layer)
         } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
-            EV<<"Handling DataReqMsg\n";
+            EV<<"Handling DataReqMsg f/link\n";
+            handleDataReqMsg(msg);
+
+
+        // data request message arrived from the neigh layer
+        } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
+            EV<<"Handling DataReqMsg f/neigh\n";
             handleDataReqMsg(msg);
 
         // received some unexpected packet

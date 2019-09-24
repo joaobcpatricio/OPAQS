@@ -45,6 +45,9 @@ packet BeaconInfoMsg {
 	//int Nic; //0=wifi, 1=Bt,
 	string neighGraph;
 	int numberVert;
+	simtime_t sentTime;	//timeStamp
+	simtime_t receivedTime;	//timeStamp
+	simtime_t injectedTime;	//timeStamp	, generation time on neighboring 
 }
 
 //******************************************************************************************************//

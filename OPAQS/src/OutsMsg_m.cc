@@ -1730,7 +1730,10 @@ DataReqMsg::DataReqMsg(const char *name, short kind) : ::omnetpp::cPacket(name,k
     this->SendMeData = false;
     this->Prob = 0;
     this->SSI = 0;
+    this->beaconSentT = 0;
     this->injectedTime = 0;
+    this->sentTime = 0;
+    this->receivedTime = 0;
 }
 
 DataReqMsg::DataReqMsg(const DataReqMsg& other) : ::omnetpp::cPacket(other)
@@ -1758,7 +1761,10 @@ void DataReqMsg::copy(const DataReqMsg& other)
     this->SendMeData = other.SendMeData;
     this->Prob = other.Prob;
     this->SSI = other.SSI;
+    this->beaconSentT = other.beaconSentT;
     this->injectedTime = other.injectedTime;
+    this->sentTime = other.sentTime;
+    this->receivedTime = other.receivedTime;
 }
 
 void DataReqMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -1770,7 +1776,10 @@ void DataReqMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->SendMeData);
     doParsimPacking(b,this->Prob);
     doParsimPacking(b,this->SSI);
+    doParsimPacking(b,this->beaconSentT);
     doParsimPacking(b,this->injectedTime);
+    doParsimPacking(b,this->sentTime);
+    doParsimPacking(b,this->receivedTime);
 }
 
 void DataReqMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -1782,7 +1791,10 @@ void DataReqMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->SendMeData);
     doParsimUnpacking(b,this->Prob);
     doParsimUnpacking(b,this->SSI);
+    doParsimUnpacking(b,this->beaconSentT);
     doParsimUnpacking(b,this->injectedTime);
+    doParsimUnpacking(b,this->sentTime);
+    doParsimUnpacking(b,this->receivedTime);
 }
 
 const char * DataReqMsg::getSourceAddress() const
@@ -1845,6 +1857,16 @@ void DataReqMsg::setSSI(double SSI)
     this->SSI = SSI;
 }
 
+::omnetpp::simtime_t DataReqMsg::getBeaconSentT() const
+{
+    return this->beaconSentT;
+}
+
+void DataReqMsg::setBeaconSentT(::omnetpp::simtime_t beaconSentT)
+{
+    this->beaconSentT = beaconSentT;
+}
+
 ::omnetpp::simtime_t DataReqMsg::getInjectedTime() const
 {
     return this->injectedTime;
@@ -1853,6 +1875,26 @@ void DataReqMsg::setSSI(double SSI)
 void DataReqMsg::setInjectedTime(::omnetpp::simtime_t injectedTime)
 {
     this->injectedTime = injectedTime;
+}
+
+::omnetpp::simtime_t DataReqMsg::getSentTime() const
+{
+    return this->sentTime;
+}
+
+void DataReqMsg::setSentTime(::omnetpp::simtime_t sentTime)
+{
+    this->sentTime = sentTime;
+}
+
+::omnetpp::simtime_t DataReqMsg::getReceivedTime() const
+{
+    return this->receivedTime;
+}
+
+void DataReqMsg::setReceivedTime(::omnetpp::simtime_t receivedTime)
+{
+    this->receivedTime = receivedTime;
 }
 
 class DataReqMsgDescriptor : public omnetpp::cClassDescriptor
@@ -1920,7 +1962,7 @@ const char *DataReqMsgDescriptor::getProperty(const char *propertyname) const
 int DataReqMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 7+basedesc->getFieldCount() : 7;
+    return basedesc ? 10+basedesc->getFieldCount() : 10;
 }
 
 unsigned int DataReqMsgDescriptor::getFieldTypeFlags(int field) const
@@ -1939,8 +1981,11 @@ unsigned int DataReqMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<7) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<10) ? fieldTypeFlags[field] : 0;
 }
 
 const char *DataReqMsgDescriptor::getFieldName(int field) const
@@ -1958,9 +2003,12 @@ const char *DataReqMsgDescriptor::getFieldName(int field) const
         "SendMeData",
         "Prob",
         "SSI",
+        "beaconSentT",
         "injectedTime",
+        "sentTime",
+        "receivedTime",
     };
-    return (field>=0 && field<7) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<10) ? fieldNames[field] : nullptr;
 }
 
 int DataReqMsgDescriptor::findField(const char *fieldName) const
@@ -1973,7 +2021,10 @@ int DataReqMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='S' && strcmp(fieldName, "SendMeData")==0) return base+3;
     if (fieldName[0]=='P' && strcmp(fieldName, "Prob")==0) return base+4;
     if (fieldName[0]=='S' && strcmp(fieldName, "SSI")==0) return base+5;
-    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+6;
+    if (fieldName[0]=='b' && strcmp(fieldName, "beaconSentT")==0) return base+6;
+    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+7;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+8;
+    if (fieldName[0]=='r' && strcmp(fieldName, "receivedTime")==0) return base+9;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1993,8 +2044,11 @@ const char *DataReqMsgDescriptor::getFieldTypeString(int field) const
         "double",
         "double",
         "simtime_t",
+        "simtime_t",
+        "simtime_t",
+        "simtime_t",
     };
-    return (field>=0 && field<7) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<10) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **DataReqMsgDescriptor::getFieldPropertyNames(int field) const
@@ -2067,7 +2121,10 @@ std::string DataReqMsgDescriptor::getFieldValueAsString(void *object, int field,
         case 3: return bool2string(pp->getSendMeData());
         case 4: return double2string(pp->getProb());
         case 5: return double2string(pp->getSSI());
-        case 6: return simtime2string(pp->getInjectedTime());
+        case 6: return simtime2string(pp->getBeaconSentT());
+        case 7: return simtime2string(pp->getInjectedTime());
+        case 8: return simtime2string(pp->getSentTime());
+        case 9: return simtime2string(pp->getReceivedTime());
         default: return "";
     }
 }
@@ -2088,7 +2145,10 @@ bool DataReqMsgDescriptor::setFieldValueAsString(void *object, int field, int i,
         case 3: pp->setSendMeData(string2bool(value)); return true;
         case 4: pp->setProb(string2double(value)); return true;
         case 5: pp->setSSI(string2double(value)); return true;
-        case 6: pp->setInjectedTime(string2simtime(value)); return true;
+        case 6: pp->setBeaconSentT(string2simtime(value)); return true;
+        case 7: pp->setInjectedTime(string2simtime(value)); return true;
+        case 8: pp->setSentTime(string2simtime(value)); return true;
+        case 9: pp->setReceivedTime(string2simtime(value)); return true;
         default: return false;
     }
 }
