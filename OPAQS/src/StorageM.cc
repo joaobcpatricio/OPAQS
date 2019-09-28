@@ -145,6 +145,8 @@ void StorageM::saveData(cMessage *msg, int origin){
                    out<<" |End \n";
                    out.close();
 
+                   saveResultsStorTimeRec(msg,origin);
+                   saveResultsStorTimeSent(msg,origin);
 
                    if(origin){
                        ownMACAddress = omnetDataMsg->getDestinationAddress();
@@ -280,6 +282,50 @@ void StorageM::saveData(cMessage *msg, int origin){
     cacheEntry.lastAccessedTime = simTime().dbl();
 
 }
+
+void StorageM::saveResultsStorTimeRec(cMessage *msg,int origin ){
+    DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
+    //Save saved 1st time msgs
+            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/timeRec";
+            string ownMACAddress;
+            if(origin){
+                ownMACAddress = omnetDataMsg->getDestinationAddress();
+            }else{
+                ownMACAddress = omnetDataMsg->getOriginatorNodeMAC();
+            }
+                       string noS=ownMACAddress.substr(15,17);
+                       nameF.append(noS);
+                       nameF.append(".txt");
+                       std::ofstream out(nameF, std::ios_base::app);
+                       std::string timeRMsg = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
+                       string timeRec=timeRMsg;
+                       timeRec.append("\n");
+                       out<<timeRec;
+                       out.close();
+}
+void StorageM::saveResultsStorTimeSent(cMessage *msg,int origin ){
+    DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
+    //Save saved 1st time msgs
+            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/timeSent";
+            string ownMACAddress;
+            if(origin){
+                ownMACAddress = omnetDataMsg->getDestinationAddress();
+            }else{
+                ownMACAddress = omnetDataMsg->getOriginatorNodeMAC();
+            }
+                       string noS=ownMACAddress.substr(15,17);
+                       nameF.append(noS);
+                       nameF.append(".txt");
+                       std::ofstream out(nameF, std::ios_base::app);
+                       //Time sent from src
+                       std::string timeSMsg = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
+                       string timeSSrc=timeSMsg;
+                       timeSSrc.append("\n");
+                       out<<timeSSrc;
+                       out.close();
+}
+
+
 
 void StorageM::updateMaxAge(double value){
     max_age=value;

@@ -22,6 +22,12 @@ packet NeighbourListMsg {
     
     //double neighPos[];
 }
+// Message to provide the graph from neighLayer when it receives the NeighList
+packet GraphUpdtMsg {
+    string graph;
+    bool noNeighs;
+    simtime_t sentTime;	//timeStamp
+}
 
 //******************************************************************************************************//
 // @author : João Patrício (castanheirapatricio@ua.pt)
@@ -60,6 +66,12 @@ packet NeighbourListMsgBT {
     
     //double neighPos[];
 }
+// Message to provide the graph from neighLayer when it receives the NeighList
+packet GraphUpdtMsgBT {
+    string graph;
+    bool noNeighs;
+    simtime_t sentTime;	//timeStamp
+}
 
 //******************************************************************************************************//
 // Message of routing commands: indicate the chosen Nic
@@ -67,14 +79,4 @@ packet routingDecisionsMsg {
     bool sendWifiFirst;
 }
 
-//******************************************************************************************************//
-// --THIS WAS INCLUDED IN BEACONINFOMSG too--Message to provide the current metwork graph
-packet NetworkGraphMsg {
-    //string graphN[];
-    int numberVert;
-    //int countVert;
-    string graphN;
-    
-    //double neighPos[];
-}
 

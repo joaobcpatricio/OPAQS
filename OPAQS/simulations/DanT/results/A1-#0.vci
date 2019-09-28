@@ -1,15 +1,15 @@
-file 64402 1569105829                                           
+file 82029 1569431795                                           
 version 2
-run A1-0-20190921-23:43:45-21435
+run A1-0-20190925-18:16:30-17485
 attr configname A1
-attr datetime 20190921-23:43:45
+attr datetime 20190925-18:16:30
 attr experiment A1
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 21435
+attr processid 17485
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -32,7 +32,7 @@ param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.application.endGeneratingMsg 999999s
-param **.routingLayer "\"EpidemicRoutingLayer\""
+param **.routingLayer "\"RoutingLQE\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
@@ -74,8 +74,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2814 11928 10 12566 0.05 10 900 1 2 1200 1800
-1	14742 1657 19 244 0.1 0.199 100 -nan -nan -nan -nan
-2	16399 24001 762 12411 1.138032534095 9.498613385287 849 141 119709 50876325 4062627180225
-3	40400 24001 762 12411 1.138032534095 9.498613385287 849 141 119709 50876325 4062627180225
+0	2804 65517 10 20363 0.05 50 4500 1 2 6000 9000
+1	68321 1657 19 244 0.1 0.199 100 -nan -nan -nan -nan
+2	69978 6025 966 5286 1.688032534095 7.251973385287 218 141 30738 3365811 69130392129
+3	76003 6025 966 5286 1.688032534095 7.251973385287 218 141 30738 3365811 69130392129
 

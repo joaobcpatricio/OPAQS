@@ -96,13 +96,14 @@ private:
     void returnSelectMsgIDList(vector<string> & selectedMessageIDList);
     int cacheListSize();
     //Graph
-    void handleNetworkGraphMsg(cMessage *msg);
+    void handleGraphUpdtMsg(cMessage *msg);
     GraphT graphR;
     bool getGraph(string graphS);//, int numberVert);
     //GW
     bool setGatewayList();
     void printGatewayList();
     void updateGateway();
+    void saveGraphHere();
 
 
 

@@ -86,6 +86,8 @@ public:
 
     double max_age=9999;
     void updateMaxAge(double value);
+    void saveResultsStorTimeRec(cMessage *msg, int origin);
+    void saveResultsStorTimeSent(cMessage *msg,int origin );
 
 };
 

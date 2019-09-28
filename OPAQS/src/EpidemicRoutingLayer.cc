@@ -187,8 +187,10 @@ void EpidemicRoutingLayer::handleDataReqMsg(cMessage *msg){
                 if(foundH==false){
                     send(dataMsg, "lowerLayerOut");
                 }*/
+                if(dataMsg->getFinalDestinationNodeName()!=MyAddH){
                 EV<<"Sending Data Msg\n";
                 send(dataMsg, "lowerLayerOut");
+                }
             }
             iteratorMessageIDList++;
         }
@@ -260,7 +262,7 @@ void EpidemicRoutingLayer::handleAckFromLowerLayer(cMessage *msg){
 void EpidemicRoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
 {
     DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
-        upperDataMsg->setFinalDestinationNodeName("Wf:00:00:00:00:ff");
+        //upperDataMsg->setFinalDestinationNodeName("Wf:00:00:00:00:ff");
         upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
     Stor.saveData(msg,0);
 
@@ -307,10 +309,13 @@ void EpidemicRoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     if(omnetDataMsg->getDestinationOriented()){
         if(omnetDataMsg->getFinalDestinationNodeName()==ownMACAddress){
             EV<<"SOU IGUAL \n";
-            cacheData=FALSE;
+            //cacheData=FALSE;  SAVES ANYWAY
             imDestiny=TRUE;
         }
     }
+
+
+    EV<<"Msg fin:"<<omnetDataMsg->getFinalDestinationNodeName()<<" my add:"<<ownMACAddress<<"\n";
 
    //saves data anyway, if he's Gw, deletes it
     //Saving Data

@@ -1,1 +1,250 @@
 Here is information Obtained in Gw
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 1.170304192201
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 1.184144192201
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 1.747984192201
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 1.761824192201
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 1.775664192201
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 2.311824192201
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 2.325664192201
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 2.339504192201
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 2.353344192201
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 2.367184192201
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 2.871024192201
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 2.884864192201
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 2.898704192201
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 2.912544192201
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 2.926384192201
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 2.940224192201
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 3.333045043393
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 3.346885043393
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 3.374565043393
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 3.388405043393
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 3.402245043393
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 3.416085043393
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 3.878453385287
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 3.892293385287
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 3.906133385287
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 3.919973385287
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 3.933813385287
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 3.947653385287
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 3.961493385287
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 3.975333385287
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 4.428453385287
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 4.442293385287
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 4.456133385287
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 4.469973385287
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 4.483813385287
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 4.497653385287
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 4.525333385287
+
+ Running
+Num. Msg: Test: 5 Node Index: Node Index: 2 Time: 4.1 Time rec: 4.539173385287
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 4.980864192201
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 4.994704192201
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 5.00854476609
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 5.022385716807
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 5.036226673936
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 5.063908607336
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 5.077749583554
+
+ Running
+Num. Msg: Test: 5 Node Index: Node Index: 2 Time: 4.1 Time rec: 5.091590566079
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 5.530904705197
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 5.54474585842
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 5.558587015085
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 5.572428175045
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 5.586269338145
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 5.613951673129
+
+ Running
+Num. Msg: Test: 5 Node Index: Node Index: 2 Time: 4.1 Time rec: 5.641634018727
+
+ Running
+Num. Msg: Test: 5 Node Index: Node Index: 2 Time: 4.1 Time rec: 5.655475195078
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 6.080951384774
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 6.108633654875
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 6.122474781734
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 6.136315902773
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 6.163998126319
+
+ Running
+Num. Msg: Test: 5 Node Index: Node Index: 2 Time: 4.1 Time rec: 6.191680323368
+
+ Running
+Num. Msg: Test: 5 Node Index: Node Index: 2 Time: 4.1 Time rec: 6.205521411287
+
+ Running
+Num. Msg: Test: 6 Node Index: Node Index: 2 Time: 5.1 Time rec: 6.219362491781
+
+ Running
+Num. Msg: Test: 6 Node Index: Node Index: 2 Time: 5.1 Time rec: 6.233203564586
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 6.628708246029
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 6.642548987211
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 6.656389714479
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 6.670230427728
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 6.684071126862
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 6.697911811792
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 6.711752482438
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 6.725593138729
+
+ Running
+Num. Msg: Test: 5 Node Index: Node Index: 2 Time: 4.1 Time rec: 6.739433780601
+
+ Running
+Num. Msg: Test: 5 Node Index: Node Index: 2 Time: 4.1 Time rec: 6.753274408
+
+ Running
+Num. Msg: Test: 6 Node Index: Node Index: 2 Time: 5.1 Time rec: 6.767115020882
+
+ Running
+Num. Msg: Test: 6 Node Index: Node Index: 2 Time: 5.1 Time rec: 6.78095561921
+
+ Running
+Num. Msg: Test: 7 Node Index: Node Index: 2 Time: 6.1 Time rec: 6.794796202956
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 8.42876319703
+
+ Running
+Num. Msg: Test: 2 Node Index: Node Index: 2 Time: 1.1 Time rec: 8.442603725323
+
+ Running
+Num. Msg: Test: 1 Node Index: Node Index: 2 Time: 0.1 Time rec: 8.45644427906
+
+ Running
+Num. Msg: Test: 3 Node Index: Node Index: 2 Time: 2.1 Time rec: 8.484125466053
+
+ Running
+Num. Msg: Test: 4 Node Index: Node Index: 2 Time: 3.1 Time rec: 8.525647458007
+
+ Running
+Num. Msg: Test: 6 Node Index: Node Index: 2 Time: 5.1 Time rec: 8.567169725574
+
+ Running
+Num. Msg: Test: 7 Node Index: Node Index: 2 Time: 6.1 Time rec: 8.608692295855

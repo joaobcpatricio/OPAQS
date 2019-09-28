@@ -71,6 +71,19 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
                 EV<<"NeighList neighLayerOut\n";
                 send(msg, "neighLayerOut");
 
+
+//GraphUpdtMsg--------------------------------------------------------------------------------------------------
+                // graphUpdt message arrived from the lower layer (link layer)
+                //neighbourList from BT
+            }else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<GraphUpdtMsgBT*>(msg) != NULL) {
+                    EV<<"GraphUpdtMsg neighLayerOut\n";
+                    send(msg, "neighLayerOut");
+                } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<GraphUpdtMsg*>(msg) != NULL) {
+                    EV<<"GraphUpdtMsg neighLayerOut\n";
+                    send(msg, "neighLayerOut");
+
+
+
 //DataMsg---------------------------------------------------------------------------------------------------------------
             // data message arrived from the lower layer (link layer)
             } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<DataMsg*>(msg) != NULL) {

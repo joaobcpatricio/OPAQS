@@ -190,9 +190,9 @@ void RoutingLayer::handleMessage(cMessage *msg)
 
 
         // data request message arrived from the lower layer (link layer)
-        } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<NetworkGraphMsg*>(msg) != NULL) {
+        /*} else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<NetworkGraphMsg*>(msg) != NULL) {
             EV<<"Handling NetworkGraphMsg\n";
-            handleNetworkGraphMsg(msg);
+            handleNetworkGraphMsg(msg);*/
 
 
         // received some unexpected packet
@@ -241,7 +241,7 @@ bool RoutingLayer::getGraph(string graphS){//, int numberVert){ //String:" 1->2:
     return true;
 }
 
-void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
+/*void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
     EV<<"Routing: handleNetworkGraphMsg\n";
     NetworkGraphMsg *neighGraphMsg = dynamic_cast<NetworkGraphMsg*>(msg);
     string graphS = neighGraphMsg->getGraphN();
@@ -252,7 +252,7 @@ void RoutingLayer::handleNetworkGraphMsg(cMessage *msg){
     if(updt){ EV<<"Graph Updated\n";}else{EV<<"Graph not updated due to empty string\n";}
 
     delete msg;
-}
+}*/
 
 //Added 25/06
 //DECISION OF SENDING IS MADE HERE

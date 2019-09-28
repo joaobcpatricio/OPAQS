@@ -1,15 +1,15 @@
-file 48865 1568847053                                           
+file 90305 1569688105                                           
 version 2
-run A2-0-20190918-23:50:49-5977
+run A2-0-20190928-17:28:20-26793
 attr configname A2
-attr datetime 20190918-23:50:49
+attr datetime 20190928-17:28:20
 attr experiment A2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 5977
+attr processid 26793
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -39,12 +39,14 @@ param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.application.endGeneratingMsg 999999s
-param **.routingLayer "\"RoutingLayer\""
+param **.routingLayer "\"RoutingLQE\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
+param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
+param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -60,6 +62,7 @@ param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
+param **.wirelessIfc.my_limit_rate 0bps
 param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
@@ -78,8 +81,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2969 24789 10 10925 0.05 20 1800 1 2 2400 3600
-1	27758 3346 19 443 0.1 0.199 200 -nan -nan -nan -nan
-2	31104 8880 962 7208 1.142624192201 9.143493385287 320 141 45120 7241760 218172503520
-3	39984 8880 962 7208 1.142624192201 9.143493385287 320 141 45120 7241760 218172503520
+0	3123 66066 10 24584 0.05 50 4500 1 2 6000 9000
+1	69189 3349 22 452 0.1 0.199 200 -nan -nan -nan -nan
+2	72538 8883 1032 7789 1.142624192201 9.143493385287 320 141 45120 7241760 218172503520
+3	81421 8883 1032 7789 1.142624192201 9.143493385287 320 141 45120 7241760 218172503520
 

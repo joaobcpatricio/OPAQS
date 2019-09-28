@@ -110,7 +110,54 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const NeighbourListMsg& obj
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NeighbourListMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:35</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:26</tt> by nedtool.
+ * <pre>
+ * // Message to provide the graph from neighLayer when it receives the NeighList
+ * packet GraphUpdtMsg
+ * {
+ *     string graph;
+ *     bool noNeighs;
+ *     simtime_t sentTime;	//timeStamp
+ * }
+ * </pre>
+ */
+class GraphUpdtMsg : public ::omnetpp::cPacket
+{
+  protected:
+    ::omnetpp::opp_string graph;
+    bool noNeighs;
+    ::omnetpp::simtime_t sentTime;
+
+  private:
+    void copy(const GraphUpdtMsg& other);
+
+  protected:
+    // protected and unimplemented operator==(), to prevent accidental usage
+    bool operator==(const GraphUpdtMsg&);
+
+  public:
+    GraphUpdtMsg(const char *name=nullptr, short kind=0);
+    GraphUpdtMsg(const GraphUpdtMsg& other);
+    virtual ~GraphUpdtMsg();
+    GraphUpdtMsg& operator=(const GraphUpdtMsg& other);
+    virtual GraphUpdtMsg *dup() const override {return new GraphUpdtMsg(*this);}
+    virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
+    virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
+
+    // field getter/setter methods
+    virtual const char * getGraph() const;
+    virtual void setGraph(const char * graph);
+    virtual bool getNoNeighs() const;
+    virtual void setNoNeighs(bool noNeighs);
+    virtual ::omnetpp::simtime_t getSentTime() const;
+    virtual void setSentTime(::omnetpp::simtime_t sentTime);
+};
+
+inline void doParsimPacking(omnetpp::cCommBuffer *b, const GraphUpdtMsg& obj) {obj.parsimPack(b);}
+inline void doParsimUnpacking(omnetpp::cCommBuffer *b, GraphUpdtMsg& obj) {obj.parsimUnpack(b);}
+
+/**
+ * Class generated from <tt>InternalMsg.msg:41</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // \@author : João Patrício (castanheirapatricio\@ua.pt)
@@ -206,7 +253,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconInfoMsg& obj) {
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconInfoMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:57</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:63</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // \@author : João Patrício (castanheirapatricio\@ua.pt)
@@ -257,7 +304,54 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const NeighbourListMsgBT& o
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NeighbourListMsgBT& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:66</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:70</tt> by nedtool.
+ * <pre>
+ * // Message to provide the graph from neighLayer when it receives the NeighList
+ * packet GraphUpdtMsgBT
+ * {
+ *     string graph;
+ *     bool noNeighs;
+ *     simtime_t sentTime;	//timeStamp
+ * }
+ * </pre>
+ */
+class GraphUpdtMsgBT : public ::omnetpp::cPacket
+{
+  protected:
+    ::omnetpp::opp_string graph;
+    bool noNeighs;
+    ::omnetpp::simtime_t sentTime;
+
+  private:
+    void copy(const GraphUpdtMsgBT& other);
+
+  protected:
+    // protected and unimplemented operator==(), to prevent accidental usage
+    bool operator==(const GraphUpdtMsgBT&);
+
+  public:
+    GraphUpdtMsgBT(const char *name=nullptr, short kind=0);
+    GraphUpdtMsgBT(const GraphUpdtMsgBT& other);
+    virtual ~GraphUpdtMsgBT();
+    GraphUpdtMsgBT& operator=(const GraphUpdtMsgBT& other);
+    virtual GraphUpdtMsgBT *dup() const override {return new GraphUpdtMsgBT(*this);}
+    virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
+    virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
+
+    // field getter/setter methods
+    virtual const char * getGraph() const;
+    virtual void setGraph(const char * graph);
+    virtual bool getNoNeighs() const;
+    virtual void setNoNeighs(bool noNeighs);
+    virtual ::omnetpp::simtime_t getSentTime() const;
+    virtual void setSentTime(::omnetpp::simtime_t sentTime);
+};
+
+inline void doParsimPacking(omnetpp::cCommBuffer *b, const GraphUpdtMsgBT& obj) {obj.parsimPack(b);}
+inline void doParsimUnpacking(omnetpp::cCommBuffer *b, GraphUpdtMsgBT& obj) {obj.parsimUnpack(b);}
+
+/**
+ * Class generated from <tt>InternalMsg.msg:78</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // Message of routing commands: indicate the chosen Nic
@@ -295,54 +389,6 @@ class routingDecisionsMsg : public ::omnetpp::cPacket
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const routingDecisionsMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, routingDecisionsMsg& obj) {obj.parsimUnpack(b);}
-
-/**
- * Class generated from <tt>InternalMsg.msg:72</tt> by nedtool.
- * <pre>
- * //*****************************************************************************************************  /
- * // --THIS WAS INCLUDED IN BEACONINFOMSG too--Message to provide the current metwork graph
- * packet NetworkGraphMsg
- * {
- *     //string graphN[];
- *     int numberVert;
- *     //int countVert;
- *     string graphN;
- * 
- *     //double neighPos[];
- * }
- * </pre>
- */
-class NetworkGraphMsg : public ::omnetpp::cPacket
-{
-  protected:
-    int numberVert;
-    ::omnetpp::opp_string graphN;
-
-  private:
-    void copy(const NetworkGraphMsg& other);
-
-  protected:
-    // protected and unimplemented operator==(), to prevent accidental usage
-    bool operator==(const NetworkGraphMsg&);
-
-  public:
-    NetworkGraphMsg(const char *name=nullptr, short kind=0);
-    NetworkGraphMsg(const NetworkGraphMsg& other);
-    virtual ~NetworkGraphMsg();
-    NetworkGraphMsg& operator=(const NetworkGraphMsg& other);
-    virtual NetworkGraphMsg *dup() const override {return new NetworkGraphMsg(*this);}
-    virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
-    virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
-
-    // field getter/setter methods
-    virtual int getNumberVert() const;
-    virtual void setNumberVert(int numberVert);
-    virtual const char * getGraphN() const;
-    virtual void setGraphN(const char * graphN);
-};
-
-inline void doParsimPacking(omnetpp::cCommBuffer *b, const NetworkGraphMsg& obj) {obj.parsimPack(b);}
-inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NetworkGraphMsg& obj) {obj.parsimUnpack(b);}
 
 
 #endif // ifndef __INTERNALMSG_M_H

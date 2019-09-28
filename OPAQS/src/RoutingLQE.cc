@@ -189,10 +189,11 @@ void RoutingLQE::handleMessage(cMessage *msg)
             handleDataReqMsg(msg);
 
 
-        // data request message arrived from the lower layer (link layer)
-        } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<NetworkGraphMsg*>(msg) != NULL) {
-            EV<<"Handling NetworkGraphMsg\n";
-            handleNetworkGraphMsg(msg);
+        // data request message arrived from the neighLayer (before lower layer (link layer))
+        } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<GraphUpdtMsg*>(msg) != NULL) {
+            EV<<"Handling GraphUpdtMsg\n";
+            handleGraphUpdtMsg(msg);
+
 
 
         // received some unexpected packet
@@ -241,16 +242,22 @@ bool RoutingLQE::getGraph(string graphS){//, int numberVert){ //String:" 1->2:4;
     return true;
 }
 
-void RoutingLQE::handleNetworkGraphMsg(cMessage *msg){
+void RoutingLQE::handleGraphUpdtMsg(cMessage *msg){
     EV<<"Routing: handleNetworkGraphMsg\n";
-    NetworkGraphMsg *neighGraphMsg = dynamic_cast<NetworkGraphMsg*>(msg);
-    string graphS = neighGraphMsg->getGraphN();
-    //int numberVert = neighGraphMsg->getNumberVert();
-    //int countVert = neighGraphMsg->getCountVert();
-    EV<<"Recebeu-se: "<<graphS<<"\n";
-    bool updt=getGraph(graphS);
-    if(updt){ EV<<"Graph Updated\n";}else{EV<<"Graph not updated due to empty string\n";}
+    GraphUpdtMsg *neighGraphMsg = dynamic_cast<GraphUpdtMsg*>(msg);
 
+
+    if(neighGraphMsg->getNoNeighs()){
+        graphR.cleanGraph();
+    }else{
+
+        string graphS = neighGraphMsg->getGraph();
+        //int numberVert = neighGraphMsg->getNumberVert();
+        //int countVert = neighGraphMsg->getCountVert();
+        EV<<"Graph rec: "<<graphS<<"\n";
+        bool updt=getGraph(graphS);
+        if(updt){ EV<<"Graph Updated\n";}else{EV<<"Graph not updated due to empty string\n";}
+    }
     delete msg;
 }
 
@@ -627,7 +634,7 @@ void RoutingLQE::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
         out<<" |End \n";
         out.close();
 
-
+        saveGraphHere();
 
 
     delete msg;
@@ -668,6 +675,7 @@ void RoutingLQE::handleDataMsgFromLowerLayer(cMessage *msg)//cache
          && strstr(getParentModule()->getFullName(), omnetDataMsg->getFinalDestinationNodeName()) != NULL)
             | omnetDataMsg->getNHops() >= maximumHopCount) {
         cacheData = FALSE;
+        EV<<"WUT? \n";
     }
 
     //If i am the Msg final destination, don't store the msg
@@ -913,6 +921,28 @@ void RoutingLQE::updateGateway(){
     }
     actual_gateway=currentGW;
     //EV<<"Current Gateway is "<<actual_gateway<<" until "<<deadT<<" s \n";
+}
+
+void RoutingLQE::saveGraphHere(){
+    string graf=graphR.returnGraphT();
+    //Save Data
+            //save info into file
+            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GraphES";
+            string noS=ownMACAddress.substr(15,17);
+            nameF.append(noS);
+            nameF.append(".txt");
+            std::ofstream out(nameF, std::ios_base::app);
+            //Time
+            std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+                   string timeGen=" | Time : ";
+                   timeGen.append(timeMsg);
+                   timeGen.append("\n");
+                   out<<timeGen;
+            //Graph
+            graf.append("\n");
+            out<<graf;
+
+            out.close();
 }
 
 /***************************************************************************************

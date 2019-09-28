@@ -115,6 +115,14 @@ void NeighboringLayer::handleMessage(cMessage *msg)
             handleDataReqMsgFromLowerLayer(msg);
 
 
+        //Wifi GraphUpdtMsg -> DIRECT NEIGHBOURS
+        }else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<GraphUpdtMsg*>(msg) != NULL) {
+                EV<<"Neighboring: handleGraphUpdtMsg\n";
+                handleGraphUpdtMsgFromLowerLayer(msg);
+        //BT GraphUpdtMsg -> DIRECT NEIGHBOURS
+        }else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<GraphUpdtMsgBT*>(msg) != NULL) {
+            EV<<"Neighboring: handleGraphUpdtMsg\n";
+            handleGraphUpdtMsgFromLowerLayer(msg);
 
         // received some unexpected packet
         } else {
@@ -124,7 +132,6 @@ void NeighboringLayer::handleMessage(cMessage *msg)
         }
     }
 }
-
 
 
 //Handle Received BeaconMsg
@@ -182,7 +189,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 
     //Weight
     int weigH=graphe.returnWGrapfT(myID,srcID);
-    std::string weightH = std::to_string(weigH);//getReceivedTime().dbl());
+    std::string weightH = std::to_string(100-weigH);//getReceivedTime().dbl());
     string weightB="Weight: ";
     weightB.append(weightH);
     outfile<<weightB;
@@ -194,7 +201,8 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     outfile<<" |End \n";
     outfile.close();
 
-
+    saveResultsWeight(msg,weightH);
+    saveResultsWTime(msg,timeRMsg);
 
 //-------------------
 
@@ -237,6 +245,39 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     //cancelBackOffT(msg);
     delete(msg);
 }
+
+void NeighboringLayer::saveResultsWeight(cMessage *msg, string weightH){
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+    //FILE Results
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEweight";
+    string noS=ownMACAddress.substr(15,17);
+    string noN=BeaconReceived->getSourceAddress();
+    nameF.append(noS);
+    nameF.append("_");
+    nameF.append(noN.substr(15,17));
+    nameF.append(".txt");
+    std::ofstream outfile(nameF, std::ios_base::app);
+    weightH.append("\n");
+    outfile<<weightH;
+    outfile.close();
+}
+void NeighboringLayer::saveResultsWTime(cMessage *msg, string timeRMsg){
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+    //FILE Results
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEwtime";
+    string noS=ownMACAddress.substr(15,17);
+    string noN=BeaconReceived->getSourceAddress();
+    nameF.append(noS);
+    nameF.append("_");
+    nameF.append(noN.substr(15,17));
+    nameF.append(".txt");
+    std::ofstream outfile(nameF, std::ios_base::app);
+    timeRMsg.append("\n");
+    outfile<<timeRMsg;
+    outfile.close();
+}
+
+
 
 //Handle Received DataReqMsg from neighbor
 void NeighboringLayer::handleDataReqMsgFromLowerLayer(cMessage *msg){
@@ -355,6 +396,12 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
      bool updtMyNeig=updateMyNGraph(msg);
     // EV<<"Updated remove from graph\n";
      //string answ=graphe.returnGraphT();
+
+     GraphUpdtMsg *graphUpdt = makeGraphUpdtMessage();
+     graphUpdt->setNoNeighs(false);
+     //EV<<"Neighboring: Sending GraphUpdtmsg to RoutingLayer\n";
+     send(graphUpdt,"upperLayerOut");
+
 
      // delete the received neighbor list msg
      delete msg;
@@ -649,8 +696,6 @@ void NeighboringLayer::setSyncingNeighbourInfoForNextRoundBT()//neigh
 }
 
 
-
-
 void NeighboringLayer::saveLastBeContact(string Naddress)//neigh
 {
 
@@ -743,17 +788,7 @@ void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selec
 }*/
 
 
-//not going to be used - DELETE
-/*void NeighboringLayer::sendNetworkGraph(){
-    NetworkGraphMsg *neighGraphMsg = new NetworkGraphMsg("Network Graph Msg");
-    //neighGraphMsg->setGraphNArraySize(graphe.returnVertIDSize());
-    neighGraphMsg->setNumberVert(graphe.returnVertIDSize());
-    neighGraphMsg->setGraphN(graphe.returnGraphT().c_str());
-   // neighGraphMsg->setCountVert(graphe.returnCount());
 
-    send(neighGraphMsg, "upperLayerOut");
-
-}*/
 
 /*************************************************************************
  * ⇒ Checks my Neighbor list and removes no longer direct-neighbors from Graph.
@@ -799,7 +834,7 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
             o++;
         }
         if(!found){
-            //EV<<"rem id:"<<i<<"\n";
+            EV<<"rem id:"<<i<<"\n";
             graphe.rem_edge(myID,i);
         }
         found=FALSE;
@@ -904,6 +939,21 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
 }
 
 
+GraphUpdtMsg* NeighboringLayer::makeGraphUpdtMessage(){
+    // make a graph message
+    GraphUpdtMsg *graphMsg = new GraphUpdtMsg();
+    graphMsg->setGraph(graphe.returnGraphT().c_str());
+    return graphMsg;
+}
+
+void  NeighboringLayer::handleGraphUpdtMsgFromLowerLayer(cMessage *msg){
+    GraphUpdtMsg *neighGraphMsg = dynamic_cast<GraphUpdtMsg*>(msg);
+    bool noNeigh = neighGraphMsg->getNoNeighs();
+    if(noNeigh){
+        graphe.cleanGraph();
+    }
+    send(neighGraphMsg,"upperLayerOut");
+}
 
 /*************************
  * ⇒ Calculates the distance between the two nodes from the position data received in the beacon
@@ -946,6 +996,23 @@ double NeighboringLayer::calculateLinkStability(cMessage *msg){
     }
         return link_stability;
 
+}
+
+double NeighboringLayer::calcMyLQE(cMessage *msg){
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+    double SSI_ext = calculateSSI(msg);
+    double rssi_norm = 1.0 + ((float)((SSI_ext - (-56)) * (0 - 1)) / ((-100) - (-56)));
+
+    double link_stability =calculateLinkStability(msg)/100;
+
+    double rDelay=BeaconReceived->getReceivedTime().dbl()-BeaconReceived->getSentTime().dbl(); //not being use as it makes no difference
+
+
+    double Link_Quality=(rssi_norm+link_stability)/2;
+
+    EV<<"My Link Quality="<<Link_Quality<<" My rDelay:"<<rDelay<<" My ssi_norm"<<rssi_norm<<" my ssi:"<<SSI_ext<<" my link_stability"<<link_stability<<"at a distance:"<<calculateDistance(msg)<<"\n";
+
+    return Link_Quality;
 }
 
 /*************************
@@ -1028,6 +1095,8 @@ double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
     return isNeigh;
 }
 
+
+//From Daniela, not being used right now
 double NeighboringLayer::calcWeight(cMessage *msg){
     double Weight=(1-calcLinkQuality(msg))*100;
     return Weight;
@@ -1037,21 +1106,6 @@ double NeighboringLayer::calcNeighWeight(cMessage *msg){
     double weight = (1-calcLinkQuality(msg))*100;
     return weight;
 }
-
-double NeighboringLayer::calcMyLQE(cMessage *msg){
-    double SSI_ext = calculateSSI(msg);
-    double rssi_norm = 1.0 + ((float)((SSI_ext - (-56)) * (0 - 1)) / ((-100) - (-56)));
-
-    double link_stability = calculateLinkStability(msg)/100;
-
-    double Link_Quality=(rssi_norm+link_stability)/2;
-
-    EV<<"My Link Quality="<<Link_Quality<<" My ssi_norm"<<rssi_norm<<" my link_stability"<<link_stability<<"\n";
-
-    return Link_Quality;
-}
-
-
 
 //Calculate the quality of the link
 double NeighboringLayer::calcLinkQuality(cMessage *msg){

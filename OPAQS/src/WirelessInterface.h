@@ -91,6 +91,7 @@ private:
     double getPacketInjectedTime(cMessage *msg);
     void outputResultsReceived();
     void outputResultsSent();
+    void resultsSentDataName(cMessage *msg);
 
 };
 

@@ -1,14 +1,14 @@
 version 2
-run A2-0-20190918-23:50:49-5977
+run A2-0-20190928-17:28:20-26793
 attr configname A2
-attr datetime 20190918-23:50:49
+attr datetime 20190928-17:28:20
 attr experiment A2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 5977
+attr processid 26793
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -38,12 +38,14 @@ param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.application.endGeneratingMsg 999999s
-param **.routingLayer "\"RoutingLayer\""
+param **.routingLayer "\"RoutingLQE\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
+param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
+param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -59,6 +61,7 @@ param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
+param **.wirelessIfc.my_limit_rate 0bps
 param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
@@ -69,12 +72,12 @@ param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.is3D false
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 248
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 626
-scalar NetworkTormV2.node[1].routing numEventsHandled 507
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 649
-scalar NetworkTormV2.node[2].routing numEventsHandled 259
-scalar NetworkTormV2.node[2].neighboring numEventsHandled 625
+scalar NetworkTormV2.node[0].routing numEventsHandled 1333
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 1632
+scalar NetworkTormV2.node[1].routing numEventsHandled 1677
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 1766
+scalar NetworkTormV2.node[2].routing numEventsHandled 1348
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 1637
 scalar NetworkTormV2 neighbourhoodSize:min 1
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:max 2

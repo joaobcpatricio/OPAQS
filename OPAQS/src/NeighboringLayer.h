@@ -106,7 +106,6 @@ private:
      GraphT graphe;
      int maximumNoVert;
 
-     void sendNetworkGraph();
 
      bool updateGraph(cMessage *msg);
      bool updateMyNGraph(cMessage *msg);
@@ -125,6 +124,10 @@ private:
      void cleanOldContacts(); //removes direct neighbors that are absent from graph
      //double findInNeigLayerList(string addrN);  //returns the time of the last contact on the previous saved list of neighbors
      void handleDataReqMsgFromLowerLayer(cMessage *msg);
+     void saveResultsWeight(cMessage *msg, string weightH);
+     void saveResultsWTime(cMessage *msg, string timeRMsg);
+     GraphUpdtMsg* makeGraphUpdtMessage();
+     void handleGraphUpdtMsgFromLowerLayer(cMessage *msg);
 
 
 };

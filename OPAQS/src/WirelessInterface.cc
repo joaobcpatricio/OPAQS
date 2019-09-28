@@ -209,7 +209,7 @@ void WirelessInterface::handleMessage(cMessage *msg)
                 }*/
 
                 //if(!loosePkt){
-                    EV<<"SSI wireless nic: "<<valSSI<<" dBm \n";
+                    EV<<"SSI wireless nic: "<<valSSI<<" dBm at a dist:"<<sqrt(l)<<"m \n";
                     currentNeighbourNodeInfoList.push_back(nodeInfo);
                 //}else{ EV<<"Lost neigh wifi \n"; }
 
@@ -250,6 +250,10 @@ void WirelessInterface::handleMessage(cMessage *msg)
             // send msg to upper layer
             send(neighListMsg, "upperLayerOut");
 
+        }else {
+            GraphUpdtMsg *graphMsg = new GraphUpdtMsg;
+            graphMsg->setNoNeighs(true);
+            send(graphMsg,"upperLayerOut");
         }
 
         // setup next event to build neighbourhood node list and send to forwarding layer
@@ -531,11 +535,13 @@ void WirelessInterface::setSentTime(cMessage *msg){
                     out<<msIDis;
                     //Time sent
                     std::string timeMsg = std::to_string(dataMsg->getSentTime().dbl());//getInjectedTime().dbl());
-                    string timeGen=" | Time SentFromHere: ";
+                    string timeGen=" | Time SentFromNIC: ";
                     timeGen.append(timeMsg);
                     out<<timeGen;
                     out<<" | End \n";
                     out.close();
+
+                    resultsSentDataName(msg);
 
 
 
@@ -543,11 +549,27 @@ void WirelessInterface::setSentTime(cMessage *msg){
 
 }
 
+
+void WirelessInterface::resultsSentDataName(cMessage *msg){
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/dataNameSent";
+                        string noS=ownMACAddress.substr(15,17);
+                        nameF.append(noS);
+                        nameF.append(".txt");
+                        std::ofstream out(nameF, std::ios_base::app);
+                        //Message Name
+                        std::string msNam=dataMsg->getDataName();//getMsgUniqueID();
+                        string msNamIs=msNam;
+                        msNamIs.append("\n");
+                        out<<msNamIs;
+                        out.close();
+}
+
 void WirelessInterface::setSentTimeSrc(cMessage *msg){
     DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
     if (dataMsg) {
         if(ownMACAddress==dataMsg->getOriginatorNodeMAC()){
-            dataMsg->setSentTimeRout(simTime().dbl());
+            //dataMsg->setSentTimeRout(simTime().dbl());
             EV<<"Set sent time from src \n";
 
             //save info into file

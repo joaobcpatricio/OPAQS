@@ -812,6 +812,325 @@ void *NeighbourListMsgDescriptor::getFieldStructValuePointer(void *object, int f
     }
 }
 
+Register_Class(GraphUpdtMsg)
+
+GraphUpdtMsg::GraphUpdtMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
+{
+    this->noNeighs = false;
+    this->sentTime = 0;
+}
+
+GraphUpdtMsg::GraphUpdtMsg(const GraphUpdtMsg& other) : ::omnetpp::cPacket(other)
+{
+    copy(other);
+}
+
+GraphUpdtMsg::~GraphUpdtMsg()
+{
+}
+
+GraphUpdtMsg& GraphUpdtMsg::operator=(const GraphUpdtMsg& other)
+{
+    if (this==&other) return *this;
+    ::omnetpp::cPacket::operator=(other);
+    copy(other);
+    return *this;
+}
+
+void GraphUpdtMsg::copy(const GraphUpdtMsg& other)
+{
+    this->graph = other.graph;
+    this->noNeighs = other.noNeighs;
+    this->sentTime = other.sentTime;
+}
+
+void GraphUpdtMsg::parsimPack(omnetpp::cCommBuffer *b) const
+{
+    ::omnetpp::cPacket::parsimPack(b);
+    doParsimPacking(b,this->graph);
+    doParsimPacking(b,this->noNeighs);
+    doParsimPacking(b,this->sentTime);
+}
+
+void GraphUpdtMsg::parsimUnpack(omnetpp::cCommBuffer *b)
+{
+    ::omnetpp::cPacket::parsimUnpack(b);
+    doParsimUnpacking(b,this->graph);
+    doParsimUnpacking(b,this->noNeighs);
+    doParsimUnpacking(b,this->sentTime);
+}
+
+const char * GraphUpdtMsg::getGraph() const
+{
+    return this->graph.c_str();
+}
+
+void GraphUpdtMsg::setGraph(const char * graph)
+{
+    this->graph = graph;
+}
+
+bool GraphUpdtMsg::getNoNeighs() const
+{
+    return this->noNeighs;
+}
+
+void GraphUpdtMsg::setNoNeighs(bool noNeighs)
+{
+    this->noNeighs = noNeighs;
+}
+
+::omnetpp::simtime_t GraphUpdtMsg::getSentTime() const
+{
+    return this->sentTime;
+}
+
+void GraphUpdtMsg::setSentTime(::omnetpp::simtime_t sentTime)
+{
+    this->sentTime = sentTime;
+}
+
+class GraphUpdtMsgDescriptor : public omnetpp::cClassDescriptor
+{
+  private:
+    mutable const char **propertynames;
+  public:
+    GraphUpdtMsgDescriptor();
+    virtual ~GraphUpdtMsgDescriptor();
+
+    virtual bool doesSupport(omnetpp::cObject *obj) const override;
+    virtual const char **getPropertyNames() const override;
+    virtual const char *getProperty(const char *propertyname) const override;
+    virtual int getFieldCount() const override;
+    virtual const char *getFieldName(int field) const override;
+    virtual int findField(const char *fieldName) const override;
+    virtual unsigned int getFieldTypeFlags(int field) const override;
+    virtual const char *getFieldTypeString(int field) const override;
+    virtual const char **getFieldPropertyNames(int field) const override;
+    virtual const char *getFieldProperty(int field, const char *propertyname) const override;
+    virtual int getFieldArraySize(void *object, int field) const override;
+
+    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
+    virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
+    virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
+
+    virtual const char *getFieldStructName(int field) const override;
+    virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
+};
+
+Register_ClassDescriptor(GraphUpdtMsgDescriptor)
+
+GraphUpdtMsgDescriptor::GraphUpdtMsgDescriptor() : omnetpp::cClassDescriptor("GraphUpdtMsg", "omnetpp::cPacket")
+{
+    propertynames = nullptr;
+}
+
+GraphUpdtMsgDescriptor::~GraphUpdtMsgDescriptor()
+{
+    delete[] propertynames;
+}
+
+bool GraphUpdtMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
+{
+    return dynamic_cast<GraphUpdtMsg *>(obj)!=nullptr;
+}
+
+const char **GraphUpdtMsgDescriptor::getPropertyNames() const
+{
+    if (!propertynames) {
+        static const char *names[] = {  nullptr };
+        omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+        const char **basenames = basedesc ? basedesc->getPropertyNames() : nullptr;
+        propertynames = mergeLists(basenames, names);
+    }
+    return propertynames;
+}
+
+const char *GraphUpdtMsgDescriptor::getProperty(const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->getProperty(propertyname) : nullptr;
+}
+
+int GraphUpdtMsgDescriptor::getFieldCount() const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? 3+basedesc->getFieldCount() : 3;
+}
+
+unsigned int GraphUpdtMsgDescriptor::getFieldTypeFlags(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeFlags(field);
+        field -= basedesc->getFieldCount();
+    }
+    static unsigned int fieldTypeFlags[] = {
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+    };
+    return (field>=0 && field<3) ? fieldTypeFlags[field] : 0;
+}
+
+const char *GraphUpdtMsgDescriptor::getFieldName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldName(field);
+        field -= basedesc->getFieldCount();
+    }
+    static const char *fieldNames[] = {
+        "graph",
+        "noNeighs",
+        "sentTime",
+    };
+    return (field>=0 && field<3) ? fieldNames[field] : nullptr;
+}
+
+int GraphUpdtMsgDescriptor::findField(const char *fieldName) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    int base = basedesc ? basedesc->getFieldCount() : 0;
+    if (fieldName[0]=='g' && strcmp(fieldName, "graph")==0) return base+0;
+    if (fieldName[0]=='n' && strcmp(fieldName, "noNeighs")==0) return base+1;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+2;
+    return basedesc ? basedesc->findField(fieldName) : -1;
+}
+
+const char *GraphUpdtMsgDescriptor::getFieldTypeString(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeString(field);
+        field -= basedesc->getFieldCount();
+    }
+    static const char *fieldTypeStrings[] = {
+        "string",
+        "bool",
+        "simtime_t",
+    };
+    return (field>=0 && field<3) ? fieldTypeStrings[field] : nullptr;
+}
+
+const char **GraphUpdtMsgDescriptor::getFieldPropertyNames(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldPropertyNames(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+const char *GraphUpdtMsgDescriptor::getFieldProperty(int field, const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldProperty(field, propertyname);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+int GraphUpdtMsgDescriptor::getFieldArraySize(void *object, int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldArraySize(object, field);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsg *pp = (GraphUpdtMsg *)object; (void)pp;
+    switch (field) {
+        default: return 0;
+    }
+}
+
+const char *GraphUpdtMsgDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldDynamicTypeString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsg *pp = (GraphUpdtMsg *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+std::string GraphUpdtMsgDescriptor::getFieldValueAsString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldValueAsString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsg *pp = (GraphUpdtMsg *)object; (void)pp;
+    switch (field) {
+        case 0: return oppstring2string(pp->getGraph());
+        case 1: return bool2string(pp->getNoNeighs());
+        case 2: return simtime2string(pp->getSentTime());
+        default: return "";
+    }
+}
+
+bool GraphUpdtMsgDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->setFieldValueAsString(object,field,i,value);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsg *pp = (GraphUpdtMsg *)object; (void)pp;
+    switch (field) {
+        case 0: pp->setGraph((value)); return true;
+        case 1: pp->setNoNeighs(string2bool(value)); return true;
+        case 2: pp->setSentTime(string2simtime(value)); return true;
+        default: return false;
+    }
+}
+
+const char *GraphUpdtMsgDescriptor::getFieldStructName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructName(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    };
+}
+
+void *GraphUpdtMsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructValuePointer(object, field, i);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsg *pp = (GraphUpdtMsg *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
 Register_Class(BeaconInfoMsg)
 
 BeaconInfoMsg::BeaconInfoMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
@@ -1666,6 +1985,325 @@ void *NeighbourListMsgBTDescriptor::getFieldStructValuePointer(void *object, int
     }
 }
 
+Register_Class(GraphUpdtMsgBT)
+
+GraphUpdtMsgBT::GraphUpdtMsgBT(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
+{
+    this->noNeighs = false;
+    this->sentTime = 0;
+}
+
+GraphUpdtMsgBT::GraphUpdtMsgBT(const GraphUpdtMsgBT& other) : ::omnetpp::cPacket(other)
+{
+    copy(other);
+}
+
+GraphUpdtMsgBT::~GraphUpdtMsgBT()
+{
+}
+
+GraphUpdtMsgBT& GraphUpdtMsgBT::operator=(const GraphUpdtMsgBT& other)
+{
+    if (this==&other) return *this;
+    ::omnetpp::cPacket::operator=(other);
+    copy(other);
+    return *this;
+}
+
+void GraphUpdtMsgBT::copy(const GraphUpdtMsgBT& other)
+{
+    this->graph = other.graph;
+    this->noNeighs = other.noNeighs;
+    this->sentTime = other.sentTime;
+}
+
+void GraphUpdtMsgBT::parsimPack(omnetpp::cCommBuffer *b) const
+{
+    ::omnetpp::cPacket::parsimPack(b);
+    doParsimPacking(b,this->graph);
+    doParsimPacking(b,this->noNeighs);
+    doParsimPacking(b,this->sentTime);
+}
+
+void GraphUpdtMsgBT::parsimUnpack(omnetpp::cCommBuffer *b)
+{
+    ::omnetpp::cPacket::parsimUnpack(b);
+    doParsimUnpacking(b,this->graph);
+    doParsimUnpacking(b,this->noNeighs);
+    doParsimUnpacking(b,this->sentTime);
+}
+
+const char * GraphUpdtMsgBT::getGraph() const
+{
+    return this->graph.c_str();
+}
+
+void GraphUpdtMsgBT::setGraph(const char * graph)
+{
+    this->graph = graph;
+}
+
+bool GraphUpdtMsgBT::getNoNeighs() const
+{
+    return this->noNeighs;
+}
+
+void GraphUpdtMsgBT::setNoNeighs(bool noNeighs)
+{
+    this->noNeighs = noNeighs;
+}
+
+::omnetpp::simtime_t GraphUpdtMsgBT::getSentTime() const
+{
+    return this->sentTime;
+}
+
+void GraphUpdtMsgBT::setSentTime(::omnetpp::simtime_t sentTime)
+{
+    this->sentTime = sentTime;
+}
+
+class GraphUpdtMsgBTDescriptor : public omnetpp::cClassDescriptor
+{
+  private:
+    mutable const char **propertynames;
+  public:
+    GraphUpdtMsgBTDescriptor();
+    virtual ~GraphUpdtMsgBTDescriptor();
+
+    virtual bool doesSupport(omnetpp::cObject *obj) const override;
+    virtual const char **getPropertyNames() const override;
+    virtual const char *getProperty(const char *propertyname) const override;
+    virtual int getFieldCount() const override;
+    virtual const char *getFieldName(int field) const override;
+    virtual int findField(const char *fieldName) const override;
+    virtual unsigned int getFieldTypeFlags(int field) const override;
+    virtual const char *getFieldTypeString(int field) const override;
+    virtual const char **getFieldPropertyNames(int field) const override;
+    virtual const char *getFieldProperty(int field, const char *propertyname) const override;
+    virtual int getFieldArraySize(void *object, int field) const override;
+
+    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
+    virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
+    virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
+
+    virtual const char *getFieldStructName(int field) const override;
+    virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
+};
+
+Register_ClassDescriptor(GraphUpdtMsgBTDescriptor)
+
+GraphUpdtMsgBTDescriptor::GraphUpdtMsgBTDescriptor() : omnetpp::cClassDescriptor("GraphUpdtMsgBT", "omnetpp::cPacket")
+{
+    propertynames = nullptr;
+}
+
+GraphUpdtMsgBTDescriptor::~GraphUpdtMsgBTDescriptor()
+{
+    delete[] propertynames;
+}
+
+bool GraphUpdtMsgBTDescriptor::doesSupport(omnetpp::cObject *obj) const
+{
+    return dynamic_cast<GraphUpdtMsgBT *>(obj)!=nullptr;
+}
+
+const char **GraphUpdtMsgBTDescriptor::getPropertyNames() const
+{
+    if (!propertynames) {
+        static const char *names[] = {  nullptr };
+        omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+        const char **basenames = basedesc ? basedesc->getPropertyNames() : nullptr;
+        propertynames = mergeLists(basenames, names);
+    }
+    return propertynames;
+}
+
+const char *GraphUpdtMsgBTDescriptor::getProperty(const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->getProperty(propertyname) : nullptr;
+}
+
+int GraphUpdtMsgBTDescriptor::getFieldCount() const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? 3+basedesc->getFieldCount() : 3;
+}
+
+unsigned int GraphUpdtMsgBTDescriptor::getFieldTypeFlags(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeFlags(field);
+        field -= basedesc->getFieldCount();
+    }
+    static unsigned int fieldTypeFlags[] = {
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+    };
+    return (field>=0 && field<3) ? fieldTypeFlags[field] : 0;
+}
+
+const char *GraphUpdtMsgBTDescriptor::getFieldName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldName(field);
+        field -= basedesc->getFieldCount();
+    }
+    static const char *fieldNames[] = {
+        "graph",
+        "noNeighs",
+        "sentTime",
+    };
+    return (field>=0 && field<3) ? fieldNames[field] : nullptr;
+}
+
+int GraphUpdtMsgBTDescriptor::findField(const char *fieldName) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    int base = basedesc ? basedesc->getFieldCount() : 0;
+    if (fieldName[0]=='g' && strcmp(fieldName, "graph")==0) return base+0;
+    if (fieldName[0]=='n' && strcmp(fieldName, "noNeighs")==0) return base+1;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+2;
+    return basedesc ? basedesc->findField(fieldName) : -1;
+}
+
+const char *GraphUpdtMsgBTDescriptor::getFieldTypeString(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeString(field);
+        field -= basedesc->getFieldCount();
+    }
+    static const char *fieldTypeStrings[] = {
+        "string",
+        "bool",
+        "simtime_t",
+    };
+    return (field>=0 && field<3) ? fieldTypeStrings[field] : nullptr;
+}
+
+const char **GraphUpdtMsgBTDescriptor::getFieldPropertyNames(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldPropertyNames(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+const char *GraphUpdtMsgBTDescriptor::getFieldProperty(int field, const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldProperty(field, propertyname);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+int GraphUpdtMsgBTDescriptor::getFieldArraySize(void *object, int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldArraySize(object, field);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsgBT *pp = (GraphUpdtMsgBT *)object; (void)pp;
+    switch (field) {
+        default: return 0;
+    }
+}
+
+const char *GraphUpdtMsgBTDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldDynamicTypeString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsgBT *pp = (GraphUpdtMsgBT *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+std::string GraphUpdtMsgBTDescriptor::getFieldValueAsString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldValueAsString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsgBT *pp = (GraphUpdtMsgBT *)object; (void)pp;
+    switch (field) {
+        case 0: return oppstring2string(pp->getGraph());
+        case 1: return bool2string(pp->getNoNeighs());
+        case 2: return simtime2string(pp->getSentTime());
+        default: return "";
+    }
+}
+
+bool GraphUpdtMsgBTDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->setFieldValueAsString(object,field,i,value);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsgBT *pp = (GraphUpdtMsgBT *)object; (void)pp;
+    switch (field) {
+        case 0: pp->setGraph((value)); return true;
+        case 1: pp->setNoNeighs(string2bool(value)); return true;
+        case 2: pp->setSentTime(string2simtime(value)); return true;
+        default: return false;
+    }
+}
+
+const char *GraphUpdtMsgBTDescriptor::getFieldStructName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructName(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    };
+}
+
+void *GraphUpdtMsgBTDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructValuePointer(object, field, i);
+        field -= basedesc->getFieldCount();
+    }
+    GraphUpdtMsgBT *pp = (GraphUpdtMsgBT *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
 Register_Class(routingDecisionsMsg)
 
 routingDecisionsMsg::routingDecisionsMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
@@ -1941,305 +2579,6 @@ void *routingDecisionsMsgDescriptor::getFieldStructValuePointer(void *object, in
         field -= basedesc->getFieldCount();
     }
     routingDecisionsMsg *pp = (routingDecisionsMsg *)object; (void)pp;
-    switch (field) {
-        default: return nullptr;
-    }
-}
-
-Register_Class(NetworkGraphMsg)
-
-NetworkGraphMsg::NetworkGraphMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
-{
-    this->numberVert = 0;
-}
-
-NetworkGraphMsg::NetworkGraphMsg(const NetworkGraphMsg& other) : ::omnetpp::cPacket(other)
-{
-    copy(other);
-}
-
-NetworkGraphMsg::~NetworkGraphMsg()
-{
-}
-
-NetworkGraphMsg& NetworkGraphMsg::operator=(const NetworkGraphMsg& other)
-{
-    if (this==&other) return *this;
-    ::omnetpp::cPacket::operator=(other);
-    copy(other);
-    return *this;
-}
-
-void NetworkGraphMsg::copy(const NetworkGraphMsg& other)
-{
-    this->numberVert = other.numberVert;
-    this->graphN = other.graphN;
-}
-
-void NetworkGraphMsg::parsimPack(omnetpp::cCommBuffer *b) const
-{
-    ::omnetpp::cPacket::parsimPack(b);
-    doParsimPacking(b,this->numberVert);
-    doParsimPacking(b,this->graphN);
-}
-
-void NetworkGraphMsg::parsimUnpack(omnetpp::cCommBuffer *b)
-{
-    ::omnetpp::cPacket::parsimUnpack(b);
-    doParsimUnpacking(b,this->numberVert);
-    doParsimUnpacking(b,this->graphN);
-}
-
-int NetworkGraphMsg::getNumberVert() const
-{
-    return this->numberVert;
-}
-
-void NetworkGraphMsg::setNumberVert(int numberVert)
-{
-    this->numberVert = numberVert;
-}
-
-const char * NetworkGraphMsg::getGraphN() const
-{
-    return this->graphN.c_str();
-}
-
-void NetworkGraphMsg::setGraphN(const char * graphN)
-{
-    this->graphN = graphN;
-}
-
-class NetworkGraphMsgDescriptor : public omnetpp::cClassDescriptor
-{
-  private:
-    mutable const char **propertynames;
-  public:
-    NetworkGraphMsgDescriptor();
-    virtual ~NetworkGraphMsgDescriptor();
-
-    virtual bool doesSupport(omnetpp::cObject *obj) const override;
-    virtual const char **getPropertyNames() const override;
-    virtual const char *getProperty(const char *propertyname) const override;
-    virtual int getFieldCount() const override;
-    virtual const char *getFieldName(int field) const override;
-    virtual int findField(const char *fieldName) const override;
-    virtual unsigned int getFieldTypeFlags(int field) const override;
-    virtual const char *getFieldTypeString(int field) const override;
-    virtual const char **getFieldPropertyNames(int field) const override;
-    virtual const char *getFieldProperty(int field, const char *propertyname) const override;
-    virtual int getFieldArraySize(void *object, int field) const override;
-
-    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
-    virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
-    virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
-
-    virtual const char *getFieldStructName(int field) const override;
-    virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
-};
-
-Register_ClassDescriptor(NetworkGraphMsgDescriptor)
-
-NetworkGraphMsgDescriptor::NetworkGraphMsgDescriptor() : omnetpp::cClassDescriptor("NetworkGraphMsg", "omnetpp::cPacket")
-{
-    propertynames = nullptr;
-}
-
-NetworkGraphMsgDescriptor::~NetworkGraphMsgDescriptor()
-{
-    delete[] propertynames;
-}
-
-bool NetworkGraphMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
-{
-    return dynamic_cast<NetworkGraphMsg *>(obj)!=nullptr;
-}
-
-const char **NetworkGraphMsgDescriptor::getPropertyNames() const
-{
-    if (!propertynames) {
-        static const char *names[] = {  nullptr };
-        omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-        const char **basenames = basedesc ? basedesc->getPropertyNames() : nullptr;
-        propertynames = mergeLists(basenames, names);
-    }
-    return propertynames;
-}
-
-const char *NetworkGraphMsgDescriptor::getProperty(const char *propertyname) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? basedesc->getProperty(propertyname) : nullptr;
-}
-
-int NetworkGraphMsgDescriptor::getFieldCount() const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 2+basedesc->getFieldCount() : 2;
-}
-
-unsigned int NetworkGraphMsgDescriptor::getFieldTypeFlags(int field) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldTypeFlags(field);
-        field -= basedesc->getFieldCount();
-    }
-    static unsigned int fieldTypeFlags[] = {
-        FD_ISEDITABLE,
-        FD_ISEDITABLE,
-    };
-    return (field>=0 && field<2) ? fieldTypeFlags[field] : 0;
-}
-
-const char *NetworkGraphMsgDescriptor::getFieldName(int field) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldName(field);
-        field -= basedesc->getFieldCount();
-    }
-    static const char *fieldNames[] = {
-        "numberVert",
-        "graphN",
-    };
-    return (field>=0 && field<2) ? fieldNames[field] : nullptr;
-}
-
-int NetworkGraphMsgDescriptor::findField(const char *fieldName) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    int base = basedesc ? basedesc->getFieldCount() : 0;
-    if (fieldName[0]=='n' && strcmp(fieldName, "numberVert")==0) return base+0;
-    if (fieldName[0]=='g' && strcmp(fieldName, "graphN")==0) return base+1;
-    return basedesc ? basedesc->findField(fieldName) : -1;
-}
-
-const char *NetworkGraphMsgDescriptor::getFieldTypeString(int field) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldTypeString(field);
-        field -= basedesc->getFieldCount();
-    }
-    static const char *fieldTypeStrings[] = {
-        "int",
-        "string",
-    };
-    return (field>=0 && field<2) ? fieldTypeStrings[field] : nullptr;
-}
-
-const char **NetworkGraphMsgDescriptor::getFieldPropertyNames(int field) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldPropertyNames(field);
-        field -= basedesc->getFieldCount();
-    }
-    switch (field) {
-        default: return nullptr;
-    }
-}
-
-const char *NetworkGraphMsgDescriptor::getFieldProperty(int field, const char *propertyname) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldProperty(field, propertyname);
-        field -= basedesc->getFieldCount();
-    }
-    switch (field) {
-        default: return nullptr;
-    }
-}
-
-int NetworkGraphMsgDescriptor::getFieldArraySize(void *object, int field) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldArraySize(object, field);
-        field -= basedesc->getFieldCount();
-    }
-    NetworkGraphMsg *pp = (NetworkGraphMsg *)object; (void)pp;
-    switch (field) {
-        default: return 0;
-    }
-}
-
-const char *NetworkGraphMsgDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldDynamicTypeString(object,field,i);
-        field -= basedesc->getFieldCount();
-    }
-    NetworkGraphMsg *pp = (NetworkGraphMsg *)object; (void)pp;
-    switch (field) {
-        default: return nullptr;
-    }
-}
-
-std::string NetworkGraphMsgDescriptor::getFieldValueAsString(void *object, int field, int i) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldValueAsString(object,field,i);
-        field -= basedesc->getFieldCount();
-    }
-    NetworkGraphMsg *pp = (NetworkGraphMsg *)object; (void)pp;
-    switch (field) {
-        case 0: return long2string(pp->getNumberVert());
-        case 1: return oppstring2string(pp->getGraphN());
-        default: return "";
-    }
-}
-
-bool NetworkGraphMsgDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->setFieldValueAsString(object,field,i,value);
-        field -= basedesc->getFieldCount();
-    }
-    NetworkGraphMsg *pp = (NetworkGraphMsg *)object; (void)pp;
-    switch (field) {
-        case 0: pp->setNumberVert(string2long(value)); return true;
-        case 1: pp->setGraphN((value)); return true;
-        default: return false;
-    }
-}
-
-const char *NetworkGraphMsgDescriptor::getFieldStructName(int field) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldStructName(field);
-        field -= basedesc->getFieldCount();
-    }
-    switch (field) {
-        default: return nullptr;
-    };
-}
-
-void *NetworkGraphMsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
-{
-    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    if (basedesc) {
-        if (field < basedesc->getFieldCount())
-            return basedesc->getFieldStructValuePointer(object, field, i);
-        field -= basedesc->getFieldCount();
-    }
-    NetworkGraphMsg *pp = (NetworkGraphMsg *)object; (void)pp;
     switch (field) {
         default: return nullptr;
     }

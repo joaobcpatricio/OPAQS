@@ -96,7 +96,7 @@ private:
     void returnSelectMsgIDList(vector<string> & selectedMessageIDList);
     int cacheListSize();
     //Graph
-    void handleNetworkGraphMsg(cMessage *msg);
+    //void handleNetworkGraphMsg(cMessage *msg);
     GraphT graphR;
     bool getGraph(string graphS);//, int numberVert);
     //GW
