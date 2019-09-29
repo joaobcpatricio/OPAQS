@@ -79,9 +79,7 @@ private:
     simsignal_t sumVecBytesReceivedSignal;
     simsignal_t dataReqBytesReceivedSignal;
     simsignal_t totalBytesReceivedSignal;
-    simsignal_t cacheBytesRemovedSignal;
-    simsignal_t cacheBytesAddedSignal;
-    simsignal_t cacheBytesUpdatedSignal;
+
 };
 
 #define EPIDEMICROUTINGLAYER_SIMMODULEINFO         " EpidemicRoutingLayer>!<" << simTime() << ">!<" << getParentModule()->getFullName()

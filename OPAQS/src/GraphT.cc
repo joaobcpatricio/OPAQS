@@ -46,6 +46,9 @@ void GraphT::cleanGraph(){
 void GraphT::maximumNoVert(int maximumNoVert){
     maxVert=maximumNoVert;
 }
+int GraphT::returnVvalue(){
+    return V;
+}
 
 //Return no. Max of Vertices
 int GraphT::returnMaxNoVert(){

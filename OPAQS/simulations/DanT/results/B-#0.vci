@@ -1,15 +1,15 @@
-file 182454 1569687910                                          
+file 178059 1569709075                                          
 version 2
-run B-0-20190928-17:24:59-26489
+run B-0-20190928-23:17:48-5092
 attr configname B
-attr datetime 20190928-17:24:59
+attr datetime 20190928-23:17:48
 attr experiment B
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 26489
+attr processid 5092
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -39,7 +39,7 @@ param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.application.endGeneratingMsg 999999s
-param **.routingLayer "\"RoutingLQE\""
+param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
@@ -47,6 +47,7 @@ param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
 param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
 param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -81,8 +82,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3120 143301 13 48210 0.05 80 9600 2 2 19200 38400
-1	146421 3356 29 470 0.1 0.199 200 -nan -nan -nan -nan
-2	149777 16338 1491 37652 1.688227738403 59.478750839471 568 141 80088 22785036 1217609538804
-3	166115 16338 1491 37652 1.688227738403 59.478750839471 568 141 80088 22785036 1217609538804
+0	3154 143128 13 47188 0.05 80 9600 2 2 19200 38400
+1	146282 3356 29 470 0.1 0.199 200 -nan -nan -nan -nan
+2	149638 14210 1442 35557 1.692590839471 56.888430839471 494 141 69654 17239365 801337403295
+3	163848 14210 1442 35557 1.692590839471 56.888430839471 494 141 69654 17239365 801337403295
 

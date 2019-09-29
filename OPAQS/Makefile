@@ -1,5 +1,6 @@
 all: checkmakefiles
 	cd src && $(MAKE)
+	rm -r simulations/DanT/DataResults/*
 
 clean: checkmakefiles
 	cd src && $(MAKE) clean
@@ -8,6 +9,7 @@ cleanall: checkmakefiles
 	cd src && $(MAKE) MODE=release clean
 	cd src && $(MAKE) MODE=debug clean
 	rm -f src/Makefile
+	
 
 makefiles:
 	cd src && opp_makemake -f --deep

@@ -219,7 +219,7 @@ void StorageM::saveData(cMessage *msg, int origin){
             }
             currentCacheSize -= removingCacheEntry->realPayloadSize;
             cacheList.erase(removingCacheEntry);
-            //emit(cacheBytesRemovedSignal, (long) removingCacheEntry->realPayloadSize);
+
         }
 
         //EV<<"Saving Msg with ID "<<omnetDataMsg->getNMsgOrder()<<" at time: "<<simTime().dbl()<<"\n";

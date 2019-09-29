@@ -56,9 +56,7 @@ simple RoutingLayer like IRoutingLayer
         @signal[sumVecBytesReceived](type=long);
         @signal[dataReqBytesReceived](type=long);
         @signal[totalBytesReceived](type=long);
-        @signal[cacheBytesRemoved](type=long);
-        @signal[cacheBytesAdded](type=long);
-        @signal[cacheBytesUpdated](type=long);
+
         
     
     gates:

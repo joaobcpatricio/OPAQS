@@ -44,15 +44,7 @@ network NetworkTormV2
         // stat: total bytes received by all nodes
         @statistic[totalBytesReceivedSum](source=sum(totalBytesReceived);record=max,last,vector);
 
-        // stat: cache removals in bytes by all nodes
-        @statistic[cacheBytesRemovedSum](source=sum(cacheBytesRemoved);record=max,last,vector);
-
-        // stat: cache additions in bytes by all nodes
-        @statistic[cacheBytesAddedSum](source=sum(cacheBytesAdded);record=max,last,vector);
-
-        // stat: cache updates in bytes by all nodes
-        @statistic[cacheBytesUpdatedSum](source=sum(cacheBytesUpdated);record=max,last,vector);         
-
+        
 		// from wireless layer
 		// stat: size of nodes in the wireless neghbourhood
 		@statistic[neighbourhoodSize](source=neighbourhoodSize;record=min,max,mean,vector);

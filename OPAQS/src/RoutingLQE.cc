@@ -44,9 +44,7 @@ void RoutingLQE::initialize(int stage)
         dataReqBytesReceivedSignal = registerSignal("dataReqBytesReceived");
         totalBytesReceivedSignal = registerSignal("totalBytesReceived");
 
-        cacheBytesRemovedSignal = registerSignal("cacheBytesRemoved");
-        cacheBytesAddedSignal = registerSignal("cacheBytesAdded");
-        cacheBytesUpdatedSignal = registerSignal("cacheBytesUpdated");
+
 
 
 

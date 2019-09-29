@@ -39,6 +39,7 @@ OBJS = \
     $O/NeighboringLayer.o \
     $O/RoutingLayer.o \
     $O/RoutingLQE.o \
+    $O/RoutingLqeGw.o \
     $O/StorageM.o \
     $O/WirelessInterface.o \
     $O/InternalMsg_m.o \

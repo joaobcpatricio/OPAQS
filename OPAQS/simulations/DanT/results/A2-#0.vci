@@ -1,15 +1,15 @@
-file 90305 1569688105                                           
+file 90343 1569771888                                           
 version 2
-run A2-0-20190928-17:28:20-26793
+run A2-0-20190929-16:44:43-10912
 attr configname A2
-attr datetime 20190928-17:28:20
+attr datetime 20190929-16:44:43
 attr experiment A2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 26793
+attr processid 10912
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -39,7 +39,7 @@ param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.application.endGeneratingMsg 999999s
-param **.routingLayer "\"RoutingLQE\""
+param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
@@ -47,6 +47,7 @@ param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
 param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
 param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -81,8 +82,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3123 66066 10 24584 0.05 50 4500 1 2 6000 9000
-1	69189 3349 22 452 0.1 0.199 200 -nan -nan -nan -nan
-2	72538 8883 1032 7789 1.142624192201 9.143493385287 320 141 45120 7241760 218172503520
-3	81421 8883 1032 7789 1.142624192201 9.143493385287 320 141 45120 7241760 218172503520
+0	3159 66068 10 24614 0.05 50 4500 1 2 6000 9000
+1	69227 3349 22 452 0.1 0.199 200 -nan -nan -nan -nan
+2	72576 8883 1032 7792 1.142624192201 9.143493385287 320 141 45120 7241760 218172503520
+3	81459 8883 1032 7792 1.142624192201 9.143493385287 320 141 45120 7241760 218172503520
 
