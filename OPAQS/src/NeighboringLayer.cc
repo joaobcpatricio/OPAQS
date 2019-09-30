@@ -840,6 +840,24 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
         found=FALSE;
         o=0;
     }
+
+
+    //check graph and clean if there is no path
+    myID=graphe.add_element(ownMACAddress);
+    for(int p=0;p<graphe.returnVvalue();p++){
+        string spath=graphe.returnShortestPath(myID, p);
+        if(spath==""){
+            for(int p2=0;p2<graphe.returnVvalue();p2++){
+                graphe.rem_edge(p,p2);
+                //EV<<"Cleaning graph \n";
+            }
+
+        }
+    }
+
+
+
+
     return true;
 }
 

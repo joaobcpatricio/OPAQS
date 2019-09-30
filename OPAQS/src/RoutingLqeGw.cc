@@ -147,6 +147,7 @@ void RoutingLqeGw::handleMessage(cMessage *msg)
 
 void RoutingLqeGw::checkGwStatus(){
 
+
     //calculate Gw rank
     int nVert=graphR.returnVvalue();
     EV<<"Já contei:"<<nVert<<"\n";
@@ -163,6 +164,7 @@ void RoutingLqeGw::checkGwStatus(){
         if(im_alone>=5){
             im_alone=0;
             actual_gateway=ownMACAddress;
+            no_act_gw=false;
         }
         cMessage *checkGW = new cMessage("Send Check Gw Event");
         EV<<"Checking GW status \n";
@@ -214,7 +216,17 @@ void RoutingLqeGw::checkGwStatus(){
         IDadd=-1;
     }
     if(bestGwId!=IDadd){
-        EV<<"ACTUAL GW IS BAD \n";
+        EV<<"ACTUAL GW IS different than best ranked \n";
+        if(bestGwId!=(-1)){
+            string addDf="Wf:00:00:00:00:";
+            if(bestGwId<10){
+                addDf.append("0");
+                addDf.append(std::to_string(bestGwId));
+            }else if(bestGwId>=10){
+                addDf.append(std::to_string(bestGwId));
+            }
+            actual_gateway=addDf;
+        }
     }
     string actual_gateway_temp;
     if(no_act_gw){  //if there's no gw gonna check 3 times (period 500ms) if i chose the same gw
@@ -650,12 +662,8 @@ void RoutingLqeGw::handleAckFromLowerLayer(cMessage *msg){
     }
 
     //PAmuLQE-NACK - when received the ack it deletes the msg so only one copie is in the network
-
+    //EV<<"Here deletes:"<<messageID<<"\n";
     Stor.deleteMsg(messageID);
-
-
-
-
 
 
     delete msg;
@@ -667,6 +675,8 @@ void RoutingLqeGw::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
     DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
     upperDataMsg->setFinalDestinationNodeName(actual_gateway.c_str());
     upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
+
+
     Stor.saveData(msg,0);
 
 
@@ -693,7 +703,11 @@ void RoutingLqeGw::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
 
         saveGraphHere();
 
-
+        if(actual_gateway==ownMACAddress){ //If I am the Gw, I delete this Msg from storage
+            //EV<<"Here from up deletes:"<<upperDataMsg->getDataName()<<"\n";
+            Stor.deleteMsg(upperDataMsg->getDataName());
+            EV<<"Deleting cause I'm GW \n";
+        }
     delete msg;
 }
 
@@ -801,6 +815,7 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     //Data Treatment if I'm gateway:
     if(imDestiny){ //GwResults
         if(Stor.msgExistsInC(msg)){
+
             //guarda aqui nº pacotes recebidos que ja tinha recebido antes e guardado.
             //EV<<"Sava \n";
         }

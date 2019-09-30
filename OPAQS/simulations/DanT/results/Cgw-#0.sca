@@ -1,0 +1,158 @@
+version 2
+run Cgw-0-20190930-21:51:17-10823
+attr configname Cgw
+attr datetime 20190930-21:51:17
+attr experiment Cgw
+attr inifile SimV2.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network NetworkTormV2
+attr processid 10823
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.mobility.traceFile "\"paths/Cgw.movements\""
+param **.numNodes 4
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0,1,2,3\""
+param **application.startMultipleMsg false
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 90s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1ms
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0\""
+param **application.startMultipleMsg true
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 999999s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
+param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.antiEntropyInterval 500ms
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **.neighboring.delayPerDataMsg 0.1
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
+param **.neighboring.sendWifiFirst true
+param **.neighboring.maxLengthGraph 20
+param **.neighboring.max_age 999999s
+param **.neighboring.max_absent_time 1s
+param **.wirelessIfc.wirelessRange 40m
+param **.wirelessIfc.neighbourScanInterval 50ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 32byte
+param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 400ms
+param **.wirelessIfc.my_limit_rate 0bps
+param **.bluetoothIfc.wirelessRange 40m
+param **.bluetoothIfc.neighbourScanInterval 100ms
+param **.bluetoothIfc.bandwidthBitRate 100000bps
+param **.bluetoothIfc.wirelessHeaderSize 16byte
+param **.bluetoothIfc.minSSI -90
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.is3D false
+param **.mobility.nodeId -1
+
+scalar NetworkTormV2.node[0].routing numEventsHandled 2495
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 3289
+scalar NetworkTormV2.node[1].routing numEventsHandled 2573
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 3341
+scalar NetworkTormV2.node[2].routing numEventsHandled 2383
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 2832
+scalar NetworkTormV2.node[3].routing numEventsHandled 2310
+scalar NetworkTormV2.node[3].neighboring numEventsHandled 2569
+scalar NetworkTormV2 neighbourhoodSize:min 0
+attr source neighbourhoodSize
+scalar NetworkTormV2 neighbourhoodSize:max 2
+attr source neighbourhoodSize
+scalar NetworkTormV2 neighbourhoodSize:mean 0.82166666666667
+attr source neighbourhoodSize
+scalar NetworkTormV2 totalBytesReceivedSum:max 25380
+attr source sum(totalBytesReceived)
+scalar NetworkTormV2 totalBytesReceivedSum:last 25380
+attr source sum(totalBytesReceived)
+scalar NetworkTormV2 dataReqBytesReceivedSum:max -nan
+attr source sum(dataReqBytesReceived)
+scalar NetworkTormV2 dataReqBytesReceivedSum:last -nan
+attr source sum(dataReqBytesReceived)
+scalar NetworkTormV2 sumVecBytesReceivedSum:max -nan
+attr source sum(sumVecBytesReceived)
+scalar NetworkTormV2 sumVecBytesReceivedSum:last -nan
+attr source sum(sumVecBytesReceived)
+scalar NetworkTormV2 dataBytesReceivedSum:max 25380
+attr source sum(dataBytesReceived)
+scalar NetworkTormV2 dataBytesReceivedSum:last 25380
+attr source sum(dataBytesReceived)
+scalar NetworkTormV2 deliveryRatio:max -nan
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+scalar NetworkTormV2 deliveryRatio:min -nan
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+scalar NetworkTormV2 dataDelay:max -nan
+attr source dataDelay
+scalar NetworkTormV2 dataDelay:min -nan
+attr source dataDelay
+scalar NetworkTormV2 dataDelay:mean -nan
+attr source dataDelay
+statistic NetworkTormV2 dataDelay:histogram
+field count 0
+field mean -nan
+field stddev -nan
+field min -nan
+field max -nan
+field sum 0
+field sqrsum 0
+attr source dataDelay
+bin	-inf	0
+bin	0	0
+bin	1	0
+scalar NetworkTormV2 nonLikedDataBytesReceivableByAllNodesSum:max -nan
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+scalar NetworkTormV2 nonLikedDataBytesReceivableByAllNodesSum:last -nan
+attr source sum(nonLikedDataBytesReceivableByAllNodes)
+scalar NetworkTormV2 likedDataBytesReceivableByAllNodesSum:max -nan
+attr source sum(likedDataBytesReceivableByAllNodes)
+scalar NetworkTormV2 likedDataBytesReceivableByAllNodesSum:last -nan
+attr source sum(likedDataBytesReceivableByAllNodes)
+scalar NetworkTormV2 duplicateDataBytesReceivedSum:max -nan
+attr source sum(duplicateDataBytesReceived)
+scalar NetworkTormV2 duplicateDataBytesReceivedSum:last -nan
+attr source sum(duplicateDataBytesReceived)
+scalar NetworkTormV2 nonLikedDataBytesReceivedSum:max -nan
+attr source sum(nonLikedDataBytesReceived)
+scalar NetworkTormV2 nonLikedDataBytesReceivedSum:last -nan
+attr source sum(nonLikedDataBytesReceived)
+scalar NetworkTormV2 likedDataBytesReceivedSum:max -nan
+attr source sum(likedDataBytesReceived)
+scalar NetworkTormV2 likedDataBytesReceivedSum:last -nan
+attr source sum(likedDataBytesReceived)
+
