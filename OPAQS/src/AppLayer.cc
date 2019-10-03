@@ -214,7 +214,7 @@ void AppLayer::handleMessage(cMessage *msg)
         //EV<<"Destino set1:"<<dataMsg->getFinalDestinationNodeName()<<"\n";
         if(dataMsg->getFinalDestinationNodeName()!=NULL){
         //EV<<"Origem set:"<<dataMsg->getFinalDestinationNodeName()<<"\n";
-            EV<<"Destino set2:"<<dataMsg->getFinalDestinationNodeName()<<"\n";
+            //EV<<"Destino set2:"<<dataMsg->getFinalDestinationNodeName()<<"\n";
             dataMsg->setDestinationOriented(true);
         }
         //--

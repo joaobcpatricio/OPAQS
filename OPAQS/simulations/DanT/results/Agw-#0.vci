@@ -1,15 +1,15 @@
-file 165288 1569871908                                          
+file 165134 1569969370                                          
 version 2
-run Agw-0-20190930-20:31:35-6979
+run Agw-0-20191001-23:36:02-11293
 attr configname Agw
-attr datetime 20190930-20:31:35
+attr datetime 20191001-23:36:02
 attr experiment Agw
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 6979
+attr processid 11293
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -66,14 +66,14 @@ param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
-param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.wirelessRange 40m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
 param **.wirelessIfc.my_limit_rate 0bps
-param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.wirelessRange 40m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
 param **.bluetoothIfc.wirelessHeaderSize 16byte
@@ -91,8 +91,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3495 133560 19 43019 0.05 50 9000 0 2 9000 12000
-1	137055 10274 43 1300 0.1 0.199 600 -nan -nan -nan -nan
-2	147329 8979 6742 11945 6.638032534095 9.147653385287 320 141 45120 7241760 218172503520
-3	156308 8979 6742 11945 6.638032534095 9.147653385287 320 141 45120 7241760 218172503520
+0	3497 133668 19 42883 0.05 50 9000 0 2 9000 12000
+1	137165 10274 43 1300 0.1 0.199 600 -nan -nan -nan -nan
+2	147439 8847 5678 12659 5.538032534095 10.128453385287 317 141 44697 7106823 212103132435
+3	156286 8847 5678 12659 5.538032534095 10.128453385287 317 141 44697 7106823 212103132435
 

@@ -834,7 +834,7 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
             o++;
         }
         if(!found){
-            EV<<"rem id:"<<i<<"\n";
+            //EV<<"rem id:"<<i<<"\n";
             graphe.rem_edge(myID,i);
         }
         found=FALSE;

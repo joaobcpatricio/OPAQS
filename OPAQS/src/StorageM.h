@@ -38,14 +38,14 @@ public:
 
     void cleanStor();
     void maximumCacheS(int maximumCacheSizeValue);
-    void saveData(cMessage *msg, int origin);
+    bool saveData(cMessage *msg, int origin, bool reachedGW);
     void ageDataInStorage();
     bool msgIDExists(string messageID);
     int msgIDListPos(string messageID);
     DataMsg* pullOutMsg(cMessage *msg,string ownMACAddress, int count);
     vector<string> returnSelectMsgIDList(vector<string> & selectedMessageIDList, int maximumHopCount);
     int cacheListSize();
-    void deleteMsg(string messageID);
+    bool deleteMsg(string messageID);
     bool msgExistsInC(cMessage *msg);
     //28/08/19
     void updatePrevHopsList(int position, string HopAddr);
@@ -80,6 +80,9 @@ public:
         simtime_t receivedTime; //timeStamp
         simtime_t sentTimeRout; //timeStamp
         simtime_t receivedTimeRout; //timeStamp
+
+        bool reached_gw=false;
+        double waitingToDel;
     };
 
     list<CacheEntry> cacheList;
@@ -88,6 +91,10 @@ public:
     void updateMaxAge(double value);
     void saveResultsStorTimeRec(cMessage *msg, int origin);
     void saveResultsStorTimeSent(cMessage *msg,int origin );
+    double kill_pcktP=9999;
+    void updateKillPcktP(double kill_pckt);
+    void ageFlaggedDataInStorage();
+    void saveMsgReachedGw(string dataName, double time);
 
 };
 

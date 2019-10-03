@@ -1,7 +1,7 @@
 RESULTS Sent DataMsg 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Tue Oct  1 00:06:23 2019
-elapsed time: 8.9e-08s
+Started simulation at Thu Oct  3 20:44:29 2019
+elapsed time: 8.6e-08s
 Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22001 | Message ID: 1 | Time SentFromNIC: 5.528309 | End 
 Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22002 | Message ID: 2 | Time SentFromNIC: 5.542149 | End 
 Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22003 | Message ID: 3 | Time SentFromNIC: 5.555989 | End 
@@ -54,10 +54,19 @@ Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0
 Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22044 | Message ID: 44 | Time SentFromNIC: 43.628309 | End 
 Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22045 | Message ID: 45 | Time SentFromNIC: 44.178309 | End 
 Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22046 | Message ID: 46 | Time SentFromNIC: 45.278309 | End 
-Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22047 | Message ID: 47 | Time SentFromNIC: 46.378309 | End 
-Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22047 | Message ID: 47 | Time SentFromNIC: 47.978309 | End 
-Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22048 | Message ID: 48 | Time SentFromNIC: 47.992149 | End 
-Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22049 | Message ID: 49 | Time SentFromNIC: 48.528309 | End 
-Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22050 | Message ID: 50 | Time SentFromNIC: 50.978309 | End 
-Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22051 | Message ID: 51 | Time SentFromNIC: 50.992149 | End 
-Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22052 | Message ID: 52 | Time SentFromNIC: 51.528309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22047 | Message ID: 47 | Time SentFromNIC: 46.878309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22048 | Message ID: 48 | Time SentFromNIC: 47.428309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22049 | Message ID: 49 | Time SentFromNIC: 49.078309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22050 | Message ID: 50 | Time SentFromNIC: 49.628309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22051 | Message ID: 51 | Time SentFromNIC: 50.178309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22052 | Message ID: 52 | Time SentFromNIC: 52.378309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22053 | Message ID: 53 | Time SentFromNIC: 52.392149 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22054 | Message ID: 54 | Time SentFromNIC: 54.028309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22055 | Message ID: 55 | Time SentFromNIC: 54.578309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22056 | Message ID: 56 | Time SentFromNIC: 55.128309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22057 | Message ID: 57 | Time SentFromNIC: 56.778309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22058 | Message ID: 58 | Time SentFromNIC: 57.328309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22059 | Message ID: 59 | Time SentFromNIC: 58.428309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22060 | Message ID: 60 | Time SentFromNIC: 59.528309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22061 | Message ID: 61 | Time SentFromNIC: 60.628309 | End 
+Source: Wf:00:00:00:00:00 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node0/item-22062 | Message ID: 62 | Time SentFromNIC: 61.178309 | End 

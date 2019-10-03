@@ -65,6 +65,8 @@
  *     simtime_t sentTime;	//timeStamp
  *     simtime_t receivedTime;	//timeStamp
  * 
+ *     bool reached_gw = false;
+ * 
  *     //OTHERS old:    
  *     //string dummyPayloadContent;	
  *     //int msgType; //?? not sure 4 what
@@ -97,6 +99,7 @@ class DataMsg : public ::omnetpp::cPacket
     ::omnetpp::simtime_t receivedTimeRout;
     ::omnetpp::simtime_t sentTime;
     ::omnetpp::simtime_t receivedTime;
+    bool reached_gw;
 
   private:
     void copy(const DataMsg& other);
@@ -157,13 +160,15 @@ class DataMsg : public ::omnetpp::cPacket
     virtual void setSentTime(::omnetpp::simtime_t sentTime);
     virtual ::omnetpp::simtime_t getReceivedTime() const;
     virtual void setReceivedTime(::omnetpp::simtime_t receivedTime);
+    virtual bool getReached_gw() const;
+    virtual void setReached_gw(bool reached_gw);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const DataMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, DataMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:67</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:69</tt> by nedtool.
  * <pre>
  * //***********************************************************************************  /
  * // Acknowledge message.
@@ -237,7 +242,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const AckMsg& obj) {obj.par
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:94</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:96</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Beacon message.
@@ -330,7 +335,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconMsg& obj) {obj.
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:120</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:122</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Data Request message.

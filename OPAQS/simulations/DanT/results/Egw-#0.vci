@@ -1,15 +1,15 @@
-file 211496 1569884795                                          
+file 203111 1570131881                                          
 version 2
-run Egw-0-20191001-00:06:23-15585
+run Egw-0-20191003-20:44:29-30690
 attr configname Egw
-attr datetime 20191001-00:06:23
+attr datetime 20191003-20:44:29
 attr experiment Egw
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 15585
+attr processid 30690
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -30,12 +30,13 @@ param **.application.endGeneratingMsg 99999s
 param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
-param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
 param **.routing.gateway_list "\"\""
 param **.routing.actual_gateway "\"\""
 param **.routing.gwCheckPeriod 5s
+param **.routing.useTTL false
+param **.routing.kill_pcktP 5s
 param **.numNodes 2
 param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1ms
@@ -58,6 +59,7 @@ param **.routing.max_age 999999s
 param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
 param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
 param **.routing.gwCheckPeriod 5s
+param **.routing.kill_pcktP 10s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -92,8 +94,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3489 178740 13 57826 0.05 100 12000 0 2 13812 19088
-1	182229 7072 29 57288 0.1 99.1 400 -nan -nan -nan -nan
-2	189301 11097 2935 57707 5.528453385287 99.728453385287 375 141 52875 9940500 350869828500
-3	200398 11097 2935 57707 5.528453385287 99.728453385287 375 141 52875 9940500 350869828500
+0	3552 178740 13 56170 0.05 100 12000 0 2 13812 19088
+1	182292 7072 29 55625 0.1 99.1 400 -nan -nan -nan -nan
+2	189364 6873 2935 55835 5.528453385287 99.378453385287 234 141 32994 3876795 85456192185
+3	196237 6873 2935 55835 5.528453385287 99.378453385287 234 141 32994 3876795 85456192185
 

@@ -69,6 +69,7 @@ private:
     int temp_gw;
     int im_alone=0;
 
+    double kill_pcktP;
 
 
 
@@ -119,6 +120,8 @@ private:
     void checkGwStatus();
     void initializeResultsFiles();
     void saveResultsGwChk();
+    void checkStoredMsgs();
+    void saveMsgReachedGw(string dataName, double time);
 
 
 

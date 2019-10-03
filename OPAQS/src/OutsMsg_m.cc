@@ -196,6 +196,7 @@ DataMsg::DataMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
     this->receivedTimeRout = 0;
     this->sentTime = 0;
     this->receivedTime = 0;
+    this->reached_gw = false;
 }
 
 DataMsg::DataMsg(const DataMsg& other) : ::omnetpp::cPacket(other)
@@ -244,6 +245,7 @@ void DataMsg::copy(const DataMsg& other)
     this->receivedTimeRout = other.receivedTimeRout;
     this->sentTime = other.sentTime;
     this->receivedTime = other.receivedTime;
+    this->reached_gw = other.reached_gw;
 }
 
 void DataMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -270,6 +272,7 @@ void DataMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->receivedTimeRout);
     doParsimPacking(b,this->sentTime);
     doParsimPacking(b,this->receivedTime);
+    doParsimPacking(b,this->reached_gw);
 }
 
 void DataMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -302,6 +305,7 @@ void DataMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->receivedTimeRout);
     doParsimUnpacking(b,this->sentTime);
     doParsimUnpacking(b,this->receivedTime);
+    doParsimUnpacking(b,this->reached_gw);
 }
 
 const char * DataMsg::getSourceAddress() const
@@ -524,6 +528,16 @@ void DataMsg::setReceivedTime(::omnetpp::simtime_t receivedTime)
     this->receivedTime = receivedTime;
 }
 
+bool DataMsg::getReached_gw() const
+{
+    return this->reached_gw;
+}
+
+void DataMsg::setReached_gw(bool reached_gw)
+{
+    this->reached_gw = reached_gw;
+}
+
 class DataMsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -589,7 +603,7 @@ const char *DataMsgDescriptor::getProperty(const char *propertyname) const
 int DataMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 20+basedesc->getFieldCount() : 20;
+    return basedesc ? 21+basedesc->getFieldCount() : 21;
 }
 
 unsigned int DataMsgDescriptor::getFieldTypeFlags(int field) const
@@ -621,8 +635,9 @@ unsigned int DataMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<20) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<21) ? fieldTypeFlags[field] : 0;
 }
 
 const char *DataMsgDescriptor::getFieldName(int field) const
@@ -654,8 +669,9 @@ const char *DataMsgDescriptor::getFieldName(int field) const
         "receivedTimeRout",
         "sentTime",
         "receivedTime",
+        "reached_gw",
     };
-    return (field>=0 && field<20) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<21) ? fieldNames[field] : nullptr;
 }
 
 int DataMsgDescriptor::findField(const char *fieldName) const
@@ -682,6 +698,7 @@ int DataMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='r' && strcmp(fieldName, "receivedTimeRout")==0) return base+17;
     if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+18;
     if (fieldName[0]=='r' && strcmp(fieldName, "receivedTime")==0) return base+19;
+    if (fieldName[0]=='r' && strcmp(fieldName, "reached_gw")==0) return base+20;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -714,8 +731,9 @@ const char *DataMsgDescriptor::getFieldTypeString(int field) const
         "simtime_t",
         "simtime_t",
         "simtime_t",
+        "bool",
     };
-    return (field>=0 && field<20) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<21) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **DataMsgDescriptor::getFieldPropertyNames(int field) const
@@ -803,6 +821,7 @@ std::string DataMsgDescriptor::getFieldValueAsString(void *object, int field, in
         case 17: return simtime2string(pp->getReceivedTimeRout());
         case 18: return simtime2string(pp->getSentTime());
         case 19: return simtime2string(pp->getReceivedTime());
+        case 20: return bool2string(pp->getReached_gw());
         default: return "";
     }
 }
@@ -837,6 +856,7 @@ bool DataMsgDescriptor::setFieldValueAsString(void *object, int field, int i, co
         case 17: pp->setReceivedTimeRout(string2simtime(value)); return true;
         case 18: pp->setSentTime(string2simtime(value)); return true;
         case 19: pp->setReceivedTime(string2simtime(value)); return true;
+        case 20: pp->setReached_gw(string2bool(value)); return true;
         default: return false;
     }
 }

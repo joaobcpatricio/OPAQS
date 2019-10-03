@@ -261,8 +261,10 @@ void EpidemicRoutingLayer::handleDataMsgFromUpperLayer(cMessage *msg) //Store in
 {
     DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
         //upperDataMsg->setFinalDestinationNodeName("Wf:00:00:00:00:ff");
-        upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
-    Stor.saveData(msg,0);
+
+    upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
+    bool var=false;
+    Stor.saveData(msg,0,var);
 
 
 
@@ -320,7 +322,8 @@ void EpidemicRoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     //Stor.saveData(msg,1);
     if(cacheData) {
         //Stor.deleteMsg(omnetDataMsg->getMessageID());
-        Stor.saveData(msg,1);
+        bool val=false;
+        Stor.saveData(msg,1,val);
         EV<<"Deleting data in cache from lower layer \n";
     }
 

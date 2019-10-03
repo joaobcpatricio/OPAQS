@@ -328,8 +328,8 @@ ShortPath:
 1->0:39;
 1->2:55;
 2->1:55;
-2->3:54;
-3->2:54;
+2->3:53;
+3->2:53;
  | Time is : 45.264469 |End 
 ShortPath: 
 0->1-> | Graph: 
@@ -339,46 +339,239 @@ ShortPath:
 2->1:55;
 2->3:53;
 3->2:53;
- | Time is : 46.364469 |End 
+ | Time is : 46.864469 |End 
 ShortPath: 
 0->1-> | Graph: 
 0->1:39;
 1->0:39;
-1->2:55;
-2->1:55;
-2->3:53;
-3->2:53;
- | Time is : 47.964469 |End 
+ | Time is : 47.414469 |End 
 ShortPath: 
 0->1-> | Graph: 
 0->1:39;
 1->0:39;
-1->2:55;
-2->1:55;
-2->3:53;
-3->2:53;
- | Time is : 47.964469 |End 
+ | Time is : 49.064469 |End 
 ShortPath: 
 0->1-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 48.514469 |End 
+ | Time is : 49.064469 |End 
 ShortPath: 
 0->1-> | Graph: 
 0->1:39;
 1->0:39;
 1->2:57;
 2->1:57;
- | Time is : 50.964469 |End 
+2->3:52;
+3->2:52;
+ | Time is : 49.614469 |End 
 ShortPath: 
 0->1-> | Graph: 
 0->1:39;
 1->0:39;
 1->2:57;
 2->1:57;
- | Time is : 50.964469 |End 
+2->3:52;
+3->2:52;
+ | Time is : 49.614469 |End 
 ShortPath: 
 0->1-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 51.514469 |End 
+1->2:57;
+2->1:57;
+2->3:52;
+3->2:52;
+ | Time is : 50.164469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:57;
+2->1:57;
+2->3:52;
+3->2:52;
+ | Time is : 50.164469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 50.714469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 50.714469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:59;
+2->1:59;
+2->3:51;
+3->2:51;
+ | Time is : 52.364469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:59;
+2->1:59;
+2->3:51;
+3->2:51;
+ | Time is : 52.364469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 52.914469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 52.914469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 54.014469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 54.014469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 54.564469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 54.564469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 55.114469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 55.114469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 55.664469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 55.664469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:72;
+2->1:72;
+2->3:43;
+3->2:43;
+ | Time is : 56.764469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:72;
+2->1:72;
+2->3:43;
+3->2:43;
+ | Time is : 56.764469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:72;
+2->1:72;
+2->3:43;
+3->2:43;
+ | Time is : 57.314469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:72;
+2->1:72;
+2->3:43;
+3->2:43;
+ | Time is : 57.314469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 57.864469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 57.864469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 58.414469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 58.414469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 58.964469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 58.964469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 59.514469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 59.514469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 60.064469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 60.064469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 60.614469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 60.614469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 61.164469 |End 
+ShortPath: 
+0->1-> | Graph: 
+0->1:39;
+1->0:39;
+ | Time is : 61.164469 |End 

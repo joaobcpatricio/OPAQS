@@ -1,7 +1,7 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Tue Oct  1 00:06:23 2019
-elapsed time: 1.18e-07s
+Started simulation at Thu Oct  3 20:44:29 2019
+elapsed time: 1.13e-07s
 Source: Wf:00:00:00:00:00 | Message ID: 1 | Time SentFromSrc: 5.514469 |End 
 Source: Wf:00:00:00:00:00 | Message ID: 2 | Time SentFromSrc: 5.514469 |End 
 Source: Wf:00:00:00:00:00 | Message ID: 3 | Time SentFromSrc: 5.514469 |End 
@@ -54,10 +54,19 @@ Source: Wf:00:00:00:00:00 | Message ID: 43 | Time SentFromSrc: 42.514469 |End
 Source: Wf:00:00:00:00:00 | Message ID: 44 | Time SentFromSrc: 43.614469 |End 
 Source: Wf:00:00:00:00:00 | Message ID: 45 | Time SentFromSrc: 44.164469 |End 
 Source: Wf:00:00:00:00:00 | Message ID: 46 | Time SentFromSrc: 45.264469 |End 
-Source: Wf:00:00:00:00:00 | Message ID: 47 | Time SentFromSrc: 46.364469 |End 
-Source: Wf:00:00:00:00:00 | Message ID: 47 | Time SentFromSrc: 47.964469 |End 
-Source: Wf:00:00:00:00:00 | Message ID: 48 | Time SentFromSrc: 47.964469 |End 
-Source: Wf:00:00:00:00:00 | Message ID: 49 | Time SentFromSrc: 48.514469 |End 
-Source: Wf:00:00:00:00:00 | Message ID: 50 | Time SentFromSrc: 50.964469 |End 
-Source: Wf:00:00:00:00:00 | Message ID: 51 | Time SentFromSrc: 50.964469 |End 
-Source: Wf:00:00:00:00:00 | Message ID: 52 | Time SentFromSrc: 51.514469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 47 | Time SentFromSrc: 46.864469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 48 | Time SentFromSrc: 47.414469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 49 | Time SentFromSrc: 49.064469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 50 | Time SentFromSrc: 49.614469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 51 | Time SentFromSrc: 50.164469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 52 | Time SentFromSrc: 52.364469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 53 | Time SentFromSrc: 52.364469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 54 | Time SentFromSrc: 54.014469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 55 | Time SentFromSrc: 54.564469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 56 | Time SentFromSrc: 55.114469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 57 | Time SentFromSrc: 56.764469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 58 | Time SentFromSrc: 57.314469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 59 | Time SentFromSrc: 58.414469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 60 | Time SentFromSrc: 59.514469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 61 | Time SentFromSrc: 60.614469 |End 
+Source: Wf:00:00:00:00:00 | Message ID: 62 | Time SentFromSrc: 61.164469 |End 

@@ -1,7 +1,7 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Tue Oct  1 00:06:23 2019
-elapsed time: 6.3e-08s
+Started simulation at Thu Oct  3 20:44:29 2019
+elapsed time: 6.5e-08s
 Source: Wf:00:00:00:00:02 | Message ID: 1 | Time SentFromSrc: 5.519109 |End 
 Source: Wf:00:00:00:00:02 | Message ID: 2 | Time SentFromSrc: 5.519109 |End 
 Source: Wf:00:00:00:00:02 | Message ID: 3 | Time SentFromSrc: 5.519109 |End 
@@ -59,11 +59,3 @@ Source: Wf:00:00:00:00:02 | Message ID: 42 | Time SentFromSrc: 44.914620 |End
 Source: Wf:00:00:00:00:02 | Message ID: 43 | Time SentFromSrc: 44.914620 |End 
 Source: Wf:00:00:00:00:02 | Message ID: 44 | Time SentFromSrc: 44.914620 |End 
 Source: Wf:00:00:00:00:02 | Message ID: 45 | Time SentFromSrc: 44.914620 |End 
-Source: Wf:00:00:00:00:02 | Message ID: 41 | Time SentFromSrc: 49.214619 |End 
-Source: Wf:00:00:00:00:02 | Message ID: 42 | Time SentFromSrc: 49.214619 |End 
-Source: Wf:00:00:00:00:02 | Message ID: 43 | Time SentFromSrc: 49.214619 |End 
-Source: Wf:00:00:00:00:02 | Message ID: 46 | Time SentFromSrc: 49.214619 |End 
-Source: Wf:00:00:00:00:02 | Message ID: 47 | Time SentFromSrc: 49.214619 |End 
-Source: Wf:00:00:00:00:02 | Message ID: 48 | Time SentFromSrc: 49.214619 |End 
-Source: Wf:00:00:00:00:02 | Message ID: 49 | Time SentFromSrc: 49.214619 |End 
-Source: Wf:00:00:00:00:02 | Message ID: 50 | Time SentFromSrc: 49.214619 |End 

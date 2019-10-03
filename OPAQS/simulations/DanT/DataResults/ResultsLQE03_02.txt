@@ -1,245 +1,268 @@
 ShortPath: 
 3->2-> | Graph: 
-2->3:44;
-3->2:44;
- | Time is : 55.614546 |End 
+0->1:39;
+1->0:39;
+1->2:65;
+2->1:65;
+2->3:47;
+3->2:47;
+ | Time is : 53.664577 |End 
+ShortPath: 
+3->2-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:65;
+2->1:65;
+2->3:47;
+3->2:47;
+ | Time is : 53.664577 |End 
+ShortPath: 
+3->2-> | Graph: 
+2->3:45;
+3->2:45;
+ | Time is : 55.314551 |End 
+ShortPath: 
+3->2-> | Graph: 
+2->3:45;
+3->2:45;
+ | Time is : 55.314551 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:44;
 3->2:44;
- | Time is : 55.614546 |End 
+ | Time is : 55.864542 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:44;
 3->2:44;
- | Time is : 56.164536 |End 
+ | Time is : 55.864542 |End 
 ShortPath: 
 3->2-> | Graph: 
-2->3:44;
-3->2:44;
- | Time is : 56.164536 |End 
+2->3:43;
+3->2:43;
+ | Time is : 56.964523 |End 
 ShortPath: 
 3->2-> | Graph: 
-2->3:41;
-3->2:41;
- | Time is : 58.314501 |End 
+2->3:43;
+3->2:43;
+ | Time is : 56.964523 |End 
 ShortPath: 
 3->2-> | Graph: 
-2->3:41;
-3->2:41;
- | Time is : 58.314501 |End 
-ShortPath: 
-3->2-> | Graph: 
-2->3:41;
-3->2:41;
- | Time is : 60.464469 |End 
+2->3:43;
+3->2:43;
+ | Time is : 57.514514 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:41;
 3->2:41;
- | Time is : 60.464469 |End 
+ | Time is : 58.614496 |End 
+ShortPath: 
+3->2-> | Graph: 
+2->3:41;
+3->2:41;
+ | Time is : 59.164487 |End 
+ShortPath: 
+3->2-> | Graph: 
+2->3:40;
+3->2:40;
+ | Time is : 60.264472 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:39;
 3->2:39;
- | Time is : 61.014462 |End 
-ShortPath: 
-3->2-> | Graph: 
-2->3:39;
-3->2:39;
- | Time is : 61.564455 |End 
-ShortPath: 
-3->2-> | Graph: 
-2->3:39;
-3->2:39;
- | Time is : 62.114448 |End 
-ShortPath: 
-3->2-> | Graph: 
-2->3:39;
-3->2:39;
- | Time is : 62.114448 |End 
+ | Time is : 61.364457 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:37;
 3->2:37;
- | Time is : 63.214437 |End 
+ | Time is : 61.914451 |End 
+ShortPath: 
+3->2-> | Graph: 
+2->3:37;
+3->2:37;
+ | Time is : 62.464444 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:36;
 3->2:36;
- | Time is : 64.314426 |End 
+ | Time is : 63.564433 |End 
+ShortPath: 
+3->2-> | Graph: 
+2->3:36;
+3->2:36;
+ | Time is : 64.114428 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:35;
 3->2:35;
- | Time is : 65.414417 |End 
+ | Time is : 65.214419 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:34;
 3->2:34;
- | Time is : 66.514409 |End 
+ | Time is : 66.314411 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:33;
 3->2:33;
- | Time is : 67.614403 |End 
-ShortPath: 
-3->2-> | Graph: 
-2->3:33;
-3->2:33;
- | Time is : 68.164400 |End 
+ | Time is : 67.414404 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:31;
 3->2:31;
- | Time is : 69.264394 |End 
+ | Time is : 68.514398 |End 
+ShortPath: 
+3->2-> | Graph: 
+2->3:31;
+3->2:31;
+ | Time is : 69.614393 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:30;
 3->2:30;
- | Time is : 70.364390 |End 
+ | Time is : 70.164391 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:28;
 3->2:28;
- | Time is : 71.464386 |End 
+ | Time is : 71.264387 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:28;
 3->2:28;
- | Time is : 72.564383 |End 
+ | Time is : 72.364383 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:27;
 3->2:27;
- | Time is : 73.114381 |End 
+ | Time is : 73.464380 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:25;
 3->2:25;
- | Time is : 74.214379 |End 
+ | Time is : 74.564378 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:24;
 3->2:24;
- | Time is : 75.314377 |End 
+ | Time is : 75.114377 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:24;
 3->2:24;
- | Time is : 76.414376 |End 
+ | Time is : 76.214376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:22;
 3->2:22;
- | Time is : 77.514375 |End 
+ | Time is : 77.314375 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:20;
 3->2:20;
- | Time is : 78.614375 |End 
+ | Time is : 78.414375 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:18;
 3->2:18;
- | Time is : 79.164375 |End 
-ShortPath: 
-3->2-> | Graph: 
-2->3:18;
-3->2:18;
- | Time is : 80.264376 |End 
+ | Time is : 79.514375 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 81.364376 |End 
+ | Time is : 80.614376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 82.464376 |End 
+ | Time is : 81.164376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 83.564376 |End 
+ | Time is : 82.264376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 84.114376 |End 
+ | Time is : 83.364376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 85.214376 |End 
+ | Time is : 84.464376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 86.314376 |End 
+ | Time is : 85.564376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 87.414376 |End 
+ | Time is : 86.114376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 88.514376 |End 
+ | Time is : 87.214376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 89.614376 |End 
+ | Time is : 88.314376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 90.164376 |End 
+ | Time is : 89.414376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 91.264376 |End 
+ | Time is : 90.514376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 92.364376 |End 
+ | Time is : 91.614376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 93.464376 |End 
+ | Time is : 92.164376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 94.564376 |End 
+ | Time is : 93.264376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 95.114376 |End 
+ | Time is : 94.364376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 96.214376 |End 
+ | Time is : 95.464376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 97.314376 |End 
+ | Time is : 96.564376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 98.414376 |End 
+ | Time is : 97.114376 |End 
 ShortPath: 
 3->2-> | Graph: 
 2->3:16;
 3->2:16;
- | Time is : 99.514376 |End 
+ | Time is : 98.214376 |End 
+ShortPath: 
+3->2-> | Graph: 
+2->3:16;
+3->2:16;
+ | Time is : 99.314376 |End 

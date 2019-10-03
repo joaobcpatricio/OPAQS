@@ -30,9 +30,11 @@ void RoutingLqeGw::initialize(int stage)
         gateway_list = par("gateway_list").stringValue();
         actual_gateway = par("actual_gateway").stringValue();
         gwCheckPeriod = par("gwCheckPeriod");
+        kill_pcktP = par("kill_pcktP");
 
     } else if (stage == 1) {
         Stor.updateMaxAge(max_age);
+        Stor.updateKillPcktP(kill_pcktP);
         setGatewayList();
         printGatewayList();
         updateGateway();
@@ -165,6 +167,7 @@ void RoutingLqeGw::checkGwStatus(){
             im_alone=0;
             actual_gateway=ownMACAddress;
             no_act_gw=false;
+            //checkStoredMsgs();
         }
         cMessage *checkGW = new cMessage("Send Check Gw Event");
         EV<<"Checking GW status \n";
@@ -268,6 +271,10 @@ void RoutingLqeGw::checkGwStatus(){
     }
     saveResultsGwChk();
 
+    if(actual_gateway==ownMACAddress){
+        checkStoredMsgs();
+    }
+
 }
 
 //Saves the received graph from neighboring here for later use in decision;
@@ -337,12 +344,12 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
 
     if(actual_gateway!=""){ //if it has no gw, no sending decision will be made
 
-    EV<<"Routing: handleDataReqMsg\n";
-    //pullOutMsg(msg);
-    DataReqMsg *dataRequestMsg = dynamic_cast<DataReqMsg*>(msg);
+        EV<<"Routing: handleDataReqMsg\n";
+        //pullOutMsg(msg);
+        DataReqMsg *dataRequestMsg = dynamic_cast<DataReqMsg*>(msg);
 
-    //if(dataRequestMsg->getProb()>=0.5){
-    //checks list of msgs in cache
+        //if(dataRequestMsg->getProb()>=0.5){
+        //checks list of msgs in cache
         vector<string> selectedMessageIDList;
         returnSelectMsgIDList(selectedMessageIDList);
         vector<string>::iterator iteratorMessageIDList;
@@ -359,17 +366,32 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
                string messageID = *iteratorMessageIDList;
                bool found = Stor.msgIDExists(messageID);
                int position=Stor.msgIDListPos(messageID);
-               if(found){ //if there is a stored DataMsg
-                   //verify NIC:
-                   string SouceDRAdd = dataRequestMsg->getSourceAddress();
-                   if((SouceDRAdd.substr(0,2))=="BT"){
-                       MyAddH=ownBTMACAddress;
+               string SouceDRAdd = dataRequestMsg->getSourceAddress();
+               if((SouceDRAdd.substr(0,2))=="BT"){
+                   MyAddH=ownBTMACAddress;
+               }else{
+
+                   MyAddH=ownMACAddress;
+               }
+               bool itsOk=false;
+               if(found){
+                   DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
+                   if(dataMsg->getReached_gw()){
+                       EV<<"Reached gateway at"<<MyAddH<<" name:"<<dataMsg->getDataName()<<"\n";
+                    itsOk=false;
                    }else{
-                       MyAddH=ownMACAddress;
+                       itsOk=true;
                    }
+                   delete dataMsg;
+               }
+
+
+
+               if(itsOk){ //if there is a stored DataMsg
+                   //verify NIC:
                    DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
                    //Update GW
-                   updateGateway();
+                   //updateGateway();
 
                    dataMsg->setFinalDestinationNodeName(actual_gateway.c_str());
 
@@ -544,6 +566,66 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
     }
 }
 
+void RoutingLqeGw::checkStoredMsgs(){   //deletes stored Msgs if I'm the gw
+
+    //Goes through the cache list to send the stored Msgs
+    vector<string> selectedMessageIDList;
+    returnSelectMsgIDList(selectedMessageIDList);
+    vector<string>::iterator iteratorMessageIDList;
+    iteratorMessageIDList = selectedMessageIDList.begin();
+    inCache = selectedMessageIDList.size();
+    int i=0;
+
+    DataReqMsg *dataRequestMsg = new DataReqMsg();
+    dataRequestMsg->setSourceAddress(ownMACAddress.c_str());
+
+    if(!isSending && !isReceiving && (waitS<=simTime().dbl())){
+        int cnt=0;
+        while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
+            isSending=true;
+            EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
+            string messageID = *iteratorMessageIDList;
+            bool found = Stor.msgIDExists(messageID);
+            int position=Stor.msgIDListPos(messageID);
+
+
+            bool itsOk=false;
+            if(found){
+                DataMsg *dataMsg = Stor.pullOutMsg(dataRequestMsg,MyAddH, position);
+                if(dataMsg->getReached_gw()){
+                    EV<<"Reached gateway at"<<MyAddH<<" name:"<<dataMsg->getDataName()<<"\n";
+                    itsOk=false;
+                }else{
+                    itsOk=true;
+                }
+                delete dataMsg;
+            }
+
+
+
+            if(itsOk){//itsOk){ //if there is a stored DataMsg
+                DataMsg *dataMsg = Stor.pullOutMsg(dataRequestMsg,MyAddH, position);
+                EV<<"pull out on check \n";
+                //if(dataMsg->getReached_gw()){EV<<"Break on check stored msgs \n";break;}
+                double time_f_sent=dataMsg->getSentTimeRout().dbl();
+
+                if(actual_gateway==ownMACAddress){ //If I am the Gw, I delete this Msg from storage
+                    //EV<<"Here from up deletes:"<<upperDataMsg->getDataName()<<"\n";
+                    bool delt=Stor.deleteMsg(messageID);
+                    EV<<"Deleting cause I'm GW \n";
+
+                    if(delt){
+                        saveMsgReachedGw(messageID, time_f_sent);
+                        //EV<<"Noted \n";
+                    }
+                }
+                delete dataMsg;
+            }
+            iteratorMessageIDList++;
+        }
+    }
+    delete dataRequestMsg;
+}
 
 //Added 26/06
 /*********************************************************************************************************
@@ -647,6 +729,7 @@ void RoutingLqeGw::handleAckFromLowerLayer(cMessage *msg){
     AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
     string messageID = ackMsg->getMessageID();
     bool isFinalDest=ackMsg->getIsFinalDest();
+    EV<<"Received ack for sent "<<ackMsg->getMessageID()<<"\n";
 
     if(isFinalDest){
         //Stor.deleteMsg(messageID); //PARA JÁ NAO QUERO QUE APAGUE PARA TESTAR SITUAÇÃO ATUAL DE SPREAD
@@ -676,8 +759,8 @@ void RoutingLqeGw::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
     upperDataMsg->setFinalDestinationNodeName(actual_gateway.c_str());
     upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
 
-
-    Stor.saveData(msg,0);
+    bool reached_gwH=false;
+    Stor.saveData(msg,0, reached_gwH);
 
 
         //Save Data
@@ -702,11 +785,16 @@ void RoutingLqeGw::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
         out.close();
 
         saveGraphHere();
-
+       // EV<<"actGw:"<<actual_gateway<<" me:"<<ownMACAddress<<"\n";
         if(actual_gateway==ownMACAddress){ //If I am the Gw, I delete this Msg from storage
             //EV<<"Here from up deletes:"<<upperDataMsg->getDataName()<<"\n";
-            Stor.deleteMsg(upperDataMsg->getDataName());
-            EV<<"Deleting cause I'm GW \n";
+            bool delet = Stor.deleteMsg(upperDataMsg->getDataName());
+            EV<<"Deleting my msg cause I'm GW "<<upperDataMsg->getDataName()<<" \n";
+
+            if(delet){
+               // EV<<"Delete:"<<upperDataMsg->getDataName()<<"\n";
+                saveMsgReachedGw(upperDataMsg->getDataName(), simTime().dbl());
+            }
         }
     delete msg;
 }
@@ -801,11 +889,13 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     }
 
 
-
+    bool stored=false;
     //Saving Data
-    if(cacheData) {
+    if(actual_gateway==ownMACAddress) {
         EV<<"Saving data in cache from lower layer \n";
-        Stor.saveData(msg,1);
+        stored=Stor.saveData(msg,1, true);
+    }else{
+        stored=Stor.saveData(msg,1,false);
     }
 
 
@@ -819,6 +909,20 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
             //guarda aqui nº pacotes recebidos que ja tinha recebido antes e guardado.
             //EV<<"Sava \n";
         }
+
+        //bool delt=false;
+        /*if(actual_gateway==ownMACAddress){  //If I'm GW, delete Msg
+            //delt=Stor.deleteMsg(omnetDataMsg->getDataName());
+        //}
+
+            if(stored){
+
+                string MsgId=omnetDataMsg->getDataName();
+
+                //saveMsgReachedGw(MsgId, omnetDataMsg->getSentTimeRout().dbl());
+
+            }
+        }*/
     }
 
 
@@ -1117,6 +1221,43 @@ void RoutingLqeGw::saveResultsGwChk(){
                 out<<timeGen;
                 out.close();
 }
+
+void RoutingLqeGw::saveMsgReachedGw(string dataName, double time){
+    //save info into file
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ReachedGwName";
+    nameF.append(".txt");
+    std::ofstream out(nameF, std::ios_base::app);
+    //Name of data
+    string dName=dataName;
+    dName.append("\n");
+    out<<dName;
+    out.close();
+
+    //save info into file
+    string nameS="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GwTimeSent";
+    nameS.append(".txt");
+    std::ofstream outs(nameS, std::ios_base::app);
+    //time of data sent
+    std::string timeMsgS = std::to_string(time);//getInjectedTime().dbl());
+    string timeGenS=timeMsgS;
+    timeGenS.append("\n");
+    outs<<timeGenS;
+    outs.close();
+
+
+    //save info into file
+    string nameFe="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GwTimeRec";
+    nameFe.append(".txt");
+    std::ofstream oute(nameFe, std::ios_base::app);
+    //time of data rec
+    std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+    string timeGen=timeMsg;
+    timeGen.append("\n");
+    oute<<timeGen;
+    oute.close();
+
+}
+
 
 /***************************************************************************************
  * Cleans the list of AppRegisteredApps, calls the destructor of the Cache/Storage

@@ -41,6 +41,8 @@ packet DataMsg {
     simtime_t receivedTimeRout;//Time msg received in routing of any receiving node						
     simtime_t sentTime;	//timeStamp
 	simtime_t receivedTime;	//timeStamp
+	
+	bool reached_gw=false;
     
     //OTHERS old:    
     //string dummyPayloadContent;	

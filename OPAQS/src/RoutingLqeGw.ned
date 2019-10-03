@@ -47,7 +47,7 @@ simple RoutingLqeGw like IRoutingLayer
 		
 		double gwCheckPeriod @unit(s) = default(999999999999s);
 		
-		
+		double kill_pcktP @unit(s) = default(999999999999s);
 		
 		
         // icon used

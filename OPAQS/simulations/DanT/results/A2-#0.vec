@@ -1,14 +1,14 @@
 version 2
-run A2-0-20190929-16:44:43-10912
+run A2-0-20191001-22:34:31-6681
 attr configname A2
-attr datetime 20190929-16:44:43
+attr datetime 20191001-22:34:31
 attr experiment A2
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 10912
+attr processid 6681
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -56,14 +56,14 @@ param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
-param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.wirelessRange 40m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
 param **.wirelessIfc.my_limit_rate 0bps
-param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.wirelessRange 40m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
 param **.bluetoothIfc.wirelessHeaderSize 16byte

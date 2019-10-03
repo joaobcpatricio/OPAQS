@@ -608,7 +608,8 @@ void RoutingLQE::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
     DataMsg *upperDataMsg = dynamic_cast<DataMsg*>(msg);
     upperDataMsg->setFinalDestinationNodeName(actual_gateway.c_str());
     upperDataMsg->setOriginatorNodeMAC(ownMACAddress.c_str());
-    Stor.saveData(msg,0);
+    bool var=false;
+    Stor.saveData(msg,0,var);
 
 
         //Save Data
@@ -732,7 +733,8 @@ void RoutingLQE::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     //Saving Data
     if(cacheData) {
         EV<<"Saving data in cache from lower layer \n";
-        Stor.saveData(msg,1);
+        bool var=false;
+        Stor.saveData(msg,1,var);
     }
 
 

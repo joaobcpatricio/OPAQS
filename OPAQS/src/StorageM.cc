@@ -79,7 +79,7 @@ bool StorageM::msgExistsInC(cMessage *msg){
  *
  * Por limpar - já não precisa de receber a origem?
  */
-void StorageM::saveData(cMessage *msg, int origin){
+bool StorageM::saveData(cMessage *msg, int origin, bool reachedGW){
    EV<<"saveData: \n";
 
     DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
@@ -151,7 +151,6 @@ void StorageM::saveData(cMessage *msg, int origin){
                    if(origin){
                        ownMACAddress = omnetDataMsg->getDestinationAddress();
                        string destMACAddress=omnetDataMsg->getOriginatorNodeMAC() ;
-
                        string nameFInd="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsStorInd";
                        string nMY=ownMACAddress.substr(15,17);
                        string nD=destMACAddress.substr(15,17);
@@ -159,48 +158,41 @@ void StorageM::saveData(cMessage *msg, int origin){
                        nameFInd.append("_");
                        nameFInd.append(nD);
                        nameFInd.append(".txt");
-
-
-
                        std::ofstream outInd(nameFInd, std::ios_base::app);
-                                          //Data Name
-                                          string srcMACInd=omnetDataMsg->getDataName();
-                                          string srcerInd="Source: ";
-                                          srcerInd.append(srcMACInd);
-                                          outInd<<srcerInd;
-                                          //MessageID
-                                          std::string msIDInd=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
-                                          string msIDisInd=" | Message ID: ";
-                                          msIDisInd.append(msIDInd);
-                                          outInd<<msIDisInd;
-                                          //Time generated
-                                          std::string timeMsgInd = std::to_string(omnetDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
-                                          string timeGenInd=" | Time generated: ";
-                                          timeGenInd.append(timeMsgInd);
-                                          outInd<<timeGenInd;
-                                          //Time sent from src
-                                          std::string timeSMsgInd = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
-                                          string timeSSrcInd=" | Time sentFromSrcR: ";
-                                          timeSSrcInd.append(timeSMsgInd);
-                                          outInd<<timeSSrcInd;
-                                          /*//Time sent from neigh
-                                          std::string timeSMsgN = std::to_string(omnetDataMsg->getSentTime().dbl());//getInjectedTime().dbl());
-                                          string timeSN=" | Time sentFromNeigh: ";
-                                          timeSN.append(timeSMsgN);
-                                           out<<timeSN;*/
-                                          //time received here
-                                          std::string timeRMsgInd = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
-                                          string timeRecInd=" | Time receivedFromSrcR: ";
-                                          timeRecInd.append(timeRMsgInd);
-                                          outInd<<timeRecInd;
-                                          outInd<<" |End \n";
-                                          outInd.close();
+                       //Data Name
+                       string srcMACInd=omnetDataMsg->getDataName();
+                       string srcerInd="Source: ";
+                       srcerInd.append(srcMACInd);
+                       outInd<<srcerInd;
+                       //MessageID
+                       std::string msIDInd=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
+                       string msIDisInd=" | Message ID: ";
+                       msIDisInd.append(msIDInd);
+                       outInd<<msIDisInd;
+                       //Time generated
+                       std::string timeMsgInd = std::to_string(omnetDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
+                       string timeGenInd=" | Time generated: ";
+                       timeGenInd.append(timeMsgInd);
+                       outInd<<timeGenInd;
+                       //Time sent from src
+                       std::string timeSMsgInd = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
+                       string timeSSrcInd=" | Time sentFromSrcR: ";
+                       timeSSrcInd.append(timeSMsgInd);
+                       outInd<<timeSSrcInd;
+                     /*//Time sent from neigh
+                       std::string timeSMsgN = std::to_string(omnetDataMsg->getSentTime().dbl());//getInjectedTime().dbl());
+                       string timeSN=" | Time sentFromNeigh: ";
+                       timeSN.append(timeSMsgN);
+                       out<<timeSN;*/
+                       //time received here
+                       std::string timeRMsgInd = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
+                       string timeRecInd=" | Time receivedFromSrcR: ";
+                       timeRecInd.append(timeRMsgInd);
+                       outInd<<timeRecInd;
+                       outInd<<" |End \n";
+                       outInd.close();
 
                    }
-
-
-
-
 
 
 
@@ -221,6 +213,9 @@ void StorageM::saveData(cMessage *msg, int origin){
             cacheList.erase(removingCacheEntry);
 
         }
+
+        //clean old data and flagged data
+
 
         //EV<<"Saving Msg with ID "<<omnetDataMsg->getNMsgOrder()<<" at time: "<<simTime().dbl()<<"\n";
 
@@ -268,8 +263,19 @@ void StorageM::saveData(cMessage *msg, int origin){
         }
         cacheEntry.prevHopListSize = omnetDataMsg->getPrevHopsListArraySize();
         //EV<<"Size of prevHopsListSize: "<<cacheEntry.prevHopListSize<<"\n";
-        EV<<"Size1 is: "<<cacheEntry.prevHopListSize<<"\n";
+        //EV<<"Size1 is: "<<cacheEntry.prevHopListSize<<"\n";
 
+
+        if(reachedGW){
+            EV<<"Reached Gw stored \n";
+            cacheEntry.waitingToDel=simTime().dbl()+kill_pcktP;
+            cacheEntry.reached_gw=true;
+            saveMsgReachedGw(omnetDataMsg->getDataName(), omnetDataMsg->getSentTimeRout().dbl());
+        }else{
+            cacheEntry.reached_gw=false;
+            EV<<"Msg stored normal"<<cacheEntry.dataName<<"\n";
+        }
+        ageFlaggedDataInStorage();
 
 
 
@@ -280,6 +286,12 @@ void StorageM::saveData(cMessage *msg, int origin){
     }
 
     cacheEntry.lastAccessedTime = simTime().dbl();
+
+    if(!found){ //if stored
+        return true;
+    }else { //if already was in cache
+        return false;
+    }
 
 }
 
@@ -331,6 +343,10 @@ void StorageM::updateMaxAge(double value){
     max_age=value;
 }
 
+void StorageM::updateKillPcktP(double kill_pckt){
+    kill_pcktP=kill_pcktP;
+}
+
 
 /*************************************************************************************
  * Verifies if there's data older than the limited time. If so, deletes it from cache.
@@ -358,10 +374,38 @@ void StorageM::ageDataInStorage(){
     }
 }
 
+/*************************************************************************************
+ * Verifies if there's flagged data older than the limited time. If so, deletes it from cache.
+ */
+void StorageM::ageFlaggedDataInStorage(){
+
+    //EV << "ageFlaggedDataInCache\n";
+    // remove expired data items
+    int expiredFound = TRUE;
+    while (expiredFound) {
+        expiredFound = FALSE;
+        auto itC = cacheList.begin();
+//Runs the list from the beggining to the end in search for an expired element of the list;
+        while (itC != cacheList.end()) {
+            if(itC->reached_gw && (itC->waitingToDel < simTime().dbl())){
+                EV << "ageFlaggedDataInCache\n";
+                expiredFound = TRUE;
+                break;
+            }
+            itC++;
+        }
+        if (expiredFound) {
+            currentCacheSize -= itC->realPacketSize;
+            cacheList.erase(itC);
+        }
+    }
+}
+
 /*****************************************************************************************
  * Checks if msgID exists in cache (going through the cache list)
  */
 bool StorageM::msgIDExists(string messageID){
+    ageFlaggedDataInStorage();
 
     auto itC = cacheList.begin();
     bool found = FALSE;
@@ -381,7 +425,7 @@ bool StorageM::msgIDExists(string messageID){
  * Returns the number in position of the list the element is
  */
 int StorageM::msgIDListPos(string messageID){
-
+    ageFlaggedDataInStorage();
     auto itC = cacheList.begin();
     int count=0;
     while (itC != cacheList.end()) {
@@ -425,6 +469,9 @@ void StorageM::updatePrevHopsList(int position, string HopAddr){
  */
 DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     EV<<"pullOutMsg SM \n";
+
+    ageFlaggedDataInStorage();
+
     DataReqMsg *dataRequestMsg = dynamic_cast<DataReqMsg*>(msg);
     auto itC = cacheList.begin();
     int countM=1;
@@ -464,6 +511,7 @@ DataMsg* StorageM::pullOutMsg(cMessage *msg, string ownMACAddress, int count){
     dataMsg->setReceivedTime(itC->receivedTime);
     dataMsg->setSentTimeRout(itC->sentTimeRout);
     dataMsg->setReceivedTimeRout(itC->receivedTimeRout);
+    dataMsg->setReached_gw(itC->reached_gw);
 
     //Added 28/07/19 14h23
     int vi=0;
@@ -529,11 +577,48 @@ int StorageM::cacheListSize(){
    return cacheList.size();
 }
 
+void StorageM::saveMsgReachedGw(string dataName, double time){
+    //save info into file
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ReachedGwName";
+    nameF.append(".txt");
+    std::ofstream out(nameF, std::ios_base::app);
+    //Name of data
+    string dName=dataName;
+    dName.append("\n");
+    out<<dName;
+    out.close();
+
+    //save info into file
+    string nameS="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GwTimeSent";
+    nameS.append(".txt");
+    std::ofstream outs(nameS, std::ios_base::app);
+    //time of data sent
+    std::string timeMsgS = std::to_string(time);//getInjectedTime().dbl());
+    string timeGenS=timeMsgS;
+    timeGenS.append("\n");
+    outs<<timeGenS;
+    outs.close();
+
+
+    //save info into file
+    string nameFe="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GwTimeRec";
+    nameFe.append(".txt");
+    std::ofstream oute(nameFe, std::ios_base::app);
+    //time of data rec
+    std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+    string timeGen=timeMsg;
+    timeGen.append("\n");
+    oute<<timeGen;
+    oute.close();
+
+}
+
 
 /**********************************************************************************************************
  *Deletes a message on the Storage list
  */
-void StorageM::deleteMsg(string messageID){
+bool StorageM::deleteMsg(string messageID){
+    bool delet=false;
     if(msgIDExists(messageID)){
         EV << "Delete Data In Cache\n";
         int msgFound = TRUE;
@@ -544,6 +629,7 @@ void StorageM::deleteMsg(string messageID){
             while (itC != cacheList.end()) {
                 if (itC->messageID == messageID) {
                     msgFound = TRUE;
+                    delet=true;
                     EV <<"Verdade-erase \n";
                     break;
                 }
@@ -556,6 +642,12 @@ void StorageM::deleteMsg(string messageID){
         }
     }else{
         EV<<"ERRO: MSG N EXISTE NA CACHE\n";
+    }
+
+    if(delet){
+        return true;
+    }else{
+        return false;
     }
 }
 

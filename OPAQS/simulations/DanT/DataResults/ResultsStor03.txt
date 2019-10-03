@@ -1,7 +1,7 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Tue Oct  1 00:06:23 2019
-elapsed time: 8.3e-08s
+Started simulation at Thu Oct  3 20:44:29 2019
+elapsed time: 3e-08s
 Source: /app/node3/item-22001 | Message ID: 1 | Time generated: 0.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
 Source: /app/node3/item-22002 | Message ID: 2 | Time generated: 1.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
 Source: /app/node3/item-22003 | Message ID: 3 | Time generated: 2.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
