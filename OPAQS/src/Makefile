@@ -36,6 +36,7 @@ OBJS = \
     $O/EpidemicRoutingLayer.o \
     $O/GraphT.o \
     $O/LinkAdaptLayer.o \
+    $O/Logger.o \
     $O/NeighboringLayer.o \
     $O/RoutingLayer.o \
     $O/RoutingLQE.o \

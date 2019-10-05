@@ -1,15 +1,15 @@
-file 203111 1570131881                                          
+file 203111 1570237039                                          
 version 2
-run Egw-0-20191003-20:44:29-30690
+run Egw-0-20191005-01:56:59-11990
 attr configname Egw
-attr datetime 20191003-20:44:29
+attr datetime 20191005-01:56:59
 attr experiment Egw
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 30690
+attr processid 11990
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -66,7 +66,7 @@ param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
 param **.neighboring.sendWifiFirst true
-param **.neighboring.maxLengthGraph 20
+param **.neighboring.maxLengthGraph 50
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
 param **.wirelessIfc.wirelessRange 40m

@@ -1309,6 +1309,7 @@ void BeaconMsg::copy(const BeaconMsg& other)
     this->sentTime = other.sentTime;
     this->receivedTime = other.receivedTime;
     this->injectedTime = other.injectedTime;
+    this->neighEner = other.neighEner;
 }
 
 void BeaconMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -1325,6 +1326,7 @@ void BeaconMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->sentTime);
     doParsimPacking(b,this->receivedTime);
     doParsimPacking(b,this->injectedTime);
+    doParsimPacking(b,this->neighEner);
 }
 
 void BeaconMsg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -1341,6 +1343,7 @@ void BeaconMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->sentTime);
     doParsimUnpacking(b,this->receivedTime);
     doParsimUnpacking(b,this->injectedTime);
+    doParsimUnpacking(b,this->neighEner);
 }
 
 const char * BeaconMsg::getSourceAddress() const
@@ -1453,6 +1456,16 @@ void BeaconMsg::setInjectedTime(::omnetpp::simtime_t injectedTime)
     this->injectedTime = injectedTime;
 }
 
+const char * BeaconMsg::getNeighEner() const
+{
+    return this->neighEner.c_str();
+}
+
+void BeaconMsg::setNeighEner(const char * neighEner)
+{
+    this->neighEner = neighEner;
+}
+
 class BeaconMsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -1518,7 +1531,7 @@ const char *BeaconMsgDescriptor::getProperty(const char *propertyname) const
 int BeaconMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 11+basedesc->getFieldCount() : 11;
+    return basedesc ? 12+basedesc->getFieldCount() : 12;
 }
 
 unsigned int BeaconMsgDescriptor::getFieldTypeFlags(int field) const
@@ -1541,8 +1554,9 @@ unsigned int BeaconMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<11) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<12) ? fieldTypeFlags[field] : 0;
 }
 
 const char *BeaconMsgDescriptor::getFieldName(int field) const
@@ -1565,8 +1579,9 @@ const char *BeaconMsgDescriptor::getFieldName(int field) const
         "sentTime",
         "receivedTime",
         "injectedTime",
+        "neighEner",
     };
-    return (field>=0 && field<11) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<12) ? fieldNames[field] : nullptr;
 }
 
 int BeaconMsgDescriptor::findField(const char *fieldName) const
@@ -1584,6 +1599,7 @@ int BeaconMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+8;
     if (fieldName[0]=='r' && strcmp(fieldName, "receivedTime")==0) return base+9;
     if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+10;
+    if (fieldName[0]=='n' && strcmp(fieldName, "neighEner")==0) return base+11;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1607,8 +1623,9 @@ const char *BeaconMsgDescriptor::getFieldTypeString(int field) const
         "simtime_t",
         "simtime_t",
         "simtime_t",
+        "string",
     };
-    return (field>=0 && field<11) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<12) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **BeaconMsgDescriptor::getFieldPropertyNames(int field) const
@@ -1686,6 +1703,7 @@ std::string BeaconMsgDescriptor::getFieldValueAsString(void *object, int field, 
         case 8: return simtime2string(pp->getSentTime());
         case 9: return simtime2string(pp->getReceivedTime());
         case 10: return simtime2string(pp->getInjectedTime());
+        case 11: return oppstring2string(pp->getNeighEner());
         default: return "";
     }
 }
@@ -1711,6 +1729,7 @@ bool BeaconMsgDescriptor::setFieldValueAsString(void *object, int field, int i, 
         case 8: pp->setSentTime(string2simtime(value)); return true;
         case 9: pp->setReceivedTime(string2simtime(value)); return true;
         case 10: pp->setInjectedTime(string2simtime(value)); return true;
+        case 11: pp->setNeighEner((value)); return true;
         default: return false;
     }
 }

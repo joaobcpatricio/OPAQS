@@ -21,7 +21,8 @@
 
 #include "StorageM.h"
 #include <fstream>
-#include "GraphT.h";
+#include "GraphT.h"
+#include "Logger.h"
 
 //file libs
 #include <iostream>
@@ -70,6 +71,10 @@ private:
     int im_alone=0;
 
     double kill_pcktP;
+
+    int count_dataPkts_sent=0;      //count the number of dataPkts sent neighbor
+    int count_dataPkts_sentGw=0;    //count the number of dataPkts sent to BS (I'm Gw)
+    int count_allPkts_sent=0;       //counts all pkts sent (except broadcast (beacons))
 
 
 
@@ -123,7 +128,7 @@ private:
     void checkStoredMsgs();
     void saveMsgReachedGw(string dataName, double time);
 
-
+    Logger Log;
 
 
 

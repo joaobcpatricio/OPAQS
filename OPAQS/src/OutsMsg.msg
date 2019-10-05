@@ -102,11 +102,12 @@ packet BeaconMsg {
 	double Prob;	
 	double MyPosX;
 	double MyPosY;
-	string neighGraph;
+	string neighGraph;	//Graph of neighbors LQE
 	int numberVert;
 	simtime_t sentTime;	//timeStamp
 	simtime_t receivedTime;	//timeStamp
 	simtime_t injectedTime;	//timeStamp	, generation time on neighboring 
+	string neighEner;	//Table of energy of neighbors
 }
 
 //***********************************************************************************//

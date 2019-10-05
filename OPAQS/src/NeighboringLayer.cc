@@ -124,6 +124,10 @@ void NeighboringLayer::handleMessage(cMessage *msg)
             EV<<"Neighboring: handleGraphUpdtMsg\n";
             handleGraphUpdtMsgFromLowerLayer(msg);
 
+        }else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<pcktSentMsg*>(msg) != NULL) {
+            EV<<"Neighboring: handlepcktSentMsg\n";
+            handlePcktSentMsg(msg);
+
         // received some unexpected packet
         } else {
 
@@ -772,23 +776,6 @@ void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selec
     EV<<"BackOffT canceled\n";
 }
 
-/*double NeighboringLayer::findInNeigLayerList(string addrN){
-    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
-    iteratorSyncedNeighbour = syncedNeighbourList.begin();
-    while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
-        SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
-        if (syncedNeighbour->nodeMACAddress.c_str()==addrN) {
-            double timstp= syncedNeighbour->lastBrecT.dbl();
-            return timstp;
-        }
-        iteratorSyncedNeighbour++;
-
-    }
-    return 0;
-}*/
-
-
-
 
 /*************************************************************************
  * ⇒ Checks my Neighbor list and removes no longer direct-neighbors from Graph.
@@ -875,8 +862,8 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     int weight =2;
 
     int array[maxLengthGraph][maxLengthGraph];
-    for(int p1=0;p1<20;p1++){
-        for(int p2=0;p2<20;p2++){
+    for(int p1=0;p1<maxLengthGraph;p1++){
+        for(int p2=0;p2<maxLengthGraph;p2++){
             array[p1][p2]=-1;
         }
     }
@@ -940,11 +927,6 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
 */
 
 
-    //Daniela ( está com erros por compatibilidade de implementação):
-    /*double nWeight=calcNeighWeight(msg);
-    int nWeight_Int = static_cast<int>(nWeight < 0 ? nWeight - 0.5 : nWeight + 0.5);
-    EV<<"RSSI="<<ssi_extInt<<" nWeight="<<nWeight<<" nWeight_Int="<<nWeight_Int<<"\n";
-    //graphe.add_edge(myID, srcID, nWeight_Int);*/
 
     //My Weight:
     double myCalcWeight=(1-calcMyLQE(msg))*100;
@@ -1114,77 +1096,26 @@ double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
 }
 
 
-//From Daniela, not being used right now
-double NeighboringLayer::calcWeight(cMessage *msg){
-    double Weight=(1-calcLinkQuality(msg))*100;
-    return Weight;
+void NeighboringLayer::handlePcktSentMsg(cMessage *msg){
+    pcktSentMsg *pcktSent = dynamic_cast<pcktSentMsg*>(msg);
+    double pckt_size=pcktSent->getBit_size();
+    calcEnerg(pckt_size);
 }
 
-double NeighboringLayer::calcNeighWeight(cMessage *msg){
-    double weight = (1-calcLinkQuality(msg))*100;
-    return weight;
+
+//calculate future energy value through expenditure on sending Msgs.
+void NeighboringLayer::calcEnerg(double size_bits){
+    double my_enerS=ener_spent+size_bits*Beta;
+    ener_spent=my_enerS;//update my value
+    string myAddr=ownMACAddress;
+    int idMy=std::stoi( myAddr.substr(15,17));
+    Ener[idMy]=my_enerS;//update table my value;
+    //return my_enerS;
 }
 
-//Calculate the quality of the link
-double NeighboringLayer::calcLinkQuality(cMessage *msg){
-    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
-    double bps_norm=0;
-    double B = calcFactorB(msg);
-    double SSI_ext = calculateSSI(msg);
-    double rssi_norm = 1.0 + ((float)((SSI_ext - (-56)) * (0 - 1)) / ((-100) - (-56)));
-    double BitRate=calcBitRate(msg);
-    if(BitRate<=180000){
-            bps_norm = 1 + (((BitRate - (180000)) * (0 - 1)) / (0 - 180000));
-        }else{
-            bps_norm=1;
-        }
-    double Age_factor=calcAgeFact(msg);
-    double Link_Quality=(1-B)*rssi_norm+B*(bps_norm*Age_factor)/Age_factor;
+/*void NeighboringLayer::updateNeighEner(){
 
-    EV<<"Link Quality="<<Link_Quality<<"\n";
-
-    return Link_Quality;
-}
-
-//Calculate the BitRate
-double NeighboringLayer::calcBitRate(cMessage *msg){
-    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
-    double pk_delay= BecMsg->getReceivedTime().dbl() - BecMsg->getSendingTime().dbl();
-    double pk_size=(BecMsg->getByteLength() * 8);
-    double bit_rate=pk_size/pk_delay;
-
-    if(bit_rate<=180000){
-        double bps_norm = 1 + (((bit_rate - (180000)) * (0 - 1)) / (0 - 180000));
-    }else{
-        double bps_norm=1;
-    }
-
-    EV<<"BitRate="<<bit_rate<<"\n";
-
-    return bit_rate;
-}
-
-//Calculate factor B
-double NeighboringLayer::calcFactorB(cMessage *msg){
-    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
-    double B=calcAgeFact(msg)/1;
-
-    EV<<"B factor="<<B<<"\n";
-    return B;
-}
-
-//Returns Age Factor
-double NeighboringLayer::calcAgeFact(cMessage *msg){
-    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
-    double time_rec=BecMsg->getReceivedTime().dbl();
-    double time_now=simTime().dbl();
-    EV<<"time now:"<<time_now<<"time rec:"<<time_rec<<"\n";
-    double dif=time_now-time_rec;
-    double AF=1-(std::min(dif,max_age))/max_age;
-    EV<<"Dif="<<dif<<"Age factor="<<AF<<"\n";
-    return AF;
-}
-
+}*/
 
 //FINISH
 void NeighboringLayer::finish(){
@@ -1207,6 +1138,98 @@ void NeighboringLayer::finish(){
             syncedNeighbourListBT.remove(syncedNeighbour);
             delete syncedNeighbour;
         }
-
-
 }
+
+
+
+
+
+//From Daniela, not being used right now
+
+/*double NeighboringLayer::calcWeight(cMessage *msg){
+    double Weight=(1-calcLinkQuality(msg))*100;
+    return Weight;
+}*/
+
+/*double NeighboringLayer::calcNeighWeight(cMessage *msg){
+    double weight = (1-calcLinkQuality(msg))*100;
+    return weight;
+}*/
+
+//Calculate the quality of the link
+/*double NeighboringLayer::calcLinkQuality(cMessage *msg){
+    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double bps_norm=0;
+    double B = calcFactorB(msg);
+    double SSI_ext = calculateSSI(msg);
+    double rssi_norm = 1.0 + ((float)((SSI_ext - (-56)) * (0 - 1)) / ((-100) - (-56)));
+    double BitRate=calcBitRate(msg);
+    if(BitRate<=180000){
+            bps_norm = 1 + (((BitRate - (180000)) * (0 - 1)) / (0 - 180000));
+        }else{
+            bps_norm=1;
+        }
+    double Age_factor=calcAgeFact(msg);
+    double Link_Quality=(1-B)*rssi_norm+B*(bps_norm*Age_factor)/Age_factor;
+
+    EV<<"Link Quality="<<Link_Quality<<"\n";
+
+    return Link_Quality;
+}*/
+
+//Calculate the BitRate
+/*double NeighboringLayer::calcBitRate(cMessage *msg){
+    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double pk_delay= BecMsg->getReceivedTime().dbl() - BecMsg->getSendingTime().dbl();
+    double pk_size=(BecMsg->getByteLength() * 8);
+    double bit_rate=pk_size/pk_delay;
+
+    if(bit_rate<=180000){
+        double bps_norm = 1 + (((bit_rate - (180000)) * (0 - 1)) / (0 - 180000));
+    }else{
+        double bps_norm=1;
+    }
+
+    EV<<"BitRate="<<bit_rate<<"\n";
+
+    return bit_rate;
+}*/
+
+//Calculate factor B
+/*double NeighboringLayer::calcFactorB(cMessage *msg){
+    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double B=calcAgeFact(msg)/1;
+
+    EV<<"B factor="<<B<<"\n";
+    return B;
+}*/
+
+//Returns Age Factor
+/*double NeighboringLayer::calcAgeFact(cMessage *msg){
+    BeaconMsg *BecMsg = dynamic_cast<BeaconMsg*>(msg);
+    double time_rec=BecMsg->getReceivedTime().dbl();
+    double time_now=simTime().dbl();
+    EV<<"time now:"<<time_now<<"time rec:"<<time_rec<<"\n";
+    double dif=time_now-time_rec;
+    double AF=1-(std::min(dif,max_age))/max_age;
+    EV<<"Dif="<<dif<<"Age factor="<<AF<<"\n";
+    return AF;
+}*/
+
+//Other methods:
+/*double NeighboringLayer::findInNeigLayerList(string addrN){
+    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
+    iteratorSyncedNeighbour = syncedNeighbourList.begin();
+    while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
+        SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
+        if (syncedNeighbour->nodeMACAddress.c_str()==addrN) {
+            double timstp= syncedNeighbour->lastBrecT.dbl();
+            return timstp;
+        }
+        iteratorSyncedNeighbour++;
+
+    }
+    return 0;
+}*/
+
+

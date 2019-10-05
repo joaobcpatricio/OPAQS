@@ -31,7 +31,7 @@ As the ID of the nodes it is used the last 2 numbers of the MAC Address (conside
 
 using namespace omnetpp;
 using namespace std;
-#define V 20        //HARDECODED VARIABLE of number of vertices - must be the same of "**.neighboring.maxLengthGraph"
+#define V 50//20        //HARDECODED VARIABLE of number of vertices - must be the same of "**.neighboring.maxLengthGraph"
 
 
 class GraphT{
@@ -39,7 +39,7 @@ public:
     GraphT();
     ~GraphT();
 
-    int Vv=20;
+    int Vv=V;//20;
     int maxVert=V;
     int graph[V][V]; //HARDECODED VARIABLE  -> change to vector for better initialization
     int count=1;

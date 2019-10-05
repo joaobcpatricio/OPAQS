@@ -1,6 +1,7 @@
 all: checkmakefiles
 	cd src && $(MAKE)
 	rm -r simulations/DanT/DataResults/*
+	rm -r simulations/DanT/Logs/*
 
 clean: checkmakefiles
 	cd src && $(MAKE) clean

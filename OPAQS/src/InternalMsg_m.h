@@ -157,7 +157,105 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const GraphUpdtMsg& obj) {o
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, GraphUpdtMsg& obj) {obj.parsimUnpack(b);}
 
 /**
+ * Class generated from <tt>InternalMsg.msg:33</tt> by nedtool.
+ * <pre>
+ * // Message to inform a packet has been sent
+ * packet pcktSentMsg
+ * {
+ *     string ownAddr;
+ *     double bit_size;
+ *     bool to_Gw;
+ *     simtime_t sentTime;	//timeStamp
+ * }
+ * </pre>
+ */
+class pcktSentMsg : public ::omnetpp::cPacket
+{
+  protected:
+    ::omnetpp::opp_string ownAddr;
+    double bit_size;
+    bool to_Gw;
+    ::omnetpp::simtime_t sentTime;
+
+  private:
+    void copy(const pcktSentMsg& other);
+
+  protected:
+    // protected and unimplemented operator==(), to prevent accidental usage
+    bool operator==(const pcktSentMsg&);
+
+  public:
+    pcktSentMsg(const char *name=nullptr, short kind=0);
+    pcktSentMsg(const pcktSentMsg& other);
+    virtual ~pcktSentMsg();
+    pcktSentMsg& operator=(const pcktSentMsg& other);
+    virtual pcktSentMsg *dup() const override {return new pcktSentMsg(*this);}
+    virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
+    virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
+
+    // field getter/setter methods
+    virtual const char * getOwnAddr() const;
+    virtual void setOwnAddr(const char * ownAddr);
+    virtual double getBit_size() const;
+    virtual void setBit_size(double bit_size);
+    virtual bool getTo_Gw() const;
+    virtual void setTo_Gw(bool to_Gw);
+    virtual ::omnetpp::simtime_t getSentTime() const;
+    virtual void setSentTime(::omnetpp::simtime_t sentTime);
+};
+
+inline void doParsimPacking(omnetpp::cCommBuffer *b, const pcktSentMsg& obj) {obj.parsimPack(b);}
+inline void doParsimUnpacking(omnetpp::cCommBuffer *b, pcktSentMsg& obj) {obj.parsimUnpack(b);}
+
+/**
  * Class generated from <tt>InternalMsg.msg:41</tt> by nedtool.
+ * <pre>
+ * // Message to provide the table from neighLayer 
+ * packet EnerTableMsg
+ * {
+ *     string table;
+ *     bool noNeighs;
+ *     simtime_t sentTime;	//timeStamp
+ * }
+ * </pre>
+ */
+class EnerTableMsg : public ::omnetpp::cPacket
+{
+  protected:
+    ::omnetpp::opp_string table;
+    bool noNeighs;
+    ::omnetpp::simtime_t sentTime;
+
+  private:
+    void copy(const EnerTableMsg& other);
+
+  protected:
+    // protected and unimplemented operator==(), to prevent accidental usage
+    bool operator==(const EnerTableMsg&);
+
+  public:
+    EnerTableMsg(const char *name=nullptr, short kind=0);
+    EnerTableMsg(const EnerTableMsg& other);
+    virtual ~EnerTableMsg();
+    EnerTableMsg& operator=(const EnerTableMsg& other);
+    virtual EnerTableMsg *dup() const override {return new EnerTableMsg(*this);}
+    virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
+    virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
+
+    // field getter/setter methods
+    virtual const char * getTable() const;
+    virtual void setTable(const char * table);
+    virtual bool getNoNeighs() const;
+    virtual void setNoNeighs(bool noNeighs);
+    virtual ::omnetpp::simtime_t getSentTime() const;
+    virtual void setSentTime(::omnetpp::simtime_t sentTime);
+};
+
+inline void doParsimPacking(omnetpp::cCommBuffer *b, const EnerTableMsg& obj) {obj.parsimPack(b);}
+inline void doParsimUnpacking(omnetpp::cCommBuffer *b, EnerTableMsg& obj) {obj.parsimUnpack(b);}
+
+/**
+ * Class generated from <tt>InternalMsg.msg:57</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // \@author : João Patrício (castanheirapatricio\@ua.pt)
@@ -253,7 +351,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconInfoMsg& obj) {
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconInfoMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:63</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:79</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // \@author : João Patrício (castanheirapatricio\@ua.pt)
@@ -304,7 +402,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const NeighbourListMsgBT& o
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, NeighbourListMsgBT& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:70</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:86</tt> by nedtool.
  * <pre>
  * // Message to provide the graph from neighLayer when it receives the NeighList
  * packet GraphUpdtMsgBT
@@ -351,7 +449,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const GraphUpdtMsgBT& obj) 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, GraphUpdtMsgBT& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>InternalMsg.msg:78</tt> by nedtool.
+ * Class generated from <tt>InternalMsg.msg:94</tt> by nedtool.
  * <pre>
  * //*****************************************************************************************************  /
  * // Message of routing commands: indicate the chosen Nic

@@ -29,6 +29,22 @@ packet GraphUpdtMsg {
     simtime_t sentTime;	//timeStamp
 }
 
+// Message to inform a packet has been sent
+packet pcktSentMsg {
+    string ownAddr;
+    double bit_size;
+    bool to_Gw;
+    simtime_t sentTime;	//timeStamp
+}
+
+// Message to provide the table from neighLayer 
+packet EnerTableMsg {
+    string table;
+    bool noNeighs;
+    simtime_t sentTime;	//timeStamp
+}
+
+
 //******************************************************************************************************//
 // @author : João Patrício (castanheirapatricio@ua.pt)
 // @date   : 26-june-2019

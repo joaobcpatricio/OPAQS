@@ -1131,6 +1131,664 @@ void *GraphUpdtMsgDescriptor::getFieldStructValuePointer(void *object, int field
     }
 }
 
+Register_Class(pcktSentMsg)
+
+pcktSentMsg::pcktSentMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
+{
+    this->bit_size = 0;
+    this->to_Gw = false;
+    this->sentTime = 0;
+}
+
+pcktSentMsg::pcktSentMsg(const pcktSentMsg& other) : ::omnetpp::cPacket(other)
+{
+    copy(other);
+}
+
+pcktSentMsg::~pcktSentMsg()
+{
+}
+
+pcktSentMsg& pcktSentMsg::operator=(const pcktSentMsg& other)
+{
+    if (this==&other) return *this;
+    ::omnetpp::cPacket::operator=(other);
+    copy(other);
+    return *this;
+}
+
+void pcktSentMsg::copy(const pcktSentMsg& other)
+{
+    this->ownAddr = other.ownAddr;
+    this->bit_size = other.bit_size;
+    this->to_Gw = other.to_Gw;
+    this->sentTime = other.sentTime;
+}
+
+void pcktSentMsg::parsimPack(omnetpp::cCommBuffer *b) const
+{
+    ::omnetpp::cPacket::parsimPack(b);
+    doParsimPacking(b,this->ownAddr);
+    doParsimPacking(b,this->bit_size);
+    doParsimPacking(b,this->to_Gw);
+    doParsimPacking(b,this->sentTime);
+}
+
+void pcktSentMsg::parsimUnpack(omnetpp::cCommBuffer *b)
+{
+    ::omnetpp::cPacket::parsimUnpack(b);
+    doParsimUnpacking(b,this->ownAddr);
+    doParsimUnpacking(b,this->bit_size);
+    doParsimUnpacking(b,this->to_Gw);
+    doParsimUnpacking(b,this->sentTime);
+}
+
+const char * pcktSentMsg::getOwnAddr() const
+{
+    return this->ownAddr.c_str();
+}
+
+void pcktSentMsg::setOwnAddr(const char * ownAddr)
+{
+    this->ownAddr = ownAddr;
+}
+
+double pcktSentMsg::getBit_size() const
+{
+    return this->bit_size;
+}
+
+void pcktSentMsg::setBit_size(double bit_size)
+{
+    this->bit_size = bit_size;
+}
+
+bool pcktSentMsg::getTo_Gw() const
+{
+    return this->to_Gw;
+}
+
+void pcktSentMsg::setTo_Gw(bool to_Gw)
+{
+    this->to_Gw = to_Gw;
+}
+
+::omnetpp::simtime_t pcktSentMsg::getSentTime() const
+{
+    return this->sentTime;
+}
+
+void pcktSentMsg::setSentTime(::omnetpp::simtime_t sentTime)
+{
+    this->sentTime = sentTime;
+}
+
+class pcktSentMsgDescriptor : public omnetpp::cClassDescriptor
+{
+  private:
+    mutable const char **propertynames;
+  public:
+    pcktSentMsgDescriptor();
+    virtual ~pcktSentMsgDescriptor();
+
+    virtual bool doesSupport(omnetpp::cObject *obj) const override;
+    virtual const char **getPropertyNames() const override;
+    virtual const char *getProperty(const char *propertyname) const override;
+    virtual int getFieldCount() const override;
+    virtual const char *getFieldName(int field) const override;
+    virtual int findField(const char *fieldName) const override;
+    virtual unsigned int getFieldTypeFlags(int field) const override;
+    virtual const char *getFieldTypeString(int field) const override;
+    virtual const char **getFieldPropertyNames(int field) const override;
+    virtual const char *getFieldProperty(int field, const char *propertyname) const override;
+    virtual int getFieldArraySize(void *object, int field) const override;
+
+    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
+    virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
+    virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
+
+    virtual const char *getFieldStructName(int field) const override;
+    virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
+};
+
+Register_ClassDescriptor(pcktSentMsgDescriptor)
+
+pcktSentMsgDescriptor::pcktSentMsgDescriptor() : omnetpp::cClassDescriptor("pcktSentMsg", "omnetpp::cPacket")
+{
+    propertynames = nullptr;
+}
+
+pcktSentMsgDescriptor::~pcktSentMsgDescriptor()
+{
+    delete[] propertynames;
+}
+
+bool pcktSentMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
+{
+    return dynamic_cast<pcktSentMsg *>(obj)!=nullptr;
+}
+
+const char **pcktSentMsgDescriptor::getPropertyNames() const
+{
+    if (!propertynames) {
+        static const char *names[] = {  nullptr };
+        omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+        const char **basenames = basedesc ? basedesc->getPropertyNames() : nullptr;
+        propertynames = mergeLists(basenames, names);
+    }
+    return propertynames;
+}
+
+const char *pcktSentMsgDescriptor::getProperty(const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->getProperty(propertyname) : nullptr;
+}
+
+int pcktSentMsgDescriptor::getFieldCount() const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? 4+basedesc->getFieldCount() : 4;
+}
+
+unsigned int pcktSentMsgDescriptor::getFieldTypeFlags(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeFlags(field);
+        field -= basedesc->getFieldCount();
+    }
+    static unsigned int fieldTypeFlags[] = {
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+    };
+    return (field>=0 && field<4) ? fieldTypeFlags[field] : 0;
+}
+
+const char *pcktSentMsgDescriptor::getFieldName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldName(field);
+        field -= basedesc->getFieldCount();
+    }
+    static const char *fieldNames[] = {
+        "ownAddr",
+        "bit_size",
+        "to_Gw",
+        "sentTime",
+    };
+    return (field>=0 && field<4) ? fieldNames[field] : nullptr;
+}
+
+int pcktSentMsgDescriptor::findField(const char *fieldName) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    int base = basedesc ? basedesc->getFieldCount() : 0;
+    if (fieldName[0]=='o' && strcmp(fieldName, "ownAddr")==0) return base+0;
+    if (fieldName[0]=='b' && strcmp(fieldName, "bit_size")==0) return base+1;
+    if (fieldName[0]=='t' && strcmp(fieldName, "to_Gw")==0) return base+2;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+3;
+    return basedesc ? basedesc->findField(fieldName) : -1;
+}
+
+const char *pcktSentMsgDescriptor::getFieldTypeString(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeString(field);
+        field -= basedesc->getFieldCount();
+    }
+    static const char *fieldTypeStrings[] = {
+        "string",
+        "double",
+        "bool",
+        "simtime_t",
+    };
+    return (field>=0 && field<4) ? fieldTypeStrings[field] : nullptr;
+}
+
+const char **pcktSentMsgDescriptor::getFieldPropertyNames(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldPropertyNames(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+const char *pcktSentMsgDescriptor::getFieldProperty(int field, const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldProperty(field, propertyname);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+int pcktSentMsgDescriptor::getFieldArraySize(void *object, int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldArraySize(object, field);
+        field -= basedesc->getFieldCount();
+    }
+    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    switch (field) {
+        default: return 0;
+    }
+}
+
+const char *pcktSentMsgDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldDynamicTypeString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+std::string pcktSentMsgDescriptor::getFieldValueAsString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldValueAsString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    switch (field) {
+        case 0: return oppstring2string(pp->getOwnAddr());
+        case 1: return double2string(pp->getBit_size());
+        case 2: return bool2string(pp->getTo_Gw());
+        case 3: return simtime2string(pp->getSentTime());
+        default: return "";
+    }
+}
+
+bool pcktSentMsgDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->setFieldValueAsString(object,field,i,value);
+        field -= basedesc->getFieldCount();
+    }
+    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    switch (field) {
+        case 0: pp->setOwnAddr((value)); return true;
+        case 1: pp->setBit_size(string2double(value)); return true;
+        case 2: pp->setTo_Gw(string2bool(value)); return true;
+        case 3: pp->setSentTime(string2simtime(value)); return true;
+        default: return false;
+    }
+}
+
+const char *pcktSentMsgDescriptor::getFieldStructName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructName(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    };
+}
+
+void *pcktSentMsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructValuePointer(object, field, i);
+        field -= basedesc->getFieldCount();
+    }
+    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+Register_Class(EnerTableMsg)
+
+EnerTableMsg::EnerTableMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
+{
+    this->noNeighs = false;
+    this->sentTime = 0;
+}
+
+EnerTableMsg::EnerTableMsg(const EnerTableMsg& other) : ::omnetpp::cPacket(other)
+{
+    copy(other);
+}
+
+EnerTableMsg::~EnerTableMsg()
+{
+}
+
+EnerTableMsg& EnerTableMsg::operator=(const EnerTableMsg& other)
+{
+    if (this==&other) return *this;
+    ::omnetpp::cPacket::operator=(other);
+    copy(other);
+    return *this;
+}
+
+void EnerTableMsg::copy(const EnerTableMsg& other)
+{
+    this->table = other.table;
+    this->noNeighs = other.noNeighs;
+    this->sentTime = other.sentTime;
+}
+
+void EnerTableMsg::parsimPack(omnetpp::cCommBuffer *b) const
+{
+    ::omnetpp::cPacket::parsimPack(b);
+    doParsimPacking(b,this->table);
+    doParsimPacking(b,this->noNeighs);
+    doParsimPacking(b,this->sentTime);
+}
+
+void EnerTableMsg::parsimUnpack(omnetpp::cCommBuffer *b)
+{
+    ::omnetpp::cPacket::parsimUnpack(b);
+    doParsimUnpacking(b,this->table);
+    doParsimUnpacking(b,this->noNeighs);
+    doParsimUnpacking(b,this->sentTime);
+}
+
+const char * EnerTableMsg::getTable() const
+{
+    return this->table.c_str();
+}
+
+void EnerTableMsg::setTable(const char * table)
+{
+    this->table = table;
+}
+
+bool EnerTableMsg::getNoNeighs() const
+{
+    return this->noNeighs;
+}
+
+void EnerTableMsg::setNoNeighs(bool noNeighs)
+{
+    this->noNeighs = noNeighs;
+}
+
+::omnetpp::simtime_t EnerTableMsg::getSentTime() const
+{
+    return this->sentTime;
+}
+
+void EnerTableMsg::setSentTime(::omnetpp::simtime_t sentTime)
+{
+    this->sentTime = sentTime;
+}
+
+class EnerTableMsgDescriptor : public omnetpp::cClassDescriptor
+{
+  private:
+    mutable const char **propertynames;
+  public:
+    EnerTableMsgDescriptor();
+    virtual ~EnerTableMsgDescriptor();
+
+    virtual bool doesSupport(omnetpp::cObject *obj) const override;
+    virtual const char **getPropertyNames() const override;
+    virtual const char *getProperty(const char *propertyname) const override;
+    virtual int getFieldCount() const override;
+    virtual const char *getFieldName(int field) const override;
+    virtual int findField(const char *fieldName) const override;
+    virtual unsigned int getFieldTypeFlags(int field) const override;
+    virtual const char *getFieldTypeString(int field) const override;
+    virtual const char **getFieldPropertyNames(int field) const override;
+    virtual const char *getFieldProperty(int field, const char *propertyname) const override;
+    virtual int getFieldArraySize(void *object, int field) const override;
+
+    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
+    virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
+    virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
+
+    virtual const char *getFieldStructName(int field) const override;
+    virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
+};
+
+Register_ClassDescriptor(EnerTableMsgDescriptor)
+
+EnerTableMsgDescriptor::EnerTableMsgDescriptor() : omnetpp::cClassDescriptor("EnerTableMsg", "omnetpp::cPacket")
+{
+    propertynames = nullptr;
+}
+
+EnerTableMsgDescriptor::~EnerTableMsgDescriptor()
+{
+    delete[] propertynames;
+}
+
+bool EnerTableMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
+{
+    return dynamic_cast<EnerTableMsg *>(obj)!=nullptr;
+}
+
+const char **EnerTableMsgDescriptor::getPropertyNames() const
+{
+    if (!propertynames) {
+        static const char *names[] = {  nullptr };
+        omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+        const char **basenames = basedesc ? basedesc->getPropertyNames() : nullptr;
+        propertynames = mergeLists(basenames, names);
+    }
+    return propertynames;
+}
+
+const char *EnerTableMsgDescriptor::getProperty(const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->getProperty(propertyname) : nullptr;
+}
+
+int EnerTableMsgDescriptor::getFieldCount() const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? 3+basedesc->getFieldCount() : 3;
+}
+
+unsigned int EnerTableMsgDescriptor::getFieldTypeFlags(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeFlags(field);
+        field -= basedesc->getFieldCount();
+    }
+    static unsigned int fieldTypeFlags[] = {
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+    };
+    return (field>=0 && field<3) ? fieldTypeFlags[field] : 0;
+}
+
+const char *EnerTableMsgDescriptor::getFieldName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldName(field);
+        field -= basedesc->getFieldCount();
+    }
+    static const char *fieldNames[] = {
+        "table",
+        "noNeighs",
+        "sentTime",
+    };
+    return (field>=0 && field<3) ? fieldNames[field] : nullptr;
+}
+
+int EnerTableMsgDescriptor::findField(const char *fieldName) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    int base = basedesc ? basedesc->getFieldCount() : 0;
+    if (fieldName[0]=='t' && strcmp(fieldName, "table")==0) return base+0;
+    if (fieldName[0]=='n' && strcmp(fieldName, "noNeighs")==0) return base+1;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+2;
+    return basedesc ? basedesc->findField(fieldName) : -1;
+}
+
+const char *EnerTableMsgDescriptor::getFieldTypeString(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeString(field);
+        field -= basedesc->getFieldCount();
+    }
+    static const char *fieldTypeStrings[] = {
+        "string",
+        "bool",
+        "simtime_t",
+    };
+    return (field>=0 && field<3) ? fieldTypeStrings[field] : nullptr;
+}
+
+const char **EnerTableMsgDescriptor::getFieldPropertyNames(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldPropertyNames(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+const char *EnerTableMsgDescriptor::getFieldProperty(int field, const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldProperty(field, propertyname);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+int EnerTableMsgDescriptor::getFieldArraySize(void *object, int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldArraySize(object, field);
+        field -= basedesc->getFieldCount();
+    }
+    EnerTableMsg *pp = (EnerTableMsg *)object; (void)pp;
+    switch (field) {
+        default: return 0;
+    }
+}
+
+const char *EnerTableMsgDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldDynamicTypeString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    EnerTableMsg *pp = (EnerTableMsg *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+std::string EnerTableMsgDescriptor::getFieldValueAsString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldValueAsString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    EnerTableMsg *pp = (EnerTableMsg *)object; (void)pp;
+    switch (field) {
+        case 0: return oppstring2string(pp->getTable());
+        case 1: return bool2string(pp->getNoNeighs());
+        case 2: return simtime2string(pp->getSentTime());
+        default: return "";
+    }
+}
+
+bool EnerTableMsgDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->setFieldValueAsString(object,field,i,value);
+        field -= basedesc->getFieldCount();
+    }
+    EnerTableMsg *pp = (EnerTableMsg *)object; (void)pp;
+    switch (field) {
+        case 0: pp->setTable((value)); return true;
+        case 1: pp->setNoNeighs(string2bool(value)); return true;
+        case 2: pp->setSentTime(string2simtime(value)); return true;
+        default: return false;
+    }
+}
+
+const char *EnerTableMsgDescriptor::getFieldStructName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructName(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    };
+}
+
+void *EnerTableMsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructValuePointer(object, field, i);
+        field -= basedesc->getFieldCount();
+    }
+    EnerTableMsg *pp = (EnerTableMsg *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
 Register_Class(BeaconInfoMsg)
 
 BeaconInfoMsg::BeaconInfoMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)

@@ -14,6 +14,7 @@ void RoutingLqeGw::initialize(int stage)
     if (stage == 0) {
         Stor=StorageM(); //constructor
         graphR=GraphT();
+        Log=Logger();
         // get parameters
         nodeIndex = par("nodeIndex");
         ownMACAddress = par("ownMACAddress").stringValue();
@@ -35,6 +36,7 @@ void RoutingLqeGw::initialize(int stage)
     } else if (stage == 1) {
         Stor.updateMaxAge(max_age);
         Stor.updateKillPcktP(kill_pcktP);
+        Log.initialize(ownMACAddress);
         setGatewayList();
         printGatewayList();
         updateGateway();

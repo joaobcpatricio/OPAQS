@@ -32,6 +32,9 @@ using namespace std;
 
 class BaseNodeInfo;
 
+#define N 50        //HARDECODED VARIABLE of number of vertices - must be the same of "**.neighboring.maxLengthGraph"
+#define Beta 0.001  //constant to control relation from bits to energ
+
 class NeighboringLayer : public cSimpleModule
 {
 protected:
@@ -112,22 +115,35 @@ private:
 
      int maxLengthGraph;
      double max_age;
-     double calcAgeFact(cMessage *msg);
-     double calcFactorB(cMessage *msg);
-     double calcBitRate(cMessage *msg);
-     double calcLinkQuality(cMessage *msg);
-     double calcWeight(cMessage *msg);
-     double calcNeighWeight(cMessage *msg);
+
      double calcMyLQE(cMessage *msg);
      double calculateLinkStability(cMessage *msg);
      void saveLastBeContact(string Naddress);    //updates the last time this direct-neigh sent a beacon
      void cleanOldContacts(); //removes direct neighbors that are absent from graph
-     //double findInNeigLayerList(string addrN);  //returns the time of the last contact on the previous saved list of neighbors
      void handleDataReqMsgFromLowerLayer(cMessage *msg);
      void saveResultsWeight(cMessage *msg, string weightH);
      void saveResultsWTime(cMessage *msg, string timeRMsg);
      GraphUpdtMsg* makeGraphUpdtMessage();
      void handleGraphUpdtMsgFromLowerLayer(cMessage *msg);
+
+     double Ener[N];
+     double ener_spent=0;
+
+     void calcEnerg(double size_bits);
+     void handlePcktSentMsg(cMessage *msg);
+
+
+
+
+
+     //double calcAgeFact(cMessage *msg);
+     //double calcFactorB(cMessage *msg);
+     //double calcBitRate(cMessage *msg);
+     //double calcLinkQuality(cMessage *msg);
+     //double calcWeight(cMessage *msg);
+     //double calcNeighWeight(cMessage *msg);
+     //double findInNeigLayerList(string addrN);  //returns the time of the last contact on the previous saved list of neighbors
+
 
 
 };

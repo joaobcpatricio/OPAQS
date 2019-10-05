@@ -267,11 +267,12 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, AckMsg& obj) {obj.parsimU
  *     double Prob;
  *     double MyPosX;
  *     double MyPosY;
- *     string neighGraph;
+ *     string neighGraph;	//Graph of neighbors LQE
  *     int numberVert;
  *     simtime_t sentTime;	//timeStamp
  *     simtime_t receivedTime;	//timeStamp
  *     simtime_t injectedTime;	//timeStamp	, generation time on neighboring 
+ *     string neighEner;	//Table of energy of neighbors
  * }
  * </pre>
  */
@@ -289,6 +290,7 @@ class BeaconMsg : public ::omnetpp::cPacket
     ::omnetpp::simtime_t sentTime;
     ::omnetpp::simtime_t receivedTime;
     ::omnetpp::simtime_t injectedTime;
+    ::omnetpp::opp_string neighEner;
 
   private:
     void copy(const BeaconMsg& other);
@@ -329,13 +331,15 @@ class BeaconMsg : public ::omnetpp::cPacket
     virtual void setReceivedTime(::omnetpp::simtime_t receivedTime);
     virtual ::omnetpp::simtime_t getInjectedTime() const;
     virtual void setInjectedTime(::omnetpp::simtime_t injectedTime);
+    virtual const char * getNeighEner() const;
+    virtual void setNeighEner(const char * neighEner);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const BeaconMsg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>OutsMsg.msg:122</tt> by nedtool.
+ * Class generated from <tt>OutsMsg.msg:123</tt> by nedtool.
  * <pre>
  * //**********************************************************************************  /
  * // Data Request message.
