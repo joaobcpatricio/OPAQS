@@ -402,6 +402,8 @@ void WirelessInterface::sendPendingMsg()
                 EV<<"Sent currentPendingMsg \n";
                 setSentTime(currentPendingMsg);
                 setSentTimeSrc(currentPendingMsg);
+                //By this time the wifi sent the packet, it's just simulating if it gets lost or not, so i can count here energy spent on sending
+                setPckSentMsg(currentPendingMsg);
 
                 // make duplicate of packet
                 cPacket *outPktCopy =  dynamic_cast<cPacket*>(currentPendingMsg->dup());
@@ -479,20 +481,8 @@ void WirelessInterface::sendPendingMsg()
 
 }
 
-double WirelessInterface::realAquaticAchievableThroughput(double x){ //xE[5,40]m;
-    if(x>=40){
-        return 0;
-    }else if(x<5){
-        return abs(25*pow(10,6));
-    }else{
-        double AT=-0.000177*pow(x,4)+0.01603*pow(x,3)-0.472862*pow(x,2)+4.20788*x+14.6655; //Mbs/s
-        //EV<<"AT:"<<abs(AT*pow(10,6))<<"AT5="<<-0.000177*pow(5,4)+0.01603*pow(5,3)-0.472862*pow(5,2)+4.20788*5+14.6655<<"AT40="<<-0.000177*pow(40,4)+0.01603*pow(40,3)-0.472862*pow(40,2)+4.20788*40+14.6655<<"\n";
-        //EV<<"BIG"<<-0.000177*pow(200,4)+0.01603*pow(200,3)-0.472862*pow(200,2)+4.20788*200+14.6655<<"\n";
-        return abs(AT*pow(10,6));
-    }
 
-}
-
+//--SET/GET TIMES--------------------------------------
 //Set the time that the Msg was received here
 void WirelessInterface::setSentTime(cMessage *msg){
     EV<<"setSentTime\n";
@@ -549,22 +539,6 @@ void WirelessInterface::setSentTime(cMessage *msg){
 
 }
 
-
-void WirelessInterface::resultsSentDataName(cMessage *msg){
-    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
-    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/dataNameSent";
-                        string noS=ownMACAddress.substr(15,17);
-                        nameF.append(noS);
-                        nameF.append(".txt");
-                        std::ofstream out(nameF, std::ios_base::app);
-                        //Message Name
-                        std::string msNam=dataMsg->getDataName();//getMsgUniqueID();
-                        string msNamIs=msNam;
-                        msNamIs.append("\n");
-                        out<<msNamIs;
-                        out.close();
-}
-
 void WirelessInterface::setSentTimeSrc(cMessage *msg){
     DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
     if (dataMsg) {
@@ -608,7 +582,6 @@ void WirelessInterface::setRecTimeGW(cMessage *msg){
         }
     }
 }
-
 
 //set the time the Msg was sent from here
 void WirelessInterface::setReceivedTime(cMessage *msg){
@@ -658,7 +631,37 @@ void WirelessInterface::setReceivedTime(cMessage *msg){
     }
 }
 
+double WirelessInterface::getPacketInjectedTime(cMessage *msg){
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
 
+    if (dataMsg) {
+        //return dataMsg->getSentTimeRout().dbl();
+        return simTime().dbl();
+    }
+
+    AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
+    if (ackMsg) {
+        return ackMsg->getInjectedTime().dbl();
+    }
+
+    DataReqMsg *dataReqMsg = dynamic_cast<DataReqMsg*>(msg);
+    if (dataReqMsg) {
+        return dataReqMsg->getInjectedTime().dbl();
+    }
+
+    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
+    if (beaconMsg) {
+        return beaconMsg->getInjectedTime().dbl();
+    }
+
+
+
+    EV_FATAL <<  WIRELESSINTERFACE_SIMMODULEINFO << ">!<Unknown message type. Check \"string WirelessInterface::getPAcketInjectedTime(cMessage *msg)\"\n";
+    throw cRuntimeError("Unknown message type in KWirelessnterface");
+    return double();
+}
+
+//--------------------------------------------------------------------
 string WirelessInterface::getDestinationAddress(cMessage *msg)
 {
     DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
@@ -692,7 +695,7 @@ string WirelessInterface::getDestinationAddress(cMessage *msg)
     return string();
 }
 
-//ADDED 7/07/19 18h53
+//--Calculations --------------------------------------------------------------
 double WirelessInterface::calculateSSI(double x){
 
     double ssi_ext=-0.0000207519*pow(x,4)+0.0005124292*pow(x,3)+0.0589678*pow(x,2)-2.72277*x-57.5612;
@@ -703,37 +706,51 @@ double WirelessInterface::calculateSSI(double x){
 
 }
 
-
-double WirelessInterface::getPacketInjectedTime(cMessage *msg){
-    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
-
-    if (dataMsg) {
-        //return dataMsg->getSentTimeRout().dbl();
-        return simTime().dbl();
+double WirelessInterface::realAquaticAchievableThroughput(double x){ //xE[5,40]m;
+    if(x>=40){
+        return 0;
+    }else if(x<5){
+        return abs(25*pow(10,6));
+    }else{
+        double AT=-0.000177*pow(x,4)+0.01603*pow(x,3)-0.472862*pow(x,2)+4.20788*x+14.6655; //Mbs/s
+        //EV<<"AT:"<<abs(AT*pow(10,6))<<"AT5="<<-0.000177*pow(5,4)+0.01603*pow(5,3)-0.472862*pow(5,2)+4.20788*5+14.6655<<"AT40="<<-0.000177*pow(40,4)+0.01603*pow(40,3)-0.472862*pow(40,2)+4.20788*40+14.6655<<"\n";
+        //EV<<"BIG"<<-0.000177*pow(200,4)+0.01603*pow(200,3)-0.472862*pow(200,2)+4.20788*200+14.6655<<"\n";
+        return abs(AT*pow(10,6));
     }
 
-    AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
-    if (ackMsg) {
-        return ackMsg->getInjectedTime().dbl();
-    }
-
-    DataReqMsg *dataReqMsg = dynamic_cast<DataReqMsg*>(msg);
-    if (dataReqMsg) {
-        return dataReqMsg->getInjectedTime().dbl();
-    }
-
-    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
-    if (beaconMsg) {
-        return beaconMsg->getInjectedTime().dbl();
-    }
-
-
-
-    EV_FATAL <<  WIRELESSINTERFACE_SIMMODULEINFO << ">!<Unknown message type. Check \"string WirelessInterface::getPAcketInjectedTime(cMessage *msg)\"\n";
-    throw cRuntimeError("Unknown message type in KWirelessnterface");
-    return double();
 }
 
+//--Ener table anouncement -------------------------------------------------------
+void WirelessInterface::pcktSentMsg(double size_p, bool from_GW){
+    PcktSentMsg *sentMsg = new PcktSentMsg();
+    sentMsg->setOwnAddr(ownMACAddress.c_str());
+    sentMsg->setBit_size(size_p);
+    sentMsg->setTo_Gw(from_GW);
+    sentMsg->setSentTime(simTime().dbl());
+
+    send(sentMsg,"upperLayerOut");
+}
+void WirelessInterface::setPckSentMsg(cMessage *msg){
+    BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
+    if (beaconMsg) {
+        pcktSentMsg(beaconMsg->getRealPacketSize(), false);
+    }
+    DataReqMsg *dataRequestMsg = dynamic_cast<DataReqMsg*>(msg);
+    if(dataRequestMsg){
+        pcktSentMsg(dataRequestMsg->getRealPacketSize(), false);
+    }
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+    if (dataMsg) {
+        pcktSentMsg(dataMsg->getRealPacketSize(), false);
+    }
+    AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
+    if(ackMsg){
+        pcktSentMsg(ackMsg->getRealPacketSize(), false);
+    }
+}
+
+
+//--RESULTS------------------------------------------------------------
 void WirelessInterface::outputResultsSent(){
     //save info into file
                         string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/AllPktSent";
@@ -768,6 +785,20 @@ void WirelessInterface::outputResultsReceived(){
                         timeGen.append(timeMsg);
                         out<<timeGen;
                         out<<" | End \n";
+                        out.close();
+}
+void WirelessInterface::resultsSentDataName(cMessage *msg){
+    DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/dataNameSent";
+                        string noS=ownMACAddress.substr(15,17);
+                        nameF.append(noS);
+                        nameF.append(".txt");
+                        std::ofstream out(nameF, std::ios_base::app);
+                        //Message Name
+                        std::string msNam=dataMsg->getDataName();//getMsgUniqueID();
+                        string msNamIs=msNam;
+                        msNamIs.append("\n");
+                        out<<msNamIs;
                         out.close();
 }
 

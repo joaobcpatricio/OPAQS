@@ -30,7 +30,7 @@ packet GraphUpdtMsg {
 }
 
 // Message to inform a packet has been sent
-packet pcktSentMsg {
+packet PcktSentMsg {
     string ownAddr;
     double bit_size;
     bool to_Gw;
@@ -49,9 +49,9 @@ packet EnerTableMsg {
 // @author : João Patrício (castanheirapatricio@ua.pt)
 // @date   : 26-june-2019
 //
-//               addrs | Prob 		| myProb	 |	MyPosX 	 | MyPosY	| SSI	    |neighGraph | numberVert | total  |
-//               s & d | (4 byte)   |  (4 byte)  | (4 byte)  | (4 bytes)| (4 bytes) | (bytes)   |            |        |
-// Routing	 ->   6 + 6      4             4           4         4			4		    64            1	          97
+//               addrs | Prob 		| myProb	 |	MyPosX 	 | MyPosY	| SSI	    |neighGraph |  neighEner | numberVert | total  |
+//               s & d | (4 byte)   |  (4 byte)  | (4 byte)  | (4 bytes)| (4 bytes) | (bytes)   |			 |            |        |
+// Routing	 ->   6 + 6      4             4           4         4			4		    64            64		  1	          97
 //
 // Message that sends Beacon received information to routing layer
 packet BeaconInfoMsg {
@@ -66,6 +66,7 @@ packet BeaconInfoMsg {
 	double SSI;
 	//int Nic; //0=wifi, 1=Bt,
 	string neighGraph;
+	string neighEner;
 	int numberVert;
 	simtime_t sentTime;	//timeStamp
 	simtime_t receivedTime;	//timeStamp

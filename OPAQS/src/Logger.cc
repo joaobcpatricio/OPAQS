@@ -38,4 +38,51 @@ void Logger::initialize(string ownMACAddress){
 
 }
 
+void Logger::saveResultsWeight(string myAddr,string sourceAddr, string weightH){    //called on neighboring
+    //FILE Results
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEweight";
+    string noS=myAddr.substr(15,17);
+    string noN=sourceAddr;
+    nameF.append(noS);
+    nameF.append("_");
+    nameF.append(noN.substr(15,17));
+    nameF.append(".txt");
+    std::ofstream outfile(nameF, std::ios_base::app);
+    weightH.append("\n");
+    outfile<<weightH;
+    outfile.close();
+}
+void Logger::saveResultsWTime(string myAddr,string sourceAddr, string timeRMsg){    //called on neighboring
+    //FILE Results
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEwtime";
+    string noS=myAddr.substr(15,17);
+    string noN=sourceAddr;
+    nameF.append(noS);
+    nameF.append("_");
+    nameF.append(noN.substr(15,17));
+    nameF.append(".txt");
+    std::ofstream outfile(nameF, std::ios_base::app);
+    timeRMsg.append("\n");
+    outfile<<timeRMsg;
+    outfile.close();
+}
+
+void Logger::saveEnerTable(string myAddr, string table){
+    //FILE Results
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/Logs/EnerTable";
+    string noS=myAddr.substr(15,17);
+    nameF.append(noS);
+    nameF.append(".txt");
+    std::ofstream outfile(nameF, std::ios_base::app);
+    //table save
+    outfile<<table;
+
+
+    std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+    string timeGen="\n Time: ";
+    timeGen.append(timeMsg);
+    timeGen.append("\n");
+    outfile<<timeGen;
+    outfile.close();
+}
 

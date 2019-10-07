@@ -93,6 +93,9 @@ private:
     void outputResultsSent();
     void resultsSentDataName(cMessage *msg);
 
+    void pcktSentMsg(double size_p, bool from_GW);
+    void setPckSentMsg(cMessage *msg);
+
 };
 
 

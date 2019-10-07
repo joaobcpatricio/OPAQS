@@ -46,6 +46,9 @@ public:
     string ownAddress = "Wf:00:00:00:00:02";
 
     void initialize(string ownMACAddress);
+    void saveResultsWeight(string myAddr,string sourceAddr, string weightH);
+    void saveResultsWTime(string myAddr,string sourceAddr, string timeRMsg);
+    void saveEnerTable(string myAddr, string table);
 
 
 

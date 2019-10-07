@@ -24,6 +24,7 @@
 #include <queue>
 
 #include "GraphT.h"
+#include "Logger.h"
 
 
 using namespace omnetpp;
@@ -33,7 +34,7 @@ using namespace std;
 class BaseNodeInfo;
 
 #define N 50        //HARDECODED VARIABLE of number of vertices - must be the same of "**.neighboring.maxLengthGraph"
-#define Beta 0.001  //constant to control relation from bits to energ
+#define Beta 0.01  //constant to control relation from bits to energ
 
 class NeighboringLayer : public cSimpleModule
 {
@@ -126,11 +127,16 @@ private:
      GraphUpdtMsg* makeGraphUpdtMessage();
      void handleGraphUpdtMsgFromLowerLayer(cMessage *msg);
 
-     double Ener[N];
-     double ener_spent=0;
+     int Ener[N];
+     int ener_spent=0;
 
      void calcEnerg(double size_bits);
      void handlePcktSentMsg(cMessage *msg);
+
+     Logger log;
+     bool updateNeighEner(cMessage *msg);
+     string returnEnerTable();
+     void removEdge(int id);
 
 
 

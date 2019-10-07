@@ -1131,25 +1131,25 @@ void *GraphUpdtMsgDescriptor::getFieldStructValuePointer(void *object, int field
     }
 }
 
-Register_Class(pcktSentMsg)
+Register_Class(PcktSentMsg)
 
-pcktSentMsg::pcktSentMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
+PcktSentMsg::PcktSentMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
 {
     this->bit_size = 0;
     this->to_Gw = false;
     this->sentTime = 0;
 }
 
-pcktSentMsg::pcktSentMsg(const pcktSentMsg& other) : ::omnetpp::cPacket(other)
+PcktSentMsg::PcktSentMsg(const PcktSentMsg& other) : ::omnetpp::cPacket(other)
 {
     copy(other);
 }
 
-pcktSentMsg::~pcktSentMsg()
+PcktSentMsg::~PcktSentMsg()
 {
 }
 
-pcktSentMsg& pcktSentMsg::operator=(const pcktSentMsg& other)
+PcktSentMsg& PcktSentMsg::operator=(const PcktSentMsg& other)
 {
     if (this==&other) return *this;
     ::omnetpp::cPacket::operator=(other);
@@ -1157,7 +1157,7 @@ pcktSentMsg& pcktSentMsg::operator=(const pcktSentMsg& other)
     return *this;
 }
 
-void pcktSentMsg::copy(const pcktSentMsg& other)
+void PcktSentMsg::copy(const PcktSentMsg& other)
 {
     this->ownAddr = other.ownAddr;
     this->bit_size = other.bit_size;
@@ -1165,7 +1165,7 @@ void pcktSentMsg::copy(const pcktSentMsg& other)
     this->sentTime = other.sentTime;
 }
 
-void pcktSentMsg::parsimPack(omnetpp::cCommBuffer *b) const
+void PcktSentMsg::parsimPack(omnetpp::cCommBuffer *b) const
 {
     ::omnetpp::cPacket::parsimPack(b);
     doParsimPacking(b,this->ownAddr);
@@ -1174,7 +1174,7 @@ void pcktSentMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->sentTime);
 }
 
-void pcktSentMsg::parsimUnpack(omnetpp::cCommBuffer *b)
+void PcktSentMsg::parsimUnpack(omnetpp::cCommBuffer *b)
 {
     ::omnetpp::cPacket::parsimUnpack(b);
     doParsimUnpacking(b,this->ownAddr);
@@ -1183,53 +1183,53 @@ void pcktSentMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->sentTime);
 }
 
-const char * pcktSentMsg::getOwnAddr() const
+const char * PcktSentMsg::getOwnAddr() const
 {
     return this->ownAddr.c_str();
 }
 
-void pcktSentMsg::setOwnAddr(const char * ownAddr)
+void PcktSentMsg::setOwnAddr(const char * ownAddr)
 {
     this->ownAddr = ownAddr;
 }
 
-double pcktSentMsg::getBit_size() const
+double PcktSentMsg::getBit_size() const
 {
     return this->bit_size;
 }
 
-void pcktSentMsg::setBit_size(double bit_size)
+void PcktSentMsg::setBit_size(double bit_size)
 {
     this->bit_size = bit_size;
 }
 
-bool pcktSentMsg::getTo_Gw() const
+bool PcktSentMsg::getTo_Gw() const
 {
     return this->to_Gw;
 }
 
-void pcktSentMsg::setTo_Gw(bool to_Gw)
+void PcktSentMsg::setTo_Gw(bool to_Gw)
 {
     this->to_Gw = to_Gw;
 }
 
-::omnetpp::simtime_t pcktSentMsg::getSentTime() const
+::omnetpp::simtime_t PcktSentMsg::getSentTime() const
 {
     return this->sentTime;
 }
 
-void pcktSentMsg::setSentTime(::omnetpp::simtime_t sentTime)
+void PcktSentMsg::setSentTime(::omnetpp::simtime_t sentTime)
 {
     this->sentTime = sentTime;
 }
 
-class pcktSentMsgDescriptor : public omnetpp::cClassDescriptor
+class PcktSentMsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
     mutable const char **propertynames;
   public:
-    pcktSentMsgDescriptor();
-    virtual ~pcktSentMsgDescriptor();
+    PcktSentMsgDescriptor();
+    virtual ~PcktSentMsgDescriptor();
 
     virtual bool doesSupport(omnetpp::cObject *obj) const override;
     virtual const char **getPropertyNames() const override;
@@ -1251,24 +1251,24 @@ class pcktSentMsgDescriptor : public omnetpp::cClassDescriptor
     virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
 };
 
-Register_ClassDescriptor(pcktSentMsgDescriptor)
+Register_ClassDescriptor(PcktSentMsgDescriptor)
 
-pcktSentMsgDescriptor::pcktSentMsgDescriptor() : omnetpp::cClassDescriptor("pcktSentMsg", "omnetpp::cPacket")
+PcktSentMsgDescriptor::PcktSentMsgDescriptor() : omnetpp::cClassDescriptor("PcktSentMsg", "omnetpp::cPacket")
 {
     propertynames = nullptr;
 }
 
-pcktSentMsgDescriptor::~pcktSentMsgDescriptor()
+PcktSentMsgDescriptor::~PcktSentMsgDescriptor()
 {
     delete[] propertynames;
 }
 
-bool pcktSentMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
+bool PcktSentMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
 {
-    return dynamic_cast<pcktSentMsg *>(obj)!=nullptr;
+    return dynamic_cast<PcktSentMsg *>(obj)!=nullptr;
 }
 
-const char **pcktSentMsgDescriptor::getPropertyNames() const
+const char **PcktSentMsgDescriptor::getPropertyNames() const
 {
     if (!propertynames) {
         static const char *names[] = {  nullptr };
@@ -1279,19 +1279,19 @@ const char **pcktSentMsgDescriptor::getPropertyNames() const
     return propertynames;
 }
 
-const char *pcktSentMsgDescriptor::getProperty(const char *propertyname) const
+const char *PcktSentMsgDescriptor::getProperty(const char *propertyname) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     return basedesc ? basedesc->getProperty(propertyname) : nullptr;
 }
 
-int pcktSentMsgDescriptor::getFieldCount() const
+int PcktSentMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     return basedesc ? 4+basedesc->getFieldCount() : 4;
 }
 
-unsigned int pcktSentMsgDescriptor::getFieldTypeFlags(int field) const
+unsigned int PcktSentMsgDescriptor::getFieldTypeFlags(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1308,7 +1308,7 @@ unsigned int pcktSentMsgDescriptor::getFieldTypeFlags(int field) const
     return (field>=0 && field<4) ? fieldTypeFlags[field] : 0;
 }
 
-const char *pcktSentMsgDescriptor::getFieldName(int field) const
+const char *PcktSentMsgDescriptor::getFieldName(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1325,7 +1325,7 @@ const char *pcktSentMsgDescriptor::getFieldName(int field) const
     return (field>=0 && field<4) ? fieldNames[field] : nullptr;
 }
 
-int pcktSentMsgDescriptor::findField(const char *fieldName) const
+int PcktSentMsgDescriptor::findField(const char *fieldName) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     int base = basedesc ? basedesc->getFieldCount() : 0;
@@ -1336,7 +1336,7 @@ int pcktSentMsgDescriptor::findField(const char *fieldName) const
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
-const char *pcktSentMsgDescriptor::getFieldTypeString(int field) const
+const char *PcktSentMsgDescriptor::getFieldTypeString(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1353,7 +1353,7 @@ const char *pcktSentMsgDescriptor::getFieldTypeString(int field) const
     return (field>=0 && field<4) ? fieldTypeStrings[field] : nullptr;
 }
 
-const char **pcktSentMsgDescriptor::getFieldPropertyNames(int field) const
+const char **PcktSentMsgDescriptor::getFieldPropertyNames(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1366,7 +1366,7 @@ const char **pcktSentMsgDescriptor::getFieldPropertyNames(int field) const
     }
 }
 
-const char *pcktSentMsgDescriptor::getFieldProperty(int field, const char *propertyname) const
+const char *PcktSentMsgDescriptor::getFieldProperty(int field, const char *propertyname) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1379,7 +1379,7 @@ const char *pcktSentMsgDescriptor::getFieldProperty(int field, const char *prope
     }
 }
 
-int pcktSentMsgDescriptor::getFieldArraySize(void *object, int field) const
+int PcktSentMsgDescriptor::getFieldArraySize(void *object, int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1387,13 +1387,13 @@ int pcktSentMsgDescriptor::getFieldArraySize(void *object, int field) const
             return basedesc->getFieldArraySize(object, field);
         field -= basedesc->getFieldCount();
     }
-    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    PcktSentMsg *pp = (PcktSentMsg *)object; (void)pp;
     switch (field) {
         default: return 0;
     }
 }
 
-const char *pcktSentMsgDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+const char *PcktSentMsgDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1401,13 +1401,13 @@ const char *pcktSentMsgDescriptor::getFieldDynamicTypeString(void *object, int f
             return basedesc->getFieldDynamicTypeString(object,field,i);
         field -= basedesc->getFieldCount();
     }
-    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    PcktSentMsg *pp = (PcktSentMsg *)object; (void)pp;
     switch (field) {
         default: return nullptr;
     }
 }
 
-std::string pcktSentMsgDescriptor::getFieldValueAsString(void *object, int field, int i) const
+std::string PcktSentMsgDescriptor::getFieldValueAsString(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1415,7 +1415,7 @@ std::string pcktSentMsgDescriptor::getFieldValueAsString(void *object, int field
             return basedesc->getFieldValueAsString(object,field,i);
         field -= basedesc->getFieldCount();
     }
-    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    PcktSentMsg *pp = (PcktSentMsg *)object; (void)pp;
     switch (field) {
         case 0: return oppstring2string(pp->getOwnAddr());
         case 1: return double2string(pp->getBit_size());
@@ -1425,7 +1425,7 @@ std::string pcktSentMsgDescriptor::getFieldValueAsString(void *object, int field
     }
 }
 
-bool pcktSentMsgDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+bool PcktSentMsgDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1433,7 +1433,7 @@ bool pcktSentMsgDescriptor::setFieldValueAsString(void *object, int field, int i
             return basedesc->setFieldValueAsString(object,field,i,value);
         field -= basedesc->getFieldCount();
     }
-    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    PcktSentMsg *pp = (PcktSentMsg *)object; (void)pp;
     switch (field) {
         case 0: pp->setOwnAddr((value)); return true;
         case 1: pp->setBit_size(string2double(value)); return true;
@@ -1443,7 +1443,7 @@ bool pcktSentMsgDescriptor::setFieldValueAsString(void *object, int field, int i
     }
 }
 
-const char *pcktSentMsgDescriptor::getFieldStructName(int field) const
+const char *PcktSentMsgDescriptor::getFieldStructName(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1456,7 +1456,7 @@ const char *pcktSentMsgDescriptor::getFieldStructName(int field) const
     };
 }
 
-void *pcktSentMsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+void *PcktSentMsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -1464,7 +1464,7 @@ void *pcktSentMsgDescriptor::getFieldStructValuePointer(void *object, int field,
             return basedesc->getFieldStructValuePointer(object, field, i);
         field -= basedesc->getFieldCount();
     }
-    pcktSentMsg *pp = (pcktSentMsg *)object; (void)pp;
+    PcktSentMsg *pp = (PcktSentMsg *)object; (void)pp;
     switch (field) {
         default: return nullptr;
     }
@@ -1833,6 +1833,7 @@ void BeaconInfoMsg::copy(const BeaconInfoMsg& other)
     this->MyPosY = other.MyPosY;
     this->SSI = other.SSI;
     this->neighGraph = other.neighGraph;
+    this->neighEner = other.neighEner;
     this->numberVert = other.numberVert;
     this->sentTime = other.sentTime;
     this->receivedTime = other.receivedTime;
@@ -1851,6 +1852,7 @@ void BeaconInfoMsg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->MyPosY);
     doParsimPacking(b,this->SSI);
     doParsimPacking(b,this->neighGraph);
+    doParsimPacking(b,this->neighEner);
     doParsimPacking(b,this->numberVert);
     doParsimPacking(b,this->sentTime);
     doParsimPacking(b,this->receivedTime);
@@ -1869,6 +1871,7 @@ void BeaconInfoMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->MyPosY);
     doParsimUnpacking(b,this->SSI);
     doParsimUnpacking(b,this->neighGraph);
+    doParsimUnpacking(b,this->neighEner);
     doParsimUnpacking(b,this->numberVert);
     doParsimUnpacking(b,this->sentTime);
     doParsimUnpacking(b,this->receivedTime);
@@ -1963,6 +1966,16 @@ const char * BeaconInfoMsg::getNeighGraph() const
 void BeaconInfoMsg::setNeighGraph(const char * neighGraph)
 {
     this->neighGraph = neighGraph;
+}
+
+const char * BeaconInfoMsg::getNeighEner() const
+{
+    return this->neighEner.c_str();
+}
+
+void BeaconInfoMsg::setNeighEner(const char * neighEner)
+{
+    this->neighEner = neighEner;
 }
 
 int BeaconInfoMsg::getNumberVert() const
@@ -2070,7 +2083,7 @@ const char *BeaconInfoMsgDescriptor::getProperty(const char *propertyname) const
 int BeaconInfoMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 13+basedesc->getFieldCount() : 13;
+    return basedesc ? 14+basedesc->getFieldCount() : 14;
 }
 
 unsigned int BeaconInfoMsgDescriptor::getFieldTypeFlags(int field) const
@@ -2095,8 +2108,9 @@ unsigned int BeaconInfoMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<13) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<14) ? fieldTypeFlags[field] : 0;
 }
 
 const char *BeaconInfoMsgDescriptor::getFieldName(int field) const
@@ -2117,12 +2131,13 @@ const char *BeaconInfoMsgDescriptor::getFieldName(int field) const
         "MyPosY",
         "SSI",
         "neighGraph",
+        "neighEner",
         "numberVert",
         "sentTime",
         "receivedTime",
         "injectedTime",
     };
-    return (field>=0 && field<13) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<14) ? fieldNames[field] : nullptr;
 }
 
 int BeaconInfoMsgDescriptor::findField(const char *fieldName) const
@@ -2138,10 +2153,11 @@ int BeaconInfoMsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='M' && strcmp(fieldName, "MyPosY")==0) return base+6;
     if (fieldName[0]=='S' && strcmp(fieldName, "SSI")==0) return base+7;
     if (fieldName[0]=='n' && strcmp(fieldName, "neighGraph")==0) return base+8;
-    if (fieldName[0]=='n' && strcmp(fieldName, "numberVert")==0) return base+9;
-    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+10;
-    if (fieldName[0]=='r' && strcmp(fieldName, "receivedTime")==0) return base+11;
-    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+12;
+    if (fieldName[0]=='n' && strcmp(fieldName, "neighEner")==0) return base+9;
+    if (fieldName[0]=='n' && strcmp(fieldName, "numberVert")==0) return base+10;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+11;
+    if (fieldName[0]=='r' && strcmp(fieldName, "receivedTime")==0) return base+12;
+    if (fieldName[0]=='i' && strcmp(fieldName, "injectedTime")==0) return base+13;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -2163,12 +2179,13 @@ const char *BeaconInfoMsgDescriptor::getFieldTypeString(int field) const
         "double",
         "double",
         "string",
+        "string",
         "int",
         "simtime_t",
         "simtime_t",
         "simtime_t",
     };
-    return (field>=0 && field<13) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<14) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **BeaconInfoMsgDescriptor::getFieldPropertyNames(int field) const
@@ -2244,10 +2261,11 @@ std::string BeaconInfoMsgDescriptor::getFieldValueAsString(void *object, int fie
         case 6: return double2string(pp->getMyPosY());
         case 7: return double2string(pp->getSSI());
         case 8: return oppstring2string(pp->getNeighGraph());
-        case 9: return long2string(pp->getNumberVert());
-        case 10: return simtime2string(pp->getSentTime());
-        case 11: return simtime2string(pp->getReceivedTime());
-        case 12: return simtime2string(pp->getInjectedTime());
+        case 9: return oppstring2string(pp->getNeighEner());
+        case 10: return long2string(pp->getNumberVert());
+        case 11: return simtime2string(pp->getSentTime());
+        case 12: return simtime2string(pp->getReceivedTime());
+        case 13: return simtime2string(pp->getInjectedTime());
         default: return "";
     }
 }
@@ -2271,10 +2289,11 @@ bool BeaconInfoMsgDescriptor::setFieldValueAsString(void *object, int field, int
         case 6: pp->setMyPosY(string2double(value)); return true;
         case 7: pp->setSSI(string2double(value)); return true;
         case 8: pp->setNeighGraph((value)); return true;
-        case 9: pp->setNumberVert(string2long(value)); return true;
-        case 10: pp->setSentTime(string2simtime(value)); return true;
-        case 11: pp->setReceivedTime(string2simtime(value)); return true;
-        case 12: pp->setInjectedTime(string2simtime(value)); return true;
+        case 9: pp->setNeighEner((value)); return true;
+        case 10: pp->setNumberVert(string2long(value)); return true;
+        case 11: pp->setSentTime(string2simtime(value)); return true;
+        case 12: pp->setReceivedTime(string2simtime(value)); return true;
+        case 13: pp->setInjectedTime(string2simtime(value)); return true;
         default: return false;
     }
 }

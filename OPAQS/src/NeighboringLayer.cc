@@ -17,6 +17,7 @@ void NeighboringLayer::initialize(int stage)
 
 
         graphe=GraphT();
+        log=Logger();
 
         // get parameters
         ownMACAddress = par("ownMACAddress").stringValue();
@@ -48,17 +49,22 @@ void NeighboringLayer::initialize(int stage)
 
     } else if (stage == 1) {
         // get own module info
-                ownNodeInfo = new BaseNodeInfo();
-                ownNodeInfo->nodeModule = getParentModule();
-                for (cModule::SubmoduleIterator it(getParentModule()); !it.end(); ++it) {
-                    ownNodeInfo->nodeMobilityModule = dynamic_cast<inet::IMobility*>(*it);
-                    if (ownNodeInfo->nodeMobilityModule != NULL) {
-                        break;
-                    }
-                }
+        ownNodeInfo = new BaseNodeInfo();
+        ownNodeInfo->nodeModule = getParentModule();
+        for (cModule::SubmoduleIterator it(getParentModule()); !it.end(); ++it) {
+            ownNodeInfo->nodeMobilityModule = dynamic_cast<inet::IMobility*>(*it);
+            if (ownNodeInfo->nodeMobilityModule != NULL) {
+                break;
+            }
+        }
+
+        for (int i = 0; i <N ; ++i) {
+            Ener[i]=0;
+        }
+
 
     } else if (stage == 2) {
-
+        calcEnerg(0);
 
 
     } else {
@@ -124,8 +130,12 @@ void NeighboringLayer::handleMessage(cMessage *msg)
             EV<<"Neighboring: handleGraphUpdtMsg\n";
             handleGraphUpdtMsgFromLowerLayer(msg);
 
-        }else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<pcktSentMsg*>(msg) != NULL) {
-            EV<<"Neighboring: handlepcktSentMsg\n";
+        }else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<PcktSentMsg*>(msg) != NULL) {
+            EV<<"Neighboring upp: handlepcktSentMsg\n";
+            handlePcktSentMsg(msg);
+
+        }else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<PcktSentMsg*>(msg) != NULL) {
+            EV<<"Neighboring low: handlepcktSentMsg\n";
             handlePcktSentMsg(msg);
 
         // received some unexpected packet
@@ -172,6 +182,8 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     //bool updMyG=updateMyNGraph();
     //EV<<"RSSI:"<<calculateSSI(msg)<<"\n";
 
+    updateNeighEner(msg);
+
     //graphe.displayMatrix(v);
     string answ=graphe.returnGraphT();
     EV<<"Graph After Update: "<<answ<<"\n";
@@ -207,6 +219,8 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 
     saveResultsWeight(msg,weightH);
     saveResultsWTime(msg,timeRMsg);
+    log.saveEnerTable(ownMACAddress, returnEnerTable());
+
 
 //-------------------
 
@@ -221,7 +235,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     infoMsg->setSourceAddress(BeaconReceived->getSourceAddress());
     infoMsg->setProb(BeaconReceived->getProb());    //Gives probability
     infoMsg->setMyProb(myProb);
-    int realPacketSize = 6 + 6 + 4 + 4 + 4 + 4 + 4 +64 +1;
+    int realPacketSize = 6 + 6 + 4 + 4 + 4 + 4 + 4 + 64 + 64 + 1;
     infoMsg->setRealPacketSize(realPacketSize);
     infoMsg->setByteLength(realPacketSize);
     infoMsg->setMyPosX(BeaconReceived->getMyPosX());
@@ -232,6 +246,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     infoMsg->setSentTime(BeaconReceived->getSentTime().dbl());
     infoMsg->setReceivedTime(BeaconReceived->getReceivedTime().dbl());
     infoMsg->setInjectedTime(BeaconReceived->getInjectedTime().dbl());
+    infoMsg->setNeighEner(returnEnerTable().c_str());
     //infoMsg->setNic(BeaconReceived->getNic());
 
     //EV<<"Beac: "<<BeaconReceived->getRealPacketSize()<<" Cop of beac: "<<infoMsg->getRealPacketSize()<<" \n";
@@ -249,39 +264,6 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     //cancelBackOffT(msg);
     delete(msg);
 }
-
-void NeighboringLayer::saveResultsWeight(cMessage *msg, string weightH){
-    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
-    //FILE Results
-    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEweight";
-    string noS=ownMACAddress.substr(15,17);
-    string noN=BeaconReceived->getSourceAddress();
-    nameF.append(noS);
-    nameF.append("_");
-    nameF.append(noN.substr(15,17));
-    nameF.append(".txt");
-    std::ofstream outfile(nameF, std::ios_base::app);
-    weightH.append("\n");
-    outfile<<weightH;
-    outfile.close();
-}
-void NeighboringLayer::saveResultsWTime(cMessage *msg, string timeRMsg){
-    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
-    //FILE Results
-    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEwtime";
-    string noS=ownMACAddress.substr(15,17);
-    string noN=BeaconReceived->getSourceAddress();
-    nameF.append(noS);
-    nameF.append("_");
-    nameF.append(noN.substr(15,17));
-    nameF.append(".txt");
-    std::ofstream outfile(nameF, std::ios_base::app);
-    timeRMsg.append("\n");
-    outfile<<timeRMsg;
-    outfile.close();
-}
-
-
 
 //Handle Received DataReqMsg from neighbor
 void NeighboringLayer::handleDataReqMsgFromLowerLayer(cMessage *msg){
@@ -304,6 +286,8 @@ void NeighboringLayer::handleNeighbourListMsgFromLowerLayer(cMessage *msg)//neig
     updateNeighbourList(msg);//}
 }
 
+
+//-----
 /********************************************************************************************************
  *Verifies neighborhood and updates the neighbors list and checks if GW is my neighbor
  */
@@ -385,6 +369,7 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
                  distProb=GWisMyNeigh(msg);
                  //EV<<"Set on beacon g: "<<beaconMsg->getNeighGraph()<<"\n";
                  //EV<<"Destin: "<<beaconMsg->getDestinationAddress()<<"\n";
+                 calcEnerg(beaconMsg->getRealPacketSize());
                  send(beaconMsg, "lowerLayerOut");
              }
          }
@@ -410,7 +395,6 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
      // delete the received neighbor list msg
      delete msg;
 }
-
 /********************************************************************************************************
  *BLUETOOTH Verifies neighborhood and updates the neighbors list and checks if GW is my neighbor
  */
@@ -497,6 +481,7 @@ void NeighboringLayer::updateNeighbourListBT(cMessage *msg){ //por fazer
                  //get my prob based on distance
                  distProb=GWisMyNeighBT(msg);
                  //EV<<"Sent lowerLayerOutBT";
+                 //calcEnerg(beaconMsg->getRealPacketSize());
                  send(beaconMsg, "lowerLayerOut");
              }
          }
@@ -543,7 +528,7 @@ BeaconMsg* NeighboringLayer::makeBeaconVectorMessage(cMessage *msg)//cache
     }
     beaconMsg->setProb(myProb);
     EV<<" My current Prob is: "<<myProb<<" \n";
-    int realPacketSize = 6 + 6 + 4 + 4 + 4 +64 +1;//(1 * NEIGHBORINGLAYER_MSG_ID_HASH_SIZE); //REVER TAMANHO AQUI CORRETO
+    int realPacketSize = 6 + 6 + 4 + 4 + 4 + 64 + 64 + 1;//(1 * NEIGHBORINGLAYER_MSG_ID_HASH_SIZE); //REVER TAMANHO AQUI CORRETO
     beaconMsg->setRealPacketSize(realPacketSize);
     beaconMsg->setByteLength(realPacketSize);
     beaconMsg->setMyPosX(ownCoord.x);
@@ -551,13 +536,13 @@ BeaconMsg* NeighboringLayer::makeBeaconVectorMessage(cMessage *msg)//cache
     //Added 5/09/19
     beaconMsg->setNeighGraph(graphe.returnGraphT().c_str());
     //EV<<"Set on beacon g: "<<graphe.returnGraphT().c_str()<<"\n";
+    beaconMsg->setNeighEner(returnEnerTable().c_str());
     beaconMsg->setNumberVert(graphe.returnVertIDSize());
     beaconMsg->setInjectedTime(simTime().dbl()); //timeStamp , generation time
 
     return beaconMsg;
     //Aqui cria o beacon de broadcast que faz reconhecer a vizinhança
 }
-
 
 /**********************************************************************************************************
  * ⇒ Receives a node's MACAdd, checks if it's on the list, if not it adds it at the list end; Returns the memory add where the syncedNeighbour(node) is saved;
@@ -699,9 +684,7 @@ void NeighboringLayer::setSyncingNeighbourInfoForNextRoundBT()//neigh
     }
 }
 
-
-void NeighboringLayer::saveLastBeContact(string Naddress)//neigh
-{
+void NeighboringLayer::saveLastBeContact(string Naddress){//neigh
 
     list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
     iteratorSyncedNeighbour = syncedNeighbourList.begin();
@@ -716,26 +699,6 @@ void NeighboringLayer::saveLastBeContact(string Naddress)//neigh
         iteratorSyncedNeighbour++;
     }
 }
-
-void NeighboringLayer::cleanOldContacts(){
-    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
-        iteratorSyncedNeighbour = syncedNeighbourList.begin();
-        while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
-            SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
-            if ((simTime().dbl()-syncedNeighbour->lastBrecT) >=max_absent_time) {
-
-                int myID=graphe.add_element(ownMACAddress);
-                string addrN=syncedNeighbour->nodeMACAddress;
-                int idN=std::stoi( addrN.substr(15,17));
-                graphe.rem_edge(myID,idN);
-                EV<<"Removed absent neigh from graph: "<<idN<<"\n";
-            }
-
-            iteratorSyncedNeighbour++;
-        }
-
-}
-
 
 void NeighboringLayer::cancelBackOffT(cMessage *msg){ //vector<string> & selectedMessageIDList, cMessage *msg){ //REVER PARA FUTURO
     EV<<"Canceling BackOffT\n";
@@ -775,8 +738,9 @@ void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selec
     syncedNeighbourListBTHasChanged = TRUE;
     EV<<"BackOffT canceled\n";
 }
+//--------------------------------------------------------------------------------------------------------------------------------------------
 
-
+//--GRAPH Methods----------------------------------------------------------
 /*************************************************************************
  * ⇒ Checks my Neighbor list and removes no longer direct-neighbors from Graph.
  */
@@ -821,8 +785,9 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
             o++;
         }
         if(!found){
-            //EV<<"rem id:"<<i<<"\n";
+            EV<<"rem id:"<<i<<"\n";
             graphe.rem_edge(myID,i);
+            //removEdge(i); not here because it doesn't know if its neigh at more tah 1 hop
         }
         found=FALSE;
         o=0;
@@ -836,6 +801,7 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
         if(spath==""){
             for(int p2=0;p2<graphe.returnVvalue();p2++){
                 graphe.rem_edge(p,p2);
+                removEdge(p);   //here if no path, then delete this node's info from table
                 //EV<<"Cleaning graph \n";
             }
 
@@ -955,6 +921,9 @@ void  NeighboringLayer::handleGraphUpdtMsgFromLowerLayer(cMessage *msg){
     send(neighGraphMsg,"upperLayerOut");
 }
 
+//---
+
+//--Calculations Methods-----------------------------------------------------------
 /*************************
  * ⇒ Calculates the distance between the two nodes from the position data received in the beacon
  */
@@ -1042,6 +1011,7 @@ double NeighboringLayer::updateProbability(double distProb, double ssi){
 }
 
 
+//--Gw List methods------------------------------------
 /*************************
  * ⇒ Verifies if GW is my direct neighbor
  */
@@ -1095,17 +1065,43 @@ double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
     return isNeigh;
 }
 
+void NeighboringLayer::cleanOldContacts(){
+    list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
+        iteratorSyncedNeighbour = syncedNeighbourList.begin();
+        while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
+            SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
+            if ((simTime().dbl()-syncedNeighbour->lastBrecT) >=max_absent_time) {
+
+                int myID=graphe.add_element(ownMACAddress);
+                string addrN=syncedNeighbour->nodeMACAddress;
+                int idN=std::stoi( addrN.substr(15,17));
+                graphe.rem_edge(myID,idN);
+                //removEdge(idN);
+                EV<<"Removed absent neigh from graph: "<<idN<<"\n";
+            }
+
+            iteratorSyncedNeighbour++;
+        }
+
+}
+
+
+//--Energy Methods---------------------------------------------------------
 
 void NeighboringLayer::handlePcktSentMsg(cMessage *msg){
-    pcktSentMsg *pcktSent = dynamic_cast<pcktSentMsg*>(msg);
+    PcktSentMsg *pcktSent = dynamic_cast<PcktSentMsg*>(msg);
     double pckt_size=pcktSent->getBit_size();
     calcEnerg(pckt_size);
 }
 
-
 //calculate future energy value through expenditure on sending Msgs.
 void NeighboringLayer::calcEnerg(double size_bits){
-    double my_enerS=ener_spent+size_bits*Beta;
+    int my_enerS=ener_spent+1;//size_bits*Beta;
+    //round
+    //my_enerS=ceil(my_enerS*100);
+   // my_enerS=my_enerS/100;
+
+
     ener_spent=my_enerS;//update my value
     string myAddr=ownMACAddress;
     int idMy=std::stoi( myAddr.substr(15,17));
@@ -1113,9 +1109,149 @@ void NeighboringLayer::calcEnerg(double size_bits){
     //return my_enerS;
 }
 
-/*void NeighboringLayer::updateNeighEner(){
+bool NeighboringLayer::updateNeighEner(cMessage *msg){
+    EV<<"Update Neigh Ener \n";
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+    string srcAdd=BeaconReceived->getSourceAddress();
+    string tabS=BeaconReceived->getNeighEner();
+    string myAdd=ownMACAddress;
+    //EV<<"Tabela Ener Recebida: "<<tabS<<" de comprimento:"<<tabS.length()<<"\n";
+    int srcID=graphe.add_element(srcAdd);  //returns id
+    int myID=graphe.add_element(myAdd);
 
-}*/
+    int array[N];
+    for(int p1=0;p1<N;p1++){ //clean coppy arr
+        array[p1]=-1;
+    }
+
+    std::string delimiter = ";";
+    int i=0;//, q1=0;
+    for(i=0;i<tabS.length();i++){
+        int j=tabS.find(delimiter,i);
+        if(j==std::string::npos){
+            EV<<"false \n";
+            return false;
+        }else{
+            EV<<"Here I am \n";
+            std::string token = tabS.substr(i, j-i);
+            int q1 = tabS.find("-",i);
+            int q2 = tabS.find(";",i);
+            string v=tabS.substr(i,q1-i);
+            string w=tabS.substr(q1+2,q2-(q1+2));
+            int vert = std::stoi (v);
+            int weight = std::stoi (w);
+            //EV<<"WEI: "<<w<<"\n";
+            array[vert]=weight;
+            i =j+1;
+                //EV<<"i="<<i<<"j="<<j<<"q1:"<<q1<<"q2:"<<q2<<"v:"<<v<<"w:"<<w<<"\n";
+        }
+    }
+    EV<<"I'm here lel \n";
+        EV<<"Array recebido: \n";
+        int f=0;
+        //int count=0;
+        for(f = 0; f < N; f++) {
+                if(array[f]>=0){EV << array[f] << " ";}
+            EV<<"\n";
+        }
+        //Clean direct-link line - I doon't thin kwe need this here
+        /*for(int h=0;h<maxLengthGraph;h++){
+            Ener[srcID]=0;
+            //graphe.rem_edge(srcID, h);
+        }*/
+
+    for(int vi=0;vi<maxLengthGraph;vi++){
+        int ret=graphe.returnWGrapfT(myID,vi);
+        EV<<"Ret is:"<<ret<<"\n";
+        if(vi!=myID && ret<=0 && array[vi]>0){   //if it is not my direct neigh, save
+            Ener[vi]=array[vi];EV<<"Save1\n";
+        }
+        if(vi==srcID){  //if it's senders position, save
+            Ener[vi]=array[vi];EV<<"Save2\n";
+        }
+    }
+
+
+     /*
+    //Adding the received graph to mine
+    for(int s=0;s<maxLengthGraph;s++){//graphe.returnMaxNoVert();s++){
+
+        for(int o=0;o<maxLengthGraph;o++){//graphe.returnMaxNoVert();o++){
+            //int ret=graphe.returnWGrapfT(s,o);
+            if((s!=myID && o!=myID)&& array[o]>=0){ //if not my direct neigh and ener>0
+                Ener[o]=array[o];
+                EV<<"Added: "<<array[o]<<"at"<<o<<"\n";
+            }
+            if(((s==myID && o==srcID)||(s==srcID && o==myID))&& array[o]>=0){ //if my pos and yours
+                Ener[o]=array[o];
+                EV<<"Added2: "<<array[o]<<"at"<<o<<"\n";
+            }
+        }
+    }*/
+
+        //Update my Weight:
+        Ener[myID]=ener_spent;
+        return true;
+}
+
+string NeighboringLayer::returnEnerTable(){
+    //Returns the table on a string
+    std::string tableS;
+    int k,l;
+    for(k = 0; k < N; k++) {
+        if(Ener[k]!=0 && Ener[k]!=(-1)){
+            tableS=tableS+std::to_string(k)+"->"+std::to_string(Ener[k])+";\n";
+        }
+    }
+    EV<<"Table Ener: \n"<<tableS<<"\n";
+    return tableS;
+}
+
+void NeighboringLayer::removEdge(int id){
+    Ener[id]=-1;
+    EV<<"Removed:"<<id<<"\n";
+}
+
+//---------------------------------------------------------------------------
+
+//--Save Results methods----------------------------------
+void NeighboringLayer::saveResultsWeight(cMessage *msg, string weightH){
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+    string noN=BeaconReceived->getSourceAddress();
+    log.saveResultsWeight(ownMACAddress, noN, weightH);
+
+    //FILE Results
+    /*string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEweight";
+    string noS=ownMACAddress.substr(15,17);
+    string noN=BeaconReceived->getSourceAddress();
+    nameF.append(noS);
+    nameF.append("_");
+    nameF.append(noN.substr(15,17));
+    nameF.append(".txt");
+    std::ofstream outfile(nameF, std::ios_base::app);
+    weightH.append("\n");
+    outfile<<weightH;
+    outfile.close();*/
+}
+void NeighboringLayer::saveResultsWTime(cMessage *msg, string timeRMsg){
+    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
+    string noN=BeaconReceived->getSourceAddress();
+    log.saveResultsWTime(ownMACAddress, noN, timeRMsg);
+    //FILE Results
+    /*string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEwtime";
+    string noS=ownMACAddress.substr(15,17);
+    string noN=BeaconReceived->getSourceAddress();
+    nameF.append(noS);
+    nameF.append("_");
+    nameF.append(noN.substr(15,17));
+    nameF.append(".txt");
+    std::ofstream outfile(nameF, std::ios_base::app);
+    timeRMsg.append("\n");
+    outfile<<timeRMsg;
+    outfile.close();*/
+}
+
+
 
 //FINISH
 void NeighboringLayer::finish(){
@@ -1139,8 +1275,6 @@ void NeighboringLayer::finish(){
             delete syncedNeighbour;
         }
 }
-
-
 
 
 

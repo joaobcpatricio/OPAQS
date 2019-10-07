@@ -2,31 +2,22 @@ ShortPath:
 2-> | Graph: 
 2->3:52;
 3->2:52;
- | Time is : 48.664619 |End 
+ | Time is : 48.669847 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:52;
 3->2:52;
- | Time is : 48.664619 |End 
+ | Time is : 48.669847 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:51;
 3->2:51;
- | Time is : 49.214616 |End 
+ | Time is : 49.219842 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:51;
 3->2:51;
- | Time is : 49.214616 |End 
-ShortPath: 
-2-> | Graph: 
-0->1:39;
-1->0:39;
-1->2:60;
-2->1:60;
-2->3:51;
-3->2:51;
- | Time is : 50.814621 |End 
+ | Time is : 49.219842 |End 
 ShortPath: 
 2-> | Graph: 
 0->1:39;
@@ -35,7 +26,7 @@ ShortPath:
 2->1:60;
 2->3:51;
 3->2:51;
- | Time is : 50.814621 |End 
+ | Time is : 50.819848 |End 
 ShortPath: 
 2-> | Graph: 
 0->1:39;
@@ -44,7 +35,7 @@ ShortPath:
 2->1:60;
 2->3:51;
 3->2:51;
- | Time is : 51.364605 |End 
+ | Time is : 50.819848 |End 
 ShortPath: 
 2-> | Graph: 
 0->1:39;
@@ -53,64 +44,73 @@ ShortPath:
 2->1:60;
 2->3:51;
 3->2:51;
- | Time is : 51.364605 |End 
+ | Time is : 51.369827 |End 
+ShortPath: 
+2-> | Graph: 
+0->1:39;
+1->0:39;
+1->2:60;
+2->1:60;
+2->3:51;
+3->2:51;
+ | Time is : 51.369827 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:41;
 3->2:41;
- | Time is : 58.464498 |End 
+ | Time is : 58.469682 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:41;
 3->2:41;
- | Time is : 58.464498 |End 
+ | Time is : 58.469682 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:39;
 3->2:39;
- | Time is : 60.114474 |End 
+ | Time is : 60.119648 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:39;
 3->2:39;
- | Time is : 60.114474 |End 
+ | Time is : 60.119648 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:38;
 3->2:38;
- | Time is : 61.214459 |End 
+ | Time is : 61.219629 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:38;
 3->2:38;
- | Time is : 61.214459 |End 
+ | Time is : 61.219629 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:36;
 3->2:36;
- | Time is : 63.414435 |End 
+ | Time is : 63.419596 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:36;
 3->2:36;
- | Time is : 63.414435 |End 
+ | Time is : 63.419596 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:35;
 3->2:35;
- | Time is : 65.014420 |End 
+ | Time is : 65.019576 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:35;
 3->2:35;
- | Time is : 65.014420 |End 
+ | Time is : 65.019576 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:34;
 3->2:34;
- | Time is : 66.114412 |End 
+ | Time is : 66.119565 |End 
 ShortPath: 
 2-> | Graph: 
 2->3:34;
 3->2:34;
- | Time is : 66.114412 |End 
+ | Time is : 66.119565 |End 

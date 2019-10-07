@@ -76,9 +76,6 @@ private:
     int count_dataPkts_sentGw=0;    //count the number of dataPkts sent to BS (I'm Gw)
     int count_allPkts_sent=0;       //counts all pkts sent (except broadcast (beacons))
 
-
-
-
     struct AppInfo {
         int appID;
         string appName;
@@ -87,15 +84,12 @@ private:
 
     list<AppInfo*> registeredAppList;
 
-
-    //19/09
     string gateway_list;
     struct GatewayN{
         string nodeMACAddress;
         double untilTime;
     };
     list<GatewayN*> GatewayList;
-
 
     void handleAppRegistrationMsg(cMessage *msg);
     void handleDataMsgFromUpperLayer(cMessage *msg);
@@ -129,6 +123,8 @@ private:
     void saveMsgReachedGw(string dataName, double time);
 
     Logger Log;
+
+    void pcktSentMsg(double size_p, bool from_GW);
 
 
 

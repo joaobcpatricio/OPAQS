@@ -1,4 +1,43 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Sat Oct  5 02:00:12 2019
-elapsed time: 4e-08s
+Started simulation at Mon Oct  7 14:58:10 2019
+elapsed time: 3.3e-08s
+Source: /app/node1/item-22063 | Message ID: 63 | Time sentFromSrcR: 62.919643 | Time receivedFromSrcR: 62.933627 |End 
+Source: /app/node1/item-22064 | Message ID: 64 | Time sentFromSrcR: 63.469643 | Time receivedFromSrcR: 63.483627 |End 
+Source: /app/node1/item-22065 | Message ID: 65 | Time sentFromSrcR: 64.569643 | Time receivedFromSrcR: 64.583627 |End 
+Source: /app/node1/item-22066 | Message ID: 66 | Time sentFromSrcR: 65.119643 | Time receivedFromSrcR: 65.133627 |End 
+Source: /app/node1/item-22067 | Message ID: 67 | Time sentFromSrcR: 67.269643 | Time receivedFromSrcR: 67.283627 |End 
+Source: /app/node1/item-22068 | Message ID: 68 | Time sentFromSrcR: 67.269643 | Time receivedFromSrcR: 67.297467 |End 
+Source: /app/node1/item-22069 | Message ID: 69 | Time sentFromSrcR: 68.369643 | Time receivedFromSrcR: 68.383627 |End 
+Source: /app/node1/item-22070 | Message ID: 70 | Time sentFromSrcR: 69.469643 | Time receivedFromSrcR: 69.483627 |End 
+Source: /app/node1/item-22070 | Message ID: 70 | Time sentFromSrcR: 70.019643 | Time receivedFromSrcR: 70.033627 |End 
+Source: /app/node1/item-22071 | Message ID: 71 | Time sentFromSrcR: 70.569643 | Time receivedFromSrcR: 70.583627 |End 
+Source: /app/node1/item-22072 | Message ID: 72 | Time sentFromSrcR: 71.119643 | Time receivedFromSrcR: 71.133627 |End 
+Source: /app/node1/item-22073 | Message ID: 73 | Time sentFromSrcR: 72.719643 | Time receivedFromSrcR: 72.733627 |End 
+Source: /app/node1/item-22074 | Message ID: 74 | Time sentFromSrcR: 73.269643 | Time receivedFromSrcR: 73.283627 |End 
+Source: /app/node1/item-22075 | Message ID: 75 | Time sentFromSrcR: 75.169643 | Time receivedFromSrcR: 75.183627 |End 
+Source: /app/node1/item-22076 | Message ID: 76 | Time sentFromSrcR: 75.169643 | Time receivedFromSrcR: 75.197467 |End 
+Source: /app/node1/item-22077 | Message ID: 77 | Time sentFromSrcR: 76.269643 | Time receivedFromSrcR: 76.283627 |End 
+Source: /app/node1/item-22078 | Message ID: 78 | Time sentFromSrcR: 78.419643 | Time receivedFromSrcR: 78.433627 |End 
+Source: /app/node1/item-22079 | Message ID: 79 | Time sentFromSrcR: 78.419643 | Time receivedFromSrcR: 78.447467 |End 
+Source: /app/node1/item-22080 | Message ID: 80 | Time sentFromSrcR: 80.569643 | Time receivedFromSrcR: 80.583627 |End 
+Source: /app/node1/item-22081 | Message ID: 81 | Time sentFromSrcR: 80.569643 | Time receivedFromSrcR: 80.597467 |End 
+Source: /app/node1/item-22082 | Message ID: 82 | Time sentFromSrcR: 81.119643 | Time receivedFromSrcR: 81.133627 |End 
+Source: /app/node1/item-22083 | Message ID: 83 | Time sentFromSrcR: 82.219643 | Time receivedFromSrcR: 82.233627 |End 
+Source: /app/node1/item-22084 | Message ID: 84 | Time sentFromSrcR: 83.319643 | Time receivedFromSrcR: 83.333627 |End 
+Source: /app/node1/item-22085 | Message ID: 85 | Time sentFromSrcR: 84.419643 | Time receivedFromSrcR: 84.433627 |End 
+Source: /app/node1/item-22086 | Message ID: 86 | Time sentFromSrcR: 85.519643 | Time receivedFromSrcR: 85.533627 |End 
+Source: /app/node1/item-22087 | Message ID: 87 | Time sentFromSrcR: 89.069643 | Time receivedFromSrcR: 89.083627 |End 
+Source: /app/node1/item-22088 | Message ID: 88 | Time sentFromSrcR: 89.069643 | Time receivedFromSrcR: 89.097467 |End 
+Source: /app/node1/item-22089 | Message ID: 89 | Time sentFromSrcR: 89.069643 | Time receivedFromSrcR: 89.111307 |End 
+Source: /app/node1/item-22090 | Message ID: 90 | Time sentFromSrcR: 91.219643 | Time receivedFromSrcR: 91.233627 |End 
+Source: /app/node1/item-22091 | Message ID: 91 | Time sentFromSrcR: 91.219643 | Time receivedFromSrcR: 91.247467 |End 
+Source: /app/node1/item-22092 | Message ID: 92 | Time sentFromSrcR: 91.219643 | Time receivedFromSrcR: 91.261307 |End 
+Source: /app/node1/item-22093 | Message ID: 93 | Time sentFromSrcR: 93.919643 | Time receivedFromSrcR: 93.933627 |End 
+Source: /app/node1/item-22094 | Message ID: 94 | Time sentFromSrcR: 93.919643 | Time receivedFromSrcR: 93.947467 |End 
+Source: /app/node1/item-22095 | Message ID: 95 | Time sentFromSrcR: 94.469643 | Time receivedFromSrcR: 94.483627 |End 
+Source: /app/node1/item-22096 | Message ID: 96 | Time sentFromSrcR: 95.569643 | Time receivedFromSrcR: 95.583627 |End 
+Source: /app/node1/item-22097 | Message ID: 97 | Time sentFromSrcR: 96.119643 | Time receivedFromSrcR: 96.133627 |End 
+Source: /app/node1/item-22098 | Message ID: 98 | Time sentFromSrcR: 98.819643 | Time receivedFromSrcR: 98.833627 |End 
+Source: /app/node1/item-22099 | Message ID: 99 | Time sentFromSrcR: 98.819643 | Time receivedFromSrcR: 98.847467 |End 
+Source: /app/node1/item-22100 | Message ID: 100 | Time sentFromSrcR: 99.369643 | Time receivedFromSrcR: 99.383627 |End 

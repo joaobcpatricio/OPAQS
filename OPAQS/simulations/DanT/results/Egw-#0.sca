@@ -1,14 +1,14 @@
 version 2
-run Egw-0-20191003-20:44:29-30690
+run Egw-0-20191007-14:58:10-11761
 attr configname Egw
-attr datetime 20191003-20:44:29
+attr datetime 20191007-14:58:10
 attr experiment Egw
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 30690
+attr processid 11761
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -65,7 +65,7 @@ param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
 param **.neighboring.sendWifiFirst true
-param **.neighboring.maxLengthGraph 20
+param **.neighboring.maxLengthGraph 50
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
 param **.wirelessIfc.wirelessRange 40m
@@ -86,13 +86,13 @@ param **.mobility.is3D false
 param **.mobility.nodeId -1
 
 scalar NetworkTormV2.node[0].routing numEventsHandled 2502
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 3272
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 3750
 scalar NetworkTormV2.node[1].routing numEventsHandled 2664
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 3384
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 4128
 scalar NetworkTormV2.node[2].routing numEventsHandled 2534
-scalar NetworkTormV2.node[2].neighboring numEventsHandled 3291
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 3846
 scalar NetworkTormV2.node[3].routing numEventsHandled 2366
-scalar NetworkTormV2.node[3].neighboring numEventsHandled 2905
+scalar NetworkTormV2.node[3].neighboring numEventsHandled 3204
 scalar NetworkTormV2 neighbourhoodSize:min 0
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:max 2

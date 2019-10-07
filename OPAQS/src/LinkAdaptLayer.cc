@@ -174,6 +174,19 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
                 }
 
 
+//PckSentMsg----------------------------------------------------------------------------------------------------
+            } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<PcktSentMsg*>(msg) != NULL) {
+                PcktSentMsg *sentMsg = dynamic_cast<PcktSentMsg*>(msg);
+                string SouceBAdd = sentMsg->getOwnAddr();
+                //EV<<"Source: "<<SouceBAdd.substr(0,2)<<" \n";
+                //EV<<"BT PcktSentMsg received\n";
+                send(msg, "neighLayerOut");
+            } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<PcktSentMsg*>(msg) != NULL) {
+                //EV<<"Wifi PcktSentMsg received\n";
+                send(msg, "neighLayerOut");
+
+
+ //-------------------------------------------------------------------------------
             } else {
 
                 EV_FATAL << LINKADAPTLAYER_SIMMODULEINFO << " Something is radically wrong !!! \n";

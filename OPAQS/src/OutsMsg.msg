@@ -87,9 +87,9 @@ packet AckMsg {
 //
 // example sizes in bytes
 //
-//               addrs | Prob 		| MyPosX 	 | MyPosY	| neighGraph | numberVert | total  |
-//               s & d | (4 byte)   |  (4 byte)  | (4 byte) |            |            | (bytes)|
-// Routing	 ->   6 + 6      4             4           4        64            1           89
+//               addrs | Prob 		| MyPosX 	 | MyPosY	| neighGraph | neighEner	|numberVert | total  |
+//               s & d | (4 byte)   |  (4 byte)  | (4 byte) |            |            	|			| (bytes)|
+// Routing	 ->   6 + 6      4             4           4        64            64        |	1		|	152/3|   
 //
 //Real packet size hardcoded on NeighboringLayer
 //
