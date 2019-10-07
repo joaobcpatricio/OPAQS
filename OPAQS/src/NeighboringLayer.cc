@@ -58,13 +58,13 @@ void NeighboringLayer::initialize(int stage)
             }
         }
 
-        for (int i = 0; i <N ; ++i) {
+        for (int i = 0; i <N_nodes ; ++i) {
             Ener[i]=0;
         }
 
 
     } else if (stage == 2) {
-        calcEnerg(0);
+        calcEnerg(0,false);
 
 
     } else {
@@ -186,7 +186,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 
     //graphe.displayMatrix(v);
     string answ=graphe.returnGraphT();
-    EV<<"Graph After Update: "<<answ<<"\n";
+    //EV<<"Graph After Update: "<<answ<<"\n";
     graphe.dijkstra(myID,srcID);
     //EV<<"End test: \n";
 
@@ -219,7 +219,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 
     saveResultsWeight(msg,weightH);
     saveResultsWTime(msg,timeRMsg);
-    log.saveEnerTable(ownMACAddress, returnEnerTable());
+    //log.saveEnerTable(ownMACAddress, returnEnerTable());
 
 
 //-------------------
@@ -251,8 +251,9 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
 
     //EV<<"Beac: "<<BeaconReceived->getRealPacketSize()<<" Cop of beac: "<<infoMsg->getRealPacketSize()<<" \n";
 
-    EV<<"Neighboring: Sending msg to upperLayer\n";
+    //EV<<"Neighboring: Sending msg to upperLayer\n";
     send(infoMsg, "upperLayerOut");
+    sendEnerTable();
 
 //Added 26/07/2019
     string SouceBAdd = BeaconReceived->getSourceAddress();
@@ -273,7 +274,7 @@ void NeighboringLayer::handleDataReqMsgFromLowerLayer(cMessage *msg){
     double timeSt=dataRequestMsg->getBeaconSentT().dbl();
     double timeRc=simTime().dbl();
     double difTims=timeRc-timeSt;
-    EV<<"Delay Beacon to Req:"<<difTims<<"\n";
+    //EV<<"Delay Beacon to Req:"<<difTims<<"\n";
 
     send(dataRequestMsg, "upperLayerOut");
 }
@@ -369,7 +370,7 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
                  distProb=GWisMyNeigh(msg);
                  //EV<<"Set on beacon g: "<<beaconMsg->getNeighGraph()<<"\n";
                  //EV<<"Destin: "<<beaconMsg->getDestinationAddress()<<"\n";
-                 calcEnerg(beaconMsg->getRealPacketSize());
+                 calcEnerg(beaconMsg->getRealPacketSize(),false);
                  send(beaconMsg, "lowerLayerOut");
              }
          }
@@ -390,6 +391,7 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
      graphUpdt->setNoNeighs(false);
      //EV<<"Neighboring: Sending GraphUpdtmsg to RoutingLayer\n";
      send(graphUpdt,"upperLayerOut");
+     sendEnerTable();
 
 
      // delete the received neighbor list msg
@@ -515,7 +517,7 @@ BeaconMsg* NeighboringLayer::makeBeaconVectorMessage(cMessage *msg)//cache
 
 //My position:
     inet::Coord ownCoord = ownNodeInfo->nodeMobilityModule->getCurrentPosition();
-    EV<<"My x= "<<ownCoord.x<<" My y= "<<ownCoord.y<<" \n";
+    //EV<<"My x= "<<ownCoord.x<<" My y= "<<ownCoord.y<<" \n";
 
     // make a summary vector message
     BeaconMsg *beaconMsg = new BeaconMsg();
@@ -527,7 +529,7 @@ BeaconMsg* NeighboringLayer::makeBeaconVectorMessage(cMessage *msg)//cache
         beaconMsg->setSourceAddress(ownMACAddress.c_str());
     }
     beaconMsg->setProb(myProb);
-    EV<<" My current Prob is: "<<myProb<<" \n";
+    //EV<<" My current Prob is: "<<myProb<<" \n";
     int realPacketSize = 6 + 6 + 4 + 4 + 4 + 64 + 64 + 1;//(1 * NEIGHBORINGLAYER_MSG_ID_HASH_SIZE); //REVER TAMANHO AQUI CORRETO
     beaconMsg->setRealPacketSize(realPacketSize);
     beaconMsg->setByteLength(realPacketSize);
@@ -692,7 +694,7 @@ void NeighboringLayer::saveLastBeContact(string Naddress){//neigh
         SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
         if (syncedNeighbour->nodeMACAddress.c_str()==Naddress) {
             syncedNeighbour->lastBrecT = simTime().dbl();
-            EV<<"Last contact time saved \n";
+            //EV<<"Last contact time saved \n";
             break;
         }
 
@@ -717,7 +719,7 @@ void NeighboringLayer::cancelBackOffT(cMessage *msg){ //vector<string> & selecte
     // synched neighbour list must be updated in next round
     // as there were changes
     syncedNeighbourListIHasChanged = TRUE;
-    EV<<"BackOffT canceled\n";
+    //EV<<"BackOffT canceled\n";
 }
 void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selectedMessageIDList, cMessage *msg){ //REVER PARA FUTURO
     EV<<"Canceling BackOffT\n";
@@ -912,13 +914,15 @@ GraphUpdtMsg* NeighboringLayer::makeGraphUpdtMessage(){
     return graphMsg;
 }
 
-void  NeighboringLayer::handleGraphUpdtMsgFromLowerLayer(cMessage *msg){
+void  NeighboringLayer::handleGraphUpdtMsgFromLowerLayer(cMessage *msg){    //only gets this msgs when it has no neighs
     GraphUpdtMsg *neighGraphMsg = dynamic_cast<GraphUpdtMsg*>(msg);
     bool noNeigh = neighGraphMsg->getNoNeighs();
     if(noNeigh){
         graphe.cleanGraph();
+        cleanEnerTable();
     }
     send(neighGraphMsg,"upperLayerOut");
+    sendEnerTable();
 }
 
 //---
@@ -1076,8 +1080,8 @@ void NeighboringLayer::cleanOldContacts(){
                 string addrN=syncedNeighbour->nodeMACAddress;
                 int idN=std::stoi( addrN.substr(15,17));
                 graphe.rem_edge(myID,idN);
-                //removEdge(idN);
-                EV<<"Removed absent neigh from graph: "<<idN<<"\n";
+
+                //EV<<"Removed absent neigh from graph: "<<idN<<"\n";
             }
 
             iteratorSyncedNeighbour++;
@@ -1086,17 +1090,25 @@ void NeighboringLayer::cleanOldContacts(){
 }
 
 
-//--Energy Methods---------------------------------------------------------
+//--Energy Methods--------------------------------------------------------------------
 
 void NeighboringLayer::handlePcktSentMsg(cMessage *msg){
     PcktSentMsg *pcktSent = dynamic_cast<PcktSentMsg*>(msg);
     double pckt_size=pcktSent->getBit_size();
-    calcEnerg(pckt_size);
+    bool from_Gw=pcktSent->getTo_Gw();
+    calcEnerg(pckt_size, from_Gw);
+
+    delete msg;
 }
 
 //calculate future energy value through expenditure on sending Msgs.
-void NeighboringLayer::calcEnerg(double size_bits){
-    int my_enerS=ener_spent+1;//size_bits*Beta;
+void NeighboringLayer::calcEnerg(double size_bits, bool from_gw){
+    if(from_gw){
+        //EV<<"Calc ener sent from gw \n";
+        size_bits=size_bits*2;
+    }
+
+    int my_enerS=round(ener_spent+size_bits*Beta);
     //round
     //my_enerS=ceil(my_enerS*100);
    // my_enerS=my_enerS/100;
@@ -1119,8 +1131,8 @@ bool NeighboringLayer::updateNeighEner(cMessage *msg){
     int srcID=graphe.add_element(srcAdd);  //returns id
     int myID=graphe.add_element(myAdd);
 
-    int array[N];
-    for(int p1=0;p1<N;p1++){ //clean coppy arr
+    int array[N_nodes];
+    for(int p1=0;p1<N_nodes;p1++){ //clean coppy arr
         array[p1]=-1;
     }
 
@@ -1150,7 +1162,7 @@ bool NeighboringLayer::updateNeighEner(cMessage *msg){
         EV<<"Array recebido: \n";
         int f=0;
         //int count=0;
-        for(f = 0; f < N; f++) {
+        for(f = 0; f < N_nodes; f++) {
                 if(array[f]>=0){EV << array[f] << " ";}
             EV<<"\n";
         }
@@ -1198,7 +1210,7 @@ string NeighboringLayer::returnEnerTable(){
     //Returns the table on a string
     std::string tableS;
     int k,l;
-    for(k = 0; k < N; k++) {
+    for(k = 0; k < N_nodes; k++) {
         if(Ener[k]!=0 && Ener[k]!=(-1)){
             tableS=tableS+std::to_string(k)+"->"+std::to_string(Ener[k])+";\n";
         }
@@ -1209,9 +1221,27 @@ string NeighboringLayer::returnEnerTable(){
 
 void NeighboringLayer::removEdge(int id){
     Ener[id]=-1;
-    EV<<"Removed:"<<id<<"\n";
+    //EV<<"Removed:"<<id<<"\n";
 }
 
+void NeighboringLayer::cleanEnerTable(){    //cleans table exept my value
+      int myID=graphe.add_element(ownMACAddress.c_str());
+      int my_Ener=Ener[myID];
+      //int count=0;
+      for(int i = 0; i < N_nodes; i++) {
+          removEdge(i);
+      }
+      Ener[myID]=my_Ener;
+}
+
+void NeighboringLayer::sendEnerTable(){
+    string tableS=returnEnerTable();
+    EnerTableMsg *EnerMsg = new EnerTableMsg();
+    EnerMsg->setTable(tableS.c_str());
+    EnerMsg->setSentTime(simTime().dbl());
+
+    send(EnerMsg,"upperLayerOut");
+}
 //---------------------------------------------------------------------------
 
 //--Save Results methods----------------------------------

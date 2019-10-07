@@ -12,9 +12,10 @@ Define_Module(RoutingLqeGw);
 void RoutingLqeGw::initialize(int stage)
 {
     if (stage == 0) {
+        Log=Logger();
         Stor=StorageM(); //constructor
         graphR=GraphT();
-        Log=Logger();
+        //Log=Logger();
         // get parameters
         nodeIndex = par("nodeIndex");
         ownMACAddress = par("ownMACAddress").stringValue();
@@ -128,11 +129,17 @@ void RoutingLqeGw::handleMessage(cMessage *msg)
             handleDataReqMsg(msg);
 
 
-        // data request message arrived from the neighLayer (before lower layer (link layer))
+        // Graph message arrived from the neighLayer (before lower layer (link layer))
         } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<GraphUpdtMsg*>(msg) != NULL) {
             EV<<"Handling GraphUpdtMsg\n";
             handleGraphUpdtMsg(msg);
 
+        // Ener table message arrived from the neighLayer (before lower layer (link layer))
+        } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<EnerTableMsg*>(msg) != NULL) {
+
+            EV<<"Handling EnerTableMsg\n";
+
+            handleEnerTableMsg(msg);
 
 
 
@@ -160,7 +167,7 @@ void RoutingLqeGw::handleGraphUpdtMsg(cMessage *msg){
         string graphS = neighGraphMsg->getGraph();
         //int numberVert = neighGraphMsg->getNumberVert();
         //int countVert = neighGraphMsg->getCountVert();
-        EV<<"Graph rec: "<<graphS<<"\n";
+        //EV<<"Graph rec: "<<graphS<<"\n";
         bool updt=getGraph(graphS);
         if(updt){ EV<<"Graph Updated\n";}else{EV<<"Graph not updated due to empty string\n";}
     }
@@ -195,7 +202,7 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
             int cnt=0;
             while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
                isSending=true;
-               EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
+               //EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
                string messageID = *iteratorMessageIDList;
                bool found = Stor.msgIDExists(messageID);
                int position=Stor.msgIDListPos(messageID);
@@ -210,7 +217,7 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
                if(found){
                    DataMsg *dataMsg = Stor.pullOutMsg(msg,MyAddH, position);
                    if(dataMsg->getReached_gw()){
-                       EV<<"Reached gateway at"<<MyAddH<<" name:"<<dataMsg->getDataName()<<"\n";
+                       //EV<<"Reached gateway at"<<MyAddH<<" name:"<<dataMsg->getDataName()<<"\n";
                     itsOk=false;
                    }else{
                        itsOk=true;
@@ -283,12 +290,12 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
                    bool foundH=false, msgSent=false;
                    int sizeH = dataMsg->getPrevHopsListArraySize();
                    string HopAdd=dataMsg->getPrevHopsList(count1);
-                   EV<<"Pos1: "<<dataMsg->getPrevHopsList(0)<<" source: "<<dataRequestMsg->getSourceAddress()<<"\n";
+                   //EV<<"Pos1: "<<dataMsg->getPrevHopsList(0)<<" source: "<<dataRequestMsg->getSourceAddress()<<"\n";
                    while(count1<sizeH){
                        HopAdd=dataMsg->getPrevHopsList(count1);
                        if(HopAdd==destAdd){
                            foundH=true;
-                           EV<<"Loop Avoidance: Found it "<<dataMsg->getDataName() <<"\n";
+                           //EV<<"Loop Avoidance: Found it "<<dataMsg->getDataName() <<"\n";
                            break;
                        }
                        count1++;
@@ -305,7 +312,7 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
 
 
 
-                       EV<<"Direct Neigh is final dest. \n";
+                       //EV<<"Direct Neigh is final dest. \n";
                        EV<<"Sent Direct Msg from Rout:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
 
                        //If this is my generated data Msg i set the time I sent it from here
@@ -391,11 +398,6 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
         isSending=false;
     //} else{ EV<<"Probability too low to send mensage \n"; }
 
-
-
-
-
-
     delete msg;
     }
 }
@@ -413,9 +415,10 @@ void RoutingLqeGw::handleBeaconInfo(cMessage *msg){
     //Save Graph Matrix on RoutingLqeGw
     string myGraph=beaconMsg->getNeighGraph();
     //int npos=beaconMsg->getNumberVert();
-    EV<<"Graph in routing: \n";
+    //EV<<"Graph in routing: \n";
     getGraph(myGraph);
 
+    Log.saveEnerTable(ownMACAddress, returnEnerTable());
 
 
 /*    //Save Data
@@ -462,7 +465,7 @@ void RoutingLqeGw::handleBeaconInfo(cMessage *msg){
 //changed 23/07/19 17h54
     string SouceAdd = beaconMsg->getSourceAddress();
     if((SouceAdd.substr(0,2))=="BT"){
-        EV<<"It's BT \n";
+        //EV<<"It's BT \n";
         //dataRequestMsg->setNic(1);//APAGAR
         dataRequestMsg->setSourceAddress(ownBTMACAddress.c_str());
     //EV<<"SouceAdd= "<<SouceAdd.substr(0,2)<<"\n";
@@ -483,11 +486,11 @@ void RoutingLqeGw::handleBeaconInfo(cMessage *msg){
 
     //Para retirar futuramente
     if(beaconMsg->getProb()>0.5){
-        EV<<"Prob bigger than 0.5\n ";
+        //EV<<"Prob bigger than 0.5\n ";
         dataRequestMsg->setSendMeData(true);
     } else{ dataRequestMsg->setSendMeData(false);}
 
-    EV<<"Send DataRequestMsg \n";
+    //EV<<"Send DataRequestMsg \n";
     send(dataRequestMsg, "lowerLayerOut");
     delete msg;
 }
@@ -605,14 +608,13 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
          && strstr(getParentModule()->getFullName(), omnetDataMsg->getFinalDestinationNodeName()) != NULL)
             | omnetDataMsg->getNHops() >= maximumHopCount) {
         cacheData = FALSE;
-        EV<<"WUT? \n";
     }
 
     //If i am the Msg final destination, don't store the msg
     bool imDestiny = FALSE;
     if(omnetDataMsg->getDestinationOriented()){
         if(omnetDataMsg->getFinalDestinationNodeName()==ownMACAddress){
-            EV<<"Sou a final destination \n";
+            //EV<<"Sou a final destination \n";
 
             //save info into file
             string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGW";
@@ -663,11 +665,11 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     bool stored=false;
     //Saving Data
     if(actual_gateway==ownMACAddress) {
-        EV<<"Saving data in cache from lower layer, I'm Gw \n";
+       // EV<<"Saving data in cache from lower layer, I'm Gw \n";
         stored=Stor.saveData(msg,1, true);
         pcktSentMsg(omnetDataMsg->getRealPacketSize(), true);
     }else{
-        EV<<"Saving data in cache from lower layer, I'm not Gw \n";
+        //EV<<"Saving data in cache from lower layer, I'm not Gw \n";
         stored=Stor.saveData(msg,1,false);
     }
 
@@ -715,7 +717,7 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     int realPacketSize = 6 + 6 + (1 * ROUTINGLQEGW_MSG_ID_HASH_SIZE) + 1;
     ackMsg->setRealPacketSize(realPacketSize);
     ackMsg->setInjectedTime(simTime().dbl());
-    EV<<"Sending ACK \n";
+    //EV<<"Sending ACK \n";
     send(ackMsg, "lowerLayerOut");
 
     // if registered app exist, send data msg to app
@@ -738,7 +740,7 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
 
     isReceiving=false;
     waitS=simTime().dbl()+waitBFsend;
-    EV<<"WaitS:"<<waitS<<"\n";;
+    //EV<<"WaitS:"<<waitS<<"\n";;
 }
 
 /****************************************************************************************
@@ -787,7 +789,7 @@ void RoutingLqeGw::checkStoredMsgs(){   //deletes stored Msgs if I'm the gw
         int cnt=0;
         while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
             isSending=true;
-            EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
+            //EV<<"SelectedMessageIDList size here is: "<<selectedMessageIDList.size()<<"\n";
             string messageID = *iteratorMessageIDList;
             bool found = Stor.msgIDExists(messageID);
             int position=Stor.msgIDListPos(messageID);
@@ -797,7 +799,7 @@ void RoutingLqeGw::checkStoredMsgs(){   //deletes stored Msgs if I'm the gw
             if(found){
                 DataMsg *dataMsg = Stor.pullOutMsg(dataRequestMsg,MyAddH, position);
                 if(dataMsg->getReached_gw()){
-                    EV<<"Reached gateway at"<<MyAddH<<" name:"<<dataMsg->getDataName()<<"\n";
+                    //EV<<"Reached gateway at"<<MyAddH<<" name:"<<dataMsg->getDataName()<<"\n";
                     itsOk=false;
                 }else{
                     itsOk=true;
@@ -809,14 +811,14 @@ void RoutingLqeGw::checkStoredMsgs(){   //deletes stored Msgs if I'm the gw
 
             if(itsOk){//itsOk){ //if there is a stored DataMsg
                 DataMsg *dataMsg = Stor.pullOutMsg(dataRequestMsg,MyAddH, position);
-                EV<<"pull out on check \n";
+                //EV<<"pull out on check \n";
                 //if(dataMsg->getReached_gw()){EV<<"Break on check stored msgs \n";break;}
                 double time_f_sent=dataMsg->getSentTimeRout().dbl();
 
                 if(actual_gateway==ownMACAddress){ //If I am the Gw, I delete this Msg from storage
                     //EV<<"Here from up deletes:"<<upperDataMsg->getDataName()<<"\n";
                     bool delt=Stor.deleteMsg(messageID);
-                    EV<<"Deleting cause I'm GW \n";
+                    //EV<<"Deleting cause I'm GW \n";
 
                     if(delt){
                         saveMsgReachedGw(messageID, time_f_sent);
@@ -874,7 +876,7 @@ bool RoutingLqeGw::getGraph(string graphS){//, int numberVert){ //String:" 1->2:
             return false;
         }else{
             std::string token = graphS.substr(i, j-i);
-            EV<<"Got the: "<<token<<" at: "<<j<<".\n";
+            //EV<<"Got the: "<<token<<" at: "<<j<<".\n";
             int q1 = graphS.find("-",i);
             int q2 = graphS.find(":",i);
             string v1=graphS.substr(i,q1-i);
@@ -907,7 +909,66 @@ void RoutingLqeGw::pcktSentMsg(double size_p, bool from_GW){    //to be used whe
     send(sentMsg,"neighLayerOut");
 }
 
-//--GATEWAY----------------------------------------------------------------------
+void RoutingLqeGw::cleanEnerTable(){    //cleans table exept my value
+      int myID=graphR.add_element(ownMACAddress.c_str());
+      int my_Ener=Ener[myID];
+      //int count=0;
+      for(int i = 0; i < N_nodes; i++) {
+          Ener[i]=-1;
+          //EV<<"Removed:"<<i<<"\n";
+      }
+      Ener[myID]=my_Ener;
+}
+
+void RoutingLqeGw::handleEnerTableMsg(cMessage *msg){
+    EnerTableMsg *EnerTableRec = dynamic_cast<EnerTableMsg*>(msg);
+    string EnerS=EnerTableRec->getTable();
+    updateEnerTable(EnerS);
+    delete msg;
+}
+
+bool RoutingLqeGw::updateEnerTable(string tabS){
+    cleanEnerTable();
+
+    std::string delimiter = ";";
+    int i=0;//, q1=0;
+    for(i=0;i<tabS.length();i++){
+        int j=tabS.find(delimiter,i);
+        if(j==std::string::npos){
+            EV<<"false \n";
+            return false;
+        }else{
+           // EV<<"Here I am \n";
+            std::string token = tabS.substr(i, j-i);
+            int q1 = tabS.find("-",i);
+            int q2 = tabS.find(";",i);
+            string v=tabS.substr(i,q1-i);
+            string w=tabS.substr(q1+2,q2-(q1+2));
+            int vert = std::stoi (v);
+            int weight = std::stoi (w);
+            //EV<<"WEI: "<<w<<"\n";
+            Ener[vert]=weight;
+            i =j+1;
+            //EV<<"i="<<i<<"j="<<j<<"q1:"<<q1<<"q2:"<<q2<<"v:"<<v<<"w:"<<w<<"\n";
+        }
+    }
+    return true;
+}
+
+string RoutingLqeGw::returnEnerTable(){
+    //Returns the table on a string
+    std::string tableS;
+    int k,l;
+    for(k = 0; k < N_nodes; k++) {
+        if(Ener[k]!=0 && Ener[k]!=(-1)){
+            tableS=tableS+std::to_string(k)+"->"+std::to_string(Ener[k])+";\n";
+        }
+    }
+    //EV<<"Table Ener: \n"<<tableS<<"\n";
+    return tableS;
+}
+
+//--GATEWAY list----------------------------------------------------------------------
 bool RoutingLqeGw::setGatewayList(){
 
     GatewayN *gatewayN = NULL;
@@ -924,7 +985,7 @@ bool RoutingLqeGw::setGatewayList(){
             string timeIs=gateway_list.substr(q1+1,q2-(q1+1));
             //EV<<"Gw is: "<<GWis<<" until time: "<<timeIs<<"\n";
             //
-            EV<<"Been here gw \n";
+
             gatewayN = new GatewayN;
             gatewayN->nodeMACAddress = GWis;
             gatewayN->untilTime = std::stod(timeIs);
@@ -973,7 +1034,7 @@ void RoutingLqeGw::updateGateway(){
         }else{ if(timeG==0 && foreverGW){
             currentGW=gatewayN->nodeMACAddress;
             deadT=gatewayN->untilTime;
-            EV<<"Reached last GW set \n";
+            //EV<<"Reached last GW set \n";
         }
 
         }
@@ -992,7 +1053,7 @@ void RoutingLqeGw::checkGwStatus(){
 
     //calculate Gw rank
     int nVert=graphR.returnVvalue();
-    EV<<"Já contei:"<<nVert<<"\n";
+    //EV<<"Já contei:"<<nVert<<"\n";
     double gwMat[nVert][2];
     for(int g=0;g<nVert;g++){
         gwMat[g][0]=-1;
@@ -1010,7 +1071,7 @@ void RoutingLqeGw::checkGwStatus(){
             //checkStoredMsgs();
         }
         cMessage *checkGW = new cMessage("Send Check Gw Event");
-        EV<<"Checking GW status \n";
+        //EV<<"Checking GW status \n";
         checkGW->setKind(CHECKGW_EVENT_CODE);
         scheduleAt(simTime() + gwCheckPeriod, checkGW);
 
@@ -1022,24 +1083,25 @@ void RoutingLqeGw::checkGwStatus(){
         for(int j=0;j<nVert;j++){
             wei = graphR.returnWGrapfT(i,j);
             if(wei>0){
-                sum=sum+wei;
+                sum=sum+(100-wei);
                 nSum++;
             }
         }
+        double ener_spent=Ener[i];
         if(nSum!=0){
-            gwMat[i][0]=sum/nSum;
+            gwMat[i][0]=sum*nSum+alfa/ener_spent;   //RANK EQUATION
         }else{
             gwMat[i][0]=0;
         }
-        gwMat[i][1]=nSum;
+        gwMat[i][1]=nSum;   //nº somas
 
     }
     for(int k=0;k<nVert;k++){
-        EV<<"gwMat rank:"<<gwMat[k][0]<<" and nSum:"<<gwMat[k][1]<<" \n";
+        //EV<<"gwMat rank:"<<gwMat[k][0]<<" and nSum:"<<gwMat[k][1]<<" \n";
     }
 
-    //compare by the number of direct-neighs
-    int nN=0, bestGwId=-1;
+    //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
+    /*int nN=0, bestGwId=-1;
     for(int u=0;u<nVert;u++){
         if(gwMat[u][1]>nN){
             nN=gwMat[u][1];
@@ -1050,8 +1112,26 @@ void RoutingLqeGw::checkGwStatus(){
                 bestGwId=u;
             }
         }
-    }
-    EV<<"Chosen GW is "<<bestGwId<<" with "<<nN<<"neighs \n";
+    }*/
+
+    //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY (effort spent)----------
+    int Rl=0, bestGwId=-1;
+    for(int uR=0;uR<nVert;uR++){
+        if(gwMat[uR][0]>Rl){
+            Rl=gwMat[uR][0];
+            bestGwId=uR;
+        }else if(gwMat[uR][0]==Rl){  //if same rank lvl, check who's got more neighs
+            if(gwMat[uR][1]<gwMat[bestGwId][1]){
+                Rl=gwMat[uR][0];
+                bestGwId=uR;
+                }
+            }
+        }
+
+
+
+
+    //EV<<"Chosen GW is "<<bestGwId<<" with "<<nN<<"neighs \n";
     int IDadd;
     if(actual_gateway!=""){
         IDadd=std::stoi( actual_gateway.substr(15,17));
@@ -1059,7 +1139,7 @@ void RoutingLqeGw::checkGwStatus(){
         IDadd=-1;
     }
     if(bestGwId!=IDadd){
-        EV<<"ACTUAL GW IS different than best ranked \n";
+        //EV<<"ACTUAL GW IS different than best ranked \n";
         if(bestGwId!=(-1)){
             string addDf="Wf:00:00:00:00:";
             if(bestGwId<10){
@@ -1095,8 +1175,8 @@ void RoutingLqeGw::checkGwStatus(){
        temp_gw=bestGwId;
        // setup next event to confirm no check gw
        cMessage *checkGW = new cMessage("Send Check Gw Event");
-       EV<<"Checking GW status- no gw chosen \n";
-       EV<<"Temp gw id:"<<temp_gw<<"\n";
+       //EV<<"Checking GW status- no gw chosen \n";
+       //EV<<"Temp gw id:"<<temp_gw<<"\n";
        checkGW->setKind(CHECKGW_EVENT_CODE);
        scheduleAt(simTime() + 0.5, checkGW);
     }else{
@@ -1104,7 +1184,7 @@ void RoutingLqeGw::checkGwStatus(){
 
         // setup next event to check gw
         cMessage *checkGW = new cMessage("Send Check Gw Event");
-        EV<<"Checking GW status \n";
+        //EV<<"Checking GW status \n";
         checkGW->setKind(CHECKGW_EVENT_CODE);
         scheduleAt(simTime() + gwCheckPeriod, checkGW);
     }

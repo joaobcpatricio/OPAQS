@@ -1474,7 +1474,6 @@ Register_Class(EnerTableMsg)
 
 EnerTableMsg::EnerTableMsg(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
 {
-    this->noNeighs = false;
     this->sentTime = 0;
 }
 
@@ -1498,7 +1497,6 @@ EnerTableMsg& EnerTableMsg::operator=(const EnerTableMsg& other)
 void EnerTableMsg::copy(const EnerTableMsg& other)
 {
     this->table = other.table;
-    this->noNeighs = other.noNeighs;
     this->sentTime = other.sentTime;
 }
 
@@ -1506,7 +1504,6 @@ void EnerTableMsg::parsimPack(omnetpp::cCommBuffer *b) const
 {
     ::omnetpp::cPacket::parsimPack(b);
     doParsimPacking(b,this->table);
-    doParsimPacking(b,this->noNeighs);
     doParsimPacking(b,this->sentTime);
 }
 
@@ -1514,7 +1511,6 @@ void EnerTableMsg::parsimUnpack(omnetpp::cCommBuffer *b)
 {
     ::omnetpp::cPacket::parsimUnpack(b);
     doParsimUnpacking(b,this->table);
-    doParsimUnpacking(b,this->noNeighs);
     doParsimUnpacking(b,this->sentTime);
 }
 
@@ -1526,16 +1522,6 @@ const char * EnerTableMsg::getTable() const
 void EnerTableMsg::setTable(const char * table)
 {
     this->table = table;
-}
-
-bool EnerTableMsg::getNoNeighs() const
-{
-    return this->noNeighs;
-}
-
-void EnerTableMsg::setNoNeighs(bool noNeighs)
-{
-    this->noNeighs = noNeighs;
 }
 
 ::omnetpp::simtime_t EnerTableMsg::getSentTime() const
@@ -1613,7 +1599,7 @@ const char *EnerTableMsgDescriptor::getProperty(const char *propertyname) const
 int EnerTableMsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 3+basedesc->getFieldCount() : 3;
+    return basedesc ? 2+basedesc->getFieldCount() : 2;
 }
 
 unsigned int EnerTableMsgDescriptor::getFieldTypeFlags(int field) const
@@ -1627,9 +1613,8 @@ unsigned int EnerTableMsgDescriptor::getFieldTypeFlags(int field) const
     static unsigned int fieldTypeFlags[] = {
         FD_ISEDITABLE,
         FD_ISEDITABLE,
-        FD_ISEDITABLE,
     };
-    return (field>=0 && field<3) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<2) ? fieldTypeFlags[field] : 0;
 }
 
 const char *EnerTableMsgDescriptor::getFieldName(int field) const
@@ -1642,10 +1627,9 @@ const char *EnerTableMsgDescriptor::getFieldName(int field) const
     }
     static const char *fieldNames[] = {
         "table",
-        "noNeighs",
         "sentTime",
     };
-    return (field>=0 && field<3) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<2) ? fieldNames[field] : nullptr;
 }
 
 int EnerTableMsgDescriptor::findField(const char *fieldName) const
@@ -1653,8 +1637,7 @@ int EnerTableMsgDescriptor::findField(const char *fieldName) const
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     int base = basedesc ? basedesc->getFieldCount() : 0;
     if (fieldName[0]=='t' && strcmp(fieldName, "table")==0) return base+0;
-    if (fieldName[0]=='n' && strcmp(fieldName, "noNeighs")==0) return base+1;
-    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+2;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sentTime")==0) return base+1;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1668,10 +1651,9 @@ const char *EnerTableMsgDescriptor::getFieldTypeString(int field) const
     }
     static const char *fieldTypeStrings[] = {
         "string",
-        "bool",
         "simtime_t",
     };
-    return (field>=0 && field<3) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<2) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **EnerTableMsgDescriptor::getFieldPropertyNames(int field) const
@@ -1739,8 +1721,7 @@ std::string EnerTableMsgDescriptor::getFieldValueAsString(void *object, int fiel
     EnerTableMsg *pp = (EnerTableMsg *)object; (void)pp;
     switch (field) {
         case 0: return oppstring2string(pp->getTable());
-        case 1: return bool2string(pp->getNoNeighs());
-        case 2: return simtime2string(pp->getSentTime());
+        case 1: return simtime2string(pp->getSentTime());
         default: return "";
     }
 }
@@ -1756,8 +1737,7 @@ bool EnerTableMsgDescriptor::setFieldValueAsString(void *object, int field, int 
     EnerTableMsg *pp = (EnerTableMsg *)object; (void)pp;
     switch (field) {
         case 0: pp->setTable((value)); return true;
-        case 1: pp->setNoNeighs(string2bool(value)); return true;
-        case 2: pp->setSentTime(string2simtime(value)); return true;
+        case 1: pp->setSentTime(string2simtime(value)); return true;
         default: return false;
     }
 }

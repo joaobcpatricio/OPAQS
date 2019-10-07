@@ -29,6 +29,8 @@
 #include <chrono>
 #include <ctime>
 
+#define N_nodes 50        //HARDECODED VARIABLE of number of vertices - must be the same of NeighboringLayer
+#define alfa 1000  //constant to control relation from energ to add alfa/Ener(i)
 
 using namespace omnetpp;
 
@@ -101,6 +103,7 @@ private:
     void handleBeacon(cMessage *msg);
     void handleDataReqMsg(cMessage *msg);
     void handleBeaconInfo(cMessage *msg);
+    Logger Log;
     //Cache
     StorageM Stor;
     bool msgIDexists(string messageID);
@@ -122,9 +125,16 @@ private:
     void checkStoredMsgs();
     void saveMsgReachedGw(string dataName, double time);
 
-    Logger Log;
 
+
+    //Ener table
     void pcktSentMsg(double size_p, bool from_GW);
+    void handleEnerTableMsg(cMessage *msg);
+    int Ener[N_nodes];
+    int ener_spent=0;
+    void cleanEnerTable();
+    bool updateEnerTable(string tabS);
+    string returnEnerTable();
 
 
 

@@ -33,7 +33,7 @@ using namespace std;
 
 class BaseNodeInfo;
 
-#define N 50        //HARDECODED VARIABLE of number of vertices - must be the same of "**.neighboring.maxLengthGraph"
+#define N_nodes 50        //HARDECODED VARIABLE of number of vertices - must be the same set on RoutingLqeGw
 #define Beta 0.01  //constant to control relation from bits to energ
 
 class NeighboringLayer : public cSimpleModule
@@ -104,7 +104,7 @@ private:
     bool msgIsBT;
     double GWisMyNeighBT(cMessage *msg);
 
-
+    Logger log;
 
     //29/08
      GraphT graphe;
@@ -127,16 +127,16 @@ private:
      GraphUpdtMsg* makeGraphUpdtMessage();
      void handleGraphUpdtMsgFromLowerLayer(cMessage *msg);
 
-     int Ener[N];
+     //Ener
+     int Ener[N_nodes];
      int ener_spent=0;
-
-     void calcEnerg(double size_bits);
+     void calcEnerg(double size_bits,bool from_gw);
      void handlePcktSentMsg(cMessage *msg);
-
-     Logger log;
      bool updateNeighEner(cMessage *msg);
      string returnEnerTable();
      void removEdge(int id);
+     void cleanEnerTable();
+     void sendEnerTable();
 
 
 

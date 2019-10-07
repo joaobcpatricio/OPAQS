@@ -90,7 +90,7 @@ void AppLayer::initialize(int stage)
         nAr=nA;
         int vrr=0;
         while(vrr<nA){
-            EV<<"nodeCh is: "<<nodeCh[vrr]<<" \n";
+            //EV<<"nodeCh is: "<<nodeCh[vrr]<<" \n";
             vrr++;
         }
 
@@ -135,7 +135,7 @@ void AppLayer::initialize(int stage)
         //if(nodeGenMsg==nodeIndex){
         if(generateMsg){
                     generateMsg=true;
-                    EV<<"It's first node0 msg:"<<nMsgOrder<<" my index= "<<nodeIndex<<" \n";
+                    //EV<<"It's first node0 msg:"<<nMsgOrder<<" my index= "<<nodeIndex<<" \n";
                     scheduleAt(simTime() + 0 + 0.1, dataTimeoutEvent); //ou apagar "dataGenerationInterval*nodeIndex" para gerar logo uma msg no inicio
 
 
@@ -224,7 +224,7 @@ void AppLayer::handleMessage(cMessage *msg)
         ind.append("/item-");
         int iqq=APPLAYER_START_ITEM_ID + nMsgOrder;//nextGenerationNotification;
         ind.append(to_string(iqq));
-        EV<<"New name:"<<ind<<"\n";
+        //EV<<"New name:"<<ind<<"\n";
 
         dataMsg->setDataName(ind.c_str());//tempString);
         //dataMsg->setGroupType(myLikenesses[nextGenerationNotification]);

@@ -356,7 +356,7 @@ void WirelessInterface::setupSendingMsg(cMessage *msg)
     // compute transmission duration
     cPacket *currentPendingPkt = dynamic_cast<cPacket*>(currentPendingMsg);
     double bitsToSend = (currentPendingPkt->getByteLength() * 8) + (wirelessHeaderSize * 8);
-    EV<<"Bytes to send="<<bitsToSend/8<<"\n";
+    //EV<<"Bytes to send="<<bitsToSend/8<<"\n";
     double txDuration = bitsToSend / bandwidthBitRate;
 
     //Added 19/09/2019 -> The txDuration is for the wifi bitrate, my_limit_rate is the limit on bitrate that I define, under the wifi bitrate.
@@ -364,7 +364,7 @@ void WirelessInterface::setupSendingMsg(cMessage *msg)
         double txSumDuration=bitsToSend/my_limit_rate;
         txDuration+=txSumDuration;
     }
-    EV<<"Schedule to send at "<<simTime()+txDuration<<"\n";
+    //EV<<"Schedule to send at "<<simTime()+txDuration<<"\n";
     // setup timer to trigger at tx duration
     scheduleAt(simTime() + txDuration, sendPacketTimeoutEvent);
 
@@ -388,7 +388,7 @@ void WirelessInterface::sendPendingMsg()
 
 
                 //Verify if msg time has reached its limit
-                EV<<"Current pkt time gen:"<<getPacketInjectedTime(currentPendingMsg)<<" and current time:"<<simTime().dbl()<<"\n";
+                //EV<<"Current pkt time gen:"<<getPacketInjectedTime(currentPendingMsg)<<" and current time:"<<simTime().dbl()<<"\n";
                 if((simTime().dbl()-getPacketInjectedTime(currentPendingMsg))>=limitQueueTime){
                     EV<<"Packet reached Queue time limit \n";
                     break;
@@ -399,7 +399,7 @@ void WirelessInterface::sendPendingMsg()
                 //Set sending Time
 
                 //cMessage *msgB =currentPendingMsg;
-                EV<<"Sent currentPendingMsg \n";
+                //EV<<"Sent currentPendingMsg \n";
                 setSentTime(currentPendingMsg);
                 setSentTimeSrc(currentPendingMsg);
                 //By this time the wifi sent the packet, it's just simulating if it gets lost or not, so i can count here energy spent on sending
@@ -411,7 +411,7 @@ void WirelessInterface::sendPendingMsg()
                 //print to trace Msg
                 DataMsg *dataMsg = dynamic_cast<DataMsg*>(currentPendingMsg->dup());
                 if (dataMsg) {
-                    EV<<"Wir: DataMsg:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
+                    //EV<<"Wir: DataMsg:"<<dataMsg->getNMsgOrder()<<" at time:"<<simTime().dbl()<<"\n";
                 }
 
 
@@ -424,7 +424,7 @@ void WirelessInterface::sendPendingMsg()
                 inet::Coord neighCoord = currentNeighbourNodeInfo->nodeMobilityModule->getCurrentPosition();
                 double l = ((neighCoord.x - ownCoord.x) * (neighCoord.x - ownCoord.x)) + ((neighCoord.y - ownCoord.y) * (neighCoord.y - ownCoord.y));
                 double bitsToSend = (outPktCopy->getByteLength() * 8) + (wirelessHeaderSize * 8);
-                EV<<"R="<<sqrt(l)<<"Bits to send:"<<bitsToSend<<" AT="<<realAquaticAchievableThroughput(sqrt(l))<<"\n";
+                //EV<<"R="<<sqrt(l)<<"Bits to send:"<<bitsToSend<<" AT="<<realAquaticAchievableThroughput(sqrt(l))<<"\n";
 
                 simtime_t  delay;
                 if(realAquaticAchievableThroughput(sqrt(l))==0){
@@ -453,7 +453,7 @@ void WirelessInterface::sendPendingMsg()
                 if(!loosePkt){
                 // send to node
                     outputResultsSent();
-                    EV<<"Sending\n";
+                    EV<<"Sending msg direct\n";
                     sendDirect(outPktCopy,delay,0, currentNeighbourNodeInfo->nodeModule, "radioIn");
                 //sendDirect(outPktCopy,currentNeighbourNodeInfo->nodeModule, "radioIn");
                 }else{
@@ -485,16 +485,16 @@ void WirelessInterface::sendPendingMsg()
 //--SET/GET TIMES--------------------------------------
 //Set the time that the Msg was received here
 void WirelessInterface::setSentTime(cMessage *msg){
-    EV<<"setSentTime\n";
+    //EV<<"setSentTime\n";
     BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
     if (beaconMsg) {
-        EV<<"Set sent time of Beacon:"<<simTime().dbl()<<"\n";
+        //EV<<"Set sent time of Beacon:"<<simTime().dbl()<<"\n";
         beaconMsg->setSentTime(simTime().dbl());
         //return beaconMsg->getDestinationAddress();
     }
     DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
     if (dataMsg) {
-        EV<<"Set sent time of DataMsg:"<<simTime().dbl()<<"\n";
+        //EV<<"Set sent time of DataMsg:"<<simTime().dbl()<<"\n";
         dataMsg->setSentTime(simTime().dbl());
 
         //save info into file
@@ -544,7 +544,7 @@ void WirelessInterface::setSentTimeSrc(cMessage *msg){
     if (dataMsg) {
         if(ownMACAddress==dataMsg->getOriginatorNodeMAC()){
             //dataMsg->setSentTimeRout(simTime().dbl());
-            EV<<"Set sent time from src \n";
+            //EV<<"Set sent time from src \n";
 
             //save info into file
             string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsSrc";
@@ -578,7 +578,7 @@ void WirelessInterface::setRecTimeGW(cMessage *msg){
     if (dataMsg) {
         if(ownMACAddress==dataMsg->getFinalDestinationNodeName()){
             dataMsg->setReceivedTimeRout(simTime().dbl());
-            EV<<"Set received time from on GW \n";
+            //EV<<"Set received time from on GW \n";
         }
     }
 }
@@ -587,12 +587,12 @@ void WirelessInterface::setRecTimeGW(cMessage *msg){
 void WirelessInterface::setReceivedTime(cMessage *msg){
     BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
     if (beaconMsg) {
-        EV<<"Set received time:"<<simTime().dbl()<<"\n";
+        //EV<<"Set received time:"<<simTime().dbl()<<"\n";
         beaconMsg->setReceivedTime(simTime().dbl());
     }
     DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
     if (dataMsg) {
-        EV<<"Set received time:"<<simTime().dbl()<<"\n";
+        //EV<<"Set received time:"<<simTime().dbl()<<"\n";
         dataMsg->setReceivedTime(simTime().dbl());
 
         //save info into file

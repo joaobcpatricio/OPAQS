@@ -214,7 +214,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PcktSentMsg& obj) {obj.pa
  * packet EnerTableMsg
  * {
  *     string table;
- *     bool noNeighs;
+ *     //bool noNeighs;
  *     simtime_t sentTime;	//timeStamp
  * }
  * </pre>
@@ -223,7 +223,6 @@ class EnerTableMsg : public ::omnetpp::cPacket
 {
   protected:
     ::omnetpp::opp_string table;
-    bool noNeighs;
     ::omnetpp::simtime_t sentTime;
 
   private:
@@ -245,8 +244,6 @@ class EnerTableMsg : public ::omnetpp::cPacket
     // field getter/setter methods
     virtual const char * getTable() const;
     virtual void setTable(const char * table);
-    virtual bool getNoNeighs() const;
-    virtual void setNoNeighs(bool noNeighs);
     virtual ::omnetpp::simtime_t getSentTime() const;
     virtual void setSentTime(::omnetpp::simtime_t sentTime);
 };

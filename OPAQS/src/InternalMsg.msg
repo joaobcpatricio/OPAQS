@@ -40,7 +40,7 @@ packet PcktSentMsg {
 // Message to provide the table from neighLayer 
 packet EnerTableMsg {
     string table;
-    bool noNeighs;
+    //bool noNeighs;
     simtime_t sentTime;	//timeStamp
 }
 

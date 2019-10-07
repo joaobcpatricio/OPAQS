@@ -2,259 +2,39 @@ ShortPath:
 0-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 54.214469 |End 
+ | Time is : 73.319643 |End 
 ShortPath: 
 0-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 54.214469 |End 
+ | Time is : 73.319643 |End 
 ShortPath: 
 0-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 54.764469 |End 
+ | Time is : 74.419643 |End 
 ShortPath: 
 0-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 54.764469 |End 
+ | Time is : 74.419643 |End 
 ShortPath: 
 0-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 56.414469 |End 
+ | Time is : 77.969643 |End 
 ShortPath: 
 0-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 56.414469 |End 
+ | Time is : 77.969643 |End 
 ShortPath: 
 0-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 58.064469 |End 
+ | Time is : 80.169643 |End 
 ShortPath: 
 0-> | Graph: 
 0->1:39;
 1->0:39;
- | Time is : 58.064469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 59.164469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 59.164469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 60.264469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 60.264469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 63.814469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 63.814469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 65.964469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 65.964469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 67.064469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 67.064469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 69.764469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 69.764469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 70.864469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 70.864469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 71.964469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 71.964469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 75.214469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 75.214469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 75.764469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 75.764469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 77.414469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 77.414469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 79.064469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 79.064469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 80.164469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 80.164469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 81.264469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 81.264469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 86.164469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 86.164469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 87.264469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 87.264469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 88.364469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 88.364469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 91.914469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 91.914469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 93.014469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 93.014469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 94.114469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 94.114469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 96.864469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 96.864469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 99.014469 |End 
-ShortPath: 
-0-> | Graph: 
-0->1:39;
-1->0:39;
- | Time is : 99.014469 |End 
+ | Time is : 80.169643 |End 

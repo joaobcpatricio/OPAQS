@@ -69,7 +69,7 @@ void Logger::saveResultsWTime(string myAddr,string sourceAddr, string timeRMsg){
 
 void Logger::saveEnerTable(string myAddr, string table){
     //FILE Results
-    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/Logs/EnerTable";
+    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/Logs/Ener/EnerTable";
     string noS=myAddr.substr(15,17);
     nameF.append(noS);
     nameF.append(".txt");
