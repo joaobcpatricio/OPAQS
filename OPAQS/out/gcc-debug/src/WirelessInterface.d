@@ -10,8 +10,8 @@
  ../../inet/src/inet/common/geometry/common/Coord.h \
  ../../inet/src/inet/common/INETMath.h \
  ../../inet/src/inet/common/geometry/common/EulerAngles.h \
- ../../inet/src/inet/common/Units.h OutsMsg_m.h InternalMsg_m.h \
- BaseNodeInfo.h BluetoothInterface.h
+ ../../inet/src/inet/common/Units.h OutsMsg_m.h InternalMsg_m.h Logger.h \
+ StorageM.h GraphT.h BaseNodeInfo.h BluetoothInterface.h
 
 WirelessInterface.h:
 
@@ -44,6 +44,12 @@ WirelessInterface.h:
 OutsMsg_m.h:
 
 InternalMsg_m.h:
+
+Logger.h:
+
+StorageM.h:
+
+GraphT.h:
 
 BaseNodeInfo.h:
 

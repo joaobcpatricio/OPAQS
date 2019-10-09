@@ -1,15 +1,15 @@
-file 197257 1569970774                                          
+file 199185 1569876687                                          
 version 2
-run Cgw-0-20191001-23:58:55-16116
+run Cgw-0-20190930-21:51:17-10823
 attr configname Cgw
-attr datetime 20191001-23:58:55
+attr datetime 20190930-21:51:17
 attr experiment Cgw
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 16116
+attr processid 10823
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -92,8 +92,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3486 178740 13 52042 0.05 100 12000 0 2 9860 11152
-1	182226 6424 29 46754 0.1 90.1 364 -nan -nan -nan -nan
-2	188650 4303 2935 47052 5.528453385287 90.578453385287 148 141 20868 1554666 21701582694
-3	192953 4303 2935 47052 5.528453385287 90.578453385287 148 141 20868 1554666 21701582694
+0	3486 178756 13 52644 0.05 100 12000 0 2 9860 11152
+1	182242 6424 29 47322 0.1 90.1 364 -nan -nan -nan -nan
+2	188666 5259 3513 47648 6.628453385287 90.628330353062 180 141 25380 2296890 38971332630
+3	193925 5259 3513 47648 6.628453385287 90.628330353062 180 141 25380 2296890 38971332630
 

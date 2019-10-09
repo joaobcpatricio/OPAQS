@@ -11,7 +11,7 @@
  ../../inet/src/inet/common/INETMath.h \
  ../../inet/src/inet/common/geometry/common/EulerAngles.h \
  ../../inet/src/inet/common/Units.h OutsMsg_m.h InternalMsg_m.h \
- BaseNodeInfo.h WirelessInterface.h
+ BaseNodeInfo.h WirelessInterface.h Logger.h StorageM.h GraphT.h
 
 BluetoothInterface.h:
 
@@ -48,3 +48,9 @@ InternalMsg_m.h:
 BaseNodeInfo.h:
 
 WirelessInterface.h:
+
+Logger.h:
+
+StorageM.h:
+
+GraphT.h:

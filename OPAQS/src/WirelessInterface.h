@@ -38,6 +38,8 @@
 #include <ctime>
 #include <fstream>
 
+#include "Logger.h"
+
 using namespace omnetpp;
 
 using namespace std;
@@ -53,6 +55,9 @@ protected:
     virtual void finish();
 
 private:
+
+    Logger Log;
+
     string ownMACAddress;
     double wirelessRange;
     string expectedNodeTypes;

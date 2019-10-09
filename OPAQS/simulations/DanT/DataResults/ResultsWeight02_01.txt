@@ -52,4 +52,4 @@ Weight: 46 | Time now: 40.765110 |End
 Weight: 44 | Time now: 44.515110 |End 
 Weight: 44 | Time now: 45.065110 |End 
 Weight: 36 | Time now: 52.015116 |End 
-Weight: 31 | Time now: 54.165145 |End 
+Weight: 23 | Time now: 56.815284 |End 

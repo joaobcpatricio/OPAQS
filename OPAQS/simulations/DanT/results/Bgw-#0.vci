@@ -1,15 +1,15 @@
-file 75286 1569970247                                           
+file 75544 1569872669                                           
 version 2
-run Bgw-0-20191001-23:50:14-14871
+run Bgw-0-20190930-20:44:25-7538
 attr configname Bgw
-attr datetime 20191001-23:50:14
+attr datetime 20190930-20:44:25
 attr experiment Bgw
 attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 14871
+attr processid 7538
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -69,14 +69,14 @@ param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
-param **.wirelessIfc.wirelessRange 40m
+param **.wirelessIfc.wirelessRange 15m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
 param **.wirelessIfc.my_limit_rate 0bps
-param **.bluetoothIfc.wirelessRange 40m
+param **.bluetoothIfc.wirelessRange 15m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
 param **.bluetoothIfc.wirelessHeaderSize 16byte
@@ -94,8 +94,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3563 65211 10 19991 0.05 50 4500 0 2 4220 5440
-1	68774 2589 22 19635 0.1 49.1 150 -nan -nan -nan -nan
-2	71363 1961 2424 19765 5.528453385287 49.378453385287 70 141 9870 350385 2322001395
-3	73324 1961 2424 19765 5.528453385287 49.378453385287 70 141 9870 350385 2322001395
+0	3561 65241 10 20211 0.05 50 4500 0 2 4220 5440
+1	68802 2589 22 19855 0.1 49.1 150 -nan -nan -nan -nan
+2	71391 2076 2901 19954 6.628453385287 49.278453385287 74 141 10434 391275 2740098825
+3	73467 2076 2901 19954 6.628453385287 49.278453385287 74 141 10434 391275 2740098825
 

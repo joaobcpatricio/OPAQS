@@ -191,34 +191,14 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     //EV<<"End test: \n";
 
 
-    //Save weight
-    //FILE Results
-    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsWeight";
+    //Save weight on file
     string noS=ownMACAddress.substr(15,17);
     string noN=BeaconReceived->getSourceAddress();
-    nameF.append(noS);
-    nameF.append("_");
-    nameF.append(noN.substr(15,17));
-    nameF.append(".txt");
-    std::ofstream outfile(nameF, std::ios_base::app);
-
-
-    //Weight
     int weigH=graphe.returnWGrapfT(myID,srcID);
-    std::string weightH = std::to_string(100-weigH);//getReceivedTime().dbl());
-    string weightB="Weight: ";
-    weightB.append(weightH);
-    outfile<<weightB;
-    //time received here
-    std::string timeRMsg = std::to_string(simTime().dbl());//getReceivedTime().dbl());
-    string timeRec=" | Time now: ";
-    timeRec.append(timeRMsg);
-    outfile<<timeRec;
-    outfile<<" |End \n";
-    outfile.close();
+    log.saveWeight(noS, noN, weigH);
+    log.saveResultsWeight(ownMACAddress, noN, weigH);
+    log.saveResultsWTime(ownMACAddress, noN);
 
-    saveResultsWeight(msg,weightH);
-    saveResultsWTime(msg,timeRMsg);
     //log.saveEnerTable(ownMACAddress, returnEnerTable());
 
 
@@ -1243,44 +1223,6 @@ void NeighboringLayer::sendEnerTable(){
     send(EnerMsg,"upperLayerOut");
 }
 //---------------------------------------------------------------------------
-
-//--Save Results methods----------------------------------
-void NeighboringLayer::saveResultsWeight(cMessage *msg, string weightH){
-    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
-    string noN=BeaconReceived->getSourceAddress();
-    log.saveResultsWeight(ownMACAddress, noN, weightH);
-
-    //FILE Results
-    /*string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEweight";
-    string noS=ownMACAddress.substr(15,17);
-    string noN=BeaconReceived->getSourceAddress();
-    nameF.append(noS);
-    nameF.append("_");
-    nameF.append(noN.substr(15,17));
-    nameF.append(".txt");
-    std::ofstream outfile(nameF, std::ios_base::app);
-    weightH.append("\n");
-    outfile<<weightH;
-    outfile.close();*/
-}
-void NeighboringLayer::saveResultsWTime(cMessage *msg, string timeRMsg){
-    BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
-    string noN=BeaconReceived->getSourceAddress();
-    log.saveResultsWTime(ownMACAddress, noN, timeRMsg);
-    //FILE Results
-    /*string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/LQEwtime";
-    string noS=ownMACAddress.substr(15,17);
-    string noN=BeaconReceived->getSourceAddress();
-    nameF.append(noS);
-    nameF.append("_");
-    nameF.append(noN.substr(15,17));
-    nameF.append(".txt");
-    std::ofstream outfile(nameF, std::ios_base::app);
-    timeRMsg.append("\n");
-    outfile<<timeRMsg;
-    outfile.close();*/
-}
-
 
 
 //FINISH

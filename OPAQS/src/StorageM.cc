@@ -101,7 +101,7 @@ bool StorageM::saveData(cMessage *msg, int origin, bool reachedGW){
     if (!found) {
 
         //Save saved 1st time msgs
-        string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsStor";
+        string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/DataResults/ResultsStor";
         string ownMACAddress;
         if(origin){
             ownMACAddress = omnetDataMsg->getDestinationAddress();
@@ -151,7 +151,7 @@ bool StorageM::saveData(cMessage *msg, int origin, bool reachedGW){
                    if(origin){
                        ownMACAddress = omnetDataMsg->getDestinationAddress();
                        string destMACAddress=omnetDataMsg->getOriginatorNodeMAC() ;
-                       string nameFInd="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsStorInd";
+                       string nameFInd="/home/mob/Tese/Boat/OPAQS/simulations/DanT/DataResults/ResultsStorInd";
                        string nMY=ownMACAddress.substr(15,17);
                        string nD=destMACAddress.substr(15,17);
                        nameFInd.append(nMY);
@@ -298,7 +298,7 @@ bool StorageM::saveData(cMessage *msg, int origin, bool reachedGW){
 void StorageM::saveResultsStorTimeRec(cMessage *msg,int origin ){
     DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
     //Save saved 1st time msgs
-            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/timeRec";
+            string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/DataResults/timeRec";
             string ownMACAddress;
             if(origin){
                 ownMACAddress = omnetDataMsg->getDestinationAddress();
@@ -318,7 +318,7 @@ void StorageM::saveResultsStorTimeRec(cMessage *msg,int origin ){
 void StorageM::saveResultsStorTimeSent(cMessage *msg,int origin ){
     DataMsg *omnetDataMsg = dynamic_cast<DataMsg*>(msg);
     //Save saved 1st time msgs
-            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/timeSent";
+            string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/DataResults/timeSent";
             string ownMACAddress;
             if(origin){
                 ownMACAddress = omnetDataMsg->getDestinationAddress();
@@ -579,7 +579,7 @@ int StorageM::cacheListSize(){
 
 void StorageM::saveMsgReachedGw(string dataName, double time){
     //save info into file
-    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ReachedGwName";
+    string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/ReachedGwName";
     nameF.append(".txt");
     std::ofstream out(nameF, std::ios_base::app);
     //Name of data
@@ -589,7 +589,7 @@ void StorageM::saveMsgReachedGw(string dataName, double time){
     out.close();
 
     //save info into file
-    string nameS="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GwTimeSent";
+    string nameS="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/GwTimeSent";
     nameS.append(".txt");
     std::ofstream outs(nameS, std::ios_base::app);
     //time of data sent
@@ -601,7 +601,7 @@ void StorageM::saveMsgReachedGw(string dataName, double time){
 
 
     //save info into file
-    string nameFe="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GwTimeRec";
+    string nameFe="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/GwTimeRec";
     nameFe.append(".txt");
     std::ofstream oute(nameFe, std::ios_base::app);
     //time of data rec

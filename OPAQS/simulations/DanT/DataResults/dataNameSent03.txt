@@ -10,15 +10,3 @@
 /app/node3/item-22045
 /app/node3/item-22046
 /app/node3/item-22047
-/app/node3/item-22036
-/app/node3/item-22037
-/app/node3/item-22039
-/app/node3/item-22040
-/app/node3/item-22042
-/app/node3/item-22043
-/app/node3/item-22046
-/app/node3/item-22048
-/app/node3/item-22049
-/app/node3/item-22050
-/app/node3/item-22056
-/app/node3/item-22057

@@ -117,13 +117,9 @@ private:
     bool setGatewayList();
     void printGatewayList();
     void updateGateway();
-    void saveGraphHere();
 
     void checkGwStatus();
-    void initializeResultsFiles();
-    void saveResultsGwChk();
     void checkStoredMsgs();
-    void saveMsgReachedGw(string dataName, double time);
 
 
 

@@ -61,7 +61,7 @@ void RoutingLqeGw::initialize(int stage)
         } //no_act_gw=true;
         scheduleAt(simTime() + gwCheckPeriod, checkGW);
 
-        initializeResultsFiles();
+        Log.RoutingLogsInit(ownMACAddress);
 
 
 
@@ -235,7 +235,7 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
 
                    dataMsg->setFinalDestinationNodeName(actual_gateway.c_str());
 
-                   //EV<<"pulled to rout Msg:"<<dataMsg->getNMsgOrder()<<" at time "<<simTime().dbl()<<"\n";
+                   EV<<"pulled to rout Msg:"<<dataMsg->getNMsgOrder()<<" at time "<<simTime().dbl()<<"\n";
                    string destAdd = dataRequestMsg->getSourceAddress();
                    string gwAdd = dataMsg->getFinalDestinationNodeName();
 
@@ -244,44 +244,19 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
 
                    if(cnt<=1){
                        //EV<<"gwAdd"<<gwAdd<<"\n";
-                       //save info into file
-                       string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
+
+                       //save LOGS info into file
                        string nMY=MyAddH.substr(15,17);
                        string nGW=gwAdd.substr(15,17);
-                       nameF.append(nMY);
-                       nameF.append("_");
-                       nameF.append(nGW);
-                       nameF.append(".txt");
-                       std::ofstream out(nameF, std::ios_base::app);
                        //My Short Path
                        int myID=graphR.add_element(MyAddH);
                        int gwID=graphR.add_element(gwAdd);
                        string shrtPath=graphR.returnShortestPath(myID,gwID);
-                       //EV<<"Epah"<<shrtPath<<"\n";
-                       string stP="ShortPath: \n";
-                       stP.append(shrtPath);
-                       out<<stP;
-
-
                        //Graph
                        string GraphSR=graphR.returnGraphT();
-                       string msIDis=" | Graph: \n";
-                       msIDis.append(GraphSR);
-                       out<<msIDis;
-                       //Time
-                       std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
-                       string timeGen=" | Time is : ";
-                       timeGen.append(timeMsg);
-                       out<<timeGen;
-                       out<<" |End \n";
-                       out.close();
-
+                       Log.saveResultsLQE(nMY, nGW, shrtPath, GraphSR);
                        cnt++;
                    }
-
-
-
-
 
 
 
@@ -300,6 +275,10 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
                        }
                        count1++;
                    }
+
+                   //Anul loop avoidance
+                   foundH=false;
+
 
                    //Verifies if DataMsg destination is this neighbor and DataMsg has not been send yet, if so, send directly with Loop Avoidance
                    if(dataMsg->getFinalDestinationNodeName()==destAdd && foundH==false){
@@ -336,32 +315,7 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
                        //string sPat=graphR.returnShortestPath;
 
 
-                       //Save Data
-                           /*//save info into file
-                           string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
-                           string noS=ownMACAddress.substr(15,17);
-                           nameF.append(noS);
-                           nameF.append(".txt");
-                           std::ofstream out(nameF, std::ios_base::app);
-                           //My Short Path
-                           graphR.dijkstra(myID, gwID);
-                           string sPat=graphR.returnShortestPath(myID,gwID);
-                           string srcer="ShortPath Me&GW: \n";
-                           srcer.append(sPat);
-                           out<<srcer;
-                           //Graph
-                           string GraphSR=graphR.returnGraphT();
-                           string msIDis="Graph: \n";
-                           EV<<"LQE graph: "<<msIDis<<"\n";
-                           msIDis.append(GraphSR);
-                           out<<msIDis;
-                           //Time
-                           std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
-                           string timeGen="Time is : ";
-                           timeGen.append(timeMsg);
-                           out<<timeGen;
-                           out<<" |End \n";
-                           out.close();*/
+
 
 
 
@@ -387,7 +341,7 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
                                 send(dataMsg, "lowerLayerOut");
                             }
                         }
-                       }
+                       }else{EV<<"Ups, shouldn't end up here \n"; }
                    }
                }
                EV<<"Add++\n";
@@ -421,43 +375,7 @@ void RoutingLqeGw::handleBeaconInfo(cMessage *msg){
     Log.saveEnerTable(ownMACAddress, returnEnerTable());
 
 
-/*    //Save Data
-    //save info into file
-    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
-    string noS=ownMACAddress.substr(15,17);
-    nameF.append(noS);
-    nameF.append(".txt");
-    std::ofstream out(nameF, std::ios_base::app);
-    //My Short Path
-    string MyAddh;
-    string SouceDRAdd = beaconMsg->getSourceAddress();
-    if((SouceDRAdd.substr(0,2))=="BT"){
-        MyAddH=ownBTMACAddress;
-    }else{
-        MyAddH=ownMACAddress;
-    }
-    string gwAd=GWAddr
-    int myID=graphR.add_element(MyAddH);
-    int gwID=graphR.add_element(gwAdd);
-    graphR.dijkstra(myID, gwID);
-    string sPat=graphR.returnShortestPath;
-    string srcer="My Address: ";
-    srcer.append(ownMACAddress);
-    out<<srcer;
 
-
-    //Graph
-    string GraphSR=graphR.returnGraphT();
-    string msIDis="Graph: \n";
-    msIDis.append(GraphSR);
-    out<<msIDis;
-    //Time
-    std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
-    string timeGen="Time is : ";
-    timeGen.append(timeMsg);
-    out<<timeGen;
-    out<<" |End \n";
-    out.close();*/
 
 
 
@@ -537,28 +455,16 @@ void RoutingLqeGw::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
     Stor.saveData(msg,0, reached_gwH);
 
 
-        //Save Data
-        //save info into file
-        string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGen";
-        string noS=ownMACAddress.substr(15,17);
-        nameF.append(noS);
-        nameF.append(".txt");
-        std::ofstream out(nameF, std::ios_base::app);
-
+        //Save Data into Log
         //Graph
         string dataN=upperDataMsg->getDataName();
-        string msIDis="Data Name: ";
-        msIDis.append(dataN);
-        out<<msIDis;
         //Time
         std::string timeMsg = std::to_string(upperDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
-        string timeGen=" | Generated Time is : ";
-        timeGen.append(timeMsg);
-        out<<timeGen;
-        out<<" |End \n";
-        out.close();
+        Log.saveGenDat(ownMACAddress, dataN, timeMsg);
+        string graf=graphR.returnGraphT();
+        Log.saveGraphHere(ownMACAddress, graf);
 
-        saveGraphHere();
+
        // EV<<"actGw:"<<actual_gateway<<" me:"<<ownMACAddress<<"\n";
         if(actual_gateway==ownMACAddress){ //If I am the Gw, I delete this Msg from storage
             //EV<<"Here from up deletes:"<<upperDataMsg->getDataName()<<"\n";
@@ -567,7 +473,7 @@ void RoutingLqeGw::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
 
             if(delet){
                // EV<<"Delete:"<<upperDataMsg->getDataName()<<"\n";
-                saveMsgReachedGw(upperDataMsg->getDataName(), simTime().dbl());
+                Log.saveMsgReachedGW(upperDataMsg->getDataName(), simTime().dbl());
                 pcktSentMsg(upperDataMsg->getRealPacketSize(), true);
             }
         }
@@ -616,45 +522,17 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
         if(omnetDataMsg->getFinalDestinationNodeName()==ownMACAddress){
             //EV<<"Sou a final destination \n";
 
-            //save info into file
-            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGW";
-            string noS=ownMACAddress.substr(15,17);
-                              nameF.append(noS);
-                              nameF.append(".txt");
-                              std::ofstream out(nameF, std::ios_base::app);
-                              //Data Name
-                              string srcMAC=omnetDataMsg->getDataName();
-                              string srcer="Source: ";
-                              srcer.append(srcMAC);
-                              out<<srcer;
-                              //MessageID
-                              std::string msID=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
-                              string msIDis=" | Message ID: ";
-                              msIDis.append(msID);
-                              out<<msIDis;
-                              /*//Time generated
-                              std::string timeMsg = std::to_string(omnetDataMsg->getInjectedTime().dbl());//getInjectedTime().dbl());
-                              string timeGen=" | Time generated: ";
-                              timeGen.append(timeMsg);
-                              out<<timeGen;*/
-                              //Time sent from src
-                              std::string timeSMsg = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
-                              string timeSSrc=" | Time sentFromSrcR: ";
-                              timeSSrc.append(timeSMsg);
-                              out<<timeSSrc;
-                              /*//Time sent from neigh
-                              std::string timeSMsgN = std::to_string(omnetDataMsg->getSentTime().dbl());//getInjectedTime().dbl());
-                              string timeSN=" | Time sentFromNeigh: ";
-                              timeSN.append(timeSMsgN);
-                               out<<timeSN;*/
-                              //time received here
-                              std::string timeRMsg = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
-                              string timeRec=" | Time receivedFromSrcR: ";
-                              timeRec.append(timeRMsg);
-                              out<<timeRec;
-                              out<<" |End \n";
-                              out.close();
 
+            //save info into LOG file
+            //Data Name
+            string srcMAC=omnetDataMsg->getDataName();
+            //MessageID
+            std::string msID=std::to_string(omnetDataMsg->getNMsgOrder());//getMsgUniqueID();
+            //Time sent from src
+            std::string timeSMsg = std::to_string(omnetDataMsg->getSentTimeRout().dbl());//getInjectedTime().dbl());
+            //time received here
+            std::string timeRMsg = std::to_string(omnetDataMsg->getReceivedTimeRout().dbl());//getReceivedTime().dbl());
+            Log.saveResultsGw(ownMACAddress, srcMAC,  msID, timeSMsg, timeRMsg);
 
             //cacheData=FALSE;
             imDestiny=TRUE;
@@ -694,7 +572,7 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
 
                 string MsgId=omnetDataMsg->getDataName();
 
-                //saveMsgReachedGw(MsgId, omnetDataMsg->getSentTimeRout().dbl());
+                //Log.saveMsgReachedGW(MsgId, omnetDataMsg->getSentTimeRout().dbl());
 
             }
         }*/
@@ -821,7 +699,7 @@ void RoutingLqeGw::checkStoredMsgs(){   //deletes stored Msgs if I'm the gw
                     //EV<<"Deleting cause I'm GW \n";
 
                     if(delt){
-                        saveMsgReachedGw(messageID, time_f_sent);
+                        Log.saveMsgReachedGW(messageID, time_f_sent);
                         //EV<<"Noted \n";
                     }
                 }
@@ -968,7 +846,8 @@ string RoutingLqeGw::returnEnerTable(){
     return tableS;
 }
 
-//--GATEWAY list----------------------------------------------------------------------
+//--GATEWAY----------------------------------------------------------------------
+//gw list
 bool RoutingLqeGw::setGatewayList(){
 
     GatewayN *gatewayN = NULL;
@@ -1047,7 +926,7 @@ void RoutingLqeGw::updateGateway(){
         //EV<<"Current Gateway is "<<actual_gateway<<" until "<<deadT<<" s \n";
     }else{ EV<<"No update from the GW list \n"; }
 }
-
+//GW CALCULATION---
 void RoutingLqeGw::checkGwStatus(){
 
 
@@ -1100,6 +979,7 @@ void RoutingLqeGw::checkGwStatus(){
         //EV<<"gwMat rank:"<<gwMat[k][0]<<" and nSum:"<<gwMat[k][1]<<" \n";
     }
 
+    //--METHOD 1 ----------------------------------
     //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
     /*int nN=0, bestGwId=-1;
     for(int u=0;u<nVert;u++){
@@ -1114,6 +994,7 @@ void RoutingLqeGw::checkGwStatus(){
         }
     }*/
 
+    //--METHOD 2 ----------------------------------
     //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY (effort spent)----------
     int Rl=0, bestGwId=-1;
     for(int uR=0;uR<nVert;uR++){
@@ -1189,7 +1070,7 @@ void RoutingLqeGw::checkGwStatus(){
         scheduleAt(simTime() + gwCheckPeriod, checkGW);
     }
     }
-    saveResultsGwChk();
+    Log.saveResultsGwChk(ownMACAddress, actual_gateway);
 
     if(actual_gateway==ownMACAddress){
         checkStoredMsgs();
@@ -1197,161 +1078,6 @@ void RoutingLqeGw::checkGwStatus(){
 
 }
 
-//--RESULTS-------------------------------------------------------------------------
-void RoutingLqeGw::saveGraphHere(){
-    string graf=graphR.returnGraphT();
-    //Save Data
-            //save info into file
-            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GraphES";
-            string noS=ownMACAddress.substr(15,17);
-            nameF.append(noS);
-            nameF.append(".txt");
-            std::ofstream out(nameF, std::ios_base::app);
-            //Time
-            std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
-                   string timeGen=" | Time : ";
-                   timeGen.append(timeMsg);
-                   timeGen.append("\n");
-                   out<<timeGen;
-            //Graph
-            graf.append("\n");
-            out<<graf;
-
-            out.close();
-}
-
-void RoutingLqeGw::initializeResultsFiles(){
-    //RESULTS FILES---------------------------------------------------------
-            //FILE ResultsGen
-            string nameGen="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGen";
-            string noGen=ownMACAddress.substr(15,17);
-            nameGen.append(noGen);
-            nameGen.append(".txt");
-            //EV<<"nameF: "<<nameF<<"\n";
-            ofstream outfileGen(nameGen,ios::out);
-            outfileGen<<"Generated Data \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
-            outfileGen.close();
-            std::ofstream outGen(nameGen, std::ios_base::app);
-            auto startGen = std::chrono::system_clock::now();
-            // Some computation here
-            auto endGen = std::chrono::system_clock::now();
-            std::chrono::duration<double> elapsed_secondsGen = endGen-startGen;
-            std::time_t end_timeGen = std::chrono::system_clock::to_time_t(endGen);
-            outGen<< "Started simulation at " << std::ctime(&end_timeGen) << "elapsed time: " << elapsed_secondsGen.count() << "s\n";
-            outGen.close();
-
-            //FILE ResultsLQE
-            string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsLQE";
-            string noS=ownMACAddress.substr(15,17);
-            nameF.append(noS);
-            nameF.append(".txt");
-            //EV<<"nameF: "<<nameF<<"\n";
-            ofstream outfile(nameF,ios::out);
-            outfile<<"RESULTS FILE \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
-            outfile.close();
-            std::ofstream out(nameF, std::ios_base::app);
-            auto start = std::chrono::system_clock::now();
-            // Some computation here
-            auto end = std::chrono::system_clock::now();
-            std::chrono::duration<double> elapsed_seconds = end-start;
-            std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-            out<< "Started simulation at " << std::ctime(&end_time) << "elapsed time: " << elapsed_seconds.count() << "s\n";
-            out.close();
-
-            //File ResultsStor
-            string nameFstor="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsStor";
-            string noSstor=ownMACAddress.substr(15,17);
-            nameFstor.append(noSstor);
-            nameFstor.append(".txt");
-            //EV<<"nameF: "<<nameF<<"\n";
-            ofstream outfilestor(nameFstor,ios::out);
-            outfilestor<<"RESULTS FILE \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
-            outfilestor.close();
-            std::ofstream outstor(nameFstor, std::ios_base::app);
-            auto startstor = std::chrono::system_clock::now();
-            // Some computation here
-            auto endstor = std::chrono::system_clock::now();
-            std::chrono::duration<double> elapsed_secondsstor = endstor-startstor;
-            std::time_t end_timestor = std::chrono::system_clock::to_time_t(endstor);
-            outstor<< "Started simulation at " << std::ctime(&end_timestor) << "elapsed time: " << elapsed_secondsstor.count() << "s\n";
-            outstor.close();
-
-            //File ResultsGW
-            string nameFgw="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ResultsGW";
-            string noSgw=ownMACAddress.substr(15,17);
-            nameFgw.append(noSgw);
-            nameFgw.append(".txt");
-            //EV<<"nameF: "<<nameF<<"\n";
-            ofstream outfilegw(nameFgw,ios::out);
-            outfilegw<<"RESULTS FILE \nAuthor: João Patrício (castanheirapatricio@ua.pt)"<<endl;
-            outfilegw.close();
-            std::ofstream outgw(nameFgw, std::ios_base::app);
-            auto startgw = std::chrono::system_clock::now();
-            // Some computation here
-            auto endgw = std::chrono::system_clock::now();
-            std::chrono::duration<double> elapsed_secondsgw = endgw-startgw;
-            std::time_t end_timegw = std::chrono::system_clock::to_time_t(endgw);
-            outgw<< "Started simulation at " << std::ctime(&end_timegw) << "elapsed time: " << elapsed_secondsgw.count() << "s\n";
-            outgw.close();
-}
-
-void RoutingLqeGw::saveResultsGwChk(){
-
-                //save info into file
-                string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/CheckGw";
-                string noS=ownMACAddress.substr(15,17);
-                nameF.append(noS);
-                nameF.append(".txt");
-                std::ofstream out(nameF, std::ios_base::app);
-                //Current Gw
-                string currGw=actual_gateway;
-                currGw.append("\n");
-                out<<currGw;
-
-                //Time
-                std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
-                string timeGen=" | Time : ";
-                timeGen.append(timeMsg);
-                timeGen.append("\n");
-                out<<timeGen;
-                out.close();
-}
-
-void RoutingLqeGw::saveMsgReachedGw(string dataName, double time){
-    //save info into file
-    string nameF="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/ReachedGwName";
-    nameF.append(".txt");
-    std::ofstream out(nameF, std::ios_base::app);
-    //Name of data
-    string dName=dataName;
-    dName.append("\n");
-    out<<dName;
-    out.close();
-
-    //save info into file
-    string nameS="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GwTimeSent";
-    nameS.append(".txt");
-    std::ofstream outs(nameS, std::ios_base::app);
-    //time of data sent
-    std::string timeMsgS = std::to_string(time);//getInjectedTime().dbl());
-    string timeGenS=timeMsgS;
-    timeGenS.append("\n");
-    outs<<timeGenS;
-    outs.close();
-
-
-    //save info into file
-    string nameFe="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/DataResults/GwTimeRec";
-    nameFe.append(".txt");
-    std::ofstream oute(nameFe, std::ios_base::app);
-    //time of data rec
-    std::string timeMsg = std::to_string(simTime().dbl());//getInjectedTime().dbl());
-    string timeGen=timeMsg;
-    timeGen.append("\n");
-    oute<<timeGen;
-    oute.close();
-
-}
 //----------------------------------------------------------------------------------------
 
 /***************************************************************************************

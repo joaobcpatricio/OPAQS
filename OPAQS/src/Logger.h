@@ -46,11 +46,31 @@ public:
     string ownAddress = "Wf:00:00:00:00:02";
 
     void initialize(string ownMACAddress);
-    void saveResultsWeight(string myAddr,string sourceAddr, string weightH);
-    void saveResultsWTime(string myAddr,string sourceAddr, string timeRMsg);
+    //--Neighboring----
+    //Ener
     void saveEnerTable(string myAddr, string table);
-
-
+    //LQE
+    void saveWeight(string noS, string noN, int weigH);
+    void saveResultsWeight(string myAddr,string sourceAddr, int weigH);
+    void saveResultsWTime(string myAddr,string sourceAddr);
+    //--Routing------------------------------
+    void saveResultsLQE(string nMY, string nGW, string shrtPath, string GraphSR);   //LQE
+    void saveGenDat(string ownMACAddress, string dataN, string timeMsg); //Generated data
+    void saveResultsGw(string ownMACAddress, string srcMAC, string msID, string timeSMsg, string timeRMsg); //data saved GW
+    void saveGraphHere(string ownMACAddress, string graf); //save graph
+    void RoutingLogsInit(string ownMACAddress); //loggs init
+    void saveResultsGwChk(string ownMACAddress, string actual_gateway); //current gw
+    void saveMsgReachedGW(string dataName, double time); //data reached gw
+    //--Storage---------------------
+    //not working
+    //--Wireless NIC ------------------
+    void wirelessNicResultsInit(string ownMACAddress);//init
+    void saveResultsSent(string ownMACAddress, string srcMAC, string dstMAC, string msNam, string msID, string timeMsg);//save all info sent
+    void saveResultsSrc(string ownMACAddress, string srcMAC, string msID, string timeMsg);
+    void saveResultsRec(string ownMACAddress, string srcMAC, string dstMAC, string msNam, string msID, string timeMsg);//save all info rec
+    void outputResultsSent(string ownMACAddress);
+    void outputResultsReceived(string ownMACAddress);
+    void saveSentDataName(string ownMACAddress, string msNam);
 
 };
 

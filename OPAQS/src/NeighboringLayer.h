@@ -122,8 +122,6 @@ private:
      void saveLastBeContact(string Naddress);    //updates the last time this direct-neigh sent a beacon
      void cleanOldContacts(); //removes direct neighbors that are absent from graph
      void handleDataReqMsgFromLowerLayer(cMessage *msg);
-     void saveResultsWeight(cMessage *msg, string weightH);
-     void saveResultsWTime(cMessage *msg, string timeRMsg);
      GraphUpdtMsg* makeGraphUpdtMessage();
      void handleGraphUpdtMsgFromLowerLayer(cMessage *msg);
 

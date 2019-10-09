@@ -1,7 +1,7 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Mon Oct  7 22:12:06 2019
-elapsed time: 3e-08s
+Started simulation at Wed Oct  9 03:25:26 2019
+elapsed time: 4.5e-08s
 Source: /app/node0/item-22001 | Message ID: 1 | Time sentFromSrcR: 5.519643 | Time receivedFromSrcR: 5.533627 |End 
 Source: /app/node0/item-22002 | Message ID: 2 | Time sentFromSrcR: 5.519643 | Time receivedFromSrcR: 5.547467 |End 
 Source: /app/node2/item-22002 | Message ID: 2 | Time sentFromSrcR: 5.524283 | Time receivedFromSrcR: 5.552107 |End 
@@ -89,3 +89,7 @@ Source: /app/node2/item-22043 | Message ID: 43 | Time sentFromSrcR: 44.919847 | 
 Source: /app/node2/item-22044 | Message ID: 44 | Time sentFromSrcR: 44.919847 | Time receivedFromSrcR: 44.985250 |End 
 Source: /app/node0/item-22046 | Message ID: 46 | Time sentFromSrcR: 45.269643 | Time receivedFromSrcR: 45.283627 |End 
 Source: /app/node0/item-22047 | Message ID: 47 | Time sentFromSrcR: 46.869643 | Time receivedFromSrcR: 46.883627 |End 
+Source: /app/node0/item-22053 | Message ID: 53 | Time sentFromSrcR: 52.369643 | Time receivedFromSrcR: 52.383627 |End 
+Source: /app/node0/item-22054 | Message ID: 54 | Time sentFromSrcR: 53.469643 | Time receivedFromSrcR: 53.483627 |End 
+Source: /app/node0/item-22055 | Message ID: 55 | Time sentFromSrcR: 54.569643 | Time receivedFromSrcR: 54.583627 |End 
+Source: /app/node0/item-22056 | Message ID: 56 | Time sentFromSrcR: 55.119643 | Time receivedFromSrcR: 55.133627 |End 
