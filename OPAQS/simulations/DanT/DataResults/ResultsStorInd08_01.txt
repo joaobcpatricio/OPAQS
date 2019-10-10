@@ -1,0 +1,1 @@
+Source: /app/node1/item-22065 | Message ID: 65 | Time generated: 64.100000 | Time sentFromSrcR: 69.969643 | Time receivedFromSrcR: 69.983627 |End 

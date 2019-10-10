@@ -1,7 +1,9 @@
 all: checkmakefiles
 	cd src && $(MAKE)	
 	#find simulations/DanT/Logs/ -name "*.txt" -type f -delete
-	rm -r simulations/DanT/DataResults/*
+	#rm -r simulations/DanT/DataResults/*
+	rm -f simulations/DanT/DataResults/*
+	#find simulations/DanT/Logs/ -name "*.txt" -type f -delete
 	find simulations/DanT/Logs/ -name "*.txt" -type f -delete
 	#rm -r simulations/ElectGW/DataResults/*	
 	#find simulations/ElectGW/Logs/ -name "*.txt" -type f -delete

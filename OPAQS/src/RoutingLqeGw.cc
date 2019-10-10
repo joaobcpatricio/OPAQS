@@ -18,7 +18,9 @@ void RoutingLqeGw::initialize(int stage)
         //Log=Logger();
         // get parameters
         nodeIndex = par("nodeIndex");
+        EV<<"Hi, I'm "<<nodeIndex<<"\n";
         ownMACAddress = par("ownMACAddress").stringValue();
+        EV<<"Hi, My add "<<ownMACAddress<<"\n";
         ownBTMACAddress = par("ownBTMACAddress").stringValue();
         nextAppID = 1;
         maximumCacheSize = par("maximumCacheSize");
@@ -778,11 +780,13 @@ bool RoutingLqeGw::getGraph(string graphS){//, int numberVert){ //String:" 1->2:
 
 //--ENER table
 void RoutingLqeGw::pcktSentMsg(double size_p, bool from_GW){    //to be used when simulating sending through
-    PcktSentMsg *sentMsg = new PcktSentMsg();
+    PcktIsSentMsg *sentMsg = new PcktIsSentMsg();
     sentMsg->setOwnAddr(ownMACAddress.c_str());
     sentMsg->setBit_size(size_p);
     sentMsg->setTo_Gw(from_GW);
+    sentMsg->setDistance(dist_to_gw);
     sentMsg->setSentTime(simTime().dbl());
+    sentMsg->setIs_sent(true);
 
     send(sentMsg,"neighLayerOut");
 }
@@ -981,7 +985,7 @@ void RoutingLqeGw::checkGwStatus(){
 
     //--METHOD 1 ----------------------------------
     //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
-    /*int nN=0, bestGwId=-1;
+    int nN=0, bestGwId=-1;
     for(int u=0;u<nVert;u++){
         if(gwMat[u][1]>nN){
             nN=gwMat[u][1];
@@ -992,11 +996,11 @@ void RoutingLqeGw::checkGwStatus(){
                 bestGwId=u;
             }
         }
-    }*/
+    }
 
     //--METHOD 2 ----------------------------------
     //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY (effort spent)----------
-    int Rl=0, bestGwId=-1;
+    /*int Rl=0, bestGwId=-1;
     for(int uR=0;uR<nVert;uR++){
         if(gwMat[uR][0]>Rl){
             Rl=gwMat[uR][0];
@@ -1007,7 +1011,7 @@ void RoutingLqeGw::checkGwStatus(){
                 bestGwId=uR;
                 }
             }
-        }
+        }*/
 
 
 

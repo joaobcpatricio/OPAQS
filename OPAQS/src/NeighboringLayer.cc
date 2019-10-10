@@ -64,7 +64,9 @@ void NeighboringLayer::initialize(int stage)
 
 
     } else if (stage == 2) {
-        calcEnerg(0,false);
+        //calcEnerg(0,false);
+        myEner=EnergyStart;
+        ener_spent=0;
 
 
     } else {
@@ -130,11 +132,11 @@ void NeighboringLayer::handleMessage(cMessage *msg)
             EV<<"Neighboring: handleGraphUpdtMsg\n";
             handleGraphUpdtMsgFromLowerLayer(msg);
 
-        }else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<PcktSentMsg*>(msg) != NULL) {
+        }else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<PcktIsSentMsg*>(msg) != NULL) {
             EV<<"Neighboring upp: handlepcktSentMsg\n";
             handlePcktSentMsg(msg);
 
-        }else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<PcktSentMsg*>(msg) != NULL) {
+        }else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<PcktIsSentMsg*>(msg) != NULL) {
             EV<<"Neighboring low: handlepcktSentMsg\n";
             handlePcktSentMsg(msg);
 
@@ -200,6 +202,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     log.saveResultsWTime(ownMACAddress, noN);
 
     //log.saveEnerTable(ownMACAddress, returnEnerTable());
+    log.saveMyEner(ownMACAddress, myEner);
 
 
 //-------------------
@@ -350,7 +353,6 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
                  distProb=GWisMyNeigh(msg);
                  //EV<<"Set on beacon g: "<<beaconMsg->getNeighGraph()<<"\n";
                  //EV<<"Destin: "<<beaconMsg->getDestinationAddress()<<"\n";
-                 calcEnerg(beaconMsg->getRealPacketSize(),false);
                  send(beaconMsg, "lowerLayerOut");
              }
          }
@@ -1073,20 +1075,50 @@ void NeighboringLayer::cleanOldContacts(){
 //--Energy Methods--------------------------------------------------------------------
 
 void NeighboringLayer::handlePcktSentMsg(cMessage *msg){
-    PcktSentMsg *pcktSent = dynamic_cast<PcktSentMsg*>(msg);
+    PcktIsSentMsg *pcktSent = dynamic_cast<PcktIsSentMsg*>(msg);
     double pckt_size=pcktSent->getBit_size();
     bool from_Gw=pcktSent->getTo_Gw();
-    calcEnerg(pckt_size, from_Gw);
+    double dist=pcktSent->getDistance();
+    bool is_sent=pcktSent->getIs_sent();
+    calcEnerg(pckt_size, from_Gw, dist, is_sent);
 
     delete msg;
 }
 
 //calculate future energy value through expenditure on sending Msgs.
-void NeighboringLayer::calcEnerg(double size_bits, bool from_gw){
+void NeighboringLayer::calcEnerg(double size_bits, bool from_gw, double distance, bool is_sent){
+    double ET, ER, EneG, Ech;
+    double d=distance;
+    double d0=sqrt(Efs/Emp);
+
     if(from_gw){
-        //EV<<"Calc ener sent from gw \n";
-        size_bits=size_bits*2;
+        if(is_sent){
+            //
+            //Ech=size_bits*(Eelec*pow(10,-9)+Efs*pow(10,-12)*distance+Eda*pow(10,-9)) - energy ch per round
+            //
+            EV<<"GW sent->"<<size_bits<<"\n";
+            ET=Eelec*pow(10,-9)*size_bits+Eamp*pow(10,-12)*size_bits*pow(d,lambBS);
+            EneG=ET;
+        }else{
+            EV<<"GW rec \n";
+            ER=Eelec*pow(10,-9)*size_bits;
+            EneG=ER;
+        }
+    }else{
+        EV<<"Other sent \n";
+        if(is_sent){
+            ET=Eelec*pow(10,-9)*size_bits+Eamp*pow(10,-12)*size_bits*pow(d,lambIC);
+            EneG=ET;
+        }else{
+            EV<<"other rec \n";
+            ER=Eelec*pow(10,-9)*size_bits;
+            EneG=ER;
+        }
     }
+
+    myEner=myEner-EneG;
+    EV<<"MY ene: "<<myEner<<"Spent:"<<EneG<<"\n";
+    //double Enorm = 1.0 + ((float)((Energ - (-56)) * (0 - 1)) / ((-100) - (-56)));
 
     int my_enerS=round(ener_spent+size_bits*Beta);
     //round

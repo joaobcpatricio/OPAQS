@@ -30,10 +30,12 @@ packet GraphUpdtMsg {
 }
 
 // Message to inform a packet has been sent
-packet PcktSentMsg {
+packet PcktIsSentMsg {
     string ownAddr;
     double bit_size;
     bool to_Gw;
+    bool is_sent;
+    double distance;
     simtime_t sentTime;	//timeStamp
 }
 

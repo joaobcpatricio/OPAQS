@@ -18,10 +18,12 @@ Logger::~Logger(){
 }
 
 void Logger::initialize(string ownMACAddress){
-    ownAddress=ownMACAddress;
+    //ownAddress=ownMACAddress;
+    //string noGenn=ownMACAddress.substr(14,4);
+    //EV<<"Log init:"<<ownMACAddress<<" to:"<<noGenn<<"\n";
     //string nameGen="/home/mob/Documents/workspaceO/Tese/OpNetas/OPAQS/simulations/DanT/Logs/LogGen";
     string nameGen="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/LogGen";
-        string noGen=ownMACAddress.substr(15,17);
+        string noGen=ownMACAddress.substr(15,2);//17);
         nameGen.append(noGen);
         nameGen.append(".txt");
         //EV<<"nameF: "<<nameF<<"\n";
@@ -60,6 +62,20 @@ void Logger::saveEnerTable(string myAddr, string table){
     timeGen.append("\n");
     outfile<<timeGen;
     outfile.close();
+}
+//my Energy
+void Logger::saveMyEner(string myAddr, double my_ener){
+    string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/Ener/MyEner";
+        string noS=myAddr.substr(15,17);
+        nameF.append(noS);
+        nameF.append(".txt");
+        std::ofstream outs(nameF, std::ios_base::app);
+        //table save
+        std::string eneR = std::to_string(my_ener);//getInjectedTime().dbl());
+               string eneS=eneR;
+               eneS.append("\n");
+               outs<<eneS;
+               outs.close();
 }
 
 //LQE

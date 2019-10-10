@@ -65,10 +65,10 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
 
             //neighbourList from BT
             if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<NeighbourListMsgBT*>(msg) != NULL) {
-                EV<<"NeighListBT neighLayerOut\n";
+                //EV<<"NeighListBT neighLayerOut\n";
                 send(msg, "neighLayerOut");
             } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<NeighbourListMsg*>(msg) != NULL) {
-                EV<<"NeighList neighLayerOut\n";
+                //EV<<"NeighList neighLayerOut\n";
                 send(msg, "neighLayerOut");
 
 
@@ -76,10 +76,10 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
                 // graphUpdt message arrived from the lower layer (link layer)
                 //neighbourList from BT
             }else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<GraphUpdtMsgBT*>(msg) != NULL) {
-                    EV<<"GraphUpdtMsg neighLayerOut\n";
+                    //EV<<"GraphUpdtMsg neighLayerOut\n";
                     send(msg, "neighLayerOut");
                 } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<GraphUpdtMsg*>(msg) != NULL) {
-                    EV<<"GraphUpdtMsg neighLayerOut\n";
+                    //EV<<"GraphUpdtMsg neighLayerOut\n";
                     send(msg, "neighLayerOut");
 
 
@@ -87,29 +87,29 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
 //DataMsg---------------------------------------------------------------------------------------------------------------
             // data message arrived from the lower layer (link layer)
             } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<DataMsg*>(msg) != NULL) {
-                EV<<"BT- DataMsg received\n";
+                //EV<<"BT- DataMsg received\n";
                 send(msg, "upperLayerOut");
             } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<DataMsg*>(msg) != NULL) {
-                            EV<<"Wifi- DataMsg received\n";
+                            //EV<<"Wifi- DataMsg received\n";
                             send(msg, "upperLayerOut");
             } else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<DataMsg*>(msg) != NULL) {
                 DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
                 string SouceDAdd = dataMsg->getSourceAddress();
                 if((SouceDAdd.substr(0,2))=="BT"){
-                    EV<<"BT DataMsg sent \n";
+                    //EV<<"BT DataMsg sent \n";
                     send(msg, "BTlowerLayerOut");
                 }else{
-                    EV<<"WIFI DataMsg sent\n";
+                    //EV<<"WIFI DataMsg sent\n";
                     send(msg, "lowerLayerOut");
                 }
 
 
 //AckMsg----------------------------------------------------------------------------------------------------
             } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<AckMsg*>(msg) != NULL) {
-                EV<<"BT: AckMsg received\n";
+                //EV<<"BT: AckMsg received\n";
                 send(msg, "upperLayerOut");
             } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<AckMsg*>(msg) != NULL) {
-                EV<<"Wifi: AckMsg received\n";
+                //EV<<"Wifi: AckMsg received\n";
                 send(msg, "upperLayerOut");
             } else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<AckMsg*>(msg) != NULL) {
                 AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
@@ -117,10 +117,10 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
 
                 EV<<"Teste: "<<SouceAAdd.substr(0,2)<<"\n";
                 if((SouceAAdd.substr(0,2))=="BT"){
-                    EV<<"BT AckMsg sent \n";
+                    //EV<<"BT AckMsg sent \n";
                     send(msg, "BTlowerLayerOut");
                 }else{
-                    EV<<"WIFI AckMsg sent\n";
+                    //EV<<"WIFI AckMsg sent\n";
                     send(msg, "lowerLayerOut");
                 }
 
@@ -134,29 +134,29 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
                 string SouceBAdd = beaconMsg->getSourceAddress();
                 //EV<<"Teste: "<<SouceBAdd.substr(0,2)<<"\n";
                 if((SouceBAdd.substr(0,2))=="BT"){
-                   EV<<"BT Beacon sent \n";
+                   //EV<<"BT Beacon sent \n";
                    send(msg, "BTlowerLayerOut");
                 }else{
-                    EV<<"WIFI Beacon sent\n";
+                    //EV<<"WIFI Beacon sent\n";
                     send(msg, "lowerLayerOut");
                 }
 
             } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<BeaconMsg*>(msg) != NULL) {
                 BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
                 string SouceBAdd = beaconMsg->getSourceAddress();
-                EV<<"Source: "<<SouceBAdd.substr(0,2)<<" \n";
-                EV<<"BT Beacon received\n";
+                //EV<<"Source: "<<SouceBAdd.substr(0,2)<<" \n";
+                //EV<<"BT Beacon received\n";
                 send(msg, "neighLayerOut");
             } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<BeaconMsg*>(msg) != NULL) {
-                EV<<"Wifi Beacon received\n";
+                //EV<<"Wifi Beacon received\n";
                 send(msg, "neighLayerOut");
 
 //DataReqMsg------------------------------------------------------------------------------------------------------
             } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
-                EV<<"BT-DataReqMsg received\n";
+                //EV<<"BT-DataReqMsg received\n";
                 send(msg, "neighLayerOut");//"upperLayerOut");
             } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
-                EV<<"wifi-DataReqMsg received\n";
+                //EV<<"wifi-DataReqMsg received\n";
                 send(msg, "neighLayerOut");//"upperLayerOut");
             //ADDED 23/07/19 18h41
             } else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
@@ -166,23 +166,23 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
                 //a=dataRequestMsg->getNic();
                 //if(a==1){
                 if((SouceDRAdd.substr(0,2))=="BT"){
-                    EV<<"BT DataReqMsg sent \n";
+                    //EV<<"BT DataReqMsg sent \n";
                     send(msg, "BTlowerLayerOut");
                 }else{
-                    EV<<"Wifi DataReqMsg sent\n";
+                    //EV<<"Wifi DataReqMsg sent\n";
                     send(msg, "lowerLayerOut");
                 }
 
 
 //PckSentMsg----------------------------------------------------------------------------------------------------
-            } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<PcktSentMsg*>(msg) != NULL) {
-                PcktSentMsg *sentMsg = dynamic_cast<PcktSentMsg*>(msg);
+            } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<PcktIsSentMsg*>(msg) != NULL) {
+                PcktIsSentMsg *sentMsg = dynamic_cast<PcktIsSentMsg*>(msg);
                 string SouceBAdd = sentMsg->getOwnAddr();
                 //EV<<"Source: "<<SouceBAdd.substr(0,2)<<" \n";
-                //EV<<"BT PcktSentMsg received\n";
+                //EV<<"BT PcktIsSentMsg received\n";
                 send(msg, "neighLayerOut");
-            } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<PcktSentMsg*>(msg) != NULL) {
-                //EV<<"Wifi PcktSentMsg received\n";
+            } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<PcktIsSentMsg*>(msg) != NULL) {
+                EV<<"Wifi PcktIsSentMsg received\n";
                 send(msg, "neighLayerOut");
 
 

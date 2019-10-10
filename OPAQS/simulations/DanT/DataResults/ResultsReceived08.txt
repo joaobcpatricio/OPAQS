@@ -1,0 +1,49 @@
+RESULTS Received DataMsg 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Thu Oct 10 20:37:21 2019
+elapsed time: 3.1e-08s
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22011 | Message ID: 11 | Time Received Here: 10.833627 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22012 | Message ID: 12 | Time Received Here: 11.383627 | End 
+Source: Wf:00:00:00:00:05 | From: Wf:00:00:00:00:05 | Message ID: /app/node5/item-22017 | Message ID: 17 | Time Received Here: 18.283627 | End 
+Source: Wf:00:00:00:00:02 | From: Wf:00:00:00:00:05 | Message ID: /app/node2/item-22014 | Message ID: 14 | Time Received Here: 18.297467 | End 
+Source: Wf:00:00:00:00:02 | From: Wf:00:00:00:00:05 | Message ID: /app/node2/item-22015 | Message ID: 15 | Time Received Here: 18.311307 | End 
+Source: Wf:00:00:00:00:02 | From: Wf:00:00:00:00:05 | Message ID: /app/node2/item-22017 | Message ID: 17 | Time Received Here: 18.325147 | End 
+Source: Wf:00:00:00:00:05 | From: Wf:00:00:00:00:05 | Message ID: /app/node5/item-22018 | Message ID: 18 | Time Received Here: 18.338987 | End 
+Source: Wf:00:00:00:00:05 | From: Wf:00:00:00:00:05 | Message ID: /app/node5/item-22019 | Message ID: 19 | Time Received Here: 18.352827 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22016 | Message ID: 16 | Time Received Here: 19.583627 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22017 | Message ID: 17 | Time Received Here: 19.597467 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22018 | Message ID: 18 | Time Received Here: 19.611307 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22019 | Message ID: 19 | Time Received Here: 19.625147 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22020 | Message ID: 20 | Time Received Here: 19.638987 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22044 | Message ID: 44 | Time Received Here: 50.483627 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22046 | Message ID: 46 | Time Received Here: 50.497467 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22047 | Message ID: 47 | Time Received Here: 50.511307 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:07 | Message ID: /app/node3/item-22046 | Message ID: 46 | Time Received Here: 50.525147 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22048 | Message ID: 48 | Time Received Here: 50.538987 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22049 | Message ID: 49 | Time Received Here: 50.552827 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:07 | Message ID: /app/node3/item-22047 | Message ID: 47 | Time Received Here: 50.566667 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22049 | Message ID: 49 | Time Received Here: 50.580507 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22050 | Message ID: 50 | Time Received Here: 50.594347 | End 
+Source: Wf:00:00:00:00:08 | From: Wf:00:00:00:00:07 | Message ID: /app/node8/item-22046 | Message ID: 46 | Time Received Here: 50.608187 | End 
+Source: Wf:00:00:00:00:08 | From: Wf:00:00:00:00:07 | Message ID: /app/node8/item-22047 | Message ID: 47 | Time Received Here: 50.622027 | End 
+Source: Wf:00:00:00:00:08 | From: Wf:00:00:00:00:07 | Message ID: /app/node8/item-22048 | Message ID: 48 | Time Received Here: 50.635867 | End 
+Source: Wf:00:00:00:00:08 | From: Wf:00:00:00:00:07 | Message ID: /app/node8/item-22050 | Message ID: 50 | Time Received Here: 50.663547 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22050 | Message ID: 50 | Time Received Here: 50.677387 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22051 | Message ID: 51 | Time Received Here: 50.691227 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22066 | Message ID: 66 | Time Received Here: 66.548427 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22065 | Message ID: 65 | Time Received Here: 66.562267 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22066 | Message ID: 66 | Time Received Here: 66.576107 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22067 | Message ID: 67 | Time Received Here: 66.589947 | End 
+Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:05 | Message ID: /app/node1/item-22065 | Message ID: 65 | Time Received Here: 69.983627 | End 
+Source: Wf:00:00:00:00:05 | From: Wf:00:00:00:00:05 | Message ID: /app/node5/item-22070 | Message ID: 70 | Time Received Here: 69.997467 | End 
+Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:07 | Message ID: /app/node6/item-22081 | Message ID: 81 | Time Received Here: 82.583627 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22082 | Message ID: 82 | Time Received Here: 82.597467 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22083 | Message ID: 83 | Time Received Here: 82.611307 | End 
+Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22088 | Message ID: 88 | Time Received Here: 88.033627 | End 
+Source: Wf:00:00:00:00:05 | From: Wf:00:00:00:00:05 | Message ID: /app/node5/item-22094 | Message ID: 94 | Time Received Here: 94.383627 | End 
+Source: Wf:00:00:00:00:02 | From: Wf:00:00:00:00:05 | Message ID: /app/node2/item-22093 | Message ID: 93 | Time Received Here: 94.397467 | End 
+Source: Wf:00:00:00:00:02 | From: Wf:00:00:00:00:05 | Message ID: /app/node2/item-22094 | Message ID: 94 | Time Received Here: 94.411307 | End 
+Source: Wf:00:00:00:00:05 | From: Wf:00:00:00:00:05 | Message ID: /app/node5/item-22095 | Message ID: 95 | Time Received Here: 94.425147 | End 
+Source: Wf:00:00:00:00:08 | From: Wf:00:00:00:00:07 | Message ID: /app/node8/item-22099 | Message ID: 99 | Time Received Here: 102.248427 | End 
+Source: Wf:00:00:00:00:08 | From: Wf:00:00:00:00:07 | Message ID: /app/node8/item-22100 | Message ID: 100 | Time Received Here: 102.262267 | End 
+Source: Wf:00:00:00:00:05 | From: Wf:00:00:00:00:05 | Message ID: /app/node5/item-22096 | Message ID: 96 | Time Received Here: 107.483731 | End 

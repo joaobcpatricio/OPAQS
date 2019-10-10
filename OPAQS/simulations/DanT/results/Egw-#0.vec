@@ -1,14 +1,14 @@
 version 2
-run Egw-0-20191009-03:25:26-18924
+run Egw-0-20191009-13:59:16-7581
 attr configname Egw
-attr datetime 20191009-03:25:26
+attr datetime 20191009-13:59:16
 attr experiment Egw
-attr inifile SimV2.ini
+attr inifile SimV3.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 18924
+attr processid 7581
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -16,7 +16,6 @@ attr runnumber 0
 attr seedset 0
 param **.mobility.traceFile "\"paths/Egw.movements\""
 param **.numNodes 4
-param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
@@ -37,7 +36,7 @@ param **.routing.actual_gateway "\"\""
 param **.routing.gwCheckPeriod 5s
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1ms
+param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -54,8 +53,8 @@ param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
-param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
 param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s

@@ -1,15 +1,15 @@
-file 82029 1569431795                                           
+file 12689 1570719218                                           
 version 2
-run A1-0-20190925-18:16:30-17485
+run A1-0-20191010-15:53:05-11638
 attr configname A1
-attr datetime 20190925-18:16:30
+attr datetime 20191010-15:53:05
 attr experiment A1
-attr inifile SimV2.ini
+attr inifile SimV3.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 17485
+attr processid 11638
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -21,7 +21,7 @@ param **.wirelessIfc.wirelessRange 40m
 param **.bluetoothIfc.wirelessRange 40m
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1ms
+param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -32,14 +32,15 @@ param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.application.endGeneratingMsg 999999s
-param **.routingLayer "\"RoutingLQE\""
+param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
-param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -49,14 +50,14 @@ param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
-param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.wirelessRange 40m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
 param **.wirelessIfc.my_limit_rate 0bps
-param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.wirelessRange 40m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
 param **.bluetoothIfc.wirelessHeaderSize 16byte
@@ -74,8 +75,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2804 65517 10 20363 0.05 50 4500 1 2 6000 9000
-1	68321 1657 19 244 0.1 0.199 100 -nan -nan -nan -nan
-2	69978 6025 966 5286 1.688032534095 7.251973385287 218 141 30738 3365811 69130392129
-3	76003 6025 966 5286 1.688032534095 7.251973385287 218 141 30738 3365811 69130392129
+0	2801 9291 10 4268 0.05 8 720 1 2 960 1440
+1	12092 124 25 3728 0.1 7.1 8 -nan -nan -nan -nan
+2	12216 236 2837 4141 5.533626728067 7.747466728067 9 141 1269 6345 5666085
+3	12452 236 2837 4141 5.533626728067 7.747466728067 9 141 1269 6345 5666085
 

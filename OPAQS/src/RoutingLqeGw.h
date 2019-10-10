@@ -31,6 +31,8 @@
 
 #define N_nodes 50        //HARDECODED VARIABLE of number of vertices - must be the same of NeighboringLayer
 #define alfa 1000  //constant to control relation from energ to add alfa/Ener(i)
+#define dist_to_gw 500
+
 
 using namespace omnetpp;
 

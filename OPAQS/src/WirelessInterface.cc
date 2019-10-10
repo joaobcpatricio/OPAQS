@@ -123,8 +123,14 @@ int WirelessInterface::numInitStages() const
 void WirelessInterface::handleMessage(cMessage *msg)
 {
 
+
+    /*if(msg->isSelfMessage() && dynamic_cast<PcktIsSentMsg*>(msg) != NULL){//msg->getKind() == WIRELESSINTERFACE_ENER_EVENT_CODE){
+        //PcktIsSentMsg *sentMsg = new PcktIsSentMsg();
+        send(msg,"upperLayerOut");
+    }
+
     // find and send neighbour list to upper layer
-    if (msg->isSelfMessage() && msg->getKind() == WIRELESSINTERFACE_NEIGH_EVENT_CODE) {
+    else */if (msg->isSelfMessage() && msg->getKind() == WIRELESSINTERFACE_NEIGH_EVENT_CODE) {
 
         // init current neighbor list
         while (currentNeighbourNodeInfoList.size() > 0) {
@@ -201,6 +207,8 @@ void WirelessInterface::handleMessage(cMessage *msg)
 
             // send msg to upper layer
             send(neighListMsg, "upperLayerOut");
+            setPckSentMsg(neighListMsg, wirelessRange, true);
+            setPckSentMsg(neighListMsg, wirelessRange, false);
 
         }else {
             GraphUpdtMsg *graphMsg = new GraphUpdtMsg;
@@ -274,6 +282,8 @@ void WirelessInterface::handleMessage(cMessage *msg)
             setRecTimeGW(msg);
             outputResultsReceived();
             send(msg, "upperLayerOut");
+            setPckSentMsg(msg, 40, false);
+
 
         }
     }
@@ -324,6 +334,7 @@ void WirelessInterface::setupSendingMsg(cMessage *msg)
 
 void WirelessInterface::sendPendingMsg()
 {
+    double dst;
     // check if nodes to deliver are still in neighbourhood, if so send the packet
     list<BaseNodeInfo*>::iterator iteratorAtTxNeighbourNodeInfo = atTxNeighbourNodeInfoList.begin();
     while (iteratorAtTxNeighbourNodeInfo != atTxNeighbourNodeInfoList.end()) {
@@ -354,8 +365,7 @@ void WirelessInterface::sendPendingMsg()
                 //EV<<"Sent currentPendingMsg \n";
                 setSentTime(currentPendingMsg);
                 setSentTimeSrc(currentPendingMsg);
-                //By this time the wifi sent the packet, it's just simulating if it gets lost or not, so i can count here energy spent on sending
-                setPckSentMsg(currentPendingMsg);
+
 
                 // make duplicate of packet
                 cPacket *outPktCopy =  dynamic_cast<cPacket*>(currentPendingMsg->dup());
@@ -389,7 +399,7 @@ void WirelessInterface::sendPendingMsg()
                 EV<<"Delay is:"<<delay<<"\n";
 
                 //Simulates measured lin stability on aquatic environments;
-                double dst=sqrt(l);
+                dst=sqrt(l);
                 double link_stability=-0.002*pow(dst,3)+0.0104762*pow(dst,2)+0.454762*dst+ 97.2143; //xE[5,40]
                 bool loosePkt=true;
                 if(dst<5){
@@ -419,7 +429,9 @@ void WirelessInterface::sendPendingMsg()
 
         iteratorAtTxNeighbourNodeInfo++;
     }
-
+    //By this time the wifi sent the packet, it's just simulating if it gets lost or not, so i can count here energy spent on sending
+    EV<<"Dist ish:"<<dst<<"\n";
+    setPckSentMsg(currentPendingMsg, dst, true);
     // remove original message
     delete currentPendingMsg;
     currentPendingMsg = NULL;
@@ -620,31 +632,37 @@ double WirelessInterface::realAquaticAchievableThroughput(double x){ //xE[5,40]m
 }
 
 //--Ener table anouncement -------------------------------------------------------
-void WirelessInterface::pcktSentMsg(double size_p, bool from_GW){
-    PcktSentMsg *sentMsg = new PcktSentMsg();
+void WirelessInterface::pcktSentMsg(double size_p, bool from_GW, double dst, bool is_sent){
+    PcktIsSentMsg *sentMsg = new PcktIsSentMsg();
     sentMsg->setOwnAddr(ownMACAddress.c_str());
     sentMsg->setBit_size(size_p);
     sentMsg->setTo_Gw(from_GW);
     sentMsg->setSentTime(simTime().dbl());
-
+    sentMsg->setDistance(dst);
+    sentMsg->setIs_sent(is_sent);
     send(sentMsg,"upperLayerOut");
 }
-void WirelessInterface::setPckSentMsg(cMessage *msg){
+void WirelessInterface::setPckSentMsg(cMessage *msg, double dst, bool is_sent){
     BeaconMsg *beaconMsg = dynamic_cast<BeaconMsg*>(msg);
     if (beaconMsg) {
-        pcktSentMsg(beaconMsg->getRealPacketSize(), false);
+        pcktSentMsg(beaconMsg->getRealPacketSize(), false, dst, is_sent);
     }
     DataReqMsg *dataRequestMsg = dynamic_cast<DataReqMsg*>(msg);
     if(dataRequestMsg){
-        pcktSentMsg(dataRequestMsg->getRealPacketSize(), false);
+        pcktSentMsg(dataRequestMsg->getRealPacketSize(), false, dst, is_sent);
     }
     DataMsg *dataMsg = dynamic_cast<DataMsg*>(msg);
     if (dataMsg) {
-        pcktSentMsg(dataMsg->getRealPacketSize(), false);
+        pcktSentMsg(dataMsg->getRealPacketSize(), false, dst, is_sent);
     }
     AckMsg *ackMsg = dynamic_cast<AckMsg*>(msg);
     if(ackMsg){
-        pcktSentMsg(ackMsg->getRealPacketSize(), false);
+        pcktSentMsg(ackMsg->getRealPacketSize(), false, dst, is_sent);
+    }
+    NeighbourListMsg *neighMsg = dynamic_cast<NeighbourListMsg*>(msg);
+    if(neighMsg){
+        int siz=64 + 1;
+        pcktSentMsg(siz, false, dst, is_sent);
     }
 }
 

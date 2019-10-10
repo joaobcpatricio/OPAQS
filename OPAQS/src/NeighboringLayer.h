@@ -27,6 +27,7 @@
 #include "Logger.h"
 
 
+
 using namespace omnetpp;
 
 using namespace std;
@@ -35,6 +36,21 @@ class BaseNodeInfo;
 
 #define N_nodes 50        //HARDECODED VARIABLE of number of vertices - must be the same set on RoutingLqeGw
 #define Beta 0.01  //constant to control relation from bits to energ
+
+#define Eelec 50 //nJ/bit       -> Energy exhausted in electronic circuitry
+#define Efs 10//pJ/bit/m2       -> Energy dissipated by amplifier for free space
+#define Emp 0.0013//pJ/bit/m4   -> Energy dissipated by amplifier for multipath
+#define Eda 5//nJ/bit/report    -> Energy exhausted in data fusion
+
+#define Eamp 100 //pJ/bit/m2    -> energy dissipation of the transmission amplifier
+#define lambIC 2 //path loss intra-cluster
+#define lambBS 2.5 //path loss base station transmission
+
+
+#define di 40
+#define EnergyStart 138600 //J (em 10000mAh das powerbank usadas) ->Energy level during deployment
+
+
 
 class NeighboringLayer : public cSimpleModule
 {
@@ -128,7 +144,8 @@ private:
      //Ener
      int Ener[N_nodes];
      int ener_spent=0;
-     void calcEnerg(double size_bits,bool from_gw);
+     double myEner=1; //
+     void calcEnerg(double size_bits,bool from_gw, double distance, bool is_sent);
      void handlePcktSentMsg(cMessage *msg);
      bool updateNeighEner(cMessage *msg);
      string returnEnerTable();

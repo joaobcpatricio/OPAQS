@@ -49,6 +49,7 @@ public:
     //--Neighboring----
     //Ener
     void saveEnerTable(string myAddr, string table);
+    void saveMyEner(string myAddr, double my_ener);
     //LQE
     void saveWeight(string noS, string noN, int weigH);
     void saveResultsWeight(string myAddr,string sourceAddr, int weigH);

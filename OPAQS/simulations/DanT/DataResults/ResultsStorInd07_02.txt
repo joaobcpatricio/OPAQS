@@ -1,0 +1,8 @@
+Source: /app/node2/item-22014 | Message ID: 14 | Time generated: 13.100000 | Time sentFromSrcR: 21.034443 | Time receivedFromSrcR: 21.048427 |End 
+Source: /app/node2/item-22093 | Message ID: 93 | Time generated: 92.100000 | Time sentFromSrcR: 95.819643 | Time receivedFromSrcR: 95.861307 |End 
+Source: /app/node2/item-22094 | Message ID: 94 | Time generated: 93.100000 | Time sentFromSrcR: 95.819643 | Time receivedFromSrcR: 95.875147 |End 
+Source: /app/node2/item-22091 | Message ID: 91 | Time generated: 90.100000 | Time sentFromSrcR: 91.569643 | Time receivedFromSrcR: 97.111307 |End 
+Source: /app/node2/item-22092 | Message ID: 92 | Time generated: 91.100000 | Time sentFromSrcR: 91.569643 | Time receivedFromSrcR: 97.125147 |End 
+Source: /app/node2/item-22090 | Message ID: 90 | Time generated: 89.100000 | Time sentFromSrcR: 91.569643 | Time receivedFromSrcR: 97.152827 |End 
+Source: /app/node2/item-22095 | Message ID: 95 | Time generated: 94.100000 | Time sentFromSrcR: 95.019842 | Time receivedFromSrcR: 97.443467 |End 
+Source: /app/node2/item-22096 | Message ID: 96 | Time generated: 95.100000 | Time sentFromSrcR: 95.569842 | Time receivedFromSrcR: 97.512667 |End 

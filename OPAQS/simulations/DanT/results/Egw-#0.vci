@@ -1,15 +1,15 @@
-file 203905 1570587949                                          
+file 203833 1570625973                                          
 version 2
-run Egw-0-20191009-03:25:26-18924
+run Egw-0-20191009-13:59:16-7581
 attr configname Egw
-attr datetime 20191009-03:25:26
+attr datetime 20191009-13:59:16
 attr experiment Egw
-attr inifile SimV2.ini
+attr inifile SimV3.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 18924
+attr processid 7581
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -17,7 +17,6 @@ attr runnumber 0
 attr seedset 0
 param **.mobility.traceFile "\"paths/Egw.movements\""
 param **.numNodes 4
-param **.application.usedRNG 1
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
@@ -38,7 +37,7 @@ param **.routing.actual_gateway "\"\""
 param **.routing.gwCheckPeriod 5s
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1ms
+param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -55,8 +54,8 @@ param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
-param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
 param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
@@ -92,12 +91,12 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3489 160845 13 61902 0.05 89.95 10792 0 2 12604 17880
-1	164334 6368 33 61336 0.1 89.1 360 -nan -nan -nan -nan
-2	170702 6405 3550 61421 5.533626728067 89.183409109974 218 141 30738 3365811 69130392129
-3	177107 6405 3550 61421 5.533626728067 89.183409109974 218 141 30738 3365811 69130392129
-0	183512 18352 61920 68934 90 100 1208 1 1 1208 1208
-1	201864 720 62032 68377 90.1 99.1 40 -nan -nan -nan -nan
-2	202584 660 61980 68721 90.033626728067 99.633409109974 22 30879 33840 711909 23054623911
-3	203244 660 61980 68721 90.033626728067 99.633409109974 22 30879 33840 711909 23054623911
+0	3417 160845 13 61902 0.05 89.95 10792 0 2 12604 17880
+1	164262 6368 33 61336 0.1 89.1 360 -nan -nan -nan -nan
+2	170630 6405 3550 61421 5.533626728067 89.183409109974 218 141 30738 3365811 69130392129
+3	177035 6405 3550 61421 5.533626728067 89.183409109974 218 141 30738 3365811 69130392129
+0	183440 18352 61920 68934 90 100 1208 1 1 1208 1208
+1	201792 720 62032 68377 90.1 99.1 40 -nan -nan -nan -nan
+2	202512 660 61980 68721 90.033626728067 99.633409109974 22 30879 33840 711909 23054623911
+3	203172 660 61980 68721 90.033626728067 99.633409109974 22 30879 33840 711909 23054623911
 
