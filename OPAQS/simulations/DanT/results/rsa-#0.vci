@@ -1,0 +1,103 @@
+file 92272 1570835486                                           
+version 2
+run rsa-0-20191012-00:09:42-10888
+attr configname rsa
+attr datetime 20191012-00:09:42
+attr experiment rsa
+attr inifile SimV3.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network NetworkTormV2
+attr processid 10888
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.mobility.traceFile "\"pathsGW/rsa.movements\""
+param **.numNodes 3
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.nodesThatGen false
+param **application.nodesGenMsg "\"\""
+param **application.startMultipleMsg false
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 99s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.wirelessIfc.wirelessRange 40m
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0\""
+param **application.startMultipleMsg true
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 999999s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.antiEntropyInterval 500ms
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **.neighboring.delayPerDataMsg 0.1
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
+param **.neighboring.sendWifiFirst true
+param **.neighboring.maxLengthGraph 20
+param **.neighboring.max_age 999999s
+param **.neighboring.max_absent_time 1s
+param **.wirelessIfc.wirelessRange 40m
+param **.wirelessIfc.neighbourScanInterval 50ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 32byte
+param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 400ms
+param **.wirelessIfc.my_limit_rate 0bps
+param **.bluetoothIfc.wirelessRange 40m
+param **.bluetoothIfc.neighbourScanInterval 100ms
+param **.bluetoothIfc.bandwidthBitRate 100000bps
+param **.bluetoothIfc.wirelessHeaderSize 16byte
+param **.bluetoothIfc.minSSI -90
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.is3D false
+param **.mobility.nodeId -1
+
+vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 1 NetworkTormV2 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+0	3451 69174 10 41728 0.05 52.05 4683 0 2 6986 12782
+1	72625 2736 37 41120 0.1 51.1 156 -nan -nan -nan -nan
+2	75361 2401 4866 41369 5.55277835206 51.483626728067 85 141 11985 515355 4141908135
+3	77762 2401 4866 41369 5.55277835206 51.483626728067 85 141 11985 515355 4141908135
+0	80163 11082 41752 46841 52.1 60.15 729 0 1 486 486
+1	91245 486 41749 46803 52.1 60.1 27 -nan -nan -nan -nan
+2	91731 270 42076 46407 52.583626728067 59.447466728067 9 12126 13254 114210 1450517760
+3	92001 270 42076 46407 52.583626728067 59.447466728067 9 12126 13254 114210 1450517760
+

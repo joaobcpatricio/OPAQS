@@ -972,11 +972,11 @@ void RoutingLqeGw::checkGwStatus(){
         }
         double ener_spent=Ener[i];
         if(nSum!=0){
-            gwMat[i][0]=sum*nSum+alfa/ener_spent;   //RANK EQUATION
+            gwMat[i][0]=sum*nSum+alfa*ener_spent;   //RANK EQUATION
         }else{
             gwMat[i][0]=0;
         }
-        gwMat[i][1]=nSum;   //nº somas
+        gwMat[i][1]=nSum;   //nº somas=no neighs
 
     }
     for(int k=0;k<nVert;k++){
@@ -985,7 +985,7 @@ void RoutingLqeGw::checkGwStatus(){
 
     //--METHOD 1 ----------------------------------
     //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
-    int nN=0, bestGwId=-1;
+    /*int nN=0, bestGwId=-1;
     for(int u=0;u<nVert;u++){
         if(gwMat[u][1]>nN){
             nN=gwMat[u][1];
@@ -996,11 +996,11 @@ void RoutingLqeGw::checkGwStatus(){
                 bestGwId=u;
             }
         }
-    }
+    }*/
 
     //--METHOD 2 ----------------------------------
     //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY (effort spent)----------
-    /*int Rl=0, bestGwId=-1;
+    int Rl=0, bestGwId=-1;
     for(int uR=0;uR<nVert;uR++){
         if(gwMat[uR][0]>Rl){
             Rl=gwMat[uR][0];
@@ -1011,7 +1011,7 @@ void RoutingLqeGw::checkGwStatus(){
                 bestGwId=uR;
                 }
             }
-        }*/
+        }
 
 
 

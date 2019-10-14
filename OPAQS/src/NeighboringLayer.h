@@ -48,7 +48,7 @@ class BaseNodeInfo;
 
 
 #define di 40
-#define EnergyStart 138600 //J (em 10000mAh das powerbank usadas) ->Energy level during deployment
+#define EnergyStart 100//138600 //J (em 10000mAh das powerbank usadas) ->Energy level during deployment
 
 
 
@@ -145,6 +145,7 @@ private:
      int Ener[N_nodes];
      int ener_spent=0;
      double myEner=1; //
+     double MyBat=99999;
      void calcEnerg(double size_bits,bool from_gw, double distance, bool is_sent);
      void handlePcktSentMsg(cMessage *msg);
      bool updateNeighEner(cMessage *msg);
@@ -153,7 +154,7 @@ private:
      void cleanEnerTable();
      void sendEnerTable();
 
-
+     double resetGPeriod;
 
 
 
@@ -172,5 +173,6 @@ private:
 #define NEIGHBORINGLAYER_SIMMODULEINFO         " NeighboringLayer>!<" << simTime() << ">!<" << getParentModule()->getFullName()
 
 #define NEIGHBORINGLAYER_MSG_ID_HASH_SIZE      4 // in bytes
+#define RESETGRAPH_EVENT_CODE    128
 
 #endif /* NEIGHBORINGLAYER_H_ */

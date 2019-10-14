@@ -46,6 +46,8 @@ void NeighboringLayer::initialize(int stage)
         max_age = par("max_age");
         max_absent_time = par("max_absent_time");
 
+        resetGPeriod = par("resetGPeriod");
+
 
     } else if (stage == 1) {
         // get own module info
@@ -67,7 +69,13 @@ void NeighboringLayer::initialize(int stage)
         //calcEnerg(0,false);
         myEner=EnergyStart;
         ener_spent=0;
+        MyBat=9999;
 
+        //set period to clean graph and ener table
+        cMessage *resetG = new cMessage("Reset Graph Event");
+        //EV<<"Checking GW status \n";
+        resetG->setKind(RESETGRAPH_EVENT_CODE);
+        scheduleAt(simTime() + resetGPeriod, resetG);
 
     } else {
         EV_FATAL << NEIGHBORINGLAYER_SIMMODULEINFO << "Something is radically wrong in initialisation \n";
@@ -89,7 +97,17 @@ void NeighboringLayer::handleMessage(cMessage *msg)
     numEventsHandled++;
 
     // self messages
-    if (msg->isSelfMessage()) {
+    if (msg->isSelfMessage() && msg->getKind() == RESETGRAPH_EVENT_CODE){
+        graphe.cleanGraph();
+        cleanEnerTable();
+        EV<<"Af clen:"<<graphe.returnGraphT()<<"\n";
+        //set period to clean graph and ener table
+                cMessage *resetG = new cMessage("Reset Graph Event");
+                //EV<<"Checking GW status \n";
+                resetG->setKind(RESETGRAPH_EVENT_CODE);
+                scheduleAt(simTime() + resetGPeriod, resetG);
+
+    }else if (msg->isSelfMessage()) {
         EV_INFO << NEIGHBORINGLAYER_SIMMODULEINFO << "Received unexpected self message" << "\n";
         delete msg;
 
@@ -276,7 +294,11 @@ void NeighboringLayer::handleNeighbourListMsgFromLowerLayer(cMessage *msg)//neig
  *Verifies neighborhood and updates the neighbors list and checks if GW is my neighbor
  */
 void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
-     NeighbourListMsg *neighListMsg = dynamic_cast<NeighbourListMsg*>(msg);
+    //Remove no longer direct-neighbors from me on graph
+    bool updtMyNeig=updateMyNGraph(msg);
+    string graf=graphe.returnGraphT();
+    EV<<"Graph by each neigh is:"<<graf<<"\n";
+    NeighbourListMsg *neighListMsg = dynamic_cast<NeighbourListMsg*>(msg);
      // if no neighbours or cache is empty, just return
      if (neighListMsg->getNeighbourNameListArraySize() == 0){       //AQUI VIA SE A CACHE ESTAVA VAZIA
          // setup sync neighbour list for the next time - only if there were some changes
@@ -291,7 +313,7 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
      int i = 0;
      while (i < neighListMsg->getNeighbourNameListArraySize()) {
          string nodeMACAddress = neighListMsg->getNeighbourNameList(i);
-
+         EV<<"The neigh is:"<<nodeMACAddress<<"\n";
          // get syncing info of neighbor
          SyncedNeighbour *syncedNeighbour = getSyncingNeighbourInfo(nodeMACAddress);
 
@@ -364,8 +386,7 @@ void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
      // as there were changes
      syncedNeighbourListIHasChanged = TRUE;
 
-     //Remove no longer direct-neighbors from me on graph
-     bool updtMyNeig=updateMyNGraph(msg);
+
     // EV<<"Updated remove from graph\n";
      //string answ=graphe.returnGraphT();
 
@@ -730,13 +751,14 @@ void NeighboringLayer::cancelBackOffTBT(cMessage *msg){ //vector<string> & selec
  */
 bool NeighboringLayer::updateMyNGraph(cMessage *msg){
  NeighbourListMsg *neighListMsg = dynamic_cast<NeighbourListMsg*>(msg);
+ EV<<"My g bef updtN"<<graphe.returnGraphT()<<"\n";
 
     bool found = FALSE;
     string addrN;
     int o=0;
     int myID=graphe.add_element(ownMACAddress);
     for(int i=0;i<maxLengthGraph;i++){
-        while (o < neighListMsg->getNeighbourNameListArraySize()){
+        while (o < neighListMsg->getNeighbourNameListArraySize()){//checks if id is direct neigh
             addrN = neighListMsg->getNeighbourNameList(o);
             //EV<<"AddrN: "<<addrN<<"\n";
             int idN=std::stoi( addrN.substr(15,17));
@@ -768,7 +790,7 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
             }
             o++;
         }
-        if(!found){
+        if(!found){ //if it's not, clean m
             EV<<"rem id:"<<i<<"\n";
             graphe.rem_edge(myID,i);
             //removEdge(i); not here because it doesn't know if its neigh at more tah 1 hop
@@ -782,9 +804,11 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
     myID=graphe.add_element(ownMACAddress);
     for(int p=0;p<graphe.returnVvalue();p++){
         string spath=graphe.returnShortestPath(myID, p);
+        //EV<<"Stfu:"<<spath<<"\n";
         if(spath==""){
             for(int p2=0;p2<graphe.returnVvalue();p2++){
                 graphe.rem_edge(p,p2);
+                EV<<"rem path:"<<p<<" by "<<myID<<"\n";
                 removEdge(p);   //here if no path, then delete this node's info from table
                 //EV<<"Cleaning graph \n";
             }
@@ -792,8 +816,9 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
         }
     }
 
-
-
+    //graphe.rem_dge(10)
+    string graf=graphe.returnGraphT();
+        EV<<"Graph by MAA:"<<graf<<"\n";
 
     return true;
 }
@@ -806,7 +831,8 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     string srcAdd=BeaconReceived->getSourceAddress();
     string graphS=BeaconReceived->getNeighGraph();
     string myAdd=ownMACAddress;
-    //EV<<"Graph Recebido: "<<graphS<<" de comprimento:"<<graphS.length()<<"\n";
+    EV<<"My g bef updt"<<graphe.returnGraphT()<<"\n";
+    EV<<"Graph Recebido do: "<<srcAdd<<" é "<<graphS<<" de comprimento:"<<graphS.length()<<"\n";
     int srcID=graphe.add_element(srcAdd);
     int myID=graphe.add_element(myAdd);
     int weight =2;
@@ -851,21 +877,42 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
         EV<<"\n";
     }*/
 
-    //Clean direct-link line
+    //Clean direct-link line of source
     for(int h=0;h<maxLengthGraph;h++){
         graphe.rem_edge(srcID, h);
     }
 
+    bool im_in_path=false;
     //Adding the received graph to mine
     for(int s=0;s<maxLengthGraph;s++){//graphe.returnMaxNoVert();s++){
         for(int o=0;o<maxLengthGraph;o++){//graphe.returnMaxNoVert();o++){
-            if((s!=myID && o!=myID)&& array[s][o]>=0){
+            //see if i'm not in path
+            string spath=graphe.returnShortestPath(s, o);
+            EV<<"ShrtP s o:"<<spath<< "with length "<<spath.length()<<"\n";
+            if(spath!=""){
+                int posi=0;
+                for(int st=0; st<spath.length();st++){
+                    //EV<<"st:"<<spath[1]<<"\n";
+                    posi= spath.find(">",st);
+                    EV<<"p1:"<<posi<<"\n";
+                    int vID = std::stoi (spath.substr(st,posi-1-st));
+                    EV<<"Me:"<<myID<<"him"<<vID<<"\n";
+                    if(vID==myID){ EV<<"FUCK U \n";im_in_path=true; }
+                    //int p2 = graphS.find("-",p1);*/
+                    st=posi;
+                }
+            }
+
+
+
+            //if it's not my position, if the array has value, if the info is not about a direct neigh  of mine, or it is but also of src
+            if((s!=myID && o!=myID)&& array[s][o]>=0){// && !im_in_path){//graphe.returnWGrapfT(myID, s)==0 && graphe.returnWGrapfT(myID, o)==0){//||graphe.returnWGrapfT(srcID, s)>0)){
                 graphe.add_edge(s,o,array[s][o]);
-                //EV<<"Added: "<<array[s][o]<<"at"<<s<<o<<"\n";
+                EV<<"Added: "<<array[s][o]<<"at"<<s<<o<<" from"<<srcID<<"\n";
             }
             if(((s==myID && o==srcID)||(s==srcID && o==myID))&& array[s][o]>=0){
                 graphe.add_edge(s,o,array[s][o]);
-                //EV<<"Added2: "<<array[s][o]<<"at"<<s<<o<<"\n";
+                //EV<<"Added2: "<<array[s][o]<<"at"<<s<<o<<" from"<<srcID<<"\n";
             }
         }
     }
@@ -884,7 +931,7 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     EV<<"MyCalcWeight="<<myCalcWeight<<" MyCalcWeight_Int"<<myCalcWeight_Int<<"\n";
     graphe.add_edge(myID, srcID, myCalcWeight_Int);
 
-
+    EV<<"My g aft updt"<<graphe.returnGraphT()<<"\n";
     return true;
 }
 
@@ -1058,12 +1105,14 @@ void NeighboringLayer::cleanOldContacts(){
             SyncedNeighbour *syncedNeighbour = *iteratorSyncedNeighbour;
             if ((simTime().dbl()-syncedNeighbour->lastBrecT) >=max_absent_time) {
 
+                //string graf=graphe.returnGraphT();
+                //EV<<"Graph bf old clean:"<<graf<<"\n";
                 int myID=graphe.add_element(ownMACAddress);
                 string addrN=syncedNeighbour->nodeMACAddress;
                 int idN=std::stoi( addrN.substr(15,17));
                 graphe.rem_edge(myID,idN);
 
-                //EV<<"Removed absent neigh from graph: "<<idN<<"\n";
+                EV<<"Removed absent neigh from graph: "<<idN<<"\n";
             }
 
             iteratorSyncedNeighbour++;
@@ -1118,19 +1167,19 @@ void NeighboringLayer::calcEnerg(double size_bits, bool from_gw, double distance
 
     myEner=myEner-EneG;
     EV<<"MY ene: "<<myEner<<"Spent:"<<EneG<<"\n";
+    MyBat=((float)((myEner/EnergyStart)*100)); //with normalization i get my batery from 0(min) to 100% (max)
+    EV<<"My batery:"<<MyBat<<"\n";
     //double Enorm = 1.0 + ((float)((Energ - (-56)) * (0 - 1)) / ((-100) - (-56)));
-
-    int my_enerS=round(ener_spent+size_bits*Beta);
-    //round
-    //my_enerS=ceil(my_enerS*100);
-   // my_enerS=my_enerS/100;
-
-
+    int idMy=std::stoi( ownMACAddress.substr(15,17));
+    //old method
+    /*int my_enerS=round(ener_spent+size_bits*Beta);
     ener_spent=my_enerS;//update my value
-    string myAddr=ownMACAddress;
-    int idMy=std::stoi( myAddr.substr(15,17));
     Ener[idMy]=my_enerS;//update table my value;
-    //return my_enerS;
+    */
+
+    int MyBatRound=round(MyBat);
+    Ener[idMy]=MyBatRound;//update table my value;
+
 }
 
 bool NeighboringLayer::updateNeighEner(cMessage *msg){
@@ -1214,7 +1263,7 @@ bool NeighboringLayer::updateNeighEner(cMessage *msg){
     }*/
 
         //Update my Weight:
-        Ener[myID]=ener_spent;
+        Ener[myID]=MyBat;//ener_spent;
         return true;
 }
 

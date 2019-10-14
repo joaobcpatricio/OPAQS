@@ -1,0 +1,15 @@
+Weight: 50 | Time now: 34.215101 |End 
+Weight: 58 | Time now: 35.815013 |End 
+Weight: 59 | Time now: 36.364986 |End 
+Weight: 60 | Time now: 36.914968 |End 
+Weight: 61 | Time now: 37.464957 |End 
+Weight: 61 | Time now: 38.014954 |End 
+Weight: 61 | Time now: 38.564958 |End 
+Weight: 60 | Time now: 39.114969 |End 
+Weight: 59 | Time now: 39.664987 |End 
+Weight: 58 | Time now: 40.215012 |End 
+Weight: 56 | Time now: 40.765038 |End 
+Weight: 54 | Time now: 41.315065 |End 
+Weight: 52 | Time now: 41.865089 |End 
+Weight: 49 | Time now: 42.415105 |End 
+Weight: 46 | Time now: 42.965110 |End 

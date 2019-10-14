@@ -1,4 +1,10 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Thu Oct 10 20:37:21 2019
-elapsed time: 2.9e-08s
+Started simulation at Mon Oct 14 22:37:37 2019
+elapsed time: 5.3e-08s
+Source: /app/node8/item-22051 | Message ID: 51 | Time sentFromSrcR: 52.069643 | Time receivedFromSrcR: 52.083627 |End 
+Source: /app/node8/item-22052 | Message ID: 52 | Time sentFromSrcR: 52.069643 | Time receivedFromSrcR: 52.097467 |End 
+Source: /app/node2/item-22047 | Message ID: 47 | Time sentFromSrcR: 52.069643 | Time receivedFromSrcR: 52.111307 |End 
+Source: /app/node2/item-22049 | Message ID: 49 | Time sentFromSrcR: 52.069643 | Time receivedFromSrcR: 52.125147 |End 
+Source: /app/node5/item-22051 | Message ID: 51 | Time sentFromSrcR: 52.069643 | Time receivedFromSrcR: 52.138987 |End 
+Source: /app/node5/item-22052 | Message ID: 52 | Time sentFromSrcR: 52.069643 | Time receivedFromSrcR: 52.152827 |End 

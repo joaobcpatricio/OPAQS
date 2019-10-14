@@ -1,0 +1,102 @@
+file 975904 1571089250                                          
+version 2
+run D_08_10-0-20191014-22:37:37-15551
+attr configname D_08_10
+attr datetime 20191014-22:37:37
+attr experiment D_08_10
+attr inifile SimV3.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network NetworkTormV2
+attr processid 15551
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.mobility.traceFile "\"pathsGW/D.movements\""
+param **.numNodes 11
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.nodesThatGen false
+param **application.nodesGenMsg "\"\""
+param **application.startMultipleMsg false
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 99s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.resetGPeriod 10s
+param **.wirelessIfc.wirelessRange 40m
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0\""
+param **application.startMultipleMsg true
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 999999s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.antiEntropyInterval 500ms
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **.neighboring.delayPerDataMsg 0.1
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
+param **.neighboring.sendWifiFirst true
+param **.neighboring.maxLengthGraph 20
+param **.neighboring.max_age 999999s
+param **.neighboring.max_absent_time 1s
+param **.wirelessIfc.wirelessRange 40m
+param **.wirelessIfc.neighbourScanInterval 50ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 32byte
+param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 400ms
+param **.wirelessIfc.my_limit_rate 0bps
+param **.bluetoothIfc.wirelessRange 40m
+param **.bluetoothIfc.neighbourScanInterval 100ms
+param **.bluetoothIfc.bandwidthBitRate 100000bps
+param **.bluetoothIfc.wirelessHeaderSize 16byte
+param **.bluetoothIfc.minSSI -90
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.is3D false
+param **.mobility.nodeId -1
+
+vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 1 NetworkTormV2 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+0	3500 517944 34 399902 0.05 99.3 32768 1 8 122021 576561
+0	521444 202097 399903 533741 99.3 134.95 11760 1 8 47037 239457
+1	723541 20460 133 399157 0.1 99.1 1100 -nan -nan -nan -nan
+2	744001 101596 17507 521985 5.08396899642 131.654173256807 3227 141 455007 734381298 2.2280027009373e+14
+3	845597 101596 17507 521985 5.08396899642 131.654173256807 3227 141 455007 734381298 2.2280027009373e+14
+0	947193 28710 533899 550848 135 140 1672 1 8 6688 34048
+

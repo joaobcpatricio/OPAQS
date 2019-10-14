@@ -1,0 +1,11 @@
+Source: /app/node2/item-22012 | Message ID: 12 | Time generated: 11.100000 | Time sentFromSrcR: 14.578691 | Time receivedFromSrcR: 14.648035 |End 
+Source: /app/node2/item-22013 | Message ID: 13 | Time generated: 12.100000 | Time sentFromSrcR: 14.578691 | Time receivedFromSrcR: 14.689555 |End 
+Source: /app/node2/item-22012 | Message ID: 12 | Time generated: 11.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 29.527387 |End 
+Source: /app/node2/item-22013 | Message ID: 13 | Time generated: 12.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 29.568907 |End 
+Source: /app/node2/item-22017 | Message ID: 17 | Time generated: 16.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 29.665787 |End 
+Source: /app/node2/item-22019 | Message ID: 19 | Time generated: 18.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 29.721147 |End 
+Source: /app/node2/item-22014 | Message ID: 14 | Time generated: 13.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 30.039467 |End 
+Source: /app/node2/item-22015 | Message ID: 15 | Time generated: 14.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 30.067147 |End 
+Source: /app/node2/item-22016 | Message ID: 16 | Time generated: 15.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 30.094827 |End 
+Source: /app/node2/item-22018 | Message ID: 18 | Time generated: 17.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 30.164027 |End 
+Source: /app/node2/item-22022 | Message ID: 22 | Time generated: 21.100000 | Time sentFromSrcR: 29.319643 | Time receivedFromSrcR: 30.606911 |End 

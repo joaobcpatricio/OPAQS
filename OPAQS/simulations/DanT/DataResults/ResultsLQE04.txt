@@ -1,4 +1,4 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Thu Oct 10 20:37:21 2019
-elapsed time: 2.8e-08s
+Started simulation at Mon Oct 14 22:37:37 2019
+elapsed time: 5.4e-08s
