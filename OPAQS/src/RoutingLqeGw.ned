@@ -40,7 +40,7 @@ simple RoutingLqeGw like IRoutingLayer
 		//27=06
 		int inCache = default(0);
 		
-		double waitBFsend = default(0.5);
+		double waitBFsend = default(0);
 		double max_age @unit(s) = default(999999999999s);
 		string actual_gateway = default("");
 		string gateway_list = default("");//("Wf:00:00:00:00:02;0|.");

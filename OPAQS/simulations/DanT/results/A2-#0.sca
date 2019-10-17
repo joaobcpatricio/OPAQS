@@ -1,20 +1,20 @@
 version 2
-run A2-0-20190929-16:44:43-10912
+run A2-0-20191017-20:55:57-29402
 attr configname A2
-attr datetime 20190929-16:44:43
+attr datetime 20191017-20:55:57
 attr experiment A2
-attr inifile SimV2.ini
+attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 10912
+attr processid 29402
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"paths/A.movements\""
+param **.mobility.traceFile "\"AllPaths/sPaths/A.movements\""
 param **.numNodes 3
 param **.wirelessIfc.wirelessRange 40m
 param **.bluetoothIfc.wirelessRange 40m
@@ -27,7 +27,7 @@ param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1ms
+param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -42,10 +42,10 @@ param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.routing.waitBFsend 0.5
+param **.routing.waitBFsend 0.1
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
-param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
 param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
@@ -56,14 +56,14 @@ param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
-param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.wirelessRange 40m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
 param **.wirelessIfc.my_limit_rate 0bps
-param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.wirelessRange 40m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
 param **.bluetoothIfc.wirelessHeaderSize 16byte
@@ -73,21 +73,21 @@ param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.is3D false
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 1343
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 1632
-scalar NetworkTormV2.node[1].routing numEventsHandled 1687
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 1766
-scalar NetworkTormV2.node[2].routing numEventsHandled 1358
-scalar NetworkTormV2.node[2].neighboring numEventsHandled 1637
-scalar NetworkTormV2 neighbourhoodSize:min 1
+scalar NetworkTormV2.node[0].routing numEventsHandled 2649
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 4762
+scalar NetworkTormV2.node[1].routing numEventsHandled 2651
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 4668
+scalar NetworkTormV2.node[2].routing numEventsHandled 2549
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 4568
+scalar NetworkTormV2 neighbourhoodSize:min 2
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:max 2
 attr source neighbourhoodSize
-scalar NetworkTormV2 neighbourhoodSize:mean 1.3333333333333
+scalar NetworkTormV2 neighbourhoodSize:mean 2
 attr source neighbourhoodSize
-scalar NetworkTormV2 totalBytesReceivedSum:max 45120
+scalar NetworkTormV2 totalBytesReceivedSum:max 7050
 attr source sum(totalBytesReceived)
-scalar NetworkTormV2 totalBytesReceivedSum:last 45120
+scalar NetworkTormV2 totalBytesReceivedSum:last 7050
 attr source sum(totalBytesReceived)
 scalar NetworkTormV2 dataReqBytesReceivedSum:max -nan
 attr source sum(dataReqBytesReceived)
@@ -97,9 +97,9 @@ scalar NetworkTormV2 sumVecBytesReceivedSum:max -nan
 attr source sum(sumVecBytesReceived)
 scalar NetworkTormV2 sumVecBytesReceivedSum:last -nan
 attr source sum(sumVecBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:max 45120
+scalar NetworkTormV2 dataBytesReceivedSum:max 7050
 attr source sum(dataBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:last 45120
+scalar NetworkTormV2 dataBytesReceivedSum:last 7050
 attr source sum(dataBytesReceived)
 scalar NetworkTormV2 deliveryRatio:max -nan
 attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)

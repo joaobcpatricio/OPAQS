@@ -558,7 +558,7 @@ vector<string> StorageM::returnSelectMsgIDList(vector<string> & selectedMessageI
     while (itC != cacheList.end()) {
         EV<<"Maximum hop count: "<<maximumHopCount<<"\n";
         if ((itC->nHops+1)<maximumHopCount){
-            EV<<"Pushed back\n";
+            EV<<"Pushed back id:"<<itC->messageID<<"\n";
             selectedMessageIDList.push_back(itC->messageID);
         }
         itC++;

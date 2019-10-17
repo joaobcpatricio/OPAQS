@@ -417,8 +417,12 @@ void Logger::saveGwRank(int GwId, double rankk, int oldID, double oldR){
     savi.append(savoi);
     savi.append("->");
     savi.append(savoir);
-    savi.append("\n");
+    savi.append(" => ");
     out<<savi;
+    std::string timeMsgr = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+    string timeGenr=timeMsgr;
+    timeGenr.append("\n");
+    out<<timeGenr;
     out.close();
 }
 

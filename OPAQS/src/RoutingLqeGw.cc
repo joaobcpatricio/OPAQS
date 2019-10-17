@@ -29,7 +29,7 @@ void RoutingLqeGw::initialize(int stage)
         useTTL = par("useTTL");
         numEventsHandled = 0;
         inCache=0;
-        waitBFsend = par("waitBFsend");
+        waitBFsend = par("waitBFsend"); //NOT BEING USED
         max_age = par("max_age");
         gateway_list = par("gateway_list").stringValue();
         actual_gateway = par("actual_gateway").stringValue();
@@ -200,7 +200,7 @@ void RoutingLqeGw::handleDataReqMsg(cMessage *msg){
         inCache = selectedMessageIDList.size();
         int i=0;
 
-        if(!isSending && !isReceiving && (waitS<=simTime().dbl())){
+        if(!isSending && !isReceiving){// && (waitS<=simTime().dbl())){
 
             int cnt=0;
             while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
@@ -620,7 +620,7 @@ void RoutingLqeGw::handleDataMsgFromLowerLayer(cMessage *msg)//cache
     }
 
     isReceiving=false;
-    waitS=simTime().dbl()+waitBFsend;
+    waitS=simTime().dbl()+waitBFsend;   //NOT BEING USED
     //EV<<"WaitS:"<<waitS<<"\n";;
 }
 
@@ -654,7 +654,7 @@ void RoutingLqeGw::handleAppRegistrationMsg(cMessage *msg) //App
 
 //--CACHE------------------------------------------------------------------------------
 void RoutingLqeGw::checkStoredMsgs(){   //deletes stored Msgs if I'm the gw
-
+    EV<<"checkStoredMsgs \n";
     //Goes through the cache list to send the stored Msgs
     vector<string> selectedMessageIDList;
     returnSelectMsgIDList(selectedMessageIDList);
@@ -666,7 +666,7 @@ void RoutingLqeGw::checkStoredMsgs(){   //deletes stored Msgs if I'm the gw
     DataReqMsg *dataRequestMsg = new DataReqMsg();
     dataRequestMsg->setSourceAddress(ownMACAddress.c_str());
 
-    if(!isSending && !isReceiving && (waitS<=simTime().dbl())){
+    if(!isSending && !isReceiving){// && (waitS<=simTime().dbl())){
         int cnt=0;
         while (iteratorMessageIDList != selectedMessageIDList.end()) {  //checks all stored Msgs
             isSending=true;
@@ -933,7 +933,7 @@ void RoutingLqeGw::updateGateway(){
 }
 //GW CALCULATION---
 void RoutingLqeGw::checkGwStatus(){
-
+    EV<<"checkGwStatus \n";
 
     //calculate Gw rank
     int nVert=graphR.returnVvalue();
@@ -990,7 +990,8 @@ void RoutingLqeGw::checkGwStatus(){
                 if(nSum!=0){
                     //gwMat[i][0]=teta*sumLqe*nSum+alfa*ener_spent;   //RANK EQUATION
                     gwMat[i][0]=(1-central)*sumLqe/nSum+central*ener_spent;   //RANK EQUATION
-                    EV<<"Rank is:"<<gwMat[i][0]<<"central:"<<central<<"lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+                    //EV<<"Rank is:"<<gwMat[i][0]<<"central:"<<central<<"lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+                    EV<<"Rank is:"<<gwMat[i][0]<<" i: "<<i<<" lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
                 }else{
                     gwMat[i][0]=0;
                 }
@@ -1004,22 +1005,27 @@ void RoutingLqeGw::checkGwStatus(){
     /**Methods that chose GW to be elected from the node's rank************************************************************************/
     //--METHOD 1 ----------------------------------
     //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
-    /*int nN=0, bestGwId=-1;
-    for(int u=0;u<nVert;u++){
-        if(gwMat[u][1]>nN){
-            nN=gwMat[u][1];
-            bestGwId=u;
-        }else if(gwMat[u][1]==nN){  //if same number of neighs, check who's got the lowest rank (lower the better)
-            if(gwMat[u][0]<gwMat[nN][0]){
+        EV<<"id0:"<<gwMat[0][1]<<"id1:"<<gwMat[1][1]<<"id2:"<<gwMat[2][1]<<"id3:"<<gwMat[3][1]<<"\n";
+        EV<<"id0:"<<gwMat[0][0]<<"id1:"<<gwMat[1][0]<<"id2:"<<gwMat[2][0]<<"id3:"<<gwMat[3][0]<<"\n";
+        int nN=0, bestGwId=0;
+        for(int u=0;u<nVert;u++){
+            if(gwMat[u][1]>nN){
                 nN=gwMat[u][1];
                 bestGwId=u;
+            }else if(gwMat[u][1]==nN){  //if same number of neighs, check who's got the lowest rank (lower the better)
+                EV<<"Comparing "<<u<<":"<<gwMat[u][0]<<" to "<<bestGwId<<":"<<gwMat[nN][0]<<"\n";
+                if(gwMat[u][0]>gwMat[bestGwId][0]){
+                    EV<<"Even :o "<<u<<"\n";
+                    nN=gwMat[u][1];
+                    bestGwId=u;
+                }
             }
         }
-    }*/
+
 
     //--METHOD 2 ----------------------------------
     //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY - best rank value----------
-    int Rl=0, bestGwId=-1;
+    /*int Rl=0, bestGwId=-1;
     for(int uR=0;uR<nVert;uR++){
         if(gwMat[uR][0]>Rl){
             Rl=gwMat[uR][0];
@@ -1030,7 +1036,7 @@ void RoutingLqeGw::checkGwStatus(){
                 bestGwId=uR;
                 }
             }
-        }
+        }*/
 
     //EV<<"Chosen GW is "<<bestGwId<<" with "<<nN<<"neighs \n";
     int IDadd;
@@ -1040,8 +1046,10 @@ void RoutingLqeGw::checkGwStatus(){
         IDadd=-1;
     }
 
+    EV<<"best gw is:"<<bestGwId<<"\n";
+
     //insert here method that compares elected GW with current GW parameters and compare within a range if a new GW should be elected
-    /*Control 1*******/
+    /*Control 1*******+ S/Control ativo*/
     /*double oldR=0, newR=0;
     if(bestGwId!=IDadd){
         oldR=gwMat[IDadd][0];
@@ -1071,6 +1079,7 @@ void RoutingLqeGw::checkGwStatus(){
             actual_gateway=addDf;
         }
     }*/
+
     /*Control 2**************/
     /*if(bestGwId!=IDadd){
         //EV<<"ACTUAL GW IS different than best ranked \n";
@@ -1104,11 +1113,11 @@ void RoutingLqeGw::checkGwStatus(){
     }*/
     /*Control 3**************/
 
-    if(!no_act_gw){
+    if(!no_act_gw && bestGwId!=IDadd && bestGwId!=(-1)){
         double oldR=0, newR=0;
-        if(bestGwId!=IDadd){
-            //EV<<"ACTUAL GW IS different than best ranked \n";
-            if(bestGwId!=(-1)){
+        //if(bestGwId!=IDadd){
+            EV<<"ACTUAL GW IS different than best ranked \n";
+            //if(bestGwId!=(-1)){
                 if(elect_gw==bestGwId){
                     count_newElect_Gw++;
                 }else{
@@ -1132,6 +1141,12 @@ void RoutingLqeGw::checkGwStatus(){
                                 Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, oldR);
                                 old_rank=gwMat[bestGwId][0];
                             }
+                            // setup next event to check gw
+                            cMessage *checkGW = new cMessage("Send Check Gw Event");
+                            //EV<<"Checking GW status \n";
+                            checkGW->setKind(CHECKGW_EVENT_CODE);
+                            scheduleAt(simTime() + gwCheckPeriod, checkGW);
+                            EV<<"Set check in 5s \n";
                 }else{
                     elect_gw=bestGwId;
 
@@ -1143,21 +1158,19 @@ void RoutingLqeGw::checkGwStatus(){
                 scheduleAt(simTime() + 1, checkGW);
                 EV<<"Set check in 1s \n";
                 }
-            }
-        }
-
-    }
+    }else
 
 
     /**If there's no gw check 3 times (period 500ms), if it still choses the same GW, then it elects it ************/
-        string actual_gateway_temp;
+
         if(no_act_gw){  //if there's no gw gonna check 3 times (period 500ms) if i chose the same gw
-            if(temp_gw==bestGwId){
+              string actual_gateway_temp;
+              if(temp_gw==bestGwId){
                 count_newGw_check++;
-            }else{
+              }else{
                 count_newGw_check=0;
-            }
-            if(count_newGw_check>2){
+              }
+              if(count_newGw_check>2){
                 count_newGw_check=0;
                 string addF="Wf:00:00:00:00:";
                 if(bestGwId<10){
@@ -1170,13 +1183,13 @@ void RoutingLqeGw::checkGwStatus(){
                 EV<<"Actual gw temp:"<<actual_gateway_temp<<"\n";
                 actual_gateway=addF;//"Wf:00:00:00:00:02";
                 no_act_gw=false;
-            }
-            temp_gw=bestGwId;
-            // setup next event to confirm no check gw
-            cMessage *checkGW = new cMessage("Send Check Gw Event");
-            //EV<<"Checking GW status- no gw chosen \n";
-            //EV<<"Temp gw id:"<<temp_gw<<"\n";
-            checkGW->setKind(CHECKGW_EVENT_CODE);
+              }
+              temp_gw=bestGwId;
+              // setup next event to confirm no check gw
+              cMessage *checkGW = new cMessage("Send Check Gw Event");
+              //EV<<"Checking GW status- no gw chosen \n";
+              //EV<<"Temp gw id:"<<temp_gw<<"\n";
+              checkGW->setKind(CHECKGW_EVENT_CODE);
             scheduleAt(simTime() + 0.5, checkGW);
             EV<<"Set check in 0.5s \n";
         }else{
@@ -1190,10 +1203,11 @@ void RoutingLqeGw::checkGwStatus(){
             EV<<"Set check in 5s \n";
         }
     }
+
     EV<<"Saving Gw current \n";
     Log.saveResultsGwChk(ownMACAddress, actual_gateway);
     if(actual_gateway==ownMACAddress){
-        checkStoredMsgs();
+        checkStoredMsgs(); //if i'm gw save msgs stored
     }
 
 }

@@ -1,15 +1,15 @@
-file 418199 1571281729                                          
+file 418353 1571341104                                          
 version 2
-run A-0-20191017-04:08:31-27285
+run A-0-20191017-20:37:32-27283
 attr configname A
-attr datetime 20191017-04:08:31
+attr datetime 20191017-20:37:32
 attr experiment A
 attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 27285
+attr processid 27283
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -30,7 +30,7 @@ param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.routing.waitBFsend 0.5
+param **.routing.waitBFsend 0.1
 param **.routing.max_age 999999s
 param **.routing.gateway_list "\"\""
 param **.routing.actual_gateway "\"\""
@@ -54,7 +54,7 @@ param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.routing.waitBFsend 0.5
+param **.routing.waitBFsend 0.1
 param **.routing.max_age 999999s
 param **.routing.gateway_list "\"\""
 param **.routing.actual_gateway "\"\""
@@ -93,8 +93,10 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3492 390084 13 276726 0.05 200 24000 3 3 72000 216000
-1	393576 7232 49 140134 0.1 99.1 400 -nan -nan -nan -nan
-2	400808 8695 8755 140920 6.67221835206 99.622280751662 298 141 42018 6281691 176257967769
-3	409503 8695 8755 140920 6.67221835206 99.622280751662 298 141 42018 6281691 176257967769
+0	3492 274308 13 199924 0.05 143.9 17268 3 3 51804 155412
+1	277800 7232 49 139821 0.1 99.1 400 -nan -nan -nan -nan
+2	285032 8772 8017 140605 6.12221835206 99.622280751662 300 141 42300 6366150 179824639050
+3	293804 8772 8017 140605 6.12221835206 99.622280751662 300 141 42300 6366150 179824639050
+0	302576 95016 199965 261833 143.95 189.95 5524 3 3 16572 49716
+0	397592 20760 261866 275249 190 200 1208 3 3 3624 10872
 

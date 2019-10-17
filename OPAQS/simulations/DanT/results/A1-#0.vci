@@ -1,15 +1,15 @@
-file 12689 1570719218                                           
+file 85991 1571341488                                           
 version 2
-run A1-0-20191010-15:53:05-11638
+run A1-0-20191017-20:44:44-28508
 attr configname A1
-attr datetime 20191010-15:53:05
+attr datetime 20191017-20:44:44
 attr experiment A1
-attr inifile SimV3.ini
+attr inifile SimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 11638
+attr processid 28508
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -21,7 +21,7 @@ param **.wirelessIfc.wirelessRange 40m
 param **.bluetoothIfc.wirelessRange 40m
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1s
+param **.application.dataGenerationInterval 1ms
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -38,8 +38,8 @@ param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"\""
-param **.routing.actual_gateway "\"\""
+param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
+param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
 param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
@@ -75,8 +75,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	2801 9291 10 4268 0.05 8 720 1 2 960 1440
-1	12092 124 25 3728 0.1 7.1 8 -nan -nan -nan -nan
-2	12216 236 2837 4141 5.533626728067 7.747466728067 9 141 1269 6345 5666085
-3	12452 236 2837 4141 5.533626728067 7.747466728067 9 141 1269 6345 5666085
+0	2840 66843 10 43663 0.05 50 4500 1 2 6000 9000
+1	69683 1675 37 298 0.1 0.199 100 -nan -nan -nan -nan
+2	71358 7316 1635 10023 1.698272534095 6.198426728067 264 141 37224 4932180 122628791340
+3	78674 7316 1635 10023 1.698272534095 6.198426728067 264 141 37224 4932180 122628791340
 
