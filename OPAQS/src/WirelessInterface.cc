@@ -211,6 +211,7 @@ void WirelessInterface::handleMessage(cMessage *msg)
             setPckSentMsg(neighListMsg, wirelessRange, false);
 
         }else {
+            //EV<<"No neighs \n";
             GraphUpdtMsg *graphMsg = new GraphUpdtMsg;
             graphMsg->setNoNeighs(true);
             send(graphMsg,"upperLayerOut");

@@ -29,10 +29,13 @@
 #include <chrono>
 #include <ctime>
 
-#define N_nodes 50        //HARDECODED VARIABLE of number of vertices - must be the same of NeighboringLayer
-#define alfa 0.5  //constant to control relation from energ to add alfa/Ener(i)
-#define teta 0.25  //constant to control relation from energ to add alfa/Ener(i)
-#define dist_to_gw 500
+#include <utility>
+#include <fstream>
+
+#define N_nodes 20//50        //HARDECODED VARIABLE of number of vertices - must be the same of NeighboringLayer
+#define alfa 1  //constant to control use of Ener on rank
+#define teta 0  //constant to control use of LQE in rank
+#define dist_to_gw 500  //Distance to gw
 
 
 using namespace omnetpp;
@@ -74,6 +77,7 @@ private:
     int count_newGw_check=0;
     int temp_gw;
     int im_alone=0;
+    int elect_gw;
 
     double kill_pcktP;
 
@@ -134,6 +138,13 @@ private:
     void cleanEnerTable();
     bool updateEnerTable(string tabS);
     string returnEnerTable();
+
+    std::pair<int, int> geodisikV(int nodeID);
+    //double geodisikV(int nodeID);
+    double old_rank=0;
+
+    //gw election
+    int count_newElect_Gw=0;
 
 
 

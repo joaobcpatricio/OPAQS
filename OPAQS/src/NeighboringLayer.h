@@ -34,7 +34,7 @@ using namespace std;
 
 class BaseNodeInfo;
 
-#define N_nodes 50        //HARDECODED VARIABLE of number of vertices - must be the same set on RoutingLqeGw
+#define N_nodes 20//50        //HARDECODED VARIABLE of number of vertices - must be the same set on RoutingLqeGw
 #define Beta 0.01  //constant to control relation from bits to energ
 
 #define Eelec 50 //nJ/bit       -> Energy exhausted in electronic circuitry
@@ -49,6 +49,9 @@ class BaseNodeInfo;
 
 #define di 40
 #define EnergyStart 100//138600 //J (em 10000mAh das powerbank usadas) ->Energy level during deployment
+
+#define omega 0.5       //The weight of SSI on LQE
+#define delta 0.5    //The weight of link stability on LQE
 
 
 

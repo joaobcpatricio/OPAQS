@@ -270,7 +270,7 @@ bool StorageM::saveData(cMessage *msg, int origin, bool reachedGW){
             EV<<"Reached Gw stored \n";
             cacheEntry.waitingToDel=simTime().dbl()+kill_pcktP;
             cacheEntry.reached_gw=true;
-            saveMsgReachedGw(omnetDataMsg->getDataName(), omnetDataMsg->getSentTimeRout().dbl());
+            saveMsgReachedGw(omnetDataMsg->getDataName(), omnetDataMsg->getSentTimeRout().dbl(), ownMACAddress, omnetDataMsg->getNHops());
         }else{
             cacheEntry.reached_gw=false;
             EV<<"Msg stored normal"<<cacheEntry.dataName<<"\n";
@@ -577,7 +577,7 @@ int StorageM::cacheListSize(){
    return cacheList.size();
 }
 
-void StorageM::saveMsgReachedGw(string dataName, double time){
+void StorageM::saveMsgReachedGw(string dataName, double time, string myAddr, int nHops){
     //save info into file
     string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/ReachedGwName";
     nameF.append(".txt");
@@ -610,6 +610,44 @@ void StorageM::saveMsgReachedGw(string dataName, double time){
     timeGen.append("\n");
     oute<<timeGen;
     oute.close();
+
+    string nameFa="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/ReachedGwSpcs";
+    nameFa.append(".txt");
+    std::ofstream outA(nameFa, std::ios_base::app);
+    //GW
+    string addrii=myAddr;
+    string addri=addrii.substr(15,17);
+    addri.append("\n");
+    outA<<addri;
+    outA.close();
+
+
+    string nameFer="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/GwTimeRec";
+    string noSr=myAddr.substr(15,17);
+    nameFer.append(noSr);
+    nameFer.append(".txt");
+        std::ofstream outer(nameFer, std::ios_base::app);
+        //time of data rec
+        std::string timeMsgr = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+        string timeGenr=timeMsgr;
+        timeGenr.append("\n");
+        outer<<timeGenr;
+        outer.close();
+
+
+        //save number of hops of Msg received
+                string nameHop="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/GwMsgHops";
+                nameHop.append(".txt");
+                std::ofstream outhop(nameHop, std::ios_base::app);
+                //Hops
+                std::string nHop = std::to_string(nHops);//getInjectedTime().dbl());
+                nHop.append("\n");
+                outhop<<nHop;
+                outhop.close();
+
+
+
+
 
 }
 

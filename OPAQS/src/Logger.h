@@ -61,7 +61,8 @@ public:
     void saveGraphHere(string ownMACAddress, string graf); //save graph
     void RoutingLogsInit(string ownMACAddress); //loggs init
     void saveResultsGwChk(string ownMACAddress, string actual_gateway); //current gw
-    void saveMsgReachedGW(string dataName, double time); //data reached gw
+    void saveMsgReachedGW(string dataName, double time, string myAddr, int nHops); //data reached gw
+    void saveGwRank(int GwId, double rankk, int oldID, double oldR);
     //--Storage---------------------
     //not working
     //--Wireless NIC ------------------

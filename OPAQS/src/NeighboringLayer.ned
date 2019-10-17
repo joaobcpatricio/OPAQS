@@ -47,8 +47,8 @@ simple NeighboringLayer
 		
 		double max_age @unit(s) = default(999999999999s);
 		
-		double max_absent_time @unit(s) = default(999999999999s);
-		double resetGPeriod @unit(s) = default(999999999999s);
+		double max_absent_time @unit(s) = default(9999s);
+		double resetGPeriod @unit(s) = default(99999s);
 		
 
         

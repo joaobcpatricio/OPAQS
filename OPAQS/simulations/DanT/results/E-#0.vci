@@ -1,38 +1,45 @@
-file 37028 1568936309                                           
+file 1205602 1571232111                                         
 version 2
-run E-0-20190920-00:38:27-28359
+run E-0-20191016-14:20:27-15619
 attr configname E
-attr datetime 20190920-00:38:27
+attr datetime 20191016-14:20:27
 attr experiment E
-attr inifile SimV2.ini
+attr inifile SimV3.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 28359
+attr processid 15619
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"paths/A.movements\""
-param **.numNodes 4
-param **.wirelessIfc.wirelessRange 40m
-param **.bluetoothIfc.wirelessRange 40m
+param **.mobility.traceFile "\"pathsGW/E.movements\""
+param **.numNodes 11
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:02\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
-param **application.nodesThatGen true
-param **application.nodesGenMsg "\"0\""
+param **application.nodesThatGen false
+param **application.nodesGenMsg "\"\""
 param **application.startMultipleMsg false
+param **application.numMultipleMsg 100
 param **application.hopsListSize 50
-param **.application.endGeneratingMsg 15s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;5|Wf:00:00:00:00:01;9|Wf:00:00:00:00:00;0|.\""
+param **.application.endGeneratingMsg 99s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.resetGPeriod 10s
+param **.wirelessIfc.wirelessRange 40m
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1ms
+param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -43,14 +50,15 @@ param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.application.endGeneratingMsg 999999s
-param **.routingLayer "\"RoutingLayer\""
+param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;5|Wf:00:00:00:00:03;9|Wf:00:00:00:00:01;0|.\""
-param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -60,14 +68,14 @@ param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
-param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.wirelessRange 40m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
 param **.wirelessIfc.my_limit_rate 0bps
-param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.wirelessRange 40m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
 param **.bluetoothIfc.wirelessHeaderSize 16byte
@@ -85,8 +93,10 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3382 32595 13 9599 0.05 20 2400 1 2 3600 6000
-1	35977 258 25 7329 0.1 15.1 16 -nan -nan -nan -nan
-2	36235 396 768 4179 1.688032534095 8.478453385287 15 141 2115 16920 24652440
-3	36631 396 768 4179 1.688032534095 8.478453385287 15 141 2115 16920 24652440
+0	3482 518084 34 389663 0.05 99.3 32768 1 8 125117 601757
+0	521566 563413 389664 741935 99.3 198.6 32768 1 8 125117 601757
+0	1084979 7954 741936 746683 198.6 200 464 1 8 1766 8486
+1	1092933 20460 133 388919 0.1 99.1 1100 -nan -nan -nan -nan
+2	1113393 46104 17907 405150 5.08396899642 103.388266728067 1485 141 209385 155573055 21723754681035
+3	1159497 46104 17907 405150 5.08396899642 103.388266728067 1485 141 209385 155573055 21723754681035
 

@@ -1,37 +1,44 @@
 version 2
-run E-0-20190920-00:38:27-28359
+run E-0-20191016-14:20:27-15619
 attr configname E
-attr datetime 20190920-00:38:27
+attr datetime 20191016-14:20:27
 attr experiment E
-attr inifile SimV2.ini
+attr inifile SimV3.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 28359
+attr processid 15619
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"paths/A.movements\""
-param **.numNodes 4
-param **.wirelessIfc.wirelessRange 40m
-param **.bluetoothIfc.wirelessRange 40m
+param **.mobility.traceFile "\"pathsGW/E.movements\""
+param **.numNodes 11
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:02\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
-param **application.nodesThatGen true
-param **application.nodesGenMsg "\"0\""
+param **application.nodesThatGen false
+param **application.nodesGenMsg "\"\""
 param **application.startMultipleMsg false
+param **application.numMultipleMsg 100
 param **application.hopsListSize 50
-param **.application.endGeneratingMsg 15s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;5|Wf:00:00:00:00:01;9|Wf:00:00:00:00:00;0|.\""
+param **.application.endGeneratingMsg 99s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.5
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.resetGPeriod 10s
+param **.wirelessIfc.wirelessRange 40m
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1ms
+param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -42,14 +49,15 @@ param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
 param **.application.endGeneratingMsg 999999s
-param **.routingLayer "\"RoutingLayer\""
+param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
 param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;5|Wf:00:00:00:00:03;9|Wf:00:00:00:00:01;0|.\""
-param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
 param **.neighboring.delayPerDataMsg 0.1
@@ -59,14 +67,14 @@ param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
-param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.wirelessRange 40m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
 param **.wirelessIfc.my_limit_rate 0bps
-param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.wirelessRange 40m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
 param **.bluetoothIfc.wirelessHeaderSize 16byte
@@ -76,35 +84,37 @@ param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.is3D false
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 67
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 623
-scalar NetworkTormV2.node[1].routing numEventsHandled 114
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 650
-scalar NetworkTormV2.node[2].routing numEventsHandled 128
-scalar NetworkTormV2.node[2].neighboring numEventsHandled 661
-scalar NetworkTormV2.node[3].routing numEventsHandled 66
-scalar NetworkTormV2.node[3].neighboring numEventsHandled 635
+scalar NetworkTormV2.node[0].routing numEventsHandled 10462
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 18771
+scalar NetworkTormV2.node[1].routing numEventsHandled 12013
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 21928
+scalar NetworkTormV2.node[2].routing numEventsHandled 10516
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 18907
+scalar NetworkTormV2.node[3].routing numEventsHandled 11768
+scalar NetworkTormV2.node[3].neighboring numEventsHandled 21437
+scalar NetworkTormV2.node[4].routing numEventsHandled 14259
+scalar NetworkTormV2.node[4].neighboring numEventsHandled 27358
+scalar NetworkTormV2.node[5].routing numEventsHandled 11936
+scalar NetworkTormV2.node[5].neighboring numEventsHandled 21784
+scalar NetworkTormV2.node[6].routing numEventsHandled 10576
+scalar NetworkTormV2.node[6].neighboring numEventsHandled 18992
+scalar NetworkTormV2.node[7].routing numEventsHandled 11965
+scalar NetworkTormV2.node[7].neighboring numEventsHandled 21837
+scalar NetworkTormV2.node[8].routing numEventsHandled 10345
+scalar NetworkTormV2.node[8].neighboring numEventsHandled 18566
+scalar NetworkTormV2.node[9].routing numEventsHandled 9154
+scalar NetworkTormV2.node[9].neighboring numEventsHandled 16253
+scalar NetworkTormV2.node[10].routing numEventsHandled 9138
+scalar NetworkTormV2.node[10].neighboring numEventsHandled 16036
 scalar NetworkTormV2 neighbourhoodSize:min 1
 attr source neighbourhoodSize
-scalar NetworkTormV2 neighbourhoodSize:max 2
+scalar NetworkTormV2 neighbourhoodSize:max 8
 attr source neighbourhoodSize
-scalar NetworkTormV2 neighbourhoodSize:mean 1.5
+scalar NetworkTormV2 neighbourhoodSize:mean 3.8181818181818
 attr source neighbourhoodSize
-scalar NetworkTormV2 cacheBytesUpdatedSum:max -nan
-attr source sum(cacheBytesUpdated)
-scalar NetworkTormV2 cacheBytesUpdatedSum:last -nan
-attr source sum(cacheBytesUpdated)
-scalar NetworkTormV2 cacheBytesAddedSum:max -nan
-attr source sum(cacheBytesAdded)
-scalar NetworkTormV2 cacheBytesAddedSum:last -nan
-attr source sum(cacheBytesAdded)
-scalar NetworkTormV2 cacheBytesRemovedSum:max -nan
-attr source sum(cacheBytesRemoved)
-scalar NetworkTormV2 cacheBytesRemovedSum:last -nan
-attr source sum(cacheBytesRemoved)
-scalar NetworkTormV2 totalBytesReceivedSum:max 2115
+scalar NetworkTormV2 totalBytesReceivedSum:max 209385
 attr source sum(totalBytesReceived)
-scalar NetworkTormV2 totalBytesReceivedSum:last 2115
+scalar NetworkTormV2 totalBytesReceivedSum:last 209385
 attr source sum(totalBytesReceived)
 scalar NetworkTormV2 dataReqBytesReceivedSum:max -nan
 attr source sum(dataReqBytesReceived)
@@ -114,9 +124,9 @@ scalar NetworkTormV2 sumVecBytesReceivedSum:max -nan
 attr source sum(sumVecBytesReceived)
 scalar NetworkTormV2 sumVecBytesReceivedSum:last -nan
 attr source sum(sumVecBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:max 2115
+scalar NetworkTormV2 dataBytesReceivedSum:max 209385
 attr source sum(dataBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:last 2115
+scalar NetworkTormV2 dataBytesReceivedSum:last 209385
 attr source sum(dataBytesReceived)
 scalar NetworkTormV2 deliveryRatio:max -nan
 attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)

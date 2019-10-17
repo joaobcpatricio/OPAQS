@@ -76,10 +76,10 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
                 // graphUpdt message arrived from the lower layer (link layer)
                 //neighbourList from BT
             }else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<GraphUpdtMsgBT*>(msg) != NULL) {
-                    //EV<<"GraphUpdtMsg neighLayerOut\n";
+                    EV<<"GraphUpdtMsg neighLayerOut\n";
                     send(msg, "neighLayerOut");
                 } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<GraphUpdtMsg*>(msg) != NULL) {
-                    //EV<<"GraphUpdtMsg neighLayerOut\n";
+                    EV<<"GraphUpdtMsg neighLayerOut\n";
                     send(msg, "neighLayerOut");
 
 
@@ -176,8 +176,8 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
 
 //PckSentMsg----------------------------------------------------------------------------------------------------
             } else if (strstr(gateName, "BTlowerLayerIn") != NULL && dynamic_cast<PcktIsSentMsg*>(msg) != NULL) {
-                PcktIsSentMsg *sentMsg = dynamic_cast<PcktIsSentMsg*>(msg);
-                string SouceBAdd = sentMsg->getOwnAddr();
+                //PcktIsSentMsg *sentMsg = dynamic_cast<PcktIsSentMsg*>(msg);
+                //string SouceBAdd = sentMsg->getOwnAddr();
                 //EV<<"Source: "<<SouceBAdd.substr(0,2)<<" \n";
                 //EV<<"BT PcktIsSentMsg received\n";
                 send(msg, "neighLayerOut");

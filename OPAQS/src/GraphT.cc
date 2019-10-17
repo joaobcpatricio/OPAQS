@@ -167,7 +167,8 @@ void GraphT::printPath(int parent[], int j){
     if (parent[j] == - 1)
         return;
     printPath(parent, parent[j]);
-    EV<<"->"<<j;
+    //EV<<"->"<<j; //coment?
+
     //sP.append(std::to_string(j));
     //EV<<"sP:"<<sP<<"\n";
     smallPath.append(std::to_string(j));//sP);
@@ -178,14 +179,14 @@ void GraphT::printPath(int parent[], int j){
  * A utility function to print the constructed distance array
  */
 int GraphT::printSolution(int dist[], int n,int parent[], int src){
-    EV<<"Vertex\t Weight\t Path\n";
+    //EV<<"Vertex\t Weight\t Path\n";
     for (int i = 0; i < V-1; i++){
         if(dist[i]!=INT_MAX){
-            EV<<src<<"->"<<i<<"    \t\t"<<dist[i]<<"     \t\t"<<src;
+           // EV<<src<<"->"<<i<<"    \t\t"<<dist[i]<<"     \t\t"<<src;
             smallPath=std::to_string(src);
             smallPath.append("->");
             printPath(parent, i);
-            EV<<"\n";
+            //EV<<"\n";
            // EV<<"Small Path: "<<smallPath<<"\n";
             cleanSmallPath();
         }
@@ -198,14 +199,14 @@ int GraphT::printSolution(int dist[], int n,int parent[], int src){
 string GraphT::returnSmallPath(int dist[],int parent[], int src, int dst){
     cleanSmallPath();
     string returnSmallPath;
-    EV<<"Small path between "<<src<<" and "<<dst<<"\n";
-    EV<<"Vertex\t Weight\t Path\n";
+    //EV<<"Small path between "<<src<<" and "<<dst<<"\n";
+    //EV<<"Vertex\t Weight\t Path\n";
     if(dist[dst]!=INT_MAX){
-        EV<<src<<"->"<<dst<<"    \t\t"<<dist[dst]<<"     \t\t"<<src;
+        //EV<<src<<"->"<<dst<<"    \t\t"<<dist[dst]<<"     \t\t"<<src;
         smallPath=std::to_string(src);
         smallPath.append("->");
         printPath(parent, dst);
-        EV<<"\n";
+        //EV<<"\n";
         //EV<<"Small Path: "<<smallPath<<"\n";
     }
     returnSmallPath=smallPath;

@@ -92,6 +92,7 @@ void RoutingLqeGw::handleMessage(cMessage *msg)
     // trigger to send pending packet and setup new send
     if (msg->isSelfMessage() && msg->getKind() == CHECKGW_EVENT_CODE){//WIRELESSINTERFACE_NEIGH_EVENT_CODE) {
         checkGwStatus();
+        delete msg;
     // self messages
     }else if (msg->isSelfMessage()) {
         EV_INFO << ROUTINGLQEGW_SIMMODULEINFO << "Received unexpected self message" << "\n";
@@ -475,7 +476,7 @@ void RoutingLqeGw::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
 
             if(delet){
                // EV<<"Delete:"<<upperDataMsg->getDataName()<<"\n";
-                Log.saveMsgReachedGW(upperDataMsg->getDataName(), simTime().dbl());
+                Log.saveMsgReachedGW(upperDataMsg->getDataName(), simTime().dbl(), ownMACAddress, 0);
                 pcktSentMsg(upperDataMsg->getRealPacketSize(), true);
             }
         }
@@ -701,7 +702,7 @@ void RoutingLqeGw::checkStoredMsgs(){   //deletes stored Msgs if I'm the gw
                     //EV<<"Deleting cause I'm GW \n";
 
                     if(delt){
-                        Log.saveMsgReachedGW(messageID, time_f_sent);
+                        Log.saveMsgReachedGW(messageID, time_f_sent, ownMACAddress, dataMsg->getNHops());
                         //EV<<"Noted \n";
                     }
                 }
@@ -944,6 +945,7 @@ void RoutingLqeGw::checkGwStatus(){
     }
 
 
+    /**Check if I have no neighbor. If so, check again 5 times with a period of gwCheckPeriod (5s) before electing myself GW*********/
     //verifies if it has any direct neigh
     if(graphR.returnGraphT()==""){
         im_alone++;
@@ -957,32 +959,49 @@ void RoutingLqeGw::checkGwStatus(){
         //EV<<"Checking GW status \n";
         checkGW->setKind(CHECKGW_EVENT_CODE);
         scheduleAt(simTime() + gwCheckPeriod, checkGW);
+        EV<<"Set check in 5s 1st\n";
 
     }else{//if it has direct neigh then
 
-    int sum=0, nSum=0, wei=0;
-    for(int i=0;i<nVert;i++){
-        sum=0, nSum=0, wei=0;
-        for(int j=0;j<nVert;j++){
-            wei = graphR.returnWGrapfT(i,j);
-            if(wei>0){
-                sum=sum+(100-wei);
-                nSum++;
+
+    /**Calculate Rank of each node*********************************/
+        //int n_paths=0, imN_paths=0;
+        int n_connect=0;
+        int sumLqe=0, nSum=0, wei=0;
+        double central=0, imN_path=0, n_path=0;
+        for(int i=0;i<nVert;i++){
+            if(graphR.returnShortestPath(graphR.add_element(ownMACAddress),i)!=""){
+                //Centrality
+                std::pair<int, int> result=geodisikV(i);
+                EV<<"For->"<<i<<" nPaths:"<<result.first<<" ImNpaths:"<<result.second<<"\n";
+                n_path=result.first;
+                imN_path=result.second;
+                central=imN_path/n_path;
+
+                sumLqe=0, nSum=0, wei=0;
+                for(int j=0;j<nVert;j++){
+                    wei = graphR.returnWGrapfT(i,j);
+                        if(wei>0){
+                            sumLqe=sumLqe+(100-wei);
+                            nSum++;
+                        }
+                }
+                double ener_spent=Ener[i];
+                if(nSum!=0){
+                    //gwMat[i][0]=teta*sumLqe*nSum+alfa*ener_spent;   //RANK EQUATION
+                    gwMat[i][0]=(1-central)*sumLqe/nSum+central*ener_spent;   //RANK EQUATION
+                    EV<<"Rank is:"<<gwMat[i][0]<<"central:"<<central<<"lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+                }else{
+                    gwMat[i][0]=0;
+                }
+                gwMat[i][1]=nSum;   //nº somas=no neighs
+                n_connect=n_connect+nSum;
             }
         }
-        double ener_spent=Ener[i];
-        if(nSum!=0){
-            gwMat[i][0]=sum*nSum+alfa*ener_spent;   //RANK EQUATION
-        }else{
-            gwMat[i][0]=0;
-        }
-        gwMat[i][1]=nSum;   //nº somas=no neighs
+        n_connect=n_connect/2;
+        EV<<"Conec:"<<n_connect<<"\n";
 
-    }
-    for(int k=0;k<nVert;k++){
-        //EV<<"gwMat rank:"<<gwMat[k][0]<<" and nSum:"<<gwMat[k][1]<<" \n";
-    }
-
+    /**Methods that chose GW to be elected from the node's rank************************************************************************/
     //--METHOD 1 ----------------------------------
     //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
     /*int nN=0, bestGwId=-1;
@@ -999,7 +1018,7 @@ void RoutingLqeGw::checkGwStatus(){
     }*/
 
     //--METHOD 2 ----------------------------------
-    //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY (effort spent)----------
+    //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY - best rank value----------
     int Rl=0, bestGwId=-1;
     for(int uR=0;uR<nVert;uR++){
         if(gwMat[uR][0]>Rl){
@@ -1013,9 +1032,6 @@ void RoutingLqeGw::checkGwStatus(){
             }
         }
 
-
-
-
     //EV<<"Chosen GW is "<<bestGwId<<" with "<<nN<<"neighs \n";
     int IDadd;
     if(actual_gateway!=""){
@@ -1023,7 +1039,26 @@ void RoutingLqeGw::checkGwStatus(){
     }else{
         IDadd=-1;
     }
+
+    //insert here method that compares elected GW with current GW parameters and compare within a range if a new GW should be elected
+    /*Control 1*******/
+    /*double oldR=0, newR=0;
     if(bestGwId!=IDadd){
+        oldR=gwMat[IDadd][0];
+        newR=gwMat[bestGwId][0];
+        EV<<"oldR:"<<oldR<<" newR"<<newR<<"\n";
+        //if(old_rank>0 && 0.9*newR<oldR){
+        if(oldR>0 && 0.9*newR<oldR){
+            bestGwId=IDadd;
+        }
+    }*/
+
+
+
+    //if GW elected now is different than the current GW, check it 3 more times on periods of 500ms
+
+    /*S/control****/
+    /*if(bestGwId!=IDadd){
         //EV<<"ACTUAL GW IS different than best ranked \n";
         if(bestGwId!=(-1)){
             string addDf="Wf:00:00:00:00:";
@@ -1035,51 +1070,180 @@ void RoutingLqeGw::checkGwStatus(){
             }
             actual_gateway=addDf;
         }
-    }
-    string actual_gateway_temp;
-    if(no_act_gw){  //if there's no gw gonna check 3 times (period 500ms) if i chose the same gw
-       if(temp_gw==bestGwId){
-           count_newGw_check++;
-       }else{
-           count_newGw_check=0;
-       }
-       if(count_newGw_check>2){
-            count_newGw_check=0;
-            string addF="Wf:00:00:00:00:";
-            if(bestGwId<10){
-                addF.append("0");
-                addF.append(std::to_string(bestGwId));
-            }else if(bestGwId>=10){
-                addF.append(std::to_string(bestGwId));
+    }*/
+    /*Control 2**************/
+    /*if(bestGwId!=IDadd){
+        //EV<<"ACTUAL GW IS different than best ranked \n";
+        if(bestGwId!=(-1)){
+            if(elect_gw==bestGwId){
+                count_newElect_Gw++;
+            }else{
+                count_newElect_Gw=0;
             }
-            actual_gateway_temp=addF;
-            EV<<"Actual gw temp:"<<actual_gateway_temp<<"\n";
-            actual_gateway=addF;//"Wf:00:00:00:00:02";
-            no_act_gw=false;
-       }
-       temp_gw=bestGwId;
-       // setup next event to confirm no check gw
-       cMessage *checkGW = new cMessage("Send Check Gw Event");
-       //EV<<"Checking GW status- no gw chosen \n";
-       //EV<<"Temp gw id:"<<temp_gw<<"\n";
-       checkGW->setKind(CHECKGW_EVENT_CODE);
-       scheduleAt(simTime() + 0.5, checkGW);
-    }else{
+            if(count_newElect_Gw>1){
+
+                string addDf="Wf:00:00:00:00:";
+                if(bestGwId<10){
+                    addDf.append("0");
+                    addDf.append(std::to_string(bestGwId));
+                }else if(bestGwId>=10){
+                    addDf.append(std::to_string(bestGwId));
+                }
+                actual_gateway=addDf;
+                old_rank=gwMat[bestGwId][0];
+            }else{
+                elect_gw=bestGwId;
+                // setup next event to confirm no check gw
+                cMessage *checkGW = new cMessage("Send Check Gw Event");
+                //EV<<"Checking GW status- no gw chosen \n";
+                //EV<<"Temp gw id:"<<temp_gw<<"\n";
+                checkGW->setKind(CHECKGW_EVENT_CODE);
+            scheduleAt(simTime() + 1, checkGW);
+            }
+        }
+    }*/
+    /*Control 3**************/
+
+    if(!no_act_gw){
+        double oldR=0, newR=0;
+        if(bestGwId!=IDadd){
+            //EV<<"ACTUAL GW IS different than best ranked \n";
+            if(bestGwId!=(-1)){
+                if(elect_gw==bestGwId){
+                    count_newElect_Gw++;
+                }else{
+                    count_newElect_Gw=0;
+                }
+                if(count_newElect_Gw>1){
+                    oldR=gwMat[IDadd][0];
+                            newR=gwMat[bestGwId][0];
+                            EV<<"oldR:"<<oldR<<" newR"<<newR<<"\n";
+                            //if(old_rank>0 && 0.9*newR<oldR){
+                            if(oldR>0 && 0.9*newR>oldR){
+                                string addDf="Wf:00:00:00:00:";
+                                if(bestGwId<10){
+                                    addDf.append("0");
+                                    addDf.append(std::to_string(bestGwId));
+                                }else if(bestGwId>=10){
+                                    addDf.append(std::to_string(bestGwId));
+                                }
+                                actual_gateway=addDf;
+                                no_act_gw=false;
+                                Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, oldR);
+                                old_rank=gwMat[bestGwId][0];
+                            }
+                }else{
+                    elect_gw=bestGwId;
+
+                    // setup next event to confirm no check gw
+                    cMessage *checkGW = new cMessage("Send Check Gw Event");
+                    //EV<<"Checking GW status- no gw chosen \n";
+                    //EV<<"Temp gw id:"<<temp_gw<<"\n";
+                    checkGW->setKind(CHECKGW_EVENT_CODE);
+                scheduleAt(simTime() + 1, checkGW);
+                EV<<"Set check in 1s \n";
+                }
+            }
+        }
+
+    }
 
 
-        // setup next event to check gw
-        cMessage *checkGW = new cMessage("Send Check Gw Event");
-        //EV<<"Checking GW status \n";
-        checkGW->setKind(CHECKGW_EVENT_CODE);
-        scheduleAt(simTime() + gwCheckPeriod, checkGW);
+    /**If there's no gw check 3 times (period 500ms), if it still choses the same GW, then it elects it ************/
+        string actual_gateway_temp;
+        if(no_act_gw){  //if there's no gw gonna check 3 times (period 500ms) if i chose the same gw
+            if(temp_gw==bestGwId){
+                count_newGw_check++;
+            }else{
+                count_newGw_check=0;
+            }
+            if(count_newGw_check>2){
+                count_newGw_check=0;
+                string addF="Wf:00:00:00:00:";
+                if(bestGwId<10){
+                    addF.append("0");
+                    addF.append(std::to_string(bestGwId));
+                }else if(bestGwId>=10){
+                    addF.append(std::to_string(bestGwId));
+                }
+                actual_gateway_temp=addF;
+                EV<<"Actual gw temp:"<<actual_gateway_temp<<"\n";
+                actual_gateway=addF;//"Wf:00:00:00:00:02";
+                no_act_gw=false;
+            }
+            temp_gw=bestGwId;
+            // setup next event to confirm no check gw
+            cMessage *checkGW = new cMessage("Send Check Gw Event");
+            //EV<<"Checking GW status- no gw chosen \n";
+            //EV<<"Temp gw id:"<<temp_gw<<"\n";
+            checkGW->setKind(CHECKGW_EVENT_CODE);
+            scheduleAt(simTime() + 0.5, checkGW);
+            EV<<"Set check in 0.5s \n";
+        }else{
+
+
+            // setup next event to check gw
+            cMessage *checkGW = new cMessage("Send Check Gw Event");
+            //EV<<"Checking GW status \n";
+            checkGW->setKind(CHECKGW_EVENT_CODE);
+            scheduleAt(simTime() + gwCheckPeriod, checkGW);
+            EV<<"Set check in 5s \n";
+        }
     }
-    }
+    EV<<"Saving Gw current \n";
     Log.saveResultsGwChk(ownMACAddress, actual_gateway);
-
     if(actual_gateway==ownMACAddress){
         checkStoredMsgs();
     }
 
+}
+
+//--RANK GW---
+/*If node is within my graph, compare node with another (with higher id to not repeat myself),
+ *  if there's a shrtpath count it, check if the nodeID is within and count it too****/
+std::pair<int, int> RoutingLqeGw::geodisikV(int nodeID){
+//double RoutingLqeGw::geodisikV(int nodeID){
+    EV<<"GeodisikV \n";
+    //std::pair<int, int> r(std::string fn)
+    int myID=graphR.add_element(ownMACAddress);
+
+    if(graphR.returnShortestPath(myID,nodeID)==""){
+        return std::make_pair(0, 0);
+    }
+
+    int n_paths=0, imN_paths=0;
+    string spath;
+    //EV<<"testing:"<<graphR.returnVvalue()<<"\n";
+    int max=graphR.returnVvalue();
+    for(int a=0; a<max; a++){
+        for(int b=0; b<max; b++){
+            //EV<<"a:"<<a<<"b:"<<b<<"\n";
+            if(b>a){
+                spath = graphR.returnShortestPath(a,b);
+                if(spath!=""){
+                    //EV<<"sspath is:"<<spath<<"\n";
+                    n_paths++;
+                    EV<<"ShrtP s o:"<<spath<< "with length "<<spath.length()<<"\n";
+                    int posi=0;
+                    for(int st=0; st<spath.length();st++){
+                        //EV<<"st:"<<spath[1]<<"\n";
+                        posi= spath.find(">",st);
+                        //EV<<"p1:"<<posi<<"\n";
+                        int vID = std::stoi (spath.substr(st,posi-1-st));
+                        //EV<<"Me:"<<a<<"him"<<vID<<"\n";
+                        if(vID==nodeID){
+                            EV<<"I'm in path \n";
+                            imN_paths++;
+                        }
+                        st=posi;
+                    }
+                }
+            }
+        }
+    }
+    //n_paths=1; imN_paths=2;
+    EV<<"n_paths:"<<n_paths<<" imN_paths"<<imN_paths<<"\n";
+    return std::make_pair(n_paths, imN_paths);
 }
 
 //----------------------------------------------------------------------------------------

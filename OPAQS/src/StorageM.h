@@ -95,7 +95,7 @@ public:
     double kill_pcktP=9999;
     void updateKillPcktP(double kill_pckt);
     void ageFlaggedDataInStorage();
-    void saveMsgReachedGw(string dataName, double time);
+    void saveMsgReachedGw(string dataName, double time, string myAddr, int nHops);
 
 };
 

@@ -328,8 +328,8 @@ void Logger::saveResultsGwChk(string ownMACAddress, string actual_gateway){
                     out.close();
 }
 //data reached gw
-void Logger::saveMsgReachedGW(string dataName, double time){
-    //save info into file
+void Logger::saveMsgReachedGW(string dataName, double time, string myAddr, int nHops){
+    //save name Msg received
         string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/ReachedGwName";
         nameF.append(".txt");
         std::ofstream out(nameF, std::ios_base::app);
@@ -339,7 +339,7 @@ void Logger::saveMsgReachedGW(string dataName, double time){
         out<<dName;
         out.close();
 
-        //save info into file
+        //save time this Msg was sent
         string nameS="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/GwTimeSent";
         nameS.append(".txt");
         std::ofstream outs(nameS, std::ios_base::app);
@@ -350,8 +350,7 @@ void Logger::saveMsgReachedGW(string dataName, double time){
         outs<<timeGenS;
         outs.close();
 
-
-        //save info into file
+        //save time this Msg reached gw
         string nameFe="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/GwTimeRec";
         nameFe.append(".txt");
         std::ofstream oute(nameFe, std::ios_base::app);
@@ -361,6 +360,66 @@ void Logger::saveMsgReachedGW(string dataName, double time){
         timeGen.append("\n");
         oute<<timeGen;
         oute.close();
+
+        //save gw id that got the Msg
+        string nameFa="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/ReachedGwSpcs";
+        nameFa.append(".txt");
+        std::ofstream outA(nameFa, std::ios_base::app);
+        //GW
+        string addrii=myAddr;
+        string addri=addrii.substr(15,17);
+        addri.append("\n");
+        outA<<addri;
+        outA.close();
+
+
+        //save time gt reached gw with id on file
+        string nameFer="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/GwTimeRec";
+        string noSr=myAddr.substr(15,17);
+        nameFer.append(noSr);
+        nameFer.append(".txt");
+        std::ofstream outer(nameFer, std::ios_base::app);
+        //time of data rec
+        std::string timeMsgr = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+        string timeGenr=timeMsgr;
+        timeGenr.append("\n");
+        outer<<timeGenr;
+        outer.close();
+
+        //save number of hops of Msg received
+        string nameHop="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/GwMsgHops";
+        nameHop.append(".txt");
+        std::ofstream outhop(nameHop, std::ios_base::app);
+        //Hops
+        std::string nHop = std::to_string(nHops);//getInjectedTime().dbl());
+        nHop.append("\n");
+        outhop<<nHop;
+        outhop.close();
+
+
+
+
+}
+//save rank gw
+void Logger::saveGwRank(int GwId, double rankk, int oldID, double oldR){
+    //save rank and id
+    string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/GwRank";
+    nameF.append(".txt");
+    std::ofstream out(nameF, std::ios_base::app);
+    //Name of data
+    std::string savi = std::to_string(GwId);
+    std::string savir = std::to_string(rankk);
+    std::string savoi = std::to_string(oldID);
+        std::string savoir = std::to_string(oldR);
+    savi.append("->");
+    savi.append(savir);
+    savi.append(" | ");
+    savi.append(savoi);
+    savi.append("->");
+    savi.append(savoir);
+    savi.append("\n");
+    out<<savi;
+    out.close();
 }
 
 //--STORAGE---------------------------------------------------------
@@ -519,6 +578,14 @@ void Logger::outputResultsSent(string ownMACAddress){
                             out<<timeGen;
                             out<<" | End \n";
                             out.close();
+
+                            string nameFa="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/AllPktSent";
+
+                                                        nameFa.append(".txt");
+                                                        std::ofstream outa(nameFa, std::ios_base::app);
+                                                        //Generation Mac
+                                                        string srcera="Sent \n";
+                                                        outa<<srcera;
 }
 //
 void Logger::outputResultsReceived(string ownMACAddress){

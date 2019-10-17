@@ -207,7 +207,7 @@ void NeighboringLayer::handleBeaconMsgFromLowerLayer(cMessage *msg)//neigh
     //graphe.displayMatrix(v);
     string answ=graphe.returnGraphT();
     //EV<<"Graph After Update: "<<answ<<"\n";
-    graphe.dijkstra(myID,srcID);
+    //graphe.dijkstra(myID,srcID);
     //EV<<"End test: \n";
 
 
@@ -786,14 +786,15 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
 
                found=TRUE;
                break;
-
             }
             o++;
         }
         if(!found){ //if it's not, clean m
-            EV<<"rem id:"<<i<<"\n";
-            graphe.rem_edge(myID,i);
-            //removEdge(i); not here because it doesn't know if its neigh at more tah 1 hop
+            if(i!=myID){
+                EV<<"updateMyNGraph->rem id:"<<i<<"\n";
+                graphe.rem_edge(myID,i);
+                //removEdge(i); not here because it doesn't know if its neigh at more tah 1 hop
+            }
         }
         found=FALSE;
         o=0;
@@ -808,10 +809,11 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
         if(spath==""){
             for(int p2=0;p2<graphe.returnVvalue();p2++){
                 graphe.rem_edge(p,p2);
-                EV<<"rem path:"<<p<<" by "<<myID<<"\n";
+                //EV<<"rem path:"<<p<<" by "<<myID<<"\n";
                 removEdge(p);   //here if no path, then delete this node's info from table
                 //EV<<"Cleaning graph \n";
             }
+            EV<<"rem path:"<<p<<" by "<<myID<<"\n";
 
         }
     }
@@ -897,7 +899,7 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
                     EV<<"p1:"<<posi<<"\n";
                     int vID = std::stoi (spath.substr(st,posi-1-st));
                     EV<<"Me:"<<myID<<"him"<<vID<<"\n";
-                    if(vID==myID){ EV<<"FUCK U \n";im_in_path=true; }
+                    if(vID==myID){ EV<<"FU \n";im_in_path=true; }
                     //int p2 = graphS.find("-",p1);*/
                     st=posi;
                 }
@@ -1010,7 +1012,7 @@ double NeighboringLayer::calcMyLQE(cMessage *msg){
     double rDelay=BeaconReceived->getReceivedTime().dbl()-BeaconReceived->getSentTime().dbl(); //not being use as it makes no difference
 
 
-    double Link_Quality=(rssi_norm+link_stability)/2;
+    double Link_Quality=omega*rssi_norm+delta*link_stability;
 
     EV<<"My Link Quality="<<Link_Quality<<" My rDelay:"<<rDelay<<" My ssi_norm"<<rssi_norm<<" my ssi:"<<SSI_ext<<" my link_stability"<<link_stability<<"at a distance:"<<calculateDistance(msg)<<"\n";
 
@@ -1098,7 +1100,7 @@ double NeighboringLayer::GWisMyNeighBT(cMessage *msg){
     return isNeigh;
 }
 
-void NeighboringLayer::cleanOldContacts(){
+void NeighboringLayer::cleanOldContacts(){  //I think i can delete this
     list<SyncedNeighbour*>::iterator iteratorSyncedNeighbour;
         iteratorSyncedNeighbour = syncedNeighbourList.begin();
         while (iteratorSyncedNeighbour != syncedNeighbourList.end()) {
@@ -1107,12 +1109,11 @@ void NeighboringLayer::cleanOldContacts(){
 
                 //string graf=graphe.returnGraphT();
                 //EV<<"Graph bf old clean:"<<graf<<"\n";
-                int myID=graphe.add_element(ownMACAddress);
-                string addrN=syncedNeighbour->nodeMACAddress;
-                int idN=std::stoi( addrN.substr(15,17));
-                graphe.rem_edge(myID,idN);
-
-                EV<<"Removed absent neigh from graph: "<<idN<<"\n";
+                //int myID=graphe.add_element(ownMACAddress);
+                //string addrN=syncedNeighbour->nodeMACAddress;
+                //int idN=std::stoi( addrN.substr(15,17));
+                //graphe.rem_edge(myID,idN); Removing here is deleting neighs that finished sync but might be there!
+                //EV<<"Removed absent neigh from graph: "<<idN<<"\n";
             }
 
             iteratorSyncedNeighbour++;
