@@ -1,4 +1,26 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Mon Oct 21 02:49:02 2019
-elapsed time: 6.5e-08s
+Started simulation at Mon Oct 21 22:42:20 2019
+elapsed time: 4.9e-08s
+Source: Wf:00:00:00:00:02 | Message ID: 88 | Time SentFromSrc: 88.969847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 89 | Time SentFromSrc: 88.969847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 90 | Time SentFromSrc: 93.769847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 91 | Time SentFromSrc: 93.769847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 92 | Time SentFromSrc: 93.769847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 93 | Time SentFromSrc: 93.769847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 94 | Time SentFromSrc: 93.769847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 90 | Time SentFromSrc: 95.370224 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 93 | Time SentFromSrc: 95.370224 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 95 | Time SentFromSrc: 95.370224 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 96 | Time SentFromSrc: 95.370224 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 90 | Time SentFromSrc: 97.519847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 93 | Time SentFromSrc: 97.519847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 95 | Time SentFromSrc: 97.519847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 97 | Time SentFromSrc: 97.519847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 98 | Time SentFromSrc: 97.519847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 93 | Time SentFromSrc: 98.070224 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 97 | Time SentFromSrc: 98.070224 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 93 | Time SentFromSrc: 98.619847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 99 | Time SentFromSrc: 98.619847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 93 | Time SentFromSrc: 99.169847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 100 | Time SentFromSrc: 99.169847 |End 

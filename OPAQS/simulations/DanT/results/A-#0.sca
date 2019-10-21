@@ -1,14 +1,14 @@
 version 2
-run A-0-20191017-20:37:32-27283
+run A-0-20191021-22:27:50-9902
 attr configname A
-attr datetime 20191017-20:37:32
+attr datetime 20191021-22:27:50
 attr experiment A
 attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 27283
+attr processid 9902
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -84,13 +84,13 @@ param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.is3D false
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 11674
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 21362
-scalar NetworkTormV2.node[1].routing numEventsHandled 11541
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 20840
-scalar NetworkTormV2.node[2].routing numEventsHandled 11512
+scalar NetworkTormV2.node[0].routing numEventsHandled 11666
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 21345
+scalar NetworkTormV2.node[1].routing numEventsHandled 11537
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 20860
+scalar NetworkTormV2.node[2].routing numEventsHandled 11501
 scalar NetworkTormV2.node[2].neighboring numEventsHandled 20716
-scalar NetworkTormV2.node[3].routing numEventsHandled 11504
+scalar NetworkTormV2.node[3].routing numEventsHandled 11501
 scalar NetworkTormV2.node[3].neighboring numEventsHandled 20716
 scalar NetworkTormV2 neighbourhoodSize:min 3
 attr source neighbourhoodSize

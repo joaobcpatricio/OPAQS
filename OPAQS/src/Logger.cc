@@ -425,6 +425,37 @@ void Logger::saveGwRank(int GwId, double rankk, int oldID, double oldR){
     out<<timeGenr;
     out.close();
 }
+//save rank table on each node
+void Logger::saveGwRankT(string ownMACAddress,int GwId, double rankk){
+    //save rank and id
+    string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/Rank/GwRankT";
+    string noS=ownMACAddress.substr(15,17);
+    nameF.append(noS);
+    nameF.append(".txt");
+    std::ofstream out(nameF, std::ios_base::app);
+    //Name of data
+    std::string savi = std::to_string(GwId);
+    std::string savir = std::to_string(rankk);
+    savi.append("->");
+    savi.append(savir);
+    savi.append("\n");
+    out<<savi;
+    out.close();
+}
+void Logger::saveGwRankT_time(string ownMACAddress){
+    //save rank and id
+    string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/Rank/GwRankT";
+    string noS=ownMACAddress.substr(15,17);
+    nameF.append(noS);
+    nameF.append(".txt");
+    std::ofstream out(nameF, std::ios_base::app);
+
+    std::string timeMsgr = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+    string timeGenr=timeMsgr;
+    timeGenr.append("\n");
+    out<<timeGenr;
+    out.close();
+}
 
 //--STORAGE---------------------------------------------------------
 //Doesn't work
