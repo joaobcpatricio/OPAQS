@@ -117,11 +117,9 @@ void RoutingLqeGw::handleMessage(cMessage *msg)
         } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<DataMsg*>(msg) != NULL) {
             handleDataMsgFromLowerLayer(msg);
 
-        //Added 17/06 17h
         } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<AckMsg*>(msg) != NULL) {
             handleAckFromLowerLayer(msg);
 
-       //Added 26/06 19h06
         } else if (strstr(gateName, "neighLayerIn") != NULL && dynamic_cast<BeaconInfoMsg*>(msg) != NULL) {
             EV<<"Handling Beacon\n";
             handleBeaconInfo(msg);
@@ -375,7 +373,7 @@ void RoutingLqeGw::handleBeaconInfo(cMessage *msg){
     //EV<<"Graph in routing: \n";
     getGraph(myGraph);
 
-    Log.saveEnerTable(ownMACAddress, returnEnerTable());
+    //Log.saveEnerTable(ownMACAddress, returnEnerTable());
 
 
 
@@ -466,6 +464,7 @@ void RoutingLqeGw::handleDataMsgFromUpperLayer(cMessage *msg) //Store in cache
         Log.saveGenDat(ownMACAddress, dataN, timeMsg);
         string graf=graphR.returnGraphT();
         Log.saveGraphHere(ownMACAddress, graf);
+        Log.saveEnerTable(ownMACAddress, returnEnerTable());
 
 
        // EV<<"actGw:"<<actual_gateway<<" me:"<<ownMACAddress<<"\n";
@@ -935,6 +934,22 @@ void RoutingLqeGw::updateGateway(){
 void RoutingLqeGw::checkGwStatus(){
     EV<<"checkGwStatus \n";
 
+
+    if(!no_act_gw){
+        oldGwID=graphR.add_element(actual_gateway);
+        //check if there's path to gw
+        if(graphR.returnShortestPath(graphR.add_element(ownMACAddress), oldGwID)==""){
+            EV<<"No path to gw \n";
+            oldGwRank=0;
+            oldGwID=-1;
+        }else{
+            oldGwRank=bestGwRank;
+        }
+    }
+
+
+
+
     //calculate Gw rank
     int nVert=graphR.returnVvalue();
     //EV<<"Já contei:"<<nVert<<"\n";
@@ -963,80 +978,12 @@ void RoutingLqeGw::checkGwStatus(){
 
     }else{//if it has direct neigh then
 
-
-    /**Calculate Rank of each node*********************************/
-        //int n_paths=0, imN_paths=0;
-        int n_connect=0;
-        int sumLqe=0, nSum=0, wei=0;
-        double central=0, imN_path=0, n_path=0;
-        for(int i=0;i<nVert;i++){
-            if(graphR.returnShortestPath(graphR.add_element(ownMACAddress),i)!=""){
-                //Centrality
-                std::pair<int, int> result=geodisikV(i);
-                EV<<"For->"<<i<<" nPaths:"<<result.first<<" ImNpaths:"<<result.second<<"\n";
-                n_path=result.first;
-                imN_path=result.second;
-                central=imN_path/n_path;
-
-                sumLqe=0, nSum=0, wei=0;
-                for(int j=0;j<nVert;j++){
-                    wei = graphR.returnWGrapfT(i,j);
-                        if(wei>0){
-                            sumLqe=sumLqe+(100-wei);
-                            nSum++;
-                        }
-                }
-                double ener_spent=Ener[i];
-                if(nSum!=0){
-                    //gwMat[i][0]=teta*sumLqe*nSum+alfa*ener_spent;   //RANK EQUATION
-                    gwMat[i][0]=(1-central)*sumLqe/nSum+central*ener_spent;   //RANK EQUATION
-                    //EV<<"Rank is:"<<gwMat[i][0]<<"central:"<<central<<"lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
-                    EV<<"Rank is:"<<gwMat[i][0]<<" i: "<<i<<" lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
-                }else{
-                    gwMat[i][0]=0;
-                }
-                gwMat[i][1]=nSum;   //nº somas=no neighs
-                n_connect=n_connect+nSum;
-            }
-        }
-        n_connect=n_connect/2;
-        EV<<"Conec:"<<n_connect<<"\n";
-
-    /**Methods that chose GW to be elected from the node's rank************************************************************************/
-    //--METHOD 1 ----------------------------------
-    //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
-        EV<<"id0:"<<gwMat[0][1]<<"id1:"<<gwMat[1][1]<<"id2:"<<gwMat[2][1]<<"id3:"<<gwMat[3][1]<<"\n";
-        EV<<"id0:"<<gwMat[0][0]<<"id1:"<<gwMat[1][0]<<"id2:"<<gwMat[2][0]<<"id3:"<<gwMat[3][0]<<"\n";
-        int nN=0, bestGwId=0;
-        for(int u=0;u<nVert;u++){
-            if(gwMat[u][1]>nN){
-                nN=gwMat[u][1];
-                bestGwId=u;
-            }else if(gwMat[u][1]==nN){  //if same number of neighs, check who's got the lowest rank (lower the better)
-                EV<<"Comparing "<<u<<":"<<gwMat[u][0]<<" to "<<bestGwId<<":"<<gwMat[nN][0]<<"\n";
-                if(gwMat[u][0]>gwMat[bestGwId][0]){
-                    EV<<"Even :o "<<u<<"\n";
-                    nN=gwMat[u][1];
-                    bestGwId=u;
-                }
-            }
-        }
+        int bestGwId=0;
+        /*Calculate the best GW to be elected*****************/
+        bestGwId=returnElectedGwM3();
 
 
-    //--METHOD 2 ----------------------------------
-    //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY - best rank value----------
-    /*int Rl=0, bestGwId=-1;
-    for(int uR=0;uR<nVert;uR++){
-        if(gwMat[uR][0]>Rl){
-            Rl=gwMat[uR][0];
-            bestGwId=uR;
-        }else if(gwMat[uR][0]==Rl){  //if same rank lvl, check who's got more neighs
-            if(gwMat[uR][1]<gwMat[bestGwId][1]){
-                Rl=gwMat[uR][0];
-                bestGwId=uR;
-                }
-            }
-        }*/
+
 
     //EV<<"Chosen GW is "<<bestGwId<<" with "<<nN<<"neighs \n";
     int IDadd;
@@ -1063,7 +1010,6 @@ void RoutingLqeGw::checkGwStatus(){
 
 
 
-    //if GW elected now is different than the current GW, check it 3 more times on periods of 500ms
 
     /*S/control****/
     /*if(bestGwId!=IDadd){
@@ -1079,6 +1025,8 @@ void RoutingLqeGw::checkGwStatus(){
             actual_gateway=addDf;
         }
     }*/
+
+    //if GW elected now is different than the current GW, check it 3 more times on periods of 500ms
 
     /*Control 2**************/
     /*if(bestGwId!=IDadd){
@@ -1111,53 +1059,58 @@ void RoutingLqeGw::checkGwStatus(){
             }
         }
     }*/
+
     /*Control 3**************/
 
     if(!no_act_gw && bestGwId!=IDadd && bestGwId!=(-1)){
         double oldR=0, newR=0;
         //if(bestGwId!=IDadd){
+        EV<<"elec:"<<elect_gw<<"\n";
             EV<<"ACTUAL GW IS different than best ranked \n";
             //if(bestGwId!=(-1)){
-                if(elect_gw==bestGwId){
-                    count_newElect_Gw++;
-                }else{
-                    count_newElect_Gw=0;
+            if(elect_gw==bestGwId){
+                EV<<"counting \n";
+                count_newElect_Gw++;
+            }else{
+                EV<<"count 0 \n";
+                count_newElect_Gw=0;
+            }
+            EV<<"count is:"<<count_newElect_Gw<<"\n";
+            if(count_newElect_Gw>1){
+                oldR=oldGwRank;//gwMat[IDadd][0];
+                newR=bestGwRank;//gwMat[bestGwId][0];
+                EV<<"oldR:"<<oldR<<" newR"<<newR<<"\n";
+                //if(old_rank>0 && 0.9*newR<oldR){
+                if(oldR>=0 && 0.9*newR>oldR){
+                    string addDf="Wf:00:00:00:00:";
+                    if(bestGwId<10){
+                        addDf.append("0");
+                        addDf.append(std::to_string(bestGwId));
+                    }else if(bestGwId>=10){
+                        addDf.append(std::to_string(bestGwId));
+                    }
+                    EV<<"Updated Gw \n";
+                    actual_gateway=addDf;
+                    no_act_gw=false;
+                    Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, oldR);
+                    old_rank=gwMat[bestGwId][0];
                 }
-                if(count_newElect_Gw>1){
-                    oldR=gwMat[IDadd][0];
-                            newR=gwMat[bestGwId][0];
-                            EV<<"oldR:"<<oldR<<" newR"<<newR<<"\n";
-                            //if(old_rank>0 && 0.9*newR<oldR){
-                            if(oldR>0 && 0.9*newR>oldR){
-                                string addDf="Wf:00:00:00:00:";
-                                if(bestGwId<10){
-                                    addDf.append("0");
-                                    addDf.append(std::to_string(bestGwId));
-                                }else if(bestGwId>=10){
-                                    addDf.append(std::to_string(bestGwId));
-                                }
-                                actual_gateway=addDf;
-                                no_act_gw=false;
-                                Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, oldR);
-                                old_rank=gwMat[bestGwId][0];
-                            }
-                            // setup next event to check gw
-                            cMessage *checkGW = new cMessage("Send Check Gw Event");
-                            //EV<<"Checking GW status \n";
-                            checkGW->setKind(CHECKGW_EVENT_CODE);
-                            scheduleAt(simTime() + gwCheckPeriod, checkGW);
-                            EV<<"Set check in 5s \n";
-                }else{
-                    elect_gw=bestGwId;
-
-                    // setup next event to confirm no check gw
-                    cMessage *checkGW = new cMessage("Send Check Gw Event");
-                    //EV<<"Checking GW status- no gw chosen \n";
-                    //EV<<"Temp gw id:"<<temp_gw<<"\n";
-                    checkGW->setKind(CHECKGW_EVENT_CODE);
+                // setup next event to check gw
+                cMessage *checkGW = new cMessage("Send Check Gw Event");
+                //EV<<"Checking GW status \n";
+                checkGW->setKind(CHECKGW_EVENT_CODE);
+                scheduleAt(simTime() + gwCheckPeriod, checkGW);
+                EV<<"Set check in 5s \n";
+            }else{
+                elect_gw=bestGwId;
+                // setup next event to confirm no check gw
+                cMessage *checkGW = new cMessage("Send Check Gw Event");
+                //EV<<"Checking GW status- no gw chosen \n";
+                //EV<<"Temp gw id:"<<temp_gw<<"\n";
+                checkGW->setKind(CHECKGW_EVENT_CODE);
                 scheduleAt(simTime() + 1, checkGW);
                 EV<<"Set check in 1s \n";
-                }
+            }
     }else
 
 
@@ -1261,6 +1214,212 @@ std::pair<int, int> RoutingLqeGw::geodisikV(int nodeID){
 }
 
 //----------------------------------------------------------------------------------------
+
+int RoutingLqeGw::returnElectedGwM1(){
+
+    //calculate Gw rank
+    int nVert=graphR.returnVvalue();
+    //EV<<"Já contei:"<<nVert<<"\n";
+    double gwMat[nVert][2];
+    for(int g=0;g<nVert;g++){
+        gwMat[g][0]=-1;
+        gwMat[g][1]=-1;
+    }
+
+    //Evaluation table- saves rank and centrality
+    int n_connect=0;
+    double central=0, imN_path=0, n_path=0, sumLqe=0, nSum=0, wei=0;
+    for(int i=0;i<nVert;i++){
+        if(graphR.returnShortestPath(graphR.add_element(ownMACAddress),i)!=""){
+            //Centrality
+            std::pair<int, int> result=geodisikV(i);
+            EV<<"For->"<<i<<" nPaths:"<<result.first<<" ImNpaths:"<<result.second<<"\n";
+            n_path=result.first;
+            imN_path=result.second;
+            central=imN_path/n_path;
+            sumLqe=0, nSum=0, wei=0;
+            for(int j=0;j<nVert;j++){
+                wei = graphR.returnWGrapfT(i,j);
+                if(wei>0){
+                    sumLqe=sumLqe+(100-wei);
+                    nSum++;
+                }
+            }
+            double ener_spent=Ener[i];
+            if(nSum!=0){
+                //gwMat[i][0]=teta*sumLqe*nSum+alfa*ener_spent;   //RANK EQUATION
+                gwMat[i][0]=(1-central)*sumLqe/nSum+central*ener_spent;   //RANK EQUATION
+                //EV<<"Rank is:"<<gwMat[i][0]<<"central:"<<central<<"lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+                EV<<"Rank is:"<<gwMat[i][0]<<" central "<<central<<" i: "<<i<<" lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+            }else{
+                gwMat[i][0]=0;
+            }
+            gwMat[i][1]=nSum;   //nº somas=no neighs
+            n_connect=n_connect+nSum;
+        }
+    }
+    n_connect=n_connect/2;
+    EV<<"Conec:"<<n_connect<<"\n";
+
+    /**Methods that chose GW to be elected from the node's rank************************************************************************/
+    //--METHOD 1 ----------------------------------
+    //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
+    EV<<"id0:"<<gwMat[0][1]<<"id1:"<<gwMat[1][1]<<"id2:"<<gwMat[2][1]<<"id3:"<<gwMat[3][1]<<"id4:"<<gwMat[4][1]<<"\n";
+    EV<<"id0:"<<gwMat[0][0]<<"id1:"<<gwMat[1][0]<<"id2:"<<gwMat[2][0]<<"id3:"<<gwMat[3][0]<<"id4:"<<gwMat[4][0]<<"\n";
+    double nN=0; int bestGwId=0;
+    for(int u=0;u<nVert;u++){
+        if(gwMat[u][1]>nN){
+            nN=gwMat[u][1];
+            bestGwId=u;
+        }else if(gwMat[u][1]==nN){  //if same number of neighs, check who's got the lowest rank (lower the better)
+            //EV<<"Comparing "<<u<<":"<<gwMat[u][0]<<" to "<<bestGwId<<":"<<gwMat[nN][0]<<"\n";
+            if(gwMat[u][0]>gwMat[bestGwId][0]){
+                //EV<<"Even! Won "<<u<<"\n";
+                nN=gwMat[u][1];
+                bestGwId=u;
+            }
+        }
+    }
+
+    return bestGwId;
+}
+
+int RoutingLqeGw::returnElectedGwM2(){
+
+    //calculate Gw rank
+    int nVert=graphR.returnVvalue();
+    //EV<<"Já contei:"<<nVert<<"\n";
+    double gwMat[nVert][2];
+    for(int g=0;g<nVert;g++){
+        gwMat[g][0]=-1;
+        gwMat[g][1]=-1;
+    }
+
+    //Evaluation table- saves rank and centrality
+    int n_connect=0;
+    double central=0, imN_path=0, n_path=0, sumLqe=0, nSum=0, wei=0;
+    for(int i=0;i<nVert;i++){
+        if(graphR.returnShortestPath(graphR.add_element(ownMACAddress),i)!=""){
+            //Centrality
+            std::pair<int, int> result=geodisikV(i);
+            EV<<"For->"<<i<<" nPaths:"<<result.first<<" ImNpaths:"<<result.second<<"\n";
+            n_path=result.first;
+            imN_path=result.second;
+            central=imN_path/n_path;
+            sumLqe=0, nSum=0, wei=0;
+            for(int j=0;j<nVert;j++){
+                wei = graphR.returnWGrapfT(i,j);
+                if(wei>0){
+                    sumLqe=sumLqe+(100-wei);
+                    nSum++;
+                }
+            }
+            double ener_spent=Ener[i];
+            if(nSum!=0){
+                //gwMat[i][0]=teta*sumLqe*nSum+alfa*ener_spent;   //RANK EQUATION
+                gwMat[i][0]=(1-central)*sumLqe/nSum+central*ener_spent;   //RANK EQUATION
+                //EV<<"Rank is:"<<gwMat[i][0]<<"central:"<<central<<"lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+                EV<<"Rank is:"<<gwMat[i][0]<<" central "<<central<<" i: "<<i<<" lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+            }else{
+                gwMat[i][0]=0;
+            }
+            gwMat[i][1]=central;//nSum;   //nº somas=no neighs
+            n_connect=n_connect+nSum;
+        }
+    }
+    n_connect=n_connect/2;
+    EV<<"Conec:"<<n_connect<<"\n";
+
+    /**Methods that chose GW to be elected from the node's rank************************************************************************/
+    //--METHOD 1 ----------------------------------
+    //compare by the number of direct-neighs (used on early-beta) --RANK ALGORITHM ONLY ON CENTRALITY
+    EV<<"id0:"<<gwMat[0][1]<<"id1:"<<gwMat[1][1]<<"id2:"<<gwMat[2][1]<<"id3:"<<gwMat[3][1]<<"id4:"<<gwMat[4][1]<<"\n";
+    EV<<"id0:"<<gwMat[0][0]<<"id1:"<<gwMat[1][0]<<"id2:"<<gwMat[2][0]<<"id3:"<<gwMat[3][0]<<"id4:"<<gwMat[4][0]<<"\n";
+    double nN=0; int bestGwId=0;
+    for(int u=0;u<nVert;u++){
+        if(gwMat[u][1]>nN){
+            nN=gwMat[u][1];
+            bestGwId=u;
+        }else if(gwMat[u][1]==nN){  //if same number of neighs, check who's got the lowest rank (lower the better)
+            //EV<<"Comparing "<<u<<":"<<gwMat[u][0]<<" to "<<bestGwId<<":"<<gwMat[nN][0]<<"\n";
+            if(gwMat[u][0]>gwMat[bestGwId][0]){
+                //EV<<"Even! Won "<<u<<"\n";
+                nN=gwMat[u][1];
+                bestGwId=u;
+            }
+        }
+    }
+
+    return bestGwId;
+}
+
+int RoutingLqeGw::returnElectedGwM3(){
+
+    //calculate Gw rank
+    int nVert=graphR.returnVvalue();
+    //EV<<"Já contei:"<<nVert<<"\n";
+    double gwMat[nVert][2];
+    for(int g=0;g<nVert;g++){
+        gwMat[g][0]=-1;
+        gwMat[g][1]=-1;
+    }
+
+    //Evaluation table- saves rank and centrality
+    int n_connect=0;
+    double central=0, imN_path=0, n_path=0, sumLqe=0, nSum=0, wei=0;
+    for(int i=0;i<nVert;i++){
+        if(graphR.returnShortestPath(graphR.add_element(ownMACAddress),i)!=""){
+            //Centrality
+            std::pair<int, int> result=geodisikV(i);
+            EV<<"For->"<<i<<" nPaths:"<<result.first<<" ImNpaths:"<<result.second<<"\n";
+            n_path=result.first;
+            imN_path=result.second;
+            central=imN_path/n_path;
+            sumLqe=0, nSum=0, wei=0;
+            for(int j=0;j<nVert;j++){
+                wei = graphR.returnWGrapfT(i,j);
+                if(wei>0){
+                    sumLqe=sumLqe+(100-wei);
+                    nSum++;
+                }
+            }
+            double ener_spent=Ener[i];
+            if(nSum!=0){
+                //gwMat[i][0]=teta*sumLqe*nSum+alfa*ener_spent;   //RANK EQUATION
+                gwMat[i][0]=(1-central)*sumLqe/nSum+central*ener_spent;   //RANK EQUATION
+                //EV<<"Rank is:"<<gwMat[i][0]<<"central:"<<central<<"lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+                EV<<"Rank is:"<<gwMat[i][0]<<" central "<<central<<" i: "<<i<<" lqe:"<<sumLqe/nSum<<"ener:"<<ener_spent<<"\n";
+            }else{
+                gwMat[i][0]=0;
+            }
+            gwMat[i][1]=central;//nSum;   //nº somas=no neighs
+            n_connect=n_connect+nSum;
+        }
+    }
+    n_connect=n_connect/2;
+    EV<<"Conec:"<<n_connect<<"\n";
+
+    /**Methods that chose GW to be elected from the node's rank************************************************************************/
+    //--METHOD 2 ----------------------------------
+
+    //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY - best rank value----------
+
+    double Rl=0; int bestGwId=-1;
+    for(int uR=0;uR<nVert;uR++){
+        if(gwMat[uR][0]>Rl){
+            Rl=gwMat[uR][0];
+            bestGwId=uR;
+        }else if(gwMat[uR][0]==Rl){  //if same rank lvl, check who's got more neighs
+            if(gwMat[uR][1]>gwMat[bestGwId][1]){
+                Rl=gwMat[uR][0];
+                bestGwId=uR;
+            }
+        }
+    }
+    bestGwRank=Rl;
+    return bestGwId;
+}
+
 
 /***************************************************************************************
  * Cleans the list of AppRegisteredApps, calls the destructor of the Cache/Storage

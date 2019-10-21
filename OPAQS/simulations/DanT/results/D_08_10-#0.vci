@@ -1,15 +1,15 @@
-file 1143247 1571231762                                         
+file 843019 1571439285                                          
 version 2
-run D_08_10-0-20191016-14:15:19-14028
+run D_08_10-0-20191018-23:49:50-13902
 attr configname D_08_10
-attr datetime 20191016-14:15:19
+attr datetime 20191018-23:49:50
 attr experiment D_08_10
-attr inifile SimV3.ini
+attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 14028
+attr processid 13902
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -30,7 +30,7 @@ param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.routing.waitBFsend 0.5
+param **.routing.waitBFsend 0.1
 param **.routing.max_age 999999s
 param **.routing.gateway_list "\"\""
 param **.routing.actual_gateway "\"\""
@@ -54,7 +54,7 @@ param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.routing.waitBFsend 0.5
+param **.routing.waitBFsend 0.1
 param **.routing.max_age 999999s
 param **.routing.gateway_list "\"\""
 param **.routing.actual_gateway "\"\""
@@ -93,9 +93,9 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3500 517768 34 408128 0.05 99.3 32768 1 8 122021 576561
-0	521268 230807 408129 587552 99.3 140 13432 1 8 53725 273505
-1	752075 20449 133 407225 0.1 99.1 1100 -nan -nan -nan -nan
-2	772524 185361 17507 569006 5.08396899642 134.647466728067 5788 141 816108 2362224606 1.2853312903921e+15
-3	957885 185361 17507 569006 5.08396899642 134.647466728067 5788 141 816108 2362224606 1.2853312903921e+15
+0	3502 517746 34 368961 0.05 99.3 32768 1 8 122021 576561
+0	521248 230807 368962 510278 99.3 140 13432 1 8 53725 273505
+1	752055 20449 133 368260 0.1 99.1 1100 -nan -nan -nan -nan
+2	772504 35257 23206 450621 6.652864192201 122.583626728067 1145 141 161445 92507985 9960982300845
+3	807761 35257 23206 450621 6.652864192201 122.583626728067 1145 141 161445 92507985 9960982300845
 

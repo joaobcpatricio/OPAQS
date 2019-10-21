@@ -145,6 +145,12 @@ private:
 
     //gw election
     int count_newElect_Gw=0;
+    int returnElectedGwM1();
+    int returnElectedGwM2();
+    int returnElectedGwM3();
+    double bestGwRank=0;
+    double oldGwRank=0;
+    int oldGwID=0;
 
 
 

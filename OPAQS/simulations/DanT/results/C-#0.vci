@@ -1,39 +1,45 @@
-file 356230 1569709118                                          
+file 64789 1571430089                                           
 version 2
-run C-0-20190928-23:18:18-5092
+run C-0-20191018-21:20:48-6776
 attr configname C
-attr datetime 20190928-23:18:18
+attr datetime 20191018-21:20:48
 attr experiment C
-attr inifile SimV2.ini
+attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 5092
+attr processid 6776
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"paths/C.movements\""
-param **.numNodes 4
-param **.wirelessIfc.wirelessRange 40m
-param **.bluetoothIfc.wirelessRange 40m
-param **.application.usedRNG 1
+param **.mobility.traceFile "\"AllPaths/sPaths/C.movements\""
+param **.numNodes 5
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
-param **application.destinationAddr "\"Wf:00:00:00:00:02\""
-param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
-param **application.nodesThatGen true
-param **application.nodesGenMsg "\"0,1,3\""
+param **application.nodesThatGen false
+param **application.nodesGenMsg "\"\""
 param **application.startMultipleMsg false
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
-param **.application.endGeneratingMsg 90s
+param **.application.endGeneratingMsg 99s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.1
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.resetGPeriod 999s
+param **.wirelessIfc.wirelessRange 40m
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1ms
+param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -48,10 +54,10 @@ param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.routing.waitBFsend 0.5
+param **.routing.waitBFsend 0.1
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
-param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
 param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
@@ -62,14 +68,14 @@ param **.neighboring.sendWifiFirst true
 param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
-param **.wirelessIfc.wirelessRange 15m
+param **.wirelessIfc.wirelessRange 40m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
 param **.wirelessIfc.wirelessHeaderSize 32byte
 param **.wirelessIfc.minSSI -90
 param **.wirelessIfc.limitQueueTime 400ms
 param **.wirelessIfc.my_limit_rate 0bps
-param **.bluetoothIfc.wirelessRange 15m
+param **.bluetoothIfc.wirelessRange 40m
 param **.bluetoothIfc.neighbourScanInterval 100ms
 param **.bluetoothIfc.bandwidthBitRate 100000bps
 param **.bluetoothIfc.wirelessHeaderSize 16byte
@@ -87,8 +93,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3350 318739 13 115680 0.05 170 20400 1 3 52970 143110
-1	322089 4836 29 67252 0.1 90.1 273 -nan -nan -nan -nan
-2	326925 14652 754 95134 1.156852969044 135.928373860823 504 141 71064 17943660 850942188180
-3	341577 14652 754 95134 1.156852969044 135.928373860823 504 141 71064 17943660 850942188180
+0	3490 53400 16 44113 0.05 24.55 3680 4 4 14720 58880
+1	56890 2160 61 43170 0.1 24.1 125 -nan -nan -nan -nan
+2	59050 2869 11187 43688 6.677783464513 24.291703464513 100 141 14100 712050 6726736350
+3	61919 2869 11187 43688 6.677783464513 24.291703464513 100 141 14100 712050 6726736350
 
