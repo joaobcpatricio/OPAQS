@@ -426,7 +426,7 @@ void Logger::saveGwRank(int GwId, double rankk, int oldID, double oldR){
     out.close();
 }
 //save rank table on each node
-void Logger::saveGwRankT(string ownMACAddress,int GwId, double rankk){
+void Logger::saveGwRankT(string ownMACAddress,int GwId, double rankk, double ener){
     //save rank and id
     string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/Rank/GwRankT";
     string noS=ownMACAddress.substr(15,17);
@@ -441,6 +441,22 @@ void Logger::saveGwRankT(string ownMACAddress,int GwId, double rankk){
     savi.append("\n");
     out<<savi;
     out.close();
+
+
+    //save battery table
+    string nameFe="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/Ener/EnerwithGwChk/enerTabl";
+        string noSe=ownMACAddress.substr(15,17);
+        nameFe.append(noSe);
+        nameFe.append(".txt");
+        std::ofstream oute(nameFe, std::ios_base::app);
+        //Name of data
+        std::string savie = std::to_string(GwId);
+        std::string savire = std::to_string(ener);
+        savie.append("->");
+        savie.append(savire);
+        savie.append("\n");
+        oute<<savie;
+        oute.close();
 }
 void Logger::saveGwRankT_time(string ownMACAddress){
     //save rank and id
@@ -455,6 +471,19 @@ void Logger::saveGwRankT_time(string ownMACAddress){
     timeGenr.append("\n");
     out<<timeGenr;
     out.close();
+
+    //save energy
+    string nameFe="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/Ener/EnerwithGwChk/enerTabl";
+        string noSe=ownMACAddress.substr(15,17);
+        nameFe.append(noSe);
+        nameFe.append(".txt");
+        std::ofstream oute(nameFe, std::ios_base::app);
+
+        std::string timeMsgre = std::to_string(simTime().dbl());//getInjectedTime().dbl());
+        string timeGenre=timeMsgre;
+        timeGenre.append("\n");
+        oute<<timeGenre;
+        oute.close();
 }
 
 //--STORAGE---------------------------------------------------------
@@ -653,3 +682,6 @@ void Logger::saveSentDataName(string ownMACAddress, string msNam){
                             out<<msNamIs;
                             out.close();
 }
+
+
+//--EPIDEMIC--------------------------------------------------

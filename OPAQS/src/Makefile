@@ -38,6 +38,7 @@ OBJS = \
     $O/LinkAdaptLayer.o \
     $O/Logger.o \
     $O/NeighboringLayer.o \
+    $O/pamulqe.o \
     $O/RoutingLayer.o \
     $O/RoutingLQE.o \
     $O/RoutingLqeGw.o \

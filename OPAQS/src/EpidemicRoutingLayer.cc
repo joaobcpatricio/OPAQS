@@ -13,6 +13,7 @@ void EpidemicRoutingLayer::initialize(int stage)
 {
     if (stage == 0) {
         Stor=StorageM(); //constructor
+        Log=Logger();
         // get parameters
         nodeIndex = par("nodeIndex");
         ownMACAddress = par("ownMACAddress").stringValue();
@@ -27,9 +28,11 @@ void EpidemicRoutingLayer::initialize(int stage)
 
 
     } else if (stage == 1) {
-
+        Log.initialize(ownMACAddress);
 
     } else if (stage == 2) {
+
+        Log.RoutingLogsInit(ownMACAddress);
 
         // setup statistics signals
         dataBytesReceivedSignal = registerSignal("dataBytesReceived");
@@ -360,6 +363,11 @@ void EpidemicRoutingLayer::handleDataMsgFromLowerLayer(cMessage *msg)//cache
             fileE << "\n Running\n";
             fileE << "Num. Msg: "+fNam+" Node Index: " + pri + tim1 + ti1+ "\n";//pri+"\n";
             fileE.close();
+
+
+            Log.saveMsgReachedGW(omnetDataMsg->getMessageID(), omnetDataMsg->getSentTime().dbl(), ownMACAddress, 0);//omnetDataMsg->getNHops());
+            //Log.saveMsgReachedGW(omnetDataMsg->getDataName(), simTime().dbl(), ownMACAddress, 0);
+
         }
     }
 

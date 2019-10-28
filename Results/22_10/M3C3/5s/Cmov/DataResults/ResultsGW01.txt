@@ -1,0 +1,22 @@
+RESULTS FILE 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Tue Oct 22 20:45:50 2019
+elapsed time: 4.9e-08s
+Source: /app/node4/item-22084 | Message ID: 84 | Time sentFromSrcR: 97.119643 | Time receivedFromSrcR: 97.133627 |End 
+Source: /app/node4/item-22091 | Message ID: 91 | Time sentFromSrcR: 97.119643 | Time receivedFromSrcR: 97.147467 |End 
+Source: /app/node4/item-22094 | Message ID: 94 | Time sentFromSrcR: 97.119643 | Time receivedFromSrcR: 97.161307 |End 
+Source: /app/node4/item-22095 | Message ID: 95 | Time sentFromSrcR: 97.119643 | Time receivedFromSrcR: 97.175147 |End 
+Source: /app/node4/item-22097 | Message ID: 97 | Time sentFromSrcR: 97.119643 | Time receivedFromSrcR: 97.188987 |End 
+Source: /app/node4/item-22098 | Message ID: 98 | Time sentFromSrcR: 97.119643 | Time receivedFromSrcR: 97.202827 |End 
+Source: /app/node0/item-22095 | Message ID: 95 | Time sentFromSrcR: 97.569643 | Time receivedFromSrcR: 97.583627 |End 
+Source: /app/node0/item-22097 | Message ID: 97 | Time sentFromSrcR: 97.569643 | Time receivedFromSrcR: 97.597467 |End 
+Source: /app/node0/item-22098 | Message ID: 98 | Time sentFromSrcR: 97.569643 | Time receivedFromSrcR: 97.611307 |End 
+Source: /app/node0/item-22099 | Message ID: 99 | Time sentFromSrcR: 98.119643 | Time receivedFromSrcR: 98.133627 |End 
+Source: /app/node4/item-22099 | Message ID: 99 | Time sentFromSrcR: 98.219643 | Time receivedFromSrcR: 98.233627 |End 
+Source: /app/node0/item-22100 | Message ID: 100 | Time sentFromSrcR: 99.219643 | Time receivedFromSrcR: 99.233627 |End 
+Source: /app/node4/item-22100 | Message ID: 100 | Time sentFromSrcR: 99.319643 | Time receivedFromSrcR: 99.333627 |End 
+Source: /app/node3/item-22098 | Message ID: 98 | Time sentFromSrcR: 99.569842 | Time receivedFromSrcR: 99.583969 |End 
+Source: /app/node3/item-22100 | Message ID: 100 | Time sentFromSrcR: 99.569842 | Time receivedFromSrcR: 99.611649 |End 
+Source: /app/node3/item-22098 | Message ID: 98 | Time sentFromSrcR: 101.469842 | Time receivedFromSrcR: 101.483969 |End 
+Source: /app/node3/item-22099 | Message ID: 99 | Time sentFromSrcR: 101.469842 | Time receivedFromSrcR: 101.497809 |End 
+Source: /app/node3/item-22098 | Message ID: 98 | Time sentFromSrcR: 103.624330 | Time receivedFromSrcR: 103.638457 |End 

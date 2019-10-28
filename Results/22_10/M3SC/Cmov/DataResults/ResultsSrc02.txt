@@ -1,0 +1,11 @@
+RESULTS FILE 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Tue Oct 22 22:45:43 2019
+elapsed time: 3.4e-08s
+Source: Wf:00:00:00:00:02 | Message ID: 28 | Time SentFromSrc: 27.519549 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 29 | Time SentFromSrc: 28.619575 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 30 | Time SentFromSrc: 29.169593 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 31 | Time SentFromSrc: 30.269644 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 32 | Time SentFromSrc: 31.369715 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 33 | Time SentFromSrc: 33.269832 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 34 | Time SentFromSrc: 33.269832 |End 

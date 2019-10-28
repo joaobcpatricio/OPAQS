@@ -1,0 +1,39 @@
+RESULTS FILE 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Mon Oct 28 02:46:28 2019
+elapsed time: 4.8e-08s
+Source: Wf:00:00:00:00:01 | Message ID: 1 | Time SentFromSrc: 6.677786 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 2 | Time SentFromSrc: 6.677786 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 3 | Time SentFromSrc: 6.677786 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 4 | Time SentFromSrc: 6.677786 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 5 | Time SentFromSrc: 6.677786 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 6 | Time SentFromSrc: 6.677786 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 7 | Time SentFromSrc: 6.677786 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 8 | Time SentFromSrc: 7.227786 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 9 | Time SentFromSrc: 8.318506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 10 | Time SentFromSrc: 9.418506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 11 | Time SentFromSrc: 10.518506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 12 | Time SentFromSrc: 11.618506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 13 | Time SentFromSrc: 12.168506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 14 | Time SentFromSrc: 13.268506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 15 | Time SentFromSrc: 14.368506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 16 | Time SentFromSrc: 15.468506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 17 | Time SentFromSrc: 16.568506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 18 | Time SentFromSrc: 17.118506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 19 | Time SentFromSrc: 18.218506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 20 | Time SentFromSrc: 19.318506 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 21 | Time SentFromSrc: 20.413864 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 22 | Time SentFromSrc: 21.513861 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 23 | Time SentFromSrc: 22.613860 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 24 | Time SentFromSrc: 23.149060 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 25 | Time SentFromSrc: 24.249060 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 26 | Time SentFromSrc: 25.349060 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 27 | Time SentFromSrc: 26.434262 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 28 | Time SentFromSrc: 27.534266 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 29 | Time SentFromSrc: 28.634272 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 30 | Time SentFromSrc: 29.184277 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 31 | Time SentFromSrc: 30.284289 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 32 | Time SentFromSrc: 31.384306 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 33 | Time SentFromSrc: 32.619801 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 99 | Time SentFromSrc: 99.019643 |End 
+Source: Wf:00:00:00:00:01 | Message ID: 100 | Time SentFromSrc: 100.119643 |End 

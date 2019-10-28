@@ -1,0 +1,11 @@
+RESULTS Sent DataMsg 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Tue Oct 22 22:45:43 2019
+elapsed time: 2.9e-08s
+Source: Wf:00:00:00:00:02 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node2/item-22028 | Message ID: 28 | Time SentFromNIC: 27.552720 | End 
+Source: Wf:00:00:00:00:02 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node2/item-22029 | Message ID: 29 | Time SentFromNIC: 28.648080 | End 
+Source: Wf:00:00:00:00:02 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node2/item-22030 | Message ID: 30 | Time SentFromNIC: 29.202720 | End 
+Source: Wf:00:00:00:00:02 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node2/item-22031 | Message ID: 31 | Time SentFromNIC: 30.302720 | End 
+Source: Wf:00:00:00:00:02 | NextDest: Wf:00:00:00:00:01 | Message ID: /app/node2/item-22032 | Message ID: 32 | Time SentFromNIC: 31.398080 | End 
+Source: Wf:00:00:00:00:02 | NextDest: Wf:00:00:00:00:04 | Message ID: /app/node2/item-22033 | Message ID: 33 | Time SentFromNIC: 33.283672 | End 
+Source: Wf:00:00:00:00:02 | NextDest: Wf:00:00:00:00:04 | Message ID: /app/node2/item-22034 | Message ID: 34 | Time SentFromNIC: 33.297512 | End 

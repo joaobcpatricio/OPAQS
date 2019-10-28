@@ -1,0 +1,33 @@
+RESULTS FILE 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Sun Oct 27 23:34:46 2019
+elapsed time: 6.8e-08s
+Source: Wf:00:00:00:00:02 | Message ID: 1 | Time SentFromSrc: 6.649066 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 2 | Time SentFromSrc: 6.649066 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 3 | Time SentFromSrc: 6.649066 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 4 | Time SentFromSrc: 6.649066 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 5 | Time SentFromSrc: 6.649066 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 6 | Time SentFromSrc: 6.649066 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 7 | Time SentFromSrc: 6.649066 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 8 | Time SentFromSrc: 7.199066 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 9 | Time SentFromSrc: 8.284266 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 10 | Time SentFromSrc: 9.384266 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 11 | Time SentFromSrc: 10.484266 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 12 | Time SentFromSrc: 11.584266 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 13 | Time SentFromSrc: 12.138906 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 14 | Time SentFromSrc: 13.238906 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 15 | Time SentFromSrc: 14.338906 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 16 | Time SentFromSrc: 15.434349 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 17 | Time SentFromSrc: 16.534349 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 18 | Time SentFromSrc: 17.634349 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 19 | Time SentFromSrc: 18.184349 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 20 | Time SentFromSrc: 19.284349 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 21 | Time SentFromSrc: 20.384343 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 22 | Time SentFromSrc: 21.484330 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 28 | Time SentFromSrc: 30.289083 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 29 | Time SentFromSrc: 30.289083 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 30 | Time SentFromSrc: 30.289083 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 31 | Time SentFromSrc: 30.289083 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 31 | Time SentFromSrc: 30.839091 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 32 | Time SentFromSrc: 32.106346 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 33 | Time SentFromSrc: 32.106346 |End 

@@ -1,24 +1,24 @@
-file 73990 1571342166                                           
+file 687918 1572132542                                          
 version 2
-run A2-0-20191017-20:55:57-29402
+run A2-0-20191027-00:28:17-18604
 attr configname A2
-attr datetime 20191017-20:55:57
+attr datetime 20191027-00:28:17
 attr experiment A2
-attr inifile GwSimV1.ini
+attr inifile DanTests.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 29402
+attr processid 18604
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"AllPaths/sPaths/A.movements\""
+param **.mobility.traceFile "\"paths/A.movements\""
 param **.numNodes 3
-param **.wirelessIfc.wirelessRange 40m
-param **.bluetoothIfc.wirelessRange 40m
+param **.wirelessIfc.wirelessRange 25m
+param **.bluetoothIfc.wirelessRange 25m
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
 param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
 param **application.nodesThatGen true
@@ -26,9 +26,10 @@ param **application.nodesGenMsg "\"0,1\""
 param **application.startMultipleMsg true
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
+param **.routingLayer "\"EpidemicRoutingLayer\""
 param **.numNodes 2
 param **.application.usedRNG 1
-param **.application.dataGenerationInterval 1s
+param **.application.dataGenerationInterval 1ms
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
 param **application.destinationAddr "\"Wf:00:00:00:00:02\""
@@ -43,10 +44,10 @@ param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
 param **.routing.useTTL false
-param **.routing.waitBFsend 0.1
+param **.routing.waitBFsend 0.5
 param **.routing.max_age 999999s
-param **.routing.gateway_list "\"\""
-param **.routing.actual_gateway "\"\""
+param **.routing.gateway_list "\"Wf:00:00:00:00:02;0|.\""
+param **.routing.actual_gateway "\"Wf:00:00:00:00:02\""
 param **.routing.gwCheckPeriod 5s
 param **.neighboring.antiEntropyInterval 500ms
 param **.neighboring.maximumRandomBackoffDuration 1s
@@ -82,8 +83,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3132 66363 10 45099 0.05 50 4500 2 2 9000 18000
-1	69495 1750 37 44363 0.1 49.1 100 -nan -nan -nan -nan
-2	71245 1372 5774 44828 6.65277835206 49.55277835206 50 141 7050 179775 853391925
-3	72617 1372 5774 44828 6.65277835206 49.55277835206 50 141 7050 179775 853391925
+0	3211 140184 10 223838 0.05 100 9000 1 2 12000 18000
+1	143395 3364 37 497 0.1 0.199 200 -nan -nan -nan -nan
+2	146759 270579 1801 223829 1.148272534095 99.991755069961 8583 141 1210203 5194191276 4.1909280368493e+15
+3	417338 270579 1801 223829 1.148272534095 99.991755069961 8583 141 1210203 5194191276 4.1909280368493e+15
 

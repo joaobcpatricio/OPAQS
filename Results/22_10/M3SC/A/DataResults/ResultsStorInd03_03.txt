@@ -1,0 +1,2 @@
+Source: /app/node3/item-22022 | Message ID: 22 | Time generated: 21.100000 | Time sentFromSrcR: 21.508340 | Time receivedFromSrcR: 22.099898 |End 
+Source: /app/node3/item-22072 | Message ID: 72 | Time generated: 71.100000 | Time sentFromSrcR: 71.558340 | Time receivedFromSrcR: 72.149898 |End 

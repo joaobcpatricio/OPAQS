@@ -412,7 +412,7 @@ void WirelessInterface::sendPendingMsg()
                     //loosePkt=false;
                 }
 
-
+                //loosePkt=false;
                 if(!loosePkt){
                 // send to node
                     outputResultsSent();

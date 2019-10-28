@@ -1,0 +1,7 @@
+Source: /app/node4/item-22021 | Message ID: 21 | Time generated: 20.100000 | Time sentFromSrcR: 22.068501 | Time receivedFromSrcR: 22.082402 |End 
+Source: /app/node4/item-22022 | Message ID: 22 | Time generated: 21.100000 | Time sentFromSrcR: 22.068501 | Time receivedFromSrcR: 22.096242 |End 
+Source: /app/node4/item-22023 | Message ID: 23 | Time generated: 22.100000 | Time sentFromSrcR: 22.618500 | Time receivedFromSrcR: 22.633494 |End 
+Source: /app/node4/item-22024 | Message ID: 24 | Time generated: 23.100000 | Time sentFromSrcR: 23.153700 | Time receivedFromSrcR: 23.167598 |End 
+Source: /app/node4/item-22025 | Message ID: 25 | Time generated: 24.100000 | Time sentFromSrcR: 24.253700 | Time receivedFromSrcR: 24.267598 |End 
+Source: /app/node4/item-22026 | Message ID: 26 | Time generated: 25.100000 | Time sentFromSrcR: 25.354014 | Time receivedFromSrcR: 25.367915 |End 
+Source: /app/node4/item-22027 | Message ID: 27 | Time generated: 26.100000 | Time sentFromSrcR: 26.438902 | Time receivedFromSrcR: 26.452810 |End 

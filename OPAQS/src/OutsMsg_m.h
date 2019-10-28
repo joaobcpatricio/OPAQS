@@ -32,7 +32,7 @@
  * //
  * //               addrs | data name | group type     | payload size | payload | valid until | final dest | Addr Generator | hops	     | nMsgOrder  | destination | prev Hops | total  |
  * //               s & d | or msg ID |  (1 byte int)  | (2 byte int) | (bytes) | (4 byte int)| (dest orie)|   Node		 |  (1 byte) |            |  oriented   |  list     | (bytes)|
- * // Epidemic ->   6 + 6 .    64     .       1        .      2       . 64      .      4      .      6     .      6		 .		1    .    2       .     1       .    32     .  231+64=295
+ * // Epidemic ->   6 + 6 .    64 (32?)     .       1        .      2       . 64      .      4      .      6     .      6		 .		1    .    2       .     1       .    32     .  231+64=295
  * //
  * //Real packet size hardcoded on StorageM.cc
  * //
@@ -180,7 +180,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, DataMsg& obj) {obj.parsim
  * //
  * //                addrs | msg ID hashes  | if is final | total  |
  * //                s & d | 2 bytes x count| destination | (bytes)|
- * //           ->   6 + 6 .   2 x 1        .     1       .  15
+ * //           ->   6 + 6 .   2 x 1 (32?)       .     1       .  15
  * //Real packet size hardcoded on RoutingLayer
  * //
  * packet AckMsg
@@ -349,7 +349,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, BeaconMsg& obj) {obj.pars
  * //
  * //               addrs | bool send me	|Prob 		|    SSI	|total   |
  * //               s & d | 	  6 byte    |(4 byte)   | (4 bytes) | (bytes)|
- * // Routing	 ->   6 + 6       6             4           4  			26
+ * // Routing	 ->   6 + 6       6             4           4  			26		add positions
  * //
  * packet DataReqMsg
  * {

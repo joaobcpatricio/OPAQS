@@ -1,0 +1,37 @@
+RESULTS FILE 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Tue Oct 22 22:45:43 2019
+elapsed time: 4.2e-08s
+Source: /app/node4/item-22036 | Message ID: 36 | Time sentFromSrcR: 36.655771 | Time receivedFromSrcR: 37.007563 |End 
+Source: /app/node4/item-22033 | Message ID: 33 | Time sentFromSrcR: 36.655771 | Time receivedFromSrcR: 37.021403 |End 
+Source: /app/node1/item-22037 | Message ID: 37 | Time sentFromSrcR: 36.965899 | Time receivedFromSrcR: 37.035243 |End 
+Source: /app/node3/item-22036 | Message ID: 36 | Time sentFromSrcR: 36.088299 | Time receivedFromSrcR: 37.049083 |End 
+Source: /app/node3/item-22033 | Message ID: 33 | Time sentFromSrcR: 35.469099 | Time receivedFromSrcR: 37.062923 |End 
+Source: /app/node1/item-22034 | Message ID: 34 | Time sentFromSrcR: 36.965899 | Time receivedFromSrcR: 37.076763 |End 
+Source: /app/node3/item-22035 | Message ID: 35 | Time sentFromSrcR: 35.469099 | Time receivedFromSrcR: 37.090603 |End 
+Source: /app/node1/item-22035 | Message ID: 35 | Time sentFromSrcR: 36.965899 | Time receivedFromSrcR: 37.104443 |End 
+Source: /app/node4/item-22034 | Message ID: 34 | Time sentFromSrcR: 36.655771 | Time receivedFromSrcR: 37.118283 |End 
+Source: /app/node3/item-22031 | Message ID: 31 | Time sentFromSrcR: 32.669842 | Time receivedFromSrcR: 37.132123 |End 
+Source: /app/node0/item-22036 | Message ID: 36 | Time sentFromSrcR: 35.522048 | Time receivedFromSrcR: 37.145963 |End 
+Source: /app/node3/item-22032 | Message ID: 32 | Time sentFromSrcR: 32.669842 | Time receivedFromSrcR: 37.159803 |End 
+Source: /app/node1/item-22033 | Message ID: 33 | Time sentFromSrcR: 36.965899 | Time receivedFromSrcR: 37.173643 |End 
+Source: /app/node2/item-22033 | Message ID: 33 | Time sentFromSrcR: 33.269832 | Time receivedFromSrcR: 37.187483 |End 
+Source: /app/node4/item-22035 | Message ID: 35 | Time sentFromSrcR: 36.655771 | Time receivedFromSrcR: 37.201323 |End 
+Source: /app/node0/item-22034 | Message ID: 34 | Time sentFromSrcR: 33.369643 | Time receivedFromSrcR: 37.215163 |End 
+Source: /app/node3/item-22034 | Message ID: 34 | Time sentFromSrcR: 34.269842 | Time receivedFromSrcR: 37.229003 |End 
+Source: /app/node1/item-22036 | Message ID: 36 | Time sentFromSrcR: 36.965899 | Time receivedFromSrcR: 37.242843 |End 
+Source: /app/node0/item-22038 | Message ID: 38 | Time sentFromSrcR: 37.319842 | Time receivedFromSrcR: 37.347809 |End 
+Source: /app/node3/item-22037 | Message ID: 37 | Time sentFromSrcR: 36.651179 | Time receivedFromSrcR: 37.498427 |End 
+Source: /app/node1/item-22038 | Message ID: 38 | Time sentFromSrcR: 37.484443 | Time receivedFromSrcR: 37.512267 |End 
+Source: /app/node3/item-22037 | Message ID: 37 | Time sentFromSrcR: 36.651179 | Time receivedFromSrcR: 38.033627 |End 
+Source: /app/node3/item-22038 | Message ID: 38 | Time sentFromSrcR: 37.569842 | Time receivedFromSrcR: 38.047467 |End 
+Source: /app/node0/item-22037 | Message ID: 37 | Time sentFromSrcR: 38.419842 | Time receivedFromSrcR: 38.433969 |End 
+Source: /app/node0/item-22038 | Message ID: 38 | Time sentFromSrcR: 38.419842 | Time receivedFromSrcR: 38.447809 |End 
+Source: /app/node0/item-22039 | Message ID: 39 | Time sentFromSrcR: 38.419842 | Time receivedFromSrcR: 38.461649 |End 
+Source: /app/node1/item-22039 | Message ID: 39 | Time sentFromSrcR: 38.569643 | Time receivedFromSrcR: 38.583627 |End 
+Source: /app/node1/item-22040 | Message ID: 40 | Time sentFromSrcR: 39.119643 | Time receivedFromSrcR: 39.133627 |End 
+Source: /app/node1/item-22041 | Message ID: 41 | Time sentFromSrcR: 40.219643 | Time receivedFromSrcR: 40.233627 |End 
+Source: /app/node0/item-22040 | Message ID: 40 | Time sentFromSrcR: 41.119842 | Time receivedFromSrcR: 41.138361 |End 
+Source: /app/node0/item-22041 | Message ID: 41 | Time sentFromSrcR: 41.119842 | Time receivedFromSrcR: 41.152201 |End 
+Source: /app/node0/item-22042 | Message ID: 42 | Time sentFromSrcR: 41.119842 | Time receivedFromSrcR: 41.166041 |End 
+Source: /app/node1/item-22042 | Message ID: 42 | Time sentFromSrcR: 41.319643 | Time receivedFromSrcR: 41.333627 |End 

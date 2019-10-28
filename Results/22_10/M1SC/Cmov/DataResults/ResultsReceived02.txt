@@ -1,0 +1,31 @@
+RESULTS Received DataMsg 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Sun Oct 27 23:34:46 2019
+elapsed time: 5.3e-08s
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: /app/node3/item-22014 | Message ID: 14 | Time Received Here: 21.541741 | End 
+Source: Wf:00:00:00:00:02 | From: Wf:00:00:00:00:01 | Message ID: /app/node2/item-22022 | Message ID: 22 | Time Received Here: 22.077762 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22021 | Message ID: 21 | Time Received Here: 22.082402 | End 
+Source: Wf:00:00:00:00:00 | From: Wf:00:00:00:00:00 | Message ID: /app/node0/item-22021 | Message ID: 21 | Time Received Here: 22.093561 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22022 | Message ID: 22 | Time Received Here: 22.096242 | End 
+Source: Wf:00:00:00:00:00 | From: Wf:00:00:00:00:00 | Message ID: /app/node0/item-22022 | Message ID: 22 | Time Received Here: 22.107402 | End 
+Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: /app/node1/item-22023 | Message ID: 23 | Time Received Here: 22.628700 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22023 | Message ID: 23 | Time Received Here: 22.633494 | End 
+Source: Wf:00:00:00:00:00 | From: Wf:00:00:00:00:00 | Message ID: /app/node0/item-22022 | Message ID: 22 | Time Received Here: 22.637147 | End 
+Source: Wf:00:00:00:00:00 | From: Wf:00:00:00:00:00 | Message ID: /app/node0/item-22023 | Message ID: 23 | Time Received Here: 22.650987 | End 
+Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: /app/node1/item-22024 | Message ID: 24 | Time Received Here: 23.162958 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22024 | Message ID: 24 | Time Received Here: 23.167598 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: /app/node3/item-22023 | Message ID: 23 | Time Received Here: 23.177017 | End 
+Source: Wf:00:00:00:00:00 | From: Wf:00:00:00:00:00 | Message ID: /app/node0/item-22024 | Message ID: 24 | Time Received Here: 23.178802 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: /app/node3/item-22024 | Message ID: 24 | Time Received Here: 23.190857 | End 
+Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: /app/node1/item-22025 | Message ID: 25 | Time Received Here: 24.262958 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22025 | Message ID: 25 | Time Received Here: 24.267598 | End 
+Source: Wf:00:00:00:00:00 | From: Wf:00:00:00:00:00 | Message ID: /app/node0/item-22025 | Message ID: 25 | Time Received Here: 24.278857 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: /app/node3/item-22025 | Message ID: 25 | Time Received Here: 25.283913 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: /app/node3/item-22026 | Message ID: 26 | Time Received Here: 25.297754 | End 
+Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: /app/node1/item-22026 | Message ID: 26 | Time Received Here: 25.363275 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22026 | Message ID: 26 | Time Received Here: 25.367915 | End 
+Source: Wf:00:00:00:00:00 | From: Wf:00:00:00:00:00 | Message ID: /app/node0/item-22026 | Message ID: 26 | Time Received Here: 25.483930 | End 
+Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: /app/node1/item-22027 | Message ID: 27 | Time Received Here: 26.448170 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22027 | Message ID: 27 | Time Received Here: 26.452810 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: /app/node3/item-22027 | Message ID: 27 | Time Received Here: 27.433976 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:03 | Message ID: /app/node3/item-22028 | Message ID: 28 | Time Received Here: 27.447816 | End 

@@ -1,14 +1,14 @@
 version 2
-run D-0-20191021-22:42:20-12739
+run D-0-20191028-03:08:44-13630
 attr configname D
-attr datetime 20191021-22:42:20
+attr datetime 20191028-03:08:44
 attr experiment D
 attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 12739
+attr processid 13630
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -84,25 +84,25 @@ param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.is3D false
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 8617
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 15257
-scalar NetworkTormV2.node[1].routing numEventsHandled 8535
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 15046
-scalar NetworkTormV2.node[2].routing numEventsHandled 9984
-scalar NetworkTormV2.node[2].neighboring numEventsHandled 18689
-scalar NetworkTormV2.node[3].routing numEventsHandled 8536
-scalar NetworkTormV2.node[3].neighboring numEventsHandled 15012
-scalar NetworkTormV2.node[4].routing numEventsHandled 8543
-scalar NetworkTormV2.node[4].neighboring numEventsHandled 15007
+scalar NetworkTormV2.node[0].routing numEventsHandled 8738
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 15308
+scalar NetworkTormV2.node[1].routing numEventsHandled 8619
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 15015
+scalar NetworkTormV2.node[2].routing numEventsHandled 10081
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 18673
+scalar NetworkTormV2.node[3].routing numEventsHandled 8649
+scalar NetworkTormV2.node[3].neighboring numEventsHandled 15040
+scalar NetworkTormV2.node[4].routing numEventsHandled 8624
+scalar NetworkTormV2.node[4].neighboring numEventsHandled 14984
 scalar NetworkTormV2 neighbourhoodSize:min 1
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:max 4
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:mean 1.6
 attr source neighbourhoodSize
-scalar NetworkTormV2 totalBytesReceivedSum:max 102225
+scalar NetworkTormV2 totalBytesReceivedSum:max 103071
 attr source sum(totalBytesReceived)
-scalar NetworkTormV2 totalBytesReceivedSum:last 102225
+scalar NetworkTormV2 totalBytesReceivedSum:last 103071
 attr source sum(totalBytesReceived)
 scalar NetworkTormV2 dataReqBytesReceivedSum:max -nan
 attr source sum(dataReqBytesReceived)
@@ -112,9 +112,9 @@ scalar NetworkTormV2 sumVecBytesReceivedSum:max -nan
 attr source sum(sumVecBytesReceived)
 scalar NetworkTormV2 sumVecBytesReceivedSum:last -nan
 attr source sum(sumVecBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:max 102225
+scalar NetworkTormV2 dataBytesReceivedSum:max 103071
 attr source sum(dataBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:last 102225
+scalar NetworkTormV2 dataBytesReceivedSum:last 103071
 attr source sum(dataBytesReceived)
 scalar NetworkTormV2 deliveryRatio:max -nan
 attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)

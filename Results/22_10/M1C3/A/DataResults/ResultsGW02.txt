@@ -1,0 +1,10 @@
+RESULTS FILE 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Mon Oct 28 00:09:01 2019
+elapsed time: 6.9e-08s
+Source: /app/node0/item-22100 | Message ID: 100 | Time sentFromSrcR: 99.599060 | Time receivedFromSrcR: 101.822237 |End 
+Source: /app/node0/item-22099 | Message ID: 99 | Time sentFromSrcR: 98.499060 | Time receivedFromSrcR: 101.836077 |End 
+Source: /app/node0/item-22098 | Message ID: 98 | Time sentFromSrcR: 97.399060 | Time receivedFromSrcR: 101.849917 |End 
+Source: /app/node1/item-22098 | Message ID: 98 | Time sentFromSrcR: 101.803706 | Time receivedFromSrcR: 101.863757 |End 
+Source: /app/node1/item-22100 | Message ID: 100 | Time sentFromSrcR: 101.803706 | Time receivedFromSrcR: 101.877597 |End 
+Source: /app/node1/item-22099 | Message ID: 99 | Time sentFromSrcR: 101.803706 | Time receivedFromSrcR: 101.891437 |End 

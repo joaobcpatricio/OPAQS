@@ -63,7 +63,7 @@ public:
     void saveResultsGwChk(string ownMACAddress, string actual_gateway); //current gw
     void saveMsgReachedGW(string dataName, double time, string myAddr, int nHops); //data reached gw
     void saveGwRank(int GwId, double rankk, int oldID, double oldR);
-    void saveGwRankT(string ownMACAddress, int GwId, double rank);
+    void saveGwRankT(string ownMACAddress, int GwId, double rank, double ener);
     void saveGwRankT_time(string ownMACAddress);
     //--Storage---------------------
     //not working

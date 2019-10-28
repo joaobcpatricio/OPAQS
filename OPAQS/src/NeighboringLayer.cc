@@ -1009,10 +1009,18 @@ double NeighboringLayer::calcMyLQE(cMessage *msg){
 
     double link_stability =calculateLinkStability(msg)/100;
 
-    double rDelay=BeaconReceived->getReceivedTime().dbl()-BeaconReceived->getSentTime().dbl(); //not being use as it makes no difference
+    double rDelay=BeaconReceived->getReceivedTime().dbl()-BeaconReceived->getSentTime().dbl(); //not being used as it makes no difference for being so low
 
-
-    double Link_Quality=omega*rssi_norm+delta*link_stability;
+    // 24/10/2019
+    /*double BitRate=0, betaB=0;
+    double Age_factor=0;
+    if(rDelay>0){
+        BitRate=BeaconReceived->getRealPacketSize()/rDelay;
+        Age_factor=1-(rDelay/max_age);
+        betaB=Age_factor/1;
+    }else Age_factor=1;*/
+    //
+    double Link_Quality=(1-omega)*rssi_norm+omega*link_stability;
 
     EV<<"My Link Quality="<<Link_Quality<<" My rDelay:"<<rDelay<<" My ssi_norm"<<rssi_norm<<" my ssi:"<<SSI_ext<<" my link_stability"<<link_stability<<"at a distance:"<<calculateDistance(msg)<<"\n";
 

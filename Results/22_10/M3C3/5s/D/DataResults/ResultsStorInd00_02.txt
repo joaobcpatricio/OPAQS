@@ -1,0 +1,13 @@
+Source: /app/node2/item-22088 | Message ID: 88 | Time generated: 87.100000 | Time sentFromSrcR: 88.969847 | Time receivedFromSrcR: 88.983977 |End 
+Source: /app/node2/item-22089 | Message ID: 89 | Time generated: 88.100000 | Time sentFromSrcR: 88.969847 | Time receivedFromSrcR: 89.011657 |End 
+Source: /app/node2/item-22091 | Message ID: 91 | Time generated: 90.100000 | Time sentFromSrcR: 93.769847 | Time receivedFromSrcR: 93.894697 |End 
+Source: /app/node2/item-22092 | Message ID: 92 | Time generated: 91.100000 | Time sentFromSrcR: 93.769847 | Time receivedFromSrcR: 93.936217 |End 
+Source: /app/node2/item-22093 | Message ID: 93 | Time generated: 92.100000 | Time sentFromSrcR: 93.769847 | Time receivedFromSrcR: 93.977737 |End 
+Source: /app/node2/item-22094 | Message ID: 94 | Time generated: 93.100000 | Time sentFromSrcR: 93.769847 | Time receivedFromSrcR: 94.060777 |End 
+Source: /app/node2/item-22096 | Message ID: 96 | Time generated: 95.100000 | Time sentFromSrcR: 95.370224 | Time receivedFromSrcR: 95.647313 |End 
+Source: /app/node2/item-22090 | Message ID: 90 | Time generated: 89.100000 | Time sentFromSrcR: 97.519847 | Time receivedFromSrcR: 97.561657 |End 
+Source: /app/node2/item-22095 | Message ID: 95 | Time generated: 94.100000 | Time sentFromSrcR: 97.519847 | Time receivedFromSrcR: 97.617017 |End 
+Source: /app/node2/item-22097 | Message ID: 97 | Time generated: 96.100000 | Time sentFromSrcR: 97.519847 | Time receivedFromSrcR: 97.727737 |End 
+Source: /app/node2/item-22098 | Message ID: 98 | Time generated: 97.100000 | Time sentFromSrcR: 97.519847 | Time receivedFromSrcR: 97.741577 |End 
+Source: /app/node2/item-22099 | Message ID: 99 | Time generated: 98.100000 | Time sentFromSrcR: 98.619847 | Time receivedFromSrcR: 98.680210 |End 
+Source: /app/node2/item-22100 | Message ID: 100 | Time generated: 99.100000 | Time sentFromSrcR: 99.169847 | Time receivedFromSrcR: 99.363897 |End 

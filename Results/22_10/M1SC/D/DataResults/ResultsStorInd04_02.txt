@@ -1,0 +1,14 @@
+Source: /app/node2/item-22043 | Message ID: 43 | Time generated: 42.100000 | Time sentFromSrcR: 48.419847 | Time receivedFromSrcR: 48.503177 |End 
+Source: /app/node2/item-22048 | Message ID: 48 | Time generated: 47.100000 | Time sentFromSrcR: 48.419847 | Time receivedFromSrcR: 48.876857 |End 
+Source: /app/node2/item-22060 | Message ID: 60 | Time generated: 59.100000 | Time sentFromSrcR: 67.219847 | Time receivedFromSrcR: 67.344697 |End 
+Source: /app/node2/item-22063 | Message ID: 63 | Time generated: 62.100000 | Time sentFromSrcR: 67.219847 | Time receivedFromSrcR: 67.413897 |End 
+Source: /app/node2/item-22065 | Message ID: 65 | Time generated: 64.100000 | Time sentFromSrcR: 67.219847 | Time receivedFromSrcR: 67.469257 |End 
+Source: /app/node2/item-22066 | Message ID: 66 | Time generated: 65.100000 | Time sentFromSrcR: 67.219847 | Time receivedFromSrcR: 67.483097 |End 
+Source: /app/node2/item-22067 | Message ID: 67 | Time generated: 66.100000 | Time sentFromSrcR: 67.219847 | Time receivedFromSrcR: 67.524617 |End 
+Source: /app/node2/item-22068 | Message ID: 68 | Time generated: 67.100000 | Time sentFromSrcR: 67.219847 | Time receivedFromSrcR: 67.579977 |End 
+Source: /app/node2/item-22059 | Message ID: 59 | Time generated: 58.100000 | Time sentFromSrcR: 69.369847 | Time receivedFromSrcR: 69.397817 |End 
+Source: /app/node2/item-22064 | Message ID: 64 | Time generated: 63.100000 | Time sentFromSrcR: 69.369847 | Time receivedFromSrcR: 69.467017 |End 
+Source: /app/node2/item-22069 | Message ID: 69 | Time generated: 68.100000 | Time sentFromSrcR: 69.369847 | Time receivedFromSrcR: 69.716137 |End 
+Source: /app/node2/item-22070 | Message ID: 70 | Time generated: 69.100000 | Time sentFromSrcR: 69.369847 | Time receivedFromSrcR: 69.729977 |End 
+Source: /app/node2/item-22094 | Message ID: 94 | Time generated: 93.100000 | Time sentFromSrcR: 113.269847 | Time receivedFromSrcR: 113.380857 |End 
+Source: /app/node2/item-22096 | Message ID: 96 | Time generated: 95.100000 | Time sentFromSrcR: 113.269847 | Time receivedFromSrcR: 113.408537 |End 

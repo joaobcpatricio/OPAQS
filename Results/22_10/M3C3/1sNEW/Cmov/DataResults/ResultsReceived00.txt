@@ -1,0 +1,10 @@
+RESULTS Received DataMsg 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Mon Oct 28 02:46:28 2019
+elapsed time: 3e-08s
+Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: /app/node1/item-22099 | Message ID: 99 | Time Received Here: 99.033731 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22099 | Message ID: 99 | Time Received Here: 99.533969 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:04 | Message ID: /app/node3/item-22099 | Message ID: 99 | Time Received Here: 100.083969 | End 
+Source: Wf:00:00:00:00:04 | From: Wf:00:00:00:00:04 | Message ID: /app/node4/item-22100 | Message ID: 100 | Time Received Here: 100.097809 | End 
+Source: Wf:00:00:00:00:01 | From: Wf:00:00:00:00:01 | Message ID: /app/node1/item-22100 | Message ID: 100 | Time Received Here: 100.133731 | End 
+Source: Wf:00:00:00:00:03 | From: Wf:00:00:00:00:04 | Message ID: /app/node3/item-22100 | Message ID: 100 | Time Received Here: 106.583969 | End 

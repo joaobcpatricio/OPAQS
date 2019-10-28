@@ -1,0 +1,4 @@
+Generated Data 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Mon Oct 28 02:46:28 2019
+elapsed time: 5.1e-08s

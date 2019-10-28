@@ -1,0 +1,50 @@
+RESULTS FILE 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Tue Oct 22 22:55:03 2019
+elapsed time: 5.3e-08s
+Source: Wf:00:00:00:00:02 | Message ID: 73 | Time SentFromSrc: 74.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 74 | Time SentFromSrc: 74.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 75 | Time SentFromSrc: 74.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 73 | Time SentFromSrc: 80.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 74 | Time SentFromSrc: 80.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 76 | Time SentFromSrc: 80.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 77 | Time SentFromSrc: 80.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 78 | Time SentFromSrc: 80.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 79 | Time SentFromSrc: 80.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 80 | Time SentFromSrc: 80.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 81 | Time SentFromSrc: 80.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 73 | Time SentFromSrc: 81.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 74 | Time SentFromSrc: 81.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 76 | Time SentFromSrc: 81.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 78 | Time SentFromSrc: 81.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 79 | Time SentFromSrc: 81.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 80 | Time SentFromSrc: 81.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 82 | Time SentFromSrc: 81.469847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 73 | Time SentFromSrc: 83.169847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 74 | Time SentFromSrc: 83.169847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 78 | Time SentFromSrc: 83.169847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 83 | Time SentFromSrc: 83.169847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 84 | Time SentFromSrc: 83.169847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 73 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 74 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 78 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 83 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 84 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 85 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 86 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 87 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 88 | Time SentFromSrc: 87.219847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 85 | Time SentFromSrc: 89.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 86 | Time SentFromSrc: 89.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 87 | Time SentFromSrc: 89.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 89 | Time SentFromSrc: 89.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 90 | Time SentFromSrc: 89.919847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 98 | Time SentFromSrc: 98.369847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 99 | Time SentFromSrc: 98.369847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 98 | Time SentFromSrc: 101.869847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 100 | Time SentFromSrc: 101.869847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 98 | Time SentFromSrc: 104.019847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 100 | Time SentFromSrc: 104.019847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 100 | Time SentFromSrc: 105.619847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 100 | Time SentFromSrc: 106.169847 |End 
+Source: Wf:00:00:00:00:02 | Message ID: 100 | Time SentFromSrc: 106.719847 |End 

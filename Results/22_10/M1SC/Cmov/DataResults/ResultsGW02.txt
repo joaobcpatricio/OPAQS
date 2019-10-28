@@ -1,0 +1,28 @@
+RESULTS FILE 
+Author: João Patrício (castanheirapatricio@ua.pt)
+Started simulation at Sun Oct 27 23:34:46 2019
+elapsed time: 3.7e-08s
+Source: /app/node2/item-22022 | Message ID: 22 | Time sentFromSrcR: 21.484330 | Time receivedFromSrcR: 22.077762 |End 
+Source: /app/node4/item-22021 | Message ID: 21 | Time sentFromSrcR: 22.068501 | Time receivedFromSrcR: 22.082402 |End 
+Source: /app/node0/item-22021 | Message ID: 21 | Time sentFromSrcR: 22.073160 | Time receivedFromSrcR: 22.093561 |End 
+Source: /app/node4/item-22022 | Message ID: 22 | Time sentFromSrcR: 22.068501 | Time receivedFromSrcR: 22.096242 |End 
+Source: /app/node0/item-22022 | Message ID: 22 | Time sentFromSrcR: 22.073160 | Time receivedFromSrcR: 22.107402 |End 
+Source: /app/node1/item-22023 | Message ID: 23 | Time sentFromSrcR: 22.613860 | Time receivedFromSrcR: 22.628700 |End 
+Source: /app/node4/item-22023 | Message ID: 23 | Time sentFromSrcR: 22.618500 | Time receivedFromSrcR: 22.633494 |End 
+Source: /app/node0/item-22022 | Message ID: 22 | Time sentFromSrcR: 22.623167 | Time receivedFromSrcR: 22.637147 |End 
+Source: /app/node0/item-22023 | Message ID: 23 | Time sentFromSrcR: 22.623167 | Time receivedFromSrcR: 22.650987 |End 
+Source: /app/node1/item-22024 | Message ID: 24 | Time sentFromSrcR: 23.149060 | Time receivedFromSrcR: 23.162958 |End 
+Source: /app/node4/item-22024 | Message ID: 24 | Time sentFromSrcR: 23.153700 | Time receivedFromSrcR: 23.167598 |End 
+Source: /app/node3/item-22023 | Message ID: 23 | Time sentFromSrcR: 23.163014 | Time receivedFromSrcR: 23.177017 |End 
+Source: /app/node0/item-22024 | Message ID: 24 | Time sentFromSrcR: 23.158374 | Time receivedFromSrcR: 23.178802 |End 
+Source: /app/node3/item-22024 | Message ID: 24 | Time sentFromSrcR: 23.163014 | Time receivedFromSrcR: 23.190857 |End 
+Source: /app/node1/item-22025 | Message ID: 25 | Time sentFromSrcR: 24.249060 | Time receivedFromSrcR: 24.262958 |End 
+Source: /app/node4/item-22025 | Message ID: 25 | Time sentFromSrcR: 24.253700 | Time receivedFromSrcR: 24.267598 |End 
+Source: /app/node0/item-22025 | Message ID: 25 | Time sentFromSrcR: 24.258392 | Time receivedFromSrcR: 24.278857 |End 
+Source: /app/node3/item-22025 | Message ID: 25 | Time sentFromSrcR: 25.269809 | Time receivedFromSrcR: 25.283913 |End 
+Source: /app/node3/item-22026 | Message ID: 26 | Time sentFromSrcR: 25.269809 | Time receivedFromSrcR: 25.297754 |End 
+Source: /app/node1/item-22026 | Message ID: 26 | Time sentFromSrcR: 25.349374 | Time receivedFromSrcR: 25.363275 |End 
+Source: /app/node4/item-22026 | Message ID: 26 | Time sentFromSrcR: 25.354014 | Time receivedFromSrcR: 25.367915 |End 
+Source: /app/node0/item-22026 | Message ID: 26 | Time sentFromSrcR: 25.469820 | Time receivedFromSrcR: 25.483930 |End 
+Source: /app/node1/item-22027 | Message ID: 27 | Time sentFromSrcR: 26.434262 | Time receivedFromSrcR: 26.448170 |End 
+Source: /app/node4/item-22027 | Message ID: 27 | Time sentFromSrcR: 26.438902 | Time receivedFromSrcR: 26.452810 |End 

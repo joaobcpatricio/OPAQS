@@ -22,6 +22,8 @@
 #include "StorageM.h"
 #include <fstream>
 
+#include"Logger.h"
+
 
 using namespace omnetpp;
 
@@ -68,6 +70,8 @@ private:
     void handleDataReqMsg(cMessage *msg);
     void handleBeaconInfo(cMessage *msg);
 
+    Logger Log;
+
     //Cache
     StorageM Stor;
     bool msgIDexists(string messageID);
@@ -79,6 +83,8 @@ private:
     simsignal_t sumVecBytesReceivedSignal;
     simsignal_t dataReqBytesReceivedSignal;
     simsignal_t totalBytesReceivedSignal;
+
+
 
 };
 

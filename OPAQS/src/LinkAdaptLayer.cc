@@ -156,7 +156,7 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
                 //EV<<"BT-DataReqMsg received\n";
                 send(msg, "neighLayerOut");//"upperLayerOut");
             } else if (strstr(gateName, "lowerLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
-                //EV<<"wifi-DataReqMsg received\n";
+                EV<<"wifi-DataReqMsg received\n";
                 send(msg, "neighLayerOut");//"upperLayerOut");
             //ADDED 23/07/19 18h41
             } else if (strstr(gateName, "upperLayerIn") != NULL && dynamic_cast<DataReqMsg*>(msg) != NULL) {
@@ -169,7 +169,7 @@ void LinkAdaptLayer::handleMessage(cMessage *msg)
                     //EV<<"BT DataReqMsg sent \n";
                     send(msg, "BTlowerLayerOut");
                 }else{
-                    //EV<<"Wifi DataReqMsg sent\n";
+                    EV<<"Wifi DataReqMsg sent\n";
                     send(msg, "lowerLayerOut");
                 }
 
