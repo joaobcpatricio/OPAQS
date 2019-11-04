@@ -1,45 +1,4 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Mon Oct 14 22:37:37 2019
-elapsed time: 2e-08s
-Source: Wf:00:00:00:00:09 | Message ID: 8 | Time SentFromSrc: 7.419643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 9 | Time SentFromSrc: 8.519643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 10 | Time SentFromSrc: 9.619643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 11 | Time SentFromSrc: 10.719643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 12 | Time SentFromSrc: 11.269643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 12 | Time SentFromSrc: 11.819643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 13 | Time SentFromSrc: 12.369643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 14 | Time SentFromSrc: 13.469643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 14 | Time SentFromSrc: 14.019643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 15 | Time SentFromSrc: 14.569643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 16 | Time SentFromSrc: 15.119643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 17 | Time SentFromSrc: 16.219643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 18 | Time SentFromSrc: 17.319643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 19 | Time SentFromSrc: 18.419643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 19 | Time SentFromSrc: 18.969643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 20 | Time SentFromSrc: 19.519643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 21 | Time SentFromSrc: 20.619643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 22 | Time SentFromSrc: 21.169643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 23 | Time SentFromSrc: 22.269643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 24 | Time SentFromSrc: 24.969643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 25 | Time SentFromSrc: 24.969643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 26 | Time SentFromSrc: 25.519643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 73 | Time SentFromSrc: 72.269516 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 73 | Time SentFromSrc: 73.919677 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 74 | Time SentFromSrc: 73.919677 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 75 | Time SentFromSrc: 77.419643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 76 | Time SentFromSrc: 77.419643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 77 | Time SentFromSrc: 77.419643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 78 | Time SentFromSrc: 77.419643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 79 | Time SentFromSrc: 80.334358 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 80 | Time SentFromSrc: 80.334358 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 75 | Time SentFromSrc: 80.334358 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 81 | Time SentFromSrc: 80.334358 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 82 | Time SentFromSrc: 81.984358 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 83 | Time SentFromSrc: 82.284443 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 98 | Time SentFromSrc: 107.319643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 99 | Time SentFromSrc: 107.319643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 100 | Time SentFromSrc: 107.319643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 98 | Time SentFromSrc: 111.219643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 99 | Time SentFromSrc: 111.219643 |End 
-Source: Wf:00:00:00:00:09 | Message ID: 100 | Time SentFromSrc: 111.219643 |End 
+Started simulation at Mon Nov  4 19:20:47 2019
+elapsed time: 4.5e-08s

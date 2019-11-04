@@ -933,7 +933,9 @@ void RoutingLqeGw::updateGateway(){
 //GW CALCULATION---
 void RoutingLqeGw::checkGwStatus(){
     EV<<"checkGwStatus \n";
+//adicionar metrica que verifica se ha shrtpth to gw
 
+    int myID=graphR.add_element(ownMACAddress);
 
 /*    if(!no_act_gw){
         oldGwID=graphR.add_element(actual_gateway);
@@ -969,6 +971,7 @@ void RoutingLqeGw::checkGwStatus(){
             actual_gateway=ownMACAddress;
             no_act_gw=false;
             //checkStoredMsgs();
+            Log.saveGwRank(myID, 100, -1, 0, myID);
         }
         cMessage *checkGW = new cMessage("Send Check Gw Event");
         //EV<<"Checking GW status \n";
@@ -1252,7 +1255,7 @@ void RoutingLqeGw::checkGwStatus(){
                 count_newElect_Gw=0;
             }
             EV<<"count is:"<<count_newElect_Gw<<"\n";
-           if(count_newElect_Gw>1){
+           if(count_newElect_Gw>control_count){
                 oldR=gwMat[IDadd][0];
                 newR=gwMat[bestGwId][0];
                 EV<<"oldR:"<<oldR<<" newR"<<newR<<"\n";
@@ -1268,7 +1271,7 @@ void RoutingLqeGw::checkGwStatus(){
                     EV<<"Updated Gw \n";
                     actual_gateway=addDf;
                     no_act_gw=false;
-                    Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, oldR);
+                    Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, oldR, myID);
                     EV<<"Saved log"<<bestGwId<<"\n";
                     old_rank=gwMat[bestGwId][0];
                 }
@@ -1285,7 +1288,7 @@ void RoutingLqeGw::checkGwStatus(){
                 //EV<<"Checking GW status- no gw chosen \n";
                 //EV<<"Temp gw id:"<<temp_gw<<"\n";
                 checkGW->setKind(CHECKGW_EVENT_CODE);
-                scheduleAt(simTime() + 1, checkGW); //Bastante tempo para verificar se nao é um no de passagem a efetuar alteraçao da gw
+                scheduleAt(simTime() + control_timeP, checkGW); //Bastante tempo para verificar se nao é um no de passagem a efetuar alteraçao da gw
                 EV<<"Set check in 1s \n";
             }
 
@@ -1315,6 +1318,9 @@ void RoutingLqeGw::checkGwStatus(){
                 EV<<"Actual gw temp:"<<actual_gateway_temp<<"\n";
                 actual_gateway=addF;//"Wf:00:00:00:00:02";
                 no_act_gw=false;
+
+
+                Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, 0, myID);
               }
               temp_gw=bestGwId;
               // setup next event to confirm no check gw

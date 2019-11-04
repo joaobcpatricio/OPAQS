@@ -1,15 +1,15 @@
-file 527842 1572230824                                          
+file 526237 1572883641                                          
 version 2
-run Cmov-0-20191028-02:46:28-9172
+run Cmov-0-20191104-16:06:56-2119
 attr configname Cmov
-attr datetime 20191028-02:46:28
+attr datetime 20191104-16:06:56
 attr experiment Cmov
 attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 9172
+attr processid 2119
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -93,9 +93,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3502 463265 16 270932 0.05 189.95 28490 0 4 76460 248690
-1	466767 9100 61 152227 0.1 99.1 500 -nan -nan -nan -nan
-2	475867 13012 11253 162373 6.677783464513 106.58396899642 433 141 61053 13248501 539863167249
-3	488879 13012 11253 162373 6.677783464513 106.58396899642 433 141 61053 13248501 539863167249
-0	501891 25950 270970 284213 190 200 1510 0 3 3624 10872
+0	3502 489250 16 283049 0.05 200 30000 0 4 80084 259562
+1	492752 9100 61 151931 0.1 99.1 500 -nan -nan -nan -nan
+2	501852 12192 11253 161938 6.677783464513 106.53396899642 409 141 57669 11822145 455069827485
+3	514044 12192 11253 161938 6.677783464513 106.53396899642 409 141 57669 11822145 455069827485
 

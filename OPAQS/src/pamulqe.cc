@@ -1100,7 +1100,7 @@ if(is){
             }else if(bestGwId>=10){
                 addDf.append(std::to_string(bestGwId));
             }
-            Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, gwMat[IDadd][0]);
+            //Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, gwMat[IDadd][0]);
             EV<<"Updated Gw \n";
                                actual_gateway=addDf;
                                no_act_gw=false;

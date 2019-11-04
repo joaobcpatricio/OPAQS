@@ -401,7 +401,7 @@ void Logger::saveMsgReachedGW(string dataName, double time, string myAddr, int n
 
 }
 //save rank gw
-void Logger::saveGwRank(int GwId, double rankk, int oldID, double oldR){
+void Logger::saveGwRank(int GwId, double rankk, int oldID, double oldR, int myID){
     //save rank and id
     string nameF="/home/mob/Tese/Boat/OPAQS/simulations/DanT/Logs/GW/Gws/GwRank";
     nameF.append(".txt");
@@ -410,6 +410,7 @@ void Logger::saveGwRank(int GwId, double rankk, int oldID, double oldR){
     std::string savi = std::to_string(GwId);
     std::string savir = std::to_string(rankk);
     std::string savoi = std::to_string(oldID);
+    std::string meID = std::to_string(myID);
         std::string savoir = std::to_string(oldR);
     savi.append("->");
     savi.append(savir);
@@ -417,6 +418,8 @@ void Logger::saveGwRank(int GwId, double rankk, int oldID, double oldR){
     savi.append(savoi);
     savi.append("->");
     savi.append(savoir);
+    savi.append(" by ");
+    savi.append(meID);
     savi.append(" => ");
     out<<savi;
     std::string timeMsgr = std::to_string(simTime().dbl());//getInjectedTime().dbl());

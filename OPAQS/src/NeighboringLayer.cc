@@ -833,8 +833,8 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     string srcAdd=BeaconReceived->getSourceAddress();
     string graphS=BeaconReceived->getNeighGraph();
     string myAdd=ownMACAddress;
-    EV<<"My g bef updt"<<graphe.returnGraphT()<<"\n";
-    EV<<"Graph Recebido do: "<<srcAdd<<" é "<<graphS<<" de comprimento:"<<graphS.length()<<"\n";
+    //EV<<"My g bef updt"<<graphe.returnGraphT()<<"\n";
+    //EV<<"Graph Recebido do: "<<srcAdd<<" é "<<graphS<<" de comprimento:"<<graphS.length()<<"\n";
     int srcID=graphe.add_element(srcAdd);
     int myID=graphe.add_element(myAdd);
     int weight =2;
@@ -842,7 +842,7 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     int array[maxLengthGraph][maxLengthGraph];
     for(int p1=0;p1<maxLengthGraph;p1++){
         for(int p2=0;p2<maxLengthGraph;p2++){
-            array[p1][p2]=-1;
+            array[p1][p2]=0;//-1;
         }
     }
 
@@ -885,21 +885,26 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     }
 
     bool im_in_path=false;
+    int o=0;
     //Adding the received graph to mine
     for(int s=0;s<maxLengthGraph;s++){//graphe.returnMaxNoVert();s++){
-        for(int o=0;o<maxLengthGraph;o++){//graphe.returnMaxNoVert();o++){
+        o=s;
+        for(o;o<maxLengthGraph;o++){//graphe.returnMaxNoVert();o++){
             //see if i'm not in path
-            string spath=graphe.returnShortestPath(s, o);
-            EV<<"ShrtP s o:"<<spath<< "with length "<<spath.length()<<"\n";
+            string spath=graphe.returnShortestPath(srcID, o);
+            //EV<<"ShrtP s o:"<<spath<< "with length "<<spath.length()<<"\n";
             if(spath!=""){
                 int posi=0;
                 for(int st=0; st<spath.length();st++){
                     //EV<<"st:"<<spath[1]<<"\n";
                     posi= spath.find(">",st);
-                    EV<<"p1:"<<posi<<"\n";
+                    //EV<<"p1:"<<posi<<"\n";
                     int vID = std::stoi (spath.substr(st,posi-1-st));
-                    EV<<"Me:"<<myID<<"him"<<vID<<"\n";
-                    if(vID==myID){ EV<<"FU \n";im_in_path=true; }
+                    //EV<<"Me:"<<myID<<"him"<<vID<<"\n";
+                    if(vID==myID){
+                       // EV<<"in path \n";
+                        im_in_path=true;
+                    }else{im_in_path=false;}
                     //int p2 = graphS.find("-",p1);*/
                     st=posi;
                 }
@@ -908,13 +913,34 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
 
 
             //if it's not my position, if the array has value, if the info is not about a direct neigh  of mine, or it is but also of src
-            if((s!=myID && o!=myID)&& array[s][o]>=0){// && !im_in_path){//graphe.returnWGrapfT(myID, s)==0 && graphe.returnWGrapfT(myID, o)==0){//||graphe.returnWGrapfT(srcID, s)>0)){
-                graphe.add_edge(s,o,array[s][o]);
-                EV<<"Added: "<<array[s][o]<<"at"<<s<<o<<" from"<<srcID<<"\n";
+            if((s!=myID && o!=myID)){//}&& array[s][o]>=0){
+
+   // EV<<"ups"<<s<<";"<<o<<"mys"<<array[s][myID]<<"by me"<<graphe.returnWGrapfT(s,myID)<<"myo"<<array[myID][o]<<"by me"<<graphe.returnWGrapfT(o,myID)<< "w:"<<array[s][o]<<"from"<<srcID<<"\n";
+                //if((graphe.returnWGrapfT(myID, s)<=0 && o==srcID)||(graphe.returnWGrapfT(myID,o)<=0 && s==srcID)){// && !im_in_path){////||graphe.returnWGrapfT(srcID, s)>0)){
+                if((!im_in_path) && (o==srcID || s==srcID)){ //|| array[s][o]>0
+                    //nao estou no shortpth e é sobre alguém vizinho direto do src
+                    graphe.add_edge(s,o,array[s][o]);
+                   // EV<<"Added: "<<array[s][o]<<"at"<<s<<o<<" from"<<srcID<<"\n";
+            /*  }else if(graphe.returnWGrapfT(myID, s)<=0 && graphe.returnWGrapfT(myID, o)<=0 && s!=srcID && o!=srcID ){
+                    graphe.add_edge(s,o,array[s][o]);
+                    EV<<"Added at hop w info "<<s<<o<<"\n";*/
+                }else if((!im_in_path) && s!=srcID && o!=srcID && array[s][o]>0 && graphe.returnWGrapfT(myID, s)<=0 && graphe.returnWGrapfT(myID, o)<=0){
+                    //if im not in shrtpth and they're not src
+                    graphe.add_edge(s,o,array[s][o]);
+                    //if(s==0 && o==3){
+                   // EV<<"Added at hop w info "<<s<<o<<" w "<<array[s][o]<<"\n";
+                    //}
+                }else if((!im_in_path || array[s][o]>0) && s!=srcID && o!=srcID && graphe.returnWGrapfT(myID, s)<=0 && graphe.returnWGrapfT(myID, o)<=0){//array[myID][o]<=0 && array[myID][s]<=0){
+                    //if i'm not in path or they're direct neighs, if they're not src or my direct neigh, add any value
+                    graphe.add_edge(s,o,array[s][o]);
+                    //if(s==3 && o==0){
+                    //EV<<"Added at hop w info2 "<<s<<o<<" w "<<array[s][o]<<"\n";
+                    //}
+                }
             }
             if(((s==myID && o==srcID)||(s==srcID && o==myID))&& array[s][o]>=0){
                 graphe.add_edge(s,o,array[s][o]);
-                //EV<<"Added2: "<<array[s][o]<<"at"<<s<<o<<" from"<<srcID<<"\n";
+               // EV<<"Added2: "<<array[s][o]<<"at"<<s<<o<<" from"<<srcID<<"\n";
             }
         }
     }
@@ -930,10 +956,10 @@ bool NeighboringLayer::updateGraph(cMessage *msg){ //String:" 1->2:4;\n2->1:4;\n
     //My Weight:
     double myCalcWeight=(1-calcMyLQE(msg))*100;
     int myCalcWeight_Int = static_cast<int>(myCalcWeight < 0 ? myCalcWeight - 0.5 : myCalcWeight + 0.5);
-    EV<<"MyCalcWeight="<<myCalcWeight<<" MyCalcWeight_Int"<<myCalcWeight_Int<<"\n";
+    //EV<<"MyCalcWeight="<<myCalcWeight<<" MyCalcWeight_Int"<<myCalcWeight_Int<<"\n";
     graphe.add_edge(myID, srcID, myCalcWeight_Int);
 
-    EV<<"My g aft updt"<<graphe.returnGraphT()<<"\n";
+    //EV<<"My"<<myID<<" g aft updt"<<graphe.returnGraphT()<<"\n";
     return true;
 }
 
@@ -1002,6 +1028,7 @@ double NeighboringLayer::calculateLinkStability(cMessage *msg){
 
 }
 
+//CALCULATE LQE
 double NeighboringLayer::calcMyLQE(cMessage *msg){
     BeaconMsg *BeaconReceived = dynamic_cast<BeaconMsg*>(msg);
     double SSI_ext = calculateSSI(msg);

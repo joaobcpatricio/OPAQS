@@ -37,6 +37,9 @@
 #define teta 0  //constant to control use of LQE in rank
 #define dist_to_gw 500  //Distance to gw
 
+#define control_count 2//3 //number of times it should repeat
+#define control_timeP 2//5 //time to schedule event if it should repeat
+
 
 using namespace omnetpp;
 
@@ -151,6 +154,8 @@ private:
     double bestGwRank=0;
     double oldGwRank=0;
     int oldGwID=0;
+
+
 
 
 

@@ -1,22 +1,22 @@
-file 418723 1572231927                                          
+file 1191505 1572892717                                         
 version 2
-run A-0-20191028-03:04:46-12075
+run A-0-20191104-18:36:20-13881
 attr configname A
-attr datetime 20191028-03:04:46
+attr datetime 20191104-18:36:20
 attr experiment A
-attr inifile GwSimV1.ini
+attr inifile GwSimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 12075
+attr processid 13881
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"AllPaths/sPaths/A.movements\""
-param **.numNodes 4
+param **.mobility.traceFile "\"AllPaths/mobPaths/A.movements\""
+param **.numNodes 11
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
@@ -93,9 +93,13 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3492 369324 13 262479 0.05 189.95 22792 3 3 68376 205128
-1	372816 7232 49 140186 0.1 99.1 400 -nan -nan -nan -nan
-2	380048 8957 7985 140971 6.122299886012 99.622280751662 306 141 43146 6622911 190812688821
-3	389005 8957 7985 140971 6.122299886012 99.622280751662 306 141 43146 6622911 190812688821
-0	397962 20760 262515 275930 190 200 1208 3 3 3624 10872
+0	3495 49984 34 39303 0.05 10.85 3575 1 8 13650 65650
+1	53479 2024 133 36639 0.1 10.1 121 -nan -nan -nan -nan
+2	55503 2005 22931 39148 6.583626728067 10.77236899642 72 141 10152 370548 2525284620
+3	57508 2005 22931 39148 6.583626728067 10.77236899642 72 141 10152 370548 2525284620
+0	59513 528928 39409 414170 10.9 110.15 32768 1 8 125117 601757
+0	588441 510088 414171 726795 110.15 200 29657 1 8 113233 544593
+1	1098529 18425 40316 374468 11.1 99.1 979 -nan -nan -nan -nan
+2	1116954 37275 40681 396945 11.183626728067 105.199086529761 1201 10293 179493 113966493 13684647556449
+3	1154229 37275 40681 396945 11.183626728067 105.199086529761 1201 10293 179493 113966493 13684647556449
 
