@@ -1,8 +1,4 @@
 RESULTS Received DataMsg 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Mon Nov  4 19:20:47 2019
-elapsed time: 3.4e-08s
-Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22031 | Message ID: 31 | Time Received Here: 33.483627 | End 
-Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22032 | Message ID: 32 | Time Received Here: 33.497467 | End 
-Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22033 | Message ID: 33 | Time Received Here: 33.511307 | End 
-Source: Wf:00:00:00:00:07 | From: Wf:00:00:00:00:07 | Message ID: /app/node7/item-22034 | Message ID: 34 | Time Received Here: 33.525147 | End 
+Started simulation at Tue Nov  5 15:10:43 2019
+elapsed time: 2.8e-08s

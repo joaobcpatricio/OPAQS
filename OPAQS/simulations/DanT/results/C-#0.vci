@@ -1,22 +1,22 @@
-file 528917 1572222633                                          
+file 1186050 1572966749                                         
 version 2
-run C-0-20191028-00:29:07-22638
+run C-0-20191105-15:10:43-10132
 attr configname C
-attr datetime 20191028-00:29:07
+attr datetime 20191105-15:10:43
 attr experiment C
-attr inifile GwSimV1.ini
+attr inifile GwSimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 22638
+attr processid 10132
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"AllPaths/sPaths/C.movements\""
-param **.numNodes 5
+param **.mobility.traceFile "\"AllPaths/mobPaths/C.movements\""
+param **.numNodes 11
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
@@ -93,9 +93,10 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3492 464335 16 338135 0.05 189.95 28490 4 4 113960 455840
-1	467827 9135 61 181318 0.1 99.1 500 -nan -nan -nan -nan
-2	476962 13002 10260 182354 6.132512534095 99.641703464513 436 141 61476 13432506 551149153686
-3	489964 13002 10260 182354 6.132512534095 99.641703464513 436 141 61476 13432506 551149153686
-0	502966 25950 338176 355365 190 200 1510 4 4 6040 24160
+0	3495 517790 34 373093 0.05 99.3 32768 1 8 120445 559965
+0	521285 563413 373094 726776 99.3 198.6 32768 1 8 131068 667232
+0	1084698 7954 726777 732043 198.6 200 464 1 8 1857 9473
+1	1092652 20449 133 372305 0.1 99.1 1100 -nan -nan -nan -nan
+2	1113101 36474 38986 395314 11.03342031478 105.48396899642 1183 141 166803 98747376 10985546832624
+3	1149575 36474 38986 395314 11.03342031478 105.48396899642 1183 141 166803 98747376 10985546832624
 

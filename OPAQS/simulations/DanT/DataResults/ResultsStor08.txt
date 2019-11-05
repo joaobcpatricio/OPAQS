@@ -1,7 +1,7 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Mon Nov  4 19:20:47 2019
-elapsed time: 5.3e-08s
+Started simulation at Tue Nov  5 15:10:43 2019
+elapsed time: 3.4e-08s
 Source: /app/node8/item-22001 | Message ID: 1 | Time generated: 0.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
 Source: /app/node8/item-22002 | Message ID: 2 | Time generated: 1.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
 Source: /app/node8/item-22003 | Message ID: 3 | Time generated: 2.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
@@ -36,10 +36,6 @@ Source: /app/node8/item-22031 | Message ID: 31 | Time generated: 30.100000 | Tim
 Source: /app/node8/item-22032 | Message ID: 32 | Time generated: 31.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
 Source: /app/node8/item-22033 | Message ID: 33 | Time generated: 32.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
 Source: /app/node8/item-22034 | Message ID: 34 | Time generated: 33.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
-Source: /app/node7/item-22031 | Message ID: 31 | Time generated: 30.100000 | Time sentFromSrcR: 33.469643 | Time receivedFromSrcR: 33.483627 |End 
-Source: /app/node7/item-22032 | Message ID: 32 | Time generated: 31.100000 | Time sentFromSrcR: 33.469643 | Time receivedFromSrcR: 33.497467 |End 
-Source: /app/node7/item-22033 | Message ID: 33 | Time generated: 32.100000 | Time sentFromSrcR: 33.469643 | Time receivedFromSrcR: 33.511307 |End 
-Source: /app/node7/item-22034 | Message ID: 34 | Time generated: 33.100000 | Time sentFromSrcR: 33.469643 | Time receivedFromSrcR: 33.525147 |End 
 Source: /app/node8/item-22035 | Message ID: 35 | Time generated: 34.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
 Source: /app/node8/item-22036 | Message ID: 36 | Time generated: 35.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 
 Source: /app/node8/item-22037 | Message ID: 37 | Time generated: 36.100000 | Time sentFromSrcR: 0.000000 | Time receivedFromSrcR: 0.000000 |End 

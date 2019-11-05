@@ -68,6 +68,8 @@ public:
     void cleanGraph();                                      //Cleans Graph
     int returnVvalue();
 
+    int numGElem(); //returns number of elements in graph
+
 };
 
 

@@ -1,17 +1,4 @@
 RESULTS Received DataMsg 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Mon Nov  4 19:20:47 2019
-elapsed time: 3.6e-08s
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22089 | Message ID: 89 | Time Received Here: 88.397467 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22088 | Message ID: 88 | Time Received Here: 88.933627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22090 | Message ID: 90 | Time Received Here: 89.483627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22091 | Message ID: 91 | Time Received Here: 90.583627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22092 | Message ID: 92 | Time Received Here: 91.133627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22093 | Message ID: 93 | Time Received Here: 92.278784 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22094 | Message ID: 94 | Time Received Here: 93.333627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22095 | Message ID: 95 | Time Received Here: 94.433627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22096 | Message ID: 96 | Time Received Here: 95.533627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22097 | Message ID: 97 | Time Received Here: 97.983627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22098 | Message ID: 98 | Time Received Here: 97.997467 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22099 | Message ID: 99 | Time Received Here: 100.683627 | End 
-Source: Wf:00:00:00:00:06 | From: Wf:00:00:00:00:06 | Message ID: /app/node6/item-22100 | Message ID: 100 | Time Received Here: 100.697467 | End 
+Started simulation at Tue Nov  5 15:10:43 2019
+elapsed time: 2.6e-08s

@@ -127,6 +127,27 @@ string GraphT::returnGraphT(){
     return graphS;
 }
 
+//Count num of nodes in the graph
+int GraphT::numGElem(){
+    int nElem=0;
+    int k=0,l=0;
+    bool found=false;
+
+    for(k = 0; k < V; k++) {
+        found=false;
+        for(l = 0; l < V; l++){
+            if(graph[k][l]!=0 && !found){
+                nElem++;
+                found=true;
+            }
+        }
+    }
+    //EV<<"Graph: \n"<<graphS<<"\n";
+    return nElem;
+}
+
+
+
 //Returns the Weight on a position of the graph
 int GraphT::returnWGrapfT(int u, int v){
     return graph[u][v];

@@ -937,29 +937,14 @@ void RoutingLqeGw::checkGwStatus(){
 
     int myID=graphR.add_element(ownMACAddress);
 
-/*    if(!no_act_gw){
-        oldGwID=graphR.add_element(actual_gateway);
-        //check if there's path to gw
-        if(graphR.returnShortestPath(graphR.add_element(ownMACAddress), oldGwID)==""){
-            EV<<"No path to gw \n";
-            oldGwRank=0;
-            oldGwID=-1;
-        /*}else{
-            oldGwRank=bestGwRank;
-        *//*}
-    }
+//verify if there ar changes in the neighborhood -> force new gw election
+    //string ll=graphR.returnGraphT();
+   // EV<<"Size of graph length:"<<ll.length()<<"\n";//<<ll<<"\n";
+   // actual_graph_length=ll.length();
 
-*/
-
-
-    //calculate Gw rank
-/*    int nVert=graphR.returnVvalue();
-    //EV<<"Já contei:"<<nVert<<"\n";
-    double gwMat[nVert][2];
-    for(int g=0;g<nVert;g++){
-        gwMat[g][0]=-1;
-        gwMat[g][1]=-1;
-    }*/
+//count no users in graph
+    EV<<"Num elem:"<<graphR.numGElem()<<"\n";
+    actual_graph_length=graphR.numGElem();
 
 
     /**Check if I have no neighbor. If so, check again 5 times with a period of gwCheckPeriod (5s) before electing myself GW*********/
@@ -979,9 +964,20 @@ void RoutingLqeGw::checkGwStatus(){
         scheduleAt(simTime() + gwCheckPeriod, checkGW);
         EV<<"Set check in 5s 1st\n";
 
-
+    //}else if(actual_graph_length!=prev_graph_length){
+        //no_act_gw=true;
 
     }else{//if it has direct neigh then
+
+        if(actual_graph_length!=prev_graph_length){
+            EV<<"No act gw true \n";
+                no_act_gw=true;
+        }
+
+
+
+
+
 
         //int bestGwId=0;
         /*Calculate the best GW to be elected*****************/
@@ -1117,7 +1113,7 @@ void RoutingLqeGw::checkGwStatus(){
             Log.saveGwRankT_time(ownMACAddress);
 
             //Methods that chose GW to be elected from the node's rank
-            //--METHOD 2 ----------------------------------
+
 
             //compare by the rank -- RANK ALGORITHM ON CENTRALITY AND ENERGY - best rank value----------
 
@@ -1146,6 +1142,7 @@ void RoutingLqeGw::checkGwStatus(){
 
 
 /*END METHOD3********************************************************************************/
+
     //EV<<"Chosen GW is "<<bestGwId<<" with "<<nN<<"neighs \n";
     int IDadd;
     if(actual_gateway!=""){
@@ -1254,7 +1251,7 @@ void RoutingLqeGw::checkGwStatus(){
                 EV<<"count 0 \n";
                 count_newElect_Gw=0;
             }
-            EV<<"count is:"<<count_newElect_Gw<<"\n";
+            EV<<"count is:"<<count_newElect_Gw<<" and control"<<control_count<<"\n";
            if(count_newElect_Gw>control_count){
                 oldR=gwMat[IDadd][0];
                 newR=gwMat[bestGwId][0];
@@ -1305,7 +1302,7 @@ void RoutingLqeGw::checkGwStatus(){
               }else{
                 count_newGw_check=0;
               }
-              if(count_newGw_check>2){
+              if(count_newGw_check>control_count_noPrev){
                 count_newGw_check=0;
                 string addF="Wf:00:00:00:00:";
                 if(bestGwId<10){
@@ -1328,7 +1325,7 @@ void RoutingLqeGw::checkGwStatus(){
               //EV<<"Checking GW status- no gw chosen \n";
               //EV<<"Temp gw id:"<<temp_gw<<"\n";
               checkGW->setKind(CHECKGW_EVENT_CODE);
-            scheduleAt(simTime() + 0.5, checkGW);
+            scheduleAt(simTime() + control_timeP_noPrev, checkGW);
             EV<<"Set check in 0.5s \n";
         }else{
 
@@ -1347,6 +1344,8 @@ void RoutingLqeGw::checkGwStatus(){
     if(actual_gateway==ownMACAddress){
         checkStoredMsgs(); //if i'm gw save msgs stored
     }
+
+    prev_graph_length=actual_graph_length;
 
 }
 

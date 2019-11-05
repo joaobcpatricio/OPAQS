@@ -39,6 +39,8 @@
 
 #define control_count 2//3 //number of times it should repeat
 #define control_timeP 2//5 //time to schedule event if it should repeat
+#define control_count_noPrev 5 //number of times it should repeat -> control when cluster changes
+#define control_timeP_noPrev 1//0.5 //time to schedule event if it should repeat -> control when cluster changes
 
 
 using namespace omnetpp;
@@ -155,6 +157,8 @@ private:
     double oldGwRank=0;
     int oldGwID=0;
 
+    int actual_graph_length=0;
+    int prev_graph_length=0;
 
 
 

@@ -1,4 +1,20 @@
 RESULTS FILE 
 Author: João Patrício (castanheirapatricio@ua.pt)
-Started simulation at Mon Nov  4 19:20:47 2019
-elapsed time: 5.6e-08s
+Started simulation at Tue Nov  5 15:10:43 2019
+elapsed time: 3e-08s
+Source: /app/node3/item-22085 | Message ID: 85 | Time sentFromSrcR: 84.669643 | Time receivedFromSrcR: 84.683627 |End 
+Source: /app/node3/item-22086 | Message ID: 86 | Time sentFromSrcR: 85.219643 | Time receivedFromSrcR: 85.233627 |End 
+Source: /app/node3/item-22087 | Message ID: 87 | Time sentFromSrcR: 86.319643 | Time receivedFromSrcR: 86.333627 |End 
+Source: /app/node3/item-22088 | Message ID: 88 | Time sentFromSrcR: 87.419643 | Time receivedFromSrcR: 87.433627 |End 
+Source: /app/node3/item-22089 | Message ID: 89 | Time sentFromSrcR: 89.069643 | Time receivedFromSrcR: 89.083627 |End 
+Source: /app/node3/item-22090 | Message ID: 90 | Time sentFromSrcR: 89.619643 | Time receivedFromSrcR: 89.633627 |End 
+Source: /app/node3/item-22091 | Message ID: 91 | Time sentFromSrcR: 90.169643 | Time receivedFromSrcR: 90.183627 |End 
+Source: /app/node3/item-22092 | Message ID: 92 | Time sentFromSrcR: 91.269643 | Time receivedFromSrcR: 91.283627 |End 
+Source: /app/node3/item-22093 | Message ID: 93 | Time sentFromSrcR: 92.369643 | Time receivedFromSrcR: 92.383627 |End 
+Source: /app/node3/item-22094 | Message ID: 94 | Time sentFromSrcR: 95.369643 | Time receivedFromSrcR: 95.383627 |End 
+Source: /app/node3/item-22095 | Message ID: 95 | Time sentFromSrcR: 95.369643 | Time receivedFromSrcR: 95.397467 |End 
+Source: /app/node3/item-22096 | Message ID: 96 | Time sentFromSrcR: 95.919643 | Time receivedFromSrcR: 95.933627 |End 
+Source: /app/node3/item-22097 | Message ID: 97 | Time sentFromSrcR: 98.069643 | Time receivedFromSrcR: 98.083627 |End 
+Source: /app/node3/item-22098 | Message ID: 98 | Time sentFromSrcR: 98.069643 | Time receivedFromSrcR: 98.097467 |End 
+Source: /app/node3/item-22099 | Message ID: 99 | Time sentFromSrcR: 99.169643 | Time receivedFromSrcR: 99.183627 |End 
+Source: /app/node3/item-22100 | Message ID: 100 | Time sentFromSrcR: 99.169643 | Time receivedFromSrcR: 99.197467 |End 
