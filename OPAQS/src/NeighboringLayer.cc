@@ -1213,7 +1213,7 @@ void NeighboringLayer::calcEnerg(double size_bits, bool from_gw, double distance
     Ener[idMy]=my_enerS;//update table my value;
     */
 
-    int MyBatRound=round(MyBat);
+    int MyBatRound=floor(MyBat);//round(MyBat);
     Ener[idMy]=MyBatRound;//update table my value;
 
 }

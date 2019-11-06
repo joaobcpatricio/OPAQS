@@ -30,7 +30,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 88.219842 |End 
+ | Time is : 46.219643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -63,7 +63,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 88.219842 |End 
+ | Time is : 46.219643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -96,7 +96,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 88.369643 |End 
+ | Time is : 47.319643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -129,7 +129,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 88.369643 |End 
+ | Time is : 48.969643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -162,7 +162,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 88.769842 |End 
+ | Time is : 49.269842 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -195,7 +195,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 88.919643 |End 
+ | Time is : 49.519643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -228,7 +228,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 89.469643 |End 
+ | Time is : 50.619643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -261,7 +261,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 90.569643 |End 
+ | Time is : 50.874330 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -294,7 +294,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 91.119643 |End 
+ | Time is : 51.169643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -327,7 +327,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 92.257571 |End 
+ | Time is : 51.169643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -360,7 +360,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 92.269842 |End 
+ | Time is : 52.269643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -393,7 +393,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 93.319643 |End 
+ | Time is : 52.819643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -426,7 +426,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 94.419643 |End 
+ | Time is : 53.369643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -459,7 +459,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 95.519643 |End 
+ | Time is : 54.469643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -492,7 +492,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 96.569842 |End 
+ | Time is : 55.569643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -525,7 +525,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 97.119842 |End 
+ | Time is : 56.119643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -558,7 +558,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 97.119842 |End 
+ | Time is : 57.219643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -591,7 +591,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 97.669842 |End 
+ | Time is : 58.319643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -624,7 +624,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 97.669842 |End 
+ | Time is : 59.919643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -657,7 +657,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 97.969643 |End 
+ | Time is : 60.469643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -690,7 +690,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 97.969643 |End 
+ | Time is : 61.569643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -723,7 +723,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 99.269842 |End 
+ | Time is : 62.119643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -756,7 +756,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 99.269842 |End 
+ | Time is : 63.219643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -789,7 +789,7 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 100.669643 |End 
+ | Time is : 64.319643 |End 
 ShortPath: 
 6->7->5-> | Graph: 
 0->1:39;
@@ -822,4 +822,4 @@ ShortPath:
 8->4:51;
 8->5:39;
 8->7:39;
- | Time is : 100.669643 |End 
+ | Time is : 65.419643 |End 

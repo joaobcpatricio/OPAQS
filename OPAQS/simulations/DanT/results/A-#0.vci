@@ -1,22 +1,22 @@
-file 1191505 1572892717                                         
+file 432030 1573000443                                          
 version 2
-run A-0-20191104-18:36:20-13881
+run A-0-20191106-00:32:13-17715
 attr configname A
-attr datetime 20191104-18:36:20
+attr datetime 20191106-00:32:13
 attr experiment A
-attr inifile GwSimV2.ini
+attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 13881
+attr processid 17715
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"AllPaths/mobPaths/A.movements\""
-param **.numNodes 11
+param **.mobility.traceFile "\"AllPaths/sPaths/A.movements\""
+param **.numNodes 4
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
@@ -25,7 +25,7 @@ param **application.nodesGenMsg "\"\""
 param **application.startMultipleMsg false
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
-param **.application.endGeneratingMsg 99s
+param **.application.endGeneratingMsg 149s
 param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
@@ -93,13 +93,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3495 49984 34 39303 0.05 10.85 3575 1 8 13650 65650
-1	53479 2024 133 36639 0.1 10.1 121 -nan -nan -nan -nan
-2	55503 2005 22931 39148 6.583626728067 10.77236899642 72 141 10152 370548 2525284620
-3	57508 2005 22931 39148 6.583626728067 10.77236899642 72 141 10152 370548 2525284620
-0	59513 528928 39409 414170 10.9 110.15 32768 1 8 125117 601757
-0	588441 510088 414171 726795 110.15 200 29657 1 8 113233 544593
-1	1098529 18425 40316 374468 11.1 99.1 979 -nan -nan -nan -nan
-2	1116954 37275 40681 396945 11.183626728067 105.199086529761 1201 10293 179493 113966493 13684647556449
-3	1154229 37275 40681 396945 11.183626728067 105.199086529761 1201 10293 179493 113966493 13684647556449
+0	3493 390036 13 279079 0.05 200 24000 3 3 72000 216000
+1	393529 11232 49 210681 0.1 149.1 600 -nan -nan -nan -nan
+2	404761 13634 13963 211589 10.52221835206 149.67221835206 452 141 63732 14435298 614005400430
+3	418395 13634 13963 211589 10.52221835206 149.67221835206 452 141 63732 14435298 614005400430
 

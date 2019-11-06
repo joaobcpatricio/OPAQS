@@ -26,11 +26,9 @@ Weight: 61 | Time now: 18.314954 |End
 Weight: 61 | Time now: 18.864954 |End 
 Weight: 61 | Time now: 19.414954 |End 
 Weight: 61 | Time now: 19.995450 |End 
-Weight: 61 | Time now: 20.514957 |End 
-Weight: 60 | Time now: 21.064967 |End 
-Weight: 59 | Time now: 21.614985 |End 
-Weight: 58 | Time now: 22.165011 |End 
-Weight: 56 | Time now: 22.715044 |End 
-Weight: 53 | Time now: 23.265077 |End 
-Weight: 50 | Time now: 23.815102 |End 
-Weight: 46 | Time now: 24.365110 |End 
+Weight: 61 | Time now: 20.516931 |End 
+Weight: 58 | Time now: 22.115009 |End 
+Weight: 56 | Time now: 22.665041 |End 
+Weight: 54 | Time now: 23.215075 |End 
+Weight: 51 | Time now: 23.765100 |End 
+Weight: 29 | Time now: 25.915163 |End 

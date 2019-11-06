@@ -1,15 +1,15 @@
-file 1186050 1572966749                                         
+file 1284073 1573010930                                         
 version 2
-run C-0-20191105-15:10:43-10132
+run C-0-20191106-03:27:07-18031
 attr configname C
-attr datetime 20191105-15:10:43
+attr datetime 20191106-03:27:07
 attr experiment C
 attr inifile GwSimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 10132
+attr processid 18031
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -25,7 +25,7 @@ param **application.nodesGenMsg "\"\""
 param **application.startMultipleMsg false
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
-param **.application.endGeneratingMsg 99s
+param **.application.endGeneratingMsg 149s
 param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
@@ -93,10 +93,10 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3495 517790 34 373093 0.05 99.3 32768 1 8 120445 559965
-0	521285 563413 373094 726776 99.3 198.6 32768 1 8 131068 667232
-0	1084698 7954 726777 732043 198.6 200 464 1 8 1857 9473
-1	1092652 20449 133 372305 0.1 99.1 1100 -nan -nan -nan -nan
-2	1113101 36474 38986 395314 11.03342031478 105.48396899642 1183 141 166803 98747376 10985546832624
-3	1149575 36474 38986 395314 11.03342031478 105.48396899642 1183 141 166803 98747376 10985546832624
+0	3496 517856 34 375067 0.05 99.3 32768 1 8 120445 559965
+0	521352 563413 375068 752018 99.3 198.6 32768 1 8 131068 667232
+0	1084765 7954 752019 756957 198.6 200 464 1 8 1857 9473
+1	1092719 31449 133 575594 0.1 149.1 1650 -nan -nan -nan -nan
+2	1124168 79952 38986 592291 11.03342031478 153.62236899642 2521 141 355461 448236321 1.0624142103974e+14
+3	1204120 79952 38986 592291 11.03342031478 153.62236899642 2521 141 355461 448236321 1.0624142103974e+14
 

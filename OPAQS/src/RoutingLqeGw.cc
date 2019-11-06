@@ -985,7 +985,7 @@ void RoutingLqeGw::checkGwStatus(){
 
 /**Method 1*****************************************************************************************************/
         //calculate Gw rank
-/*                    int nVert=graphR.returnVvalue();
+                    int nVert=graphR.returnVvalue();
                     //EV<<"Já contei:"<<nVert<<"\n";
                     double gwMat[nVert][2];
                     for(int g=0;g<nVert;g++){
@@ -1060,11 +1060,11 @@ void RoutingLqeGw::checkGwStatus(){
                     }
                     //oldGwRank=gwMat[oldGwID][0];
                     bestGwRank=Rl;
-*/
+
 /**END METHOD 1*****************************************************************************************/
 
-/*METHOD 3**********************************************************************************/
-       //calculate Gw rank
+/*METHOD 2**********************************************************************************/
+/*       //calculate Gw rank
             int nVert=graphR.returnVvalue();
             //EV<<"Já contei:"<<nVert<<"\n";
             double gwMat[nVert][2];
@@ -1140,8 +1140,8 @@ void RoutingLqeGw::checkGwStatus(){
             //oldGwRank=gwMat[oldGwID][0];
             bestGwRank=Rl;
 
-
-/*END METHOD3********************************************************************************/
+*/
+/*END METHOD2********************************************************************************/
 
     //EV<<"Chosen GW is "<<bestGwId<<" with "<<nN<<"neighs \n";
     int IDadd;
@@ -1181,7 +1181,8 @@ void RoutingLqeGw::checkGwStatus(){
             }else if(bestGwId>=10){
                 addDf.append(std::to_string(bestGwId));
             }
-            Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, gwMat[IDadd][0]);
+            Log.saveGwRank(bestGwId, gwMat[bestGwId][0], IDadd, gwMat[IDadd][0], myID);
+
             EV<<"Updated Gw \n";
                                actual_gateway=addDf;
                                no_act_gw=false;
@@ -1231,7 +1232,7 @@ void RoutingLqeGw::checkGwStatus(){
         }
     }*/
 
-/*Control 3*************************************************************/
+/*Control MAIN*************************************************************/
 
     //if(!no_act_gw && bestGwId!=IDadd && bestGwId!=(-1)){
         double oldR=0, newR=0;
@@ -1289,7 +1290,7 @@ void RoutingLqeGw::checkGwStatus(){
                 EV<<"Set check in 1s \n";
             }
 
-/**End control 3**********************************************************/
+/**End control MAIN**********************************************************/
     }else
 
 
