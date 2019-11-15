@@ -295,9 +295,10 @@ void NeighboringLayer::handleNeighbourListMsgFromLowerLayer(cMessage *msg)//neig
  */
 void NeighboringLayer::updateNeighbourList(cMessage *msg){ //por fazer
     //Remove no longer direct-neighbors from me on graph
+    //EV<<"updateNeighList \n";
     bool updtMyNeig=updateMyNGraph(msg);
     string graf=graphe.returnGraphT();
-    EV<<"Graph by each neigh is:"<<graf<<"\n";
+    //EV<<"Graph by each neigh is:"<<graf<<"\n";
     NeighbourListMsg *neighListMsg = dynamic_cast<NeighbourListMsg*>(msg);
      // if no neighbours or cache is empty, just return
      if (neighListMsg->getNeighbourNameListArraySize() == 0){       //AQUI VIA SE A CACHE ESTAVA VAZIA
@@ -802,7 +803,9 @@ bool NeighboringLayer::updateMyNGraph(cMessage *msg){
 
 
     //check graph and clean if there is no path
+    //EV<<"Sauce:"<<ownMACAddress<<"\n";
     myID=graphe.add_element(ownMACAddress);
+    //EV<<"Now:"<<myID<<"\n";
     for(int p=0;p<graphe.returnVvalue();p++){
         string spath=graphe.returnShortestPath(myID, p);
         //EV<<"Stfu:"<<spath<<"\n";
@@ -1176,7 +1179,13 @@ void NeighboringLayer::calcEnerg(double size_bits, bool from_gw, double distance
     double d=distance;
     double d0=sqrt(Efs/Emp);
 
+    double senderX=BS_X;
+    double senderY=BS_Y;
+    inet::Coord myPos = ownNodeInfo->nodeMobilityModule->getCurrentPosition();
+    double d_gw = sqrt(pow(fabs(myPos.x+senderX),2)+pow(fabs(myPos.y-senderY),2)); //here sum because BS is previous to initial pos of USVs
+
     if(from_gw){
+        d=d_gw;
         if(is_sent){
             //
             //Ech=size_bits*(Eelec*pow(10,-9)+Efs*pow(10,-12)*distance+Eda*pow(10,-9)) - energy ch per round

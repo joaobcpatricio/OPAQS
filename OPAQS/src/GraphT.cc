@@ -73,6 +73,7 @@ void GraphT::displayMatrix(int v) {
  * ⇒ Creates list of IDs of each Address, adds element if it's not already present
  */
 int GraphT::add_element(string source){
+    //EV<<"Sauce:"<<source<<"\n";
     auto itC=vertID.begin();
     bool exists = FALSE;
     int i=0;

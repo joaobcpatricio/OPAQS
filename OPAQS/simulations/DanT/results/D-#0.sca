@@ -1,14 +1,14 @@
 version 2
-run D-0-20191102-15:05:52-9937
+run D-0-20191107-18:10:45-16366
 attr configname D
-attr datetime 20191102-15:05:52
+attr datetime 20191107-18:10:45
 attr experiment D
 attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 9937
+attr processid 16366
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -24,7 +24,7 @@ param **application.nodesGenMsg "\"\""
 param **application.startMultipleMsg false
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
-param **.application.endGeneratingMsg 99s
+param **.application.endGeneratingMsg 149s
 param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
@@ -84,25 +84,25 @@ param **.mobility.traceFile "\"paths/Moves2.movements\""
 param **.mobility.is3D false
 param **.mobility.nodeId -1
 
-scalar NetworkTormV2.node[0].routing numEventsHandled 8738
-scalar NetworkTormV2.node[0].neighboring numEventsHandled 15308
-scalar NetworkTormV2.node[1].routing numEventsHandled 8619
-scalar NetworkTormV2.node[1].neighboring numEventsHandled 15015
-scalar NetworkTormV2.node[2].routing numEventsHandled 10081
-scalar NetworkTormV2.node[2].neighboring numEventsHandled 18673
-scalar NetworkTormV2.node[3].routing numEventsHandled 8649
-scalar NetworkTormV2.node[3].neighboring numEventsHandled 15040
-scalar NetworkTormV2.node[4].routing numEventsHandled 8624
-scalar NetworkTormV2.node[4].neighboring numEventsHandled 14984
+scalar NetworkTormV2.node[0].routing numEventsHandled 8962
+scalar NetworkTormV2.node[0].neighboring numEventsHandled 16046
+scalar NetworkTormV2.node[1].routing numEventsHandled 8907
+scalar NetworkTormV2.node[1].neighboring numEventsHandled 15955
+scalar NetworkTormV2.node[2].routing numEventsHandled 10926
+scalar NetworkTormV2.node[2].neighboring numEventsHandled 20902
+scalar NetworkTormV2.node[3].routing numEventsHandled 8907
+scalar NetworkTormV2.node[3].neighboring numEventsHandled 15922
+scalar NetworkTormV2.node[4].routing numEventsHandled 8755
+scalar NetworkTormV2.node[4].neighboring numEventsHandled 15548
 scalar NetworkTormV2 neighbourhoodSize:min 1
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:max 4
 attr source neighbourhoodSize
 scalar NetworkTormV2 neighbourhoodSize:mean 1.6
 attr source neighbourhoodSize
-scalar NetworkTormV2 totalBytesReceivedSum:max 103071
+scalar NetworkTormV2 totalBytesReceivedSum:max 275091
 attr source sum(totalBytesReceived)
-scalar NetworkTormV2 totalBytesReceivedSum:last 103071
+scalar NetworkTormV2 totalBytesReceivedSum:last 275091
 attr source sum(totalBytesReceived)
 scalar NetworkTormV2 dataReqBytesReceivedSum:max -nan
 attr source sum(dataReqBytesReceived)
@@ -112,9 +112,9 @@ scalar NetworkTormV2 sumVecBytesReceivedSum:max -nan
 attr source sum(sumVecBytesReceived)
 scalar NetworkTormV2 sumVecBytesReceivedSum:last -nan
 attr source sum(sumVecBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:max 103071
+scalar NetworkTormV2 dataBytesReceivedSum:max 275091
 attr source sum(dataBytesReceived)
-scalar NetworkTormV2 dataBytesReceivedSum:last 103071
+scalar NetworkTormV2 dataBytesReceivedSum:last 275091
 attr source sum(dataBytesReceived)
 scalar NetworkTormV2 deliveryRatio:max -nan
 attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)

@@ -1,0 +1,117 @@
+file 11635456 1573792423                                        
+version 2
+run realP2-0-20191115-03:46:33-19820
+attr configname realP2
+attr datetime 20191115-03:46:33
+attr experiment realP2
+attr inifile GwSimV2.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network NetworkTormV2
+attr processid 19820
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.mobility.traceFile "\"AllPaths/mobPaths/realP2.movements\""
+param **.numNodes 12
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.nodesThatGen false
+param **application.nodesGenMsg "\"\""
+param **application.startMultipleMsg false
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 539s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.1
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.resetGPeriod 999s
+param **.wirelessIfc.wirelessRange 40m
+param **.numNodes 2
+param **.application.usedRNG 1
+param **.application.dataGenerationInterval 1s
+param **.application.dataSizeInBytes 10
+param **.application.ttl 999999s
+param **application.destinationAddr "\"Wf:00:00:00:00:02\""
+param **application.destinationBTAddr "\"Bt:00:00:00:00:02\""
+param **application.nodesThatGen true
+param **application.nodesGenMsg "\"0\""
+param **application.startMultipleMsg true
+param **application.numMultipleMsg 100
+param **application.hopsListSize 50
+param **.application.endGeneratingMsg 999999s
+param **.routingLayer "\"RoutingLqeGw\""
+param **.routing.maximumCacheSize 5000byte
+param **.routing.maximumHopCount 25
+param **.routing.useTTL false
+param **.routing.waitBFsend 0.1
+param **.routing.max_age 999999s
+param **.routing.gateway_list "\"\""
+param **.routing.actual_gateway "\"\""
+param **.routing.gwCheckPeriod 5s
+param **.neighboring.antiEntropyInterval 500ms
+param **.neighboring.maximumRandomBackoffDuration 1s
+param **.neighboring.delayPerDataMsg 0.1
+param **neighboring.usedRNG 2
+param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
+param **.neighboring.sendWifiFirst true
+param **.neighboring.maxLengthGraph 20
+param **.neighboring.max_age 999999s
+param **.neighboring.max_absent_time 1s
+param **.wirelessIfc.wirelessRange 40m
+param **.wirelessIfc.neighbourScanInterval 50ms
+param **.wirelessIfc.bandwidthBitRate 100000bps
+param **.wirelessIfc.wirelessHeaderSize 32byte
+param **.wirelessIfc.minSSI -90
+param **.wirelessIfc.limitQueueTime 400ms
+param **.wirelessIfc.my_limit_rate 0bps
+param **.bluetoothIfc.wirelessRange 40m
+param **.bluetoothIfc.neighbourScanInterval 100ms
+param **.bluetoothIfc.bandwidthBitRate 100000bps
+param **.bluetoothIfc.wirelessHeaderSize 16byte
+param **.bluetoothIfc.minSSI -90
+param **.mobilityType "\"BonnMotionMobility\""
+param **.mobility.traceFile "\"paths/Moves2.movements\""
+param **.mobility.is3D false
+param **.mobility.nodeId -1
+
+vector 0 NetworkTormV2 neighbourhoodSize:vector ETV
+attr source neighbourhoodSize
+vector 1 NetworkTormV2 deliveryRatio:vector ETV
+attr source sum(totalDataBytesReceived)/sum(totalDataBytesReceivableByAllNodes)
+vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
+attr source sum(dataBytesReceived)
+vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
+attr source sum(totalBytesReceived)
+0	3516 520575 37 435735 0.05 91.05 32768 1 9 163789 1052811
+0	524091 560404 435736 831894 91.05 182.1 32768 1 7 136526 704450
+0	1084495 582304 831895 1230042 182.1 273.1 32768 0 8 147753 826455
+0	1666799 596376 1230055 1637213 273.1 364.1 32768 0 8 158481 940455
+0	2263175 596380 1637214 2053593 364.1 455.15 32768 0 8 106635 422545
+0	2859555 596384 2053594 2494441 455.15 546.15 32768 2 4 87380 245752
+0	3455939 596376 2494704 2848176 546.2 637.2 32768 1 4 74303 194091
+0	4052315 596376 2848177 3156134 637.2 728.2 32768 1 4 65539 158391
+0	4648691 194772 3156135 3262182 728.2 757.9 10700 1 4 28448 85426
+1	4843463 131856 145 2460272 0.1 539.1 6480 -nan -nan -nan -nan
+2	4975319 601598 67224 2662144 11.03342031478 582.070847187017 17582 141 2479062 21794673573 3.602125572114e+16
+3	5576917 601598 67224 2662144 11.03342031478 582.070847187017 17582 141 2479062 21794673573 3.602125572114e+16
+0	6178515 596384 3262377 3661348 757.95 848.95 32768 2 7 175337 998385
+0	6774899 596372 3661349 4061647 848.95 940 32768 2 7 178941 1038297
+0	7371271 607532 4061648 4436657 940 1031 32768 0 7 164128 946404
+0	7978803 629128 4436670 4794270 1031 1122 32768 0 7 143985 755299
+0	8607931 629140 4794271 5126349 1122 1213.05 32768 1 3 87705 242219
+0	9237071 629152 5126350 5465376 1213.05 1304.05 32768 1 7 96788 308250
+0	9866223 629144 5465519 5874753 1304.1 1395.1 32768 1 9 190791 1341395
+0	10495367 629144 5874754 6290421 1395.1 1486.1 32768 1 9 189630 1272932
+0	11124511 510944 6290422 6613423 1486.1 1560 26612 4 7 141933 793951
+

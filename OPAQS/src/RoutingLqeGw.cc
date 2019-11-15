@@ -984,7 +984,7 @@ void RoutingLqeGw::checkGwStatus(){
         //bestGwId=returnElectedGwM3();
 
 /**Method 1*****************************************************************************************************/
-        //calculate Gw rank
+/*        //calculate Gw rank
                     int nVert=graphR.returnVvalue();
                     //EV<<"Já contei:"<<nVert<<"\n";
                     double gwMat[nVert][2];
@@ -1044,7 +1044,7 @@ void RoutingLqeGw::checkGwStatus(){
                             EV<<"bestr:"<<gwMat[uR][0]<<"with id:"<<uR<<" prevR:"<<Rl<<"with id:"<<bestGwId<<"\n";
                             Rl=gwMat[uR][0];
                             bestGwId=uR;
-                        }else if(gwMat[uR][0]==Rl){  //if same rank lvl, check who's got more neighs
+                        }else if(gwMat[uR][0]==Rl){  //if same rank lvl, check who's got more betweeness
                             if(gwMat[uR][1]>gwMat[bestGwId][1]){
                                 EV<<"==>bestr:"<<gwMat[uR][0]<<" prevR:"<<Rl<<"\n";
                                 Rl=gwMat[uR][0];
@@ -1060,11 +1060,11 @@ void RoutingLqeGw::checkGwStatus(){
                     }
                     //oldGwRank=gwMat[oldGwID][0];
                     bestGwRank=Rl;
-
+*/
 /**END METHOD 1*****************************************************************************************/
 
 /*METHOD 2**********************************************************************************/
-/*       //calculate Gw rank
+       //calculate Gw rank
             int nVert=graphR.returnVvalue();
             //EV<<"Já contei:"<<nVert<<"\n";
             double gwMat[nVert][2];
@@ -1140,7 +1140,7 @@ void RoutingLqeGw::checkGwStatus(){
             //oldGwRank=gwMat[oldGwID][0];
             bestGwRank=Rl;
 
-*/
+
 /*END METHOD2********************************************************************************/
 
     //EV<<"Chosen GW is "<<bestGwId<<" with "<<nN<<"neighs \n";
@@ -1297,7 +1297,8 @@ void RoutingLqeGw::checkGwStatus(){
     /**If there's no gw check 3 times (period 500ms), if it still choses the same GW, then it elects it ************/
 
         if(no_act_gw){  //if there's no gw gonna check 3 times (period 500ms) if i chose the same gw
-              string actual_gateway_temp;
+            IDadd=-1;
+            string actual_gateway_temp;
               if(temp_gw==bestGwId){
                 count_newGw_check++;
               }else{

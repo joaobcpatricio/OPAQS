@@ -1,22 +1,22 @@
-file 432030 1573000443                                          
+file 1261077 1573830839                                         
 version 2
-run A-0-20191106-00:32:13-17715
+run A-0-20191115-15:12:22-10633
 attr configname A
-attr datetime 20191106-00:32:13
+attr datetime 20191115-15:12:22
 attr experiment A
-attr inifile GwSimV1.ini
+attr inifile GwSimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 17715
+attr processid 10633
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.mobility.traceFile "\"AllPaths/sPaths/A.movements\""
-param **.numNodes 4
+param **.mobility.traceFile "\"AllPaths/mobPaths/A.movements\""
+param **.numNodes 11
 param **.application.dataGenerationInterval 1s
 param **.application.dataSizeInBytes 10
 param **.application.ttl 999999s
@@ -65,9 +65,9 @@ param **.neighboring.delayPerDataMsg 0.1
 param **neighboring.usedRNG 2
 param **.neighboring.GWAddr "\"Wf:00:00:00:00:02\""
 param **.neighboring.sendWifiFirst true
-param **.neighboring.maxLengthGraph 20
 param **.neighboring.max_age 999999s
 param **.neighboring.max_absent_time 1s
+param **.neighboring.maxLengthGraph 15
 param **.wirelessIfc.wirelessRange 40m
 param **.wirelessIfc.neighbourScanInterval 50ms
 param **.wirelessIfc.bandwidthBitRate 100000bps
@@ -93,8 +93,10 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3493 390036 13 279079 0.05 200 24000 3 3 72000 216000
-1	393529 11232 49 210681 0.1 149.1 600 -nan -nan -nan -nan
-2	404761 13634 13963 211589 10.52221835206 149.67221835206 452 141 63732 14435298 614005400430
-3	418395 13634 13963 211589 10.52221835206 149.67221835206 452 141 63732 14435298 614005400430
+0	3496 517666 34 374208 0.05 99.3 32768 1 8 125117 601757
+0	521162 559685 374209 738732 99.3 197.95 32550 1 8 124279 597719
+1	1080847 31449 133 568411 0.1 149.1 1650 -nan -nan -nan -nan
+2	1112296 68549 38656 623575 11.03342031478 164.79876899642 2167 141 305547 331212948 67482982090260
+3	1180845 68549 38656 623575 11.03342031478 164.79876899642 2167 141 305547 331212948 67482982090260
+0	1249394 11682 738871 746092 198 200 682 1 8 2604 12524
 

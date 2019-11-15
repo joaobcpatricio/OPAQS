@@ -1,15 +1,15 @@
-file 1199952 1572904696                                         
+file 1241207 1573091238                                         
 version 2
-run B-0-20191104-21:54:54-25967
+run B-0-20191107-01:43:40-20267
 attr configname B
-attr datetime 20191104-21:54:54
+attr datetime 20191107-01:43:40
 attr experiment B
 attr inifile GwSimV2.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 25967
+attr processid 20267
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -25,7 +25,7 @@ param **application.nodesGenMsg "\"\""
 param **application.startMultipleMsg false
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
-param **.application.endGeneratingMsg 99s
+param **.application.endGeneratingMsg 149s
 param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
@@ -93,10 +93,10 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3495 517732 34 370938 0.05 99.3 32768 1 8 114560 501464
-0	521227 563413 370939 707051 99.3 198.6 32768 2 7 107242 428972
-0	1084640 7954 707052 711850 198.6 200 464 2 7 1516 6056
-1	1092594 20449 133 370264 0.1 99.1 1100 -nan -nan -nan -nan
-2	1113043 43454 22996 389348 6.583626728067 104.54780899642 1408 141 198528 139862976 18517718159424
-3	1156497 43454 22996 389348 6.583626728067 104.54780899642 1408 141 198528 139862976 18517718159424
+0	3496 517732 34 367774 0.05 99.3 32768 1 8 114560 501464
+0	521228 563413 367775 719308 99.3 198.6 32768 2 7 107242 428972
+0	1084641 7954 719309 723924 198.6 200 464 2 7 1516 6056
+1	1092595 31449 133 550018 0.1 149.1 1650 -nan -nan -nan -nan
+2	1124044 58581 38766 570311 11.03342031478 154.83396899642 1861 141 262401 244295331 42747041313711
+3	1182625 58581 38766 570311 11.03342031478 154.83396899642 1861 141 262401 244295331 42747041313711
 

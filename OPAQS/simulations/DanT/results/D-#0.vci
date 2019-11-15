@@ -1,15 +1,15 @@
-file 541962 1572707837                                          
+file 625186 1573150263                                          
 version 2
-run D-0-20191102-15:05:52-9937
+run D-0-20191107-18:10:45-16366
 attr configname D
-attr datetime 20191102-15:05:52
+attr datetime 20191107-18:10:45
 attr experiment D
 attr inifile GwSimV1.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network NetworkTormV2
-attr processid 9937
+attr processid 16366
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -25,7 +25,7 @@ param **application.nodesGenMsg "\"\""
 param **application.startMultipleMsg false
 param **application.numMultipleMsg 100
 param **application.hopsListSize 50
-param **.application.endGeneratingMsg 99s
+param **.application.endGeneratingMsg 149s
 param **.routingLayer "\"RoutingLqeGw\""
 param **.routing.maximumCacheSize 5000byte
 param **.routing.maximumHopCount 25
@@ -93,9 +93,8 @@ vector 2 NetworkTormV2 dataBytesReceivedSum:vector ETV
 attr source sum(dataBytesReceived)
 vector 3 NetworkTormV2 totalBytesReceivedSum:vector ETV
 attr source sum(totalBytesReceived)
-0	3490 460615 16 237259 0.05 189.95 28490 1 4 45584 113960
-1	464105 9010 61 130654 0.1 99.1 500 -nan -nan -nan -nan
-2	473115 21448 7691 172709 6.74781662454 134.18397662454 731 141 103071 37723986 2593939001346
-3	494563 21448 7691 172709 6.74781662454 134.18397662454 731 141 103071 37723986 2593939001346
-0	516011 25950 237305 248966 190 200 1510 1 4 2416 6040
+0	3493 487895 16 275069 0.05 200 30000 1 4 48000 120000
+1	491388 14055 61 214162 0.1 149.1 750 -nan -nan -nan -nan
+2	505443 59871 12683 236472 11.04781662454 166.68397662454 1951 141 275091 268488816 49251856895856
+3	565314 59871 12683 236472 11.04781662454 166.68397662454 1951 141 275091 268488816 49251856895856
 

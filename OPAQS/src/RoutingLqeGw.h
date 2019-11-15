@@ -32,7 +32,7 @@
 #include <utility>
 #include <fstream>
 
-#define N_nodes 20//50        //HARDECODED VARIABLE of number of vertices - must be the same of NeighboringLayer
+#define N_nodes 15//20//50        //HARDECODED VARIABLE of number of vertices - must be the same of NeighboringLayer
 #define alfa 1  //constant to control use of Ener on rank
 #define teta 0  //constant to control use of LQE in rank
 #define dist_to_gw 500  //Distance to gw
