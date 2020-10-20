@@ -236,7 +236,7 @@ If you have any question or clarifications related to OMNeT++, please check the 
 
 If you have any comments or suggestions, we will be very glad to hear them. Please write to us using any of the e-mail adresses below.
 
-  - João Patrício (castanheirapatricio@outlook.com)
+  - João Patrício (jbcpatricio@gmail.com)
 
 
 ## Simillar projects
